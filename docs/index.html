@@ -5,98 +5,233 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Building Enterprise Websites with Liferay and AI</title>
 <meta name="description" content="A two-day hands-on course: build Clarity Vision Solutions' public website on Liferay DXP 2026.Q3 with an AI coding agent. Workbook and instructor materials.">
+<link rel="icon" href="instructor/slides/assets/liferay-logo.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root { --brand: #0b5fff; --teal: #1d8c8c; --text: #272833; --muted: #6b6c7e; --line: #e7e7ed; --bg: #ffffff; --bg-alt: #f7f8f9; }
-  @media (prefers-color-scheme: dark) { :root { --text: #f1f2f5; --muted: #a7a9bc; --line: #393a4a; --bg: #1c1c24; --bg-alt: #272833; } }
+  :root {
+    --navy: #030028; --navy-2: #07004f; --brand: #0b5fff; --cyan: #00c2fb;
+    --text: #1c1c2b; --heading: #07004f; --muted: #595966; --line: #e3e5ee;
+    --bg: #ffffff; --bg-alt: #f4f6fb; --card: #ffffff; --tag-bg: #eaf1ff; --link: #0b5fff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --text: #e9eaf2; --heading: #ffffff; --muted: #a8abbf; --line: #2c2d45;
+      --bg: #0d0c24; --bg-alt: #14133a; --card: #17163f; --tag-bg: #1d2a5c; --link: #6aa2ff;
+    }
+  }
+  :root[data-theme="dark"] {
+    --text: #e9eaf2; --heading: #ffffff; --muted: #a8abbf; --line: #2c2d45;
+    --bg: #0d0c24; --bg-alt: #14133a; --card: #17163f; --tag-bg: #1d2a5c; --link: #6aa2ff;
+  }
   * { box-sizing: border-box; }
   body { margin: 0; font-family: "Source Sans 3", system-ui, sans-serif; color: var(--text); background: var(--bg); line-height: 1.55; }
-  header { background: linear-gradient(135deg, #0b1f4d, #0b5fff 70%, #1d8c8c); color: #fff; padding: 56px 16px 64px; }
-  .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
-  .eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: 13px; font-weight: 700; opacity: .85; margin: 0 0 8px; }
-  h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.1; margin: 0 0 16px; }
-  header p.lead { font-size: 19px; max-width: 720px; margin: 0; opacity: .95; }
-  main { padding: 40px 0 56px; }
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
-  .card { display: block; border: 1px solid var(--line); border-radius: 12px; padding: 22px; color: inherit; text-decoration: none; background: var(--bg); transition: border-color .15s, transform .15s; }
-  .card:hover { border-color: var(--brand); transform: translateY(-2px); }
-  .card .tag { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--brand); margin-bottom: 6px; }
-  .card.teal .tag { color: var(--teal); }
-  .card h2 { font-size: 21px; margin: 0 0 6px; }
+  a { color: var(--link); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+
+  /* Hero */
+  .hero {
+    color: #fff;
+    background: linear-gradient(90deg, rgba(3,0,40,.92) 0, rgba(3,0,40,.7) 55%, rgba(3,0,40,.2) 100%), var(--navy) url(instructor/slides/assets/bg-challenge.jpg) center right / cover no-repeat;
+    padding: 28px 0 56px;
+  }
+  .hero .brand { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 48px; }
+  .hero .brand img { height: 28px; width: auto; }
+  .hero .brand span { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .8; }
+  .eyebrow { font-style: italic; font-weight: 600; opacity: .9; margin: 0 0 8px; }
+  h1 { font-size: clamp(32px, 5.4vw, 52px); line-height: 1.08; margin: 0 0 16px; max-width: 15em; }
+  .lead { font-size: 19px; max-width: 40em; margin: 0 0 22px; opacity: .95; }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 28px; padding: 0; list-style: none; }
+  .facts li { font-size: 14px; font-weight: 600; padding: 4px 12px; border-radius: 999px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.28); }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn { display: inline-block; padding: 11px 20px; border-radius: 8px; font-weight: 700; text-decoration: none; }
+  .btn.primary { background: #fff; color: var(--navy-2); }
+  .btn.primary:hover { background: #e6f9ff; }
+  .btn.ghost { color: #fff; border: 1px solid rgba(255,255,255,.6); }
+  .btn.ghost:hover { background: rgba(255,255,255,.1); }
+
+  /* Sections */
+  section.block { padding: 44px 0 8px; }
+  section.block.alt { background: var(--bg-alt); padding-bottom: 44px; margin-top: 36px; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+  h2 { font-size: 26px; margin: 0; color: var(--heading); }
+  .section-head p { margin: 0; color: var(--muted); }
+  h3.group { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 26px 0 10px; }
+  h3.group:first-of-type { margin-top: 0; }
+
+  .cards { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .card {
+    display: flex; flex-direction: column; gap: 6px;
+    border: 1px solid var(--line); border-radius: 12px; padding: 20px; background: var(--card);
+    color: inherit; text-decoration: none; transition: border-color .15s, transform .15s, box-shadow .15s;
+  }
+  .card:hover { border-color: var(--brand); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(3,0,40,.08); }
+  .card .tag { align-self: flex-start; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--link); background: var(--tag-bg); padding: 2px 8px; border-radius: 4px; }
+  .card h4 { font-size: 20px; margin: 4px 0 0; color: var(--heading); }
   .card p { margin: 0; color: var(--muted); }
-  h3 { margin: 40px 0 12px; font-size: 22px; }
-  table { width: 100%; border-collapse: collapse; font-size: 15px; }
-  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { background: var(--bg-alt); }
-  .table-wrap { overflow-x: auto; }
-  footer { border-top: 1px solid var(--line); padding: 20px 0; color: var(--muted); font-size: 14px; }
-  a { color: var(--brand); }
+  .card .go { margin-top: auto; padding-top: 8px; font-weight: 700; color: var(--link); }
+  .card.feature { border-top: 4px solid var(--brand); }
+
+  /* Roadmap */
+  .days { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .day { border: 1px solid var(--line); border-radius: 12px; background: var(--card); padding: 18px 20px; }
+  .day h3 { margin: 0 0 4px; font-size: 18px; color: var(--heading); }
+  .day .sub { margin: 0 0 12px; color: var(--muted); font-size: 15px; }
+  .day ol { margin: 0; padding: 0; list-style: none; }
+  .day li { display: grid; grid-template-columns: 3.4em 1fr; gap: 8px; padding: 7px 0; border-top: 1px solid var(--line); }
+  .day li .n { font-weight: 700; color: var(--link); font-variant-numeric: tabular-nums; }
+  .day li a { color: var(--text); text-decoration: none; }
+  .day li a:hover { color: var(--link); text-decoration: underline; }
+
+  footer { border-top: 1px solid var(--line); padding: 20px 0 28px; color: var(--muted); font-size: 14px; margin-top: 44px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+  @media (max-width: 720px) {
+    .days { grid-template-columns: 1fr; }
+    .hero .brand { margin-bottom: 32px; }
+    .lead { font-size: 17px; }
+  }
 </style>
 </head>
 <body>
-<header>
+
+<header class="hero">
   <div class="wrap">
-    <p class="eyebrow">Liferay Community APAC · Two-day course</p>
+    <div class="brand">
+      <img src="instructor/slides/assets/liferay-logo-white.svg" alt="Liferay">
+      <span>Liferay Community APAC</span>
+    </div>
+    <p class="eyebrow">Two-day hands-on course</p>
     <h1>Building Enterprise Websites with Liferay and AI</h1>
-    <p class="lead">Build Clarity Vision Solutions' public enterprise website on Liferay DXP 2026.Q3. Your AI coding agent does the building; you set the requirement and check every result in Liferay.</p>
+    <p class="lead">Build Clarity Vision Solutions' public enterprise website on Liferay DXP. Your AI coding agent does the building; you set the requirement and check every result in Liferay.</p>
+    <ul class="facts">
+      <li>2 days</li>
+      <li>Liferay DXP 2026.Q3.10</li>
+      <li>Setup + 13 levels</li>
+      <li>Bring your own AI agent</li>
+    </ul>
+    <div class="ctas">
+      <a class="btn primary" href="workbook/">Open the workbook</a>
+      <a class="btn ghost" href="https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/">Prerequisites checklist</a>
+    </div>
   </div>
 </header>
-<main>
-  <div class="wrap">
-    <div class="cards">
-      <a class="card" href="workbook/">
-        <span class="tag">Students</span>
-        <h2>Workbook</h2>
-        <p>Setup and 13 levels over two days: a prompt for your agent, then a check in Liferay, for every exercise.</p>
-      </a>
-      <a class="card teal" href="https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/">
-        <span class="tag">Before the course</span>
-        <h2>Prerequisites</h2>
-        <p>Your computer, Docker, the Liferay DXP download and your AI coding agent, as a checklist.</p>
-      </a>
-      <a class="card" href="instructor/">
-        <span class="tag">Instructors</span>
-        <h2>Instructor guide</h2>
-        <p>How to run the course, catching learners up, topics covered in slides only, and troubleshooting.</p>
-      </a>
-      <a class="card" href="instructor/demos.html">
-        <span class="tag">Instructors</span>
-        <h2>Demo workbook</h2>
-        <p>The demos to run on the projector, slide by slide, with steps and optional prompts.</p>
-      </a>
-      <a class="card" href="instructor/schedule.html">
-        <span class="tag">Instructors</span>
-        <h2>Schedule</h2>
-        <p>Two days, block by block, with the matching workbook level and slides.</p>
-      </a>
-      <a class="card" href="instructor/slides/day-1.html">
-        <span class="tag">Instructors</span>
-        <h2>Day 1 slides</h2>
-        <p>Foundations to content: users, sites, pages, fragments, design and CMS.</p>
-      </a>
-      <a class="card" href="instructor/slides/day-2.html">
-        <span class="tag">Instructors</span>
-        <h2>Day 2 slides</h2>
-        <p>Collections, commerce, APIs, workflow, search, objects, personalization and the certification.</p>
-      </a>
-    </div>
 
-    <h3>What you'll build</h3>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Day</th><th>Levels</th></tr></thead>
-        <tbody>
-          <tr><td>1</td><td>Setup (workspace, PostgreSQL, DXP, MCP) · Users and permissions · Sites · Pages and navigation · Fragments · Design · CMS content</td></tr>
-          <tr><td>2</td><td>Displaying content · Commerce · Headless APIs · Workflow and Publications · Search · Objects · Personalization</td></tr>
-        </tbody>
-      </table>
+<main>
+  <section class="block" aria-labelledby="learners">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="learners">For learners</h2>
+        <p>Get ready before day 1, then follow the workbook.</p>
+      </div>
+      <div class="cards">
+        <a class="card" href="https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/">
+          <span class="tag">Before the course</span>
+          <h4>Prerequisites</h4>
+          <p>Your computer, Docker, the Liferay DXP download and your AI coding agent, as a checklist.</p>
+          <span class="go">Get ready →</span>
+        </a>
+        <a class="card feature" href="workbook/">
+          <span class="tag">During the course</span>
+          <h4>Workbook</h4>
+          <p>Setup and 13 levels over two days: a prompt for your agent, then a check in Liferay, for every exercise.</p>
+          <span class="go">Start building →</span>
+        </a>
+        <a class="card" href="https://learn.liferay.com/certification/building-enterprise-websites-with-liferay-certification">
+          <span class="tag">After the course</span>
+          <h4>Get certified</h4>
+          <p>Take the Building Enterprise Websites with Liferay certification. It's open book: study with the Liferay Learn course.</p>
+          <span class="go">See the certification →</span>
+        </a>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <section class="block" aria-labelledby="instructors">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="instructors">For instructors</h2>
+        <p>Everything you need to run the two days.</p>
+      </div>
+      <h3 class="group">Plan and run</h3>
+      <div class="cards">
+        <a class="card" href="instructor/">
+          <span class="tag">Guide</span>
+          <h4>Instructor guide</h4>
+          <p>How to run the course, catching learners up, slide-only topics and troubleshooting.</p>
+        </a>
+        <a class="card" href="instructor/schedule.html">
+          <span class="tag">Schedule</span>
+          <h4>Schedule</h4>
+          <p>Two days, block by block, linked to the workbook level, slides and demos.</p>
+        </a>
+        <a class="card" href="instructor/demos.html">
+          <span class="tag">Demos</span>
+          <h4>Demo workbook</h4>
+          <p>The 26 demos to run on the projector, slide by slide, with steps and optional prompts.</p>
+        </a>
+      </div>
+      <h3 class="group">Slides</h3>
+      <div class="cards">
+        <a class="card" href="instructor/slides/day-1.html">
+          <span class="tag">Day 1 · 40 slides</span>
+          <h4>Foundations to content</h4>
+          <p>Kickoff, setup and MCP, users, sites, pages, fragments, design and Liferay CMS.</p>
+        </a>
+        <a class="card" href="instructor/slides/day-2.html">
+          <span class="tag">Day 2 · 34 slides</span>
+          <h4>Displaying, selling, governing</h4>
+          <p>Collections, commerce, APIs, workflow, search, objects, personalization and certification.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt" aria-labelledby="roadmap">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="roadmap">What you'll build</h2>
+        <p>Each level builds on the one before.</p>
+      </div>
+      <div class="days">
+        <div class="day">
+          <h3>Day 1</h3>
+          <p class="sub">Foundations to content</p>
+          <ol>
+            <li><span class="n">Setup</span><a href="workbook/#setup-your-workspace-liferay-dxp-and-the-mcp-server">Workspace, PostgreSQL, DXP and the MCP server</a></li>
+            <li><span class="n">1</span><a href="workbook/#level-1-users-and-permissions">Users and permissions</a></li>
+            <li><span class="n">2</span><a href="workbook/#level-2-sites">Sites</a></li>
+            <li><span class="n">3</span><a href="workbook/#level-3-pages-master-pages-and-navigation">Pages, master pages and navigation</a></li>
+            <li><span class="n">4</span><a href="workbook/#level-4-fragments-and-page-compositions">Fragments and page compositions</a></li>
+            <li><span class="n">5</span><a href="workbook/#level-5-design-style-book-theme-css-favicon-and-logo">Design: style book, Theme CSS, favicon and logo</a></li>
+            <li><span class="n">6</span><a href="workbook/#level-6-content-in-liferay-cms">Content in Liferay CMS</a></li>
+          </ol>
+        </div>
+        <div class="day">
+          <h3>Day 2</h3>
+          <p class="sub">Displaying, selling, governing and personalizing</p>
+          <ol>
+            <li><span class="n">7</span><a href="workbook/#level-7-displaying-content-mapping-display-pages-and-collections">Displaying content: mapping, display pages, collections</a></li>
+            <li><span class="n">8</span><a href="workbook/#level-8-commerce-catalog-products-and-product-pages">Commerce: catalog, products and product pages</a></li>
+            <li><span class="n">9</span><a href="workbook/#level-9-headless-apis-importing-legacy-data">Headless APIs: importing legacy data</a></li>
+            <li><span class="n">10</span><a href="workbook/#level-10-workflow-and-publishing">Workflow and publishing</a></li>
+            <li><span class="n">11</span><a href="workbook/#level-11-search-job-openings-blueprints-and-events">Search: job openings, blueprints and events</a></li>
+            <li><span class="n">12</span><a href="workbook/#level-12-objects-the-contact-us-form-and-its-follow-up">Objects: the Contact Us form and its follow-up</a></li>
+            <li><span class="n">13</span><a href="workbook/#level-13-personalization-a-home-page-for-distributors">Personalization: a Home page for distributors</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
+
 <footer>
-  <div class="wrap">Tutorials, sample code and guides here are unofficial and provided as-is. Use them at your own risk. Source: <a href="https://github.com/Liferay-Community-APAC/liferay-course-building-enterprise-websites-ai">GitHub</a>.</div>
+  <div class="wrap">
+    <span>Tutorials, sample code and guides here are unofficial and provided as-is. Use them at your own risk.</span>
+    <a href="https://github.com/Liferay-Community-APAC/liferay-course-building-enterprise-websites-ai">Source on GitHub</a>
+  </div>
 </footer>
+
 </body>
 </html>
