@@ -17,6 +17,46 @@ Each demo has:
 
 Personas sign in with password `learn`. Use a **private window** for any persona or Guest, so your admin session stays signed in.
 
+## Roadmap
+
+Every demo in course order. **Demo** jumps to its steps below, **Slides** opens the deck at that slide, and **Level** opens the workbook chapter learners do next (*Slides only* means a topic with no exercise, from the slides marked *Instructor only*). **Prepare** names anything to set up in the break before.
+
+**Day 1** · 13 demos, about 68 minutes
+
+| Demo | Slides | Level | Minutes | Prepare |
+| --- | --- | --- | --- | --- |
+| [D1.1 — Tour of the finished Clarity site](#d11-tour-of-the-finished-clarity-site) | [6](slides/day-1.html#6) | Slides&nbsp;only | 8 | Your finished build running |
+| [D1.2 — The first start of Liferay](#d12-the-first-start-of-liferay) | [10](slides/day-1.html#10) | [Setup](../workbook/#setup-your-workspace-liferay-dxp-and-the-mcp-server) | 5 | Restart your build, or use its log |
+| [D1.3 — The agent connected to Liferay's MCP server](#d13-the-agent-connected-to-liferays-mcp-server) | [11](slides/day-1.html#11) | [Setup](../workbook/#setup-your-workspace-liferay-dxp-and-the-mcp-server) | 5 | — |
+| [D1.4 — Setup S.1 on the projector](#d14-setup-s1-on-the-projector) | [12](slides/day-1.html#12) | [Setup](../workbook/#setup-your-workspace-liferay-dxp-and-the-mcp-server) | 5 | Back up two files |
+| [D1.5 — Liferay Data Platform](#d15-liferay-data-platform) | [15](slides/day-1.html#15) | Slides&nbsp;only | 8 | A Data Platform workspace |
+| [D1.6 — Roles: who holds them, and why the API differs](#d16-roles-who-holds-them-and-why-the-api-differs) | [17](slides/day-1.html#17) | [Level 1](../workbook/#level-1-users-and-permissions) | 4 | — |
+| [D1.7 — Site settings and instance settings](#d17-site-settings-and-instance-settings) | [20](slides/day-1.html#20) | [Level 2](../workbook/#level-2-sites) | 4 | — |
+| [D1.8 — Least privilege, as Christian](#d18-least-privilege-as-christian) | [22](slides/day-1.html#22) | [Level 2](../workbook/#level-2-sites) | 6 | Optional reset prompt |
+| [D1.9 — The site initializer: folders in, pages out](#d19-the-site-initializer-folders-in-pages-out) | [23](slides/day-1.html#23) | [Level 3](../workbook/#level-3-pages-master-pages-and-navigation) | 6 | — |
+| [D1.10 — Inside a master page](#d110-inside-a-master-page) | [25](slides/day-1.html#25) | [Level 3](../workbook/#level-3-pages-master-pages-and-navigation) | 4 | — |
+| [D1.11 — A fragment's configuration and code](#d111-a-fragments-configuration-and-code) | [28](slides/day-1.html#28) | [Level 4](../workbook/#level-4-fragments-and-page-compositions) | 4 | — |
+| [D1.12 — Brand tokens in the page editor](#d112-brand-tokens-in-the-page-editor) | [32](slides/day-1.html#32) | [Level 5](../workbook/#level-5-design-style-book-theme-css-favicon-and-logo) | 3 | — |
+| [D1.13 — A Space, its members and its connected site](#d113-a-space-its-members-and-its-connected-site) | [35–37](slides/day-1.html#35) | [Level 6](../workbook/#level-6-content-in-liferay-cms) | 6 | — |
+
+**Day 2** · 13 demos, about 68 minutes
+
+| Demo | Slides | Level | Minutes | Prepare |
+| --- | --- | --- | --- | --- |
+| [D2.1 — Mapping, not copying](#d21-mapping-not-copying) | [4](slides/day-2.html#4) | [Level 7](../workbook/#level-7-displaying-content-mapping-display-pages-and-collections) | 4 | — |
+| [D2.2 — A display page as a visitor](#d22-a-display-page-as-a-visitor) | [5](slides/day-2.html#5) | [Level 7](../workbook/#level-7-displaying-content-mapping-display-pages-and-collections) | 3 | — |
+| [D2.3 — Generative AI in DXP: AI Creator](#d23-generative-ai-in-dxp-ai-creator) | [7](slides/day-2.html#7) | Slides&nbsp;only | 6 | An OpenAI API key |
+| [D2.4 — Auto-tagging, and where AI Hub fits](#d24-auto-tagging-and-where-ai-hub-fits) | [8](slides/day-2.html#8) | Slides&nbsp;only | 4 | — |
+| [D2.5 — Collections, from Home to Site Builder](#d25-collections-from-home-to-site-builder) | [9](slides/day-2.html#9) | [Level 7](../workbook/#level-7-displaying-content-mapping-display-pages-and-collections) | 5 | — |
+| [D2.6 — The product journey](#d26-the-product-journey) | [11](slides/day-2.html#11), [13](slides/day-2.html#13) | [Level 8](../workbook/#level-8-commerce-catalog-products-and-product-pages) | 5 | — |
+| [D2.7 — The API Explorer](#d27-the-api-explorer) | [14](slides/day-2.html#14) | [Level 9](../workbook/#level-9-headless-apis-importing-legacy-data) | 5 | — |
+| [D2.8 — A batch import task](#d28-a-batch-import-task) | [15](slides/day-2.html#15) | [Level 9](../workbook/#level-9-headless-apis-importing-legacy-data) | 4 | — |
+| [D2.9 — A pending workflow task](#d29-a-pending-workflow-task) | [19](slides/day-2.html#19) | [Level 10](../workbook/#level-10-workflow-and-publishing) | 6 | A prompt that creates a pending article |
+| [D2.10 — Search, facets and a blueprint](#d210-search-facets-and-a-blueprint) | [20–22](slides/day-2.html#20) | [Level 11](../workbook/#level-11-search-job-openings-blueprints-and-events) | 8 | — |
+| [D2.11 — An object, its picklist and its form](#d211-an-object-its-picklist-and-its-form) | [25](slides/day-2.html#25), [27](slides/day-2.html#27) | [Level 12](../workbook/#level-12-objects-the-contact-us-form-and-its-follow-up) | 8 | Delete the test entry after class |
+| [D2.12 — Personalization by audience](#d212-personalization-by-audience) | [28](slides/day-2.html#28), [29](slides/day-2.html#29) | [Level 13](../workbook/#level-13-personalization-a-home-page-for-distributors) | 6 | — |
+| [D2.13 — Page Audit](#d213-page-audit) | [31](slides/day-2.html#31) | Slides&nbsp;only | 4 | A PageSpeed key and a public URL |
+
 ## Day 1
 
 ### D1.1 — Tour of the finished Clarity site
