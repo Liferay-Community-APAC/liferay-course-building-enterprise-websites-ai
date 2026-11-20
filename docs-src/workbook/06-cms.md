@@ -39,7 +39,7 @@ clarity-public who isn't a member of a Space can do in it.
 
 ![Liferay CMS → All Spaces: Marketing, Branding, HR, Events and Products.](screenshots/6-1-spaces.png)
 - Open the **Marketing** Space → its settings (the gear icon) → *Members*: the Marketing user group, and Clara Murphy with the administrator role. *Connected Sites*: Clarity Public Enterprise Website.
-- Impersonate **Christian Carter** (as in 2.4) and open CMS. He sees every Space connected to the public site, because he's a member of that site. Open **HR**: he can browse it but has no **New** button. Open **Marketing**: he can add content there, as a member through the Marketing group. Close the tab when you're done.
+- Impersonate **Christian Carter** (as in 2.4) and open CMS. Christian sees every Space connected to the public site, as a member of that site. **HR** can be browsed, with no **New** button. In **Marketing**, Christian can add content, as a member through the Marketing group. Close the tab when you're done.
 
 📖 Connecting a Space to a site gives the site's members read access to it (the *Connected Site Member* Space role). Authoring takes Space membership and a Space role. Keep that in mind when a Space holds content site members shouldn't read: don't connect it to that site.
 
@@ -82,7 +82,7 @@ not through regular roles.
 Publish them, then read each one back and show its fields and its REST
 path. Prove the access as Christian Carter (training password "learn") by
 creating and deleting a throwaway FAQ in the Marketing Space: the create
-must succeed and his delete must be refused.
+must succeed and the delete must be refused.
 ```
 
 ✅ **Verify:** in CMS, open *Structures* (under the *Admin* section of the left panel): the seven structures are listed. Open **Event Information**: its fields and their types match the prompt, and *Spaces* lists only **Events**. Close it without saving.

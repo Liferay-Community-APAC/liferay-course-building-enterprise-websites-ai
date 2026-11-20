@@ -366,6 +366,38 @@ ul.takeaways li b { display: block; color: var(--ink); font-size: 1.05em; }
 }
 .callout.info { background: var(--accent-soft); color: var(--ink); }
 
+/* ---------- Business case slide (one per level) ---------- */
+
+.slide.context .cols { flex: 1; min-height: 0; align-items: stretch; }
+.slide.context .col { font-size: 1em; padding: 1em 1.3em .8em; }
+.slide.context .col h3 { font-size: 1.1em; margin-bottom: .7em; }
+.slide.context .col ul li { margin-bottom: .55em; }
+.slide.context .col.alt { border-top-color: var(--liferay); background: var(--liferay-soft); }
+.slide.context .col.alt h3 { color: var(--liferay); }
+.slide.context .col.alt ul li::before { background: var(--liferay); }
+.biz-foot {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  gap: 1.2em;
+  align-items: center;
+  margin-top: 1em;
+  padding: .7em 1em;
+  border-radius: .5em;
+  background: var(--clarity-soft);
+  font-size: .82em;
+}
+.biz-foot p { margin: 0; color: var(--ink); }
+.biz-foot b { color: var(--clarity-dark); }
+.biz-foot .req {
+  font-weight: 700;
+  color: #fff;
+  background: var(--clarity);
+  border-radius: .4em;
+  padding: .35em .7em;
+  font-size: 1.05em;
+  letter-spacing: .03em;
+}
+
 /* ---------- Screenshot layouts ---------- */
 
 /* .split: text on the left, a screenshot on the right */
@@ -579,7 +611,7 @@ html.help-open .help { display: flex; }
     overflow: visible;
   }
   html.stacked .slide.title, html.stacked .slide.divider { padding-left: 20px; }
-  html.stacked .split, html.stacked .split.even, html.stacked .shots { grid-template-columns: 1fr; }
+  html.stacked .split, html.stacked .split.even, html.stacked .shots, html.stacked .biz-foot { grid-template-columns: 1fr; }
   html.stacked figure.shot img { max-height: none; }
   html.stacked .diagram svg { max-height: none; height: auto; }
   html.stacked .slide.title h1 { font-size: 2em; }

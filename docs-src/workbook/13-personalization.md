@@ -56,6 +56,6 @@ for each.
 - In a private window, sign in as **Terrence Wheatley**: Home says *Welcome Back!…* and has no *Become a Clarity Distributor* section. Sign out: the default Home is back, with the promotion.
 - Open **Home** in edit mode: both banners show, each labeled with its audience. Leave without publishing.
 
-![Home as Terrence Wheatley, a distributor: the banner reads "Welcome Back! Elevate Your Inventory with Premium Eyewear." and his avatar replaces the Sign In button.](screenshots/13-2-terrence-home.png)
+![Home as Terrence Wheatley, a distributor: the banner reads "Welcome Back! Elevate Your Inventory with Premium Eyewear." and Terrence's avatar replaces the Sign In button.](screenshots/13-2-terrence-home.png)
 
 📖 This works for signed-in users and user groups. For anonymous visitors (by behavior, location or campaign), you need Liferay Data Platform segments, which is the supported path for that kind of personalization.

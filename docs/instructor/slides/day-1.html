@@ -370,7 +370,38 @@
 
 <!-- ===== Block: Level 1 (slides 16–19) ===== -->
 
-<section id="16" class="slide compare">
+<section id="16" class="slide context clarity">
+  <p class="kicker">Level 1 · The business case</p>
+  <h2>A website run by a team, not one administrator</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>What Clarity needs</h3>
+      <ul>
+        <li>IT, Marketing, HR and Support each work on the site, and outside distributors sign in to it</li>
+        <li>Each person gets only the permissions their work requires</li>
+        <li>People come and go: access must follow the department, not the person</li>
+      </ul>
+    </div>
+    <div class="col alt">
+      <h3>How Liferay answers</h3>
+      <ul>
+        <li>Users, grouped by department in user groups</li>
+        <li>Roles that describe a job: Content Manager, Marketing Coordinator, IT Manager</li>
+        <li>Permissions granted to roles, never to one person</li>
+      </ul>
+    </div>
+  </div>
+  <div class="biz-foot">
+    <span class="req">R1</span>
+    <p><b>Who it's for:</b> Ian Miller (IT), Clara Murphy and Christian Carter (Marketing), Harper Roberts (HR), Daniel Raymond (Support), Terrence Wheatley (distributor)</p>
+    <p><b>Done when:</b> Christian can write content but can't change how the site is set up.</p>
+  </div>
+  <aside class="notes">
+    <p>Goal 5 of the brief: the site is run by a team. Ask the room who in their own organization edits the website today, and how many people share an admin password. Clarity wants each persona to have exactly the access their job needs, and to keep it right when people change departments: that's why permissions go to roles and people get roles through their user groups. Introduce the personas by name now; learners create them in 1.1 and sign in as them for the rest of the course.</p>
+  </aside>
+</section>
+
+<section id="17" class="slide compare">
   <p class="kicker">Users and permissions</p>
   <h2>Authentication is not authorization</h2>
   <div class="split even">
@@ -399,7 +430,7 @@
   </aside>
 </section>
 
-<section id="17" class="slide bullets">
+<section id="18" class="slide bullets">
   <p class="kicker">Users and permissions</p>
   <h2>Users, user groups and roles</h2>
   <div class="split even">
@@ -443,7 +474,7 @@
   </aside>
 </section>
 
-<section id="18" class="slide bullets clarity">
+<section id="19" class="slide bullets clarity">
   <p class="kicker">The Clarity case</p>
   <h2>Clarity's team</h2>
   <table class="grid">
@@ -463,7 +494,7 @@
   </aside>
 </section>
 
-<section id="19" class="slide challenge">
+<section id="20" class="slide challenge">
   <p class="kicker">Challenge time</p>
   <h2>Level 1: users and permissions</h2>
   <p class="source">Workbook: Level 1 · Original BEWL challenge 3 · Requirement R1</p>
@@ -482,7 +513,38 @@
 
 <!-- ===== Block: Level 2 (slides 20–22) ===== -->
 
-<section id="20" class="slide bullets">
+<section id="21" class="slide context clarity">
+  <p class="kicker">Level 2 · The business case</p>
+  <h2>One brand, its own address, two languages</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>What Clarity needs</h3>
+      <ul>
+        <li>A public website at www.clarityvisionsolutions.com</li>
+        <li>Visitors in the United States and Spain: English and Spanish</li>
+        <li>An accessible site, and later a separate portal for distributors</li>
+      </ul>
+    </div>
+    <div class="col alt">
+      <h3>How Liferay answers</h3>
+      <ul>
+        <li>Sites in one instance, each with its own members and settings</li>
+        <li>Site languages, a virtual host and the accessibility menu</li>
+        <li>Instance settings that send every visitor to the public site</li>
+      </ul>
+    </div>
+  </div>
+  <div class="biz-foot">
+    <span class="req">R2</span>
+    <p><b>Who it's for:</b> Ian Miller, who owns the sites, and every visitor</p>
+    <p><b>Done when:</b> A visitor opens Clarity's address and lands on its site, in their language.</p>
+  </div>
+  <aside class="notes">
+    <p>Goal 4 of the brief: serve an international audience. Clarity sells mostly through distributors, so the public site is the brand's front door and the distributor portal comes later. Point out the difference between what belongs to a site (members, languages, pages) and what belongs to the whole instance (the home page every visitor lands on). Ask learners whether their own organization runs one site or several, and how they'd split them.</p>
+  </aside>
+</section>
+
+<section id="22" class="slide bullets">
   <p class="kicker">Sites</p>
   <h2>Instances and sites</h2>
   <div class="split even">
@@ -523,7 +585,7 @@
   </aside>
 </section>
 
-<section id="21" class="slide compare">
+<section id="23" class="slide compare">
   <p class="kicker">Sites</p>
   <h2>Starting a site: template or initializer</h2>
   <div class="cols">
@@ -550,7 +612,7 @@
   </aside>
 </section>
 
-<section id="22" class="slide challenge">
+<section id="24" class="slide challenge">
   <p class="kicker">Challenge time</p>
   <h2>Level 2: sites</h2>
   <p class="source">Workbook: Level 2 · Original BEWL challenge 4 · Requirements R1, R2</p>
@@ -566,13 +628,45 @@
   </div>
   <p class="verify"><b>Verify habit:</b> Site Settings and Memberships for the site; impersonate Christian before and after 2.4 and watch Site Builder → Collections and Categorization → Categories appear. Close dialogs without saving.</p>
   <aside class="notes">
-    <p>Demo 2.4 on the projector, because it's the clearest least-privilege lesson: impersonate Christian first, show he has no Site Builder or Categorization section, run the prompt, refresh. The prompt asks the agent to list the permissions it will add and why before granting anything; read that list with the class. The virtual host only answers once a hosts entry points to the machine, so learners keep using localhost:8080/web/clarity. If 2.5 has no supported API on this release, the agent stops and lists the screen to set by hand.</p>
+    <p>Demo 2.4 on the projector, because it's the clearest least-privilege lesson: impersonate Christian first, show there's no Site Builder or Categorization section, run the prompt, refresh. The prompt asks the agent to list the permissions it will add and why before granting anything; read that list with the class. The virtual host only answers once a hosts entry points to the machine, so learners keep using localhost:8080/web/clarity. If 2.5 has no supported API on this release, the agent stops and lists the screen to set by hand.</p>
   </aside>
 </section>
 
 <!-- ===== Block: Level 3 (slides 23–27) ===== -->
 
-<section id="23" class="slide bullets">
+<section id="25" class="slide context clarity">
+  <p class="kicker">Level 3 · The business case</p>
+  <h2>Visitors must find their way, on every page</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>What Clarity needs</h3>
+      <ul>
+        <li>A clear site map: Products, About Us, Blog, FAQ, Careers, Contact Us</li>
+        <li>The same header and footer on every page</li>
+        <li>A page for every article, leader and product, without building each one</li>
+      </ul>
+    </div>
+    <div class="col alt">
+      <h3>How Liferay answers</h3>
+      <ul>
+        <li>Content pages, organized in a page hierarchy</li>
+        <li>Master pages for the shared header and footer</li>
+        <li>Display page templates and navigation menus</li>
+        <li>All of it in a site initializer, so the site can be rebuilt anywhere</li>
+      </ul>
+    </div>
+  </div>
+  <div class="biz-foot">
+    <span class="req">R3</span>
+    <p><b>Who it's for:</b> Walter Douglas, Web Developer, and every visitor</p>
+    <p><b>Done when:</b> Changing the header once changes it on every page.</p>
+  </div>
+  <aside class="notes">
+    <p>Show the site map from section 4 of the brief. Walter owns pages and master pages, and the problem is consistency, because Clarity has a dozen pages and will keep adding more. Master pages solve the shared frame, and display page templates mean nobody builds a page per article or product. Explain why the course keeps the site in code: Clarity is on SaaS, and a site initializer makes the site version-controlled and rebuildable on every environment.</p>
+  </aside>
+</section>
+
+<section id="26" class="slide bullets">
   <p class="kicker">Pages and navigation</p>
   <h2>The site lives in code</h2>
   <div class="split even">
@@ -623,7 +717,7 @@
   </aside>
 </section>
 
-<section id="24" class="slide compare">
+<section id="27" class="slide compare">
   <p class="kicker">Pages and navigation</p>
   <h2>Content pages, not widget pages</h2>
   <div class="split even">
@@ -652,7 +746,7 @@
   </aside>
 </section>
 
-<section id="25" class="slide bullets clarity">
+<section id="28" class="slide bullets clarity">
   <p class="kicker">Pages and navigation</p>
   <h2>Master pages, page templates, display page templates</h2>
   <div class="split even">
@@ -692,7 +786,7 @@
   </aside>
 </section>
 
-<section id="26" class="slide bullets">
+<section id="29" class="slide bullets">
   <p class="kicker">Pages and navigation</p>
   <h2>Menus and navigation</h2>
   <div class="split">
@@ -710,7 +804,7 @@
   </aside>
 </section>
 
-<section id="27" class="slide challenge">
+<section id="30" class="slide challenge">
   <p class="kicker">Challenge time</p>
   <h2>Level 3: pages, master pages and navigation</h2>
   <p class="source">Workbook: Level 3 · Original BEWL challenges 5 and 6 · Requirement R3</p>
@@ -731,7 +825,38 @@
 
 <!-- ===== Block: Level 4 (slides 28–30) ===== -->
 
-<section id="28" class="slide bullets">
+<section id="31" class="slide context clarity">
+  <p class="kicker">Level 4 · The business case</p>
+  <h2>Marketing builds pages without waiting for IT</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>What Clarity needs</h3>
+      <ul>
+        <li>Clarity's own buttons, cards, search and sign-in, the same everywhere</li>
+        <li>Marketers who assemble new pages themselves</li>
+        <li>A quick prototype of Home and FAQ before the content is ready</li>
+      </ul>
+    </div>
+    <div class="col alt">
+      <h3>How Liferay answers</h3>
+      <ul>
+        <li>Fragments: HTML, CSS and JavaScript components with configuration options</li>
+        <li>A fragment set, Clarity Components, for authors to drop onto pages</li>
+        <li>Page compositions to wireframe Home and FAQ</li>
+      </ul>
+    </div>
+  </div>
+  <div class="biz-foot">
+    <span class="req">R4</span>
+    <p><b>Who it's for:</b> Walter Douglas builds the components; Clara and Christian use them</p>
+    <p><b>Done when:</b> A new page uses Clarity's own components, not copied HTML.</p>
+  </div>
+  <aside class="notes">
+    <p>Every request to IT for a new landing page costs Clarity time to market. Fragments let developers build a component once and let marketing reuse and configure it on any page. Ask the room how long a new campaign page takes in their organization today. Point out that Level 4 starts with wireframes: validating the page layout before the content exists is cheaper than rebuilding it later.</p>
+  </aside>
+</section>
+
+<section id="32" class="slide bullets">
   <p class="kicker">Fragments</p>
   <h2>Fragments are the building blocks</h2>
   <div class="split">
@@ -749,7 +874,7 @@
   </aside>
 </section>
 
-<section id="29" class="slide bullets">
+<section id="33" class="slide bullets">
   <p class="kicker">Fragments</p>
   <h2>Compositions and wireframing in the product</h2>
   <div class="split">
@@ -767,7 +892,7 @@
   </aside>
 </section>
 
-<section id="30" class="slide challenge">
+<section id="34" class="slide challenge">
   <p class="kicker">Challenge time</p>
   <h2>Level 4: fragments and page compositions</h2>
   <p class="source">Workbook: Level 4 · Original BEWL challenge 7 · Requirement R4</p>
@@ -788,7 +913,38 @@
 
 <!-- ===== Block: Level 5 (slides 31–33) ===== -->
 
-<section id="31" class="slide bullets">
+<section id="35" class="slide context clarity">
+  <p class="kicker">Level 5 · The business case</p>
+  <h2>Clarity's brand on every page, set once</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>What Clarity needs</h3>
+      <ul>
+        <li>Clarity teal and gold, the Poppins font, rounded cards and pill buttons</li>
+        <li>Clarity's logo and favicon</li>
+        <li>Brand changes that don't mean editing every page</li>
+      </ul>
+    </div>
+    <div class="col alt">
+      <h3>How Liferay answers</h3>
+      <ul>
+        <li>A style book to change theme tokens without CSS</li>
+        <li>A Theme CSS client extension carrying the full brand and its color tokens</li>
+        <li>A favicon client extension and the site logo</li>
+      </ul>
+    </div>
+  </div>
+  <div class="biz-foot">
+    <span class="req">R5</span>
+    <p><b>Who it's for:</b> Walter Douglas, and Clarity's marketing team who own the brand</p>
+    <p><b>Done when:</b> A brand color changes in one file, and every page follows.</p>
+  </div>
+  <aside class="notes">
+    <p>Goal 1 of the brief: brand awareness. Show the brand table in section 5 of the brief: colors, font, radii. The business problem is consistency at scale: if each page carries its own styles, a rebrand means editing every page. Liferay separates what's on a page from how it looks, so the brand lives in one place. Mention that the Theme CSS also exposes Clarity's colors in the page editor, so authors pick brand colors instead of hex codes.</p>
+  </aside>
+</section>
+
+<section id="36" class="slide bullets">
   <p class="kicker">Design</p>
   <h2>Liferay's styling layers</h2>
   <div class="split even">
@@ -827,7 +983,7 @@
   </aside>
 </section>
 
-<section id="32" class="slide compare clarity">
+<section id="37" class="slide compare clarity">
   <p class="kicker">Design</p>
   <h2>Style book or Theme CSS</h2>
   <div class="split even">
@@ -856,7 +1012,7 @@
   </aside>
 </section>
 
-<section id="33" class="slide challenge">
+<section id="38" class="slide challenge">
   <p class="kicker">Challenge time</p>
   <h2>Level 5: design</h2>
   <p class="source">Workbook: Level 5 · Original BEWL challenge 8 · Requirement R5</p>
@@ -876,7 +1032,38 @@
 
 <!-- ===== Block: Level 6 (slides 34–38) ===== -->
 
-<section id="34" class="slide compare">
+<section id="39" class="slide context clarity">
+  <p class="kicker">Level 6 · The business case</p>
+  <h2>Write content once, use it anywhere</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>What Clarity needs</h3>
+      <ul>
+        <li>Articles, FAQs, announcements, leadership profiles, job listings and events</li>
+        <li>Each team owns its own content: Marketing, HR, Events</li>
+        <li>Content organized by topic, and reusable on more than one site</li>
+      </ul>
+    </div>
+    <div class="col alt">
+      <h3>How Liferay answers</h3>
+      <ul>
+        <li>Liferay CMS Spaces, one per team, with their own members</li>
+        <li>Content and file structures that define each type of content</li>
+        <li>Vocabularies and categories, and Spaces connected to sites</li>
+      </ul>
+    </div>
+  </div>
+  <div class="biz-foot">
+    <span class="req">R6</span>
+    <p><b>Who it's for:</b> Clara Murphy and Christian Carter (Marketing), Harper Roberts (HR)</p>
+    <p><b>Done when:</b> HR manages job listings in its own Space, and the public site shows them.</p>
+  </div>
+  <aside class="notes">
+    <p>Clarity's content was scattered: copied onto pages, owned by nobody in particular. This level gives each team a Space it owns, with structures that keep content consistent, and categories that let the site group it. Ask learners who owns the FAQ content in their organization. Point out that content in a Space is written once and can appear on the public site today and the distributor portal tomorrow.</p>
+  </aside>
+</section>
+
+<section id="40" class="slide compare">
   <p class="kicker">Liferay CMS</p>
   <h2>Two content management systems</h2>
   <div class="split even">
@@ -906,7 +1093,7 @@
   </aside>
 </section>
 
-<section id="35" class="slide bullets clarity">
+<section id="41" class="slide bullets clarity">
   <p class="kicker">Liferay CMS</p>
   <h2>Spaces</h2>
   <div class="split even">
@@ -953,7 +1140,7 @@
   </aside>
 </section>
 
-<section id="36" class="slide bullets">
+<section id="42" class="slide bullets">
   <p class="kicker">Liferay CMS</p>
   <h2>Content and file structures</h2>
   <div class="split">
@@ -971,7 +1158,7 @@
   </aside>
 </section>
 
-<section id="37" class="slide compare">
+<section id="43" class="slide compare">
   <p class="kicker">Liferay CMS</p>
   <h2>Categories or tags</h2>
   <div class="cols">
@@ -998,7 +1185,7 @@
   </aside>
 </section>
 
-<section id="38" class="slide challenge">
+<section id="44" class="slide challenge">
   <p class="kicker">Challenge time</p>
   <h2>Level 6: content in Liferay CMS</h2>
   <p class="source">Workbook: Level 6 · Original BEWL challenges 9, 10, 11 and 14 · Requirement R6</p>
@@ -1020,7 +1207,7 @@
 
 <!-- ===== Block: Wrap-up (slides 39–40) ===== -->
 
-<section id="39" class="slide takeaways">
+<section id="45" class="slide takeaways">
   <p class="kicker">Day 1 wrap-up</p>
   <h2>Key takeaways</h2>
   <ul class="takeaways">
@@ -1036,7 +1223,7 @@
   </aside>
 </section>
 
-<section id="40" class="slide divider">
+<section id="46" class="slide divider">
   <p class="kicker">Day 1 close</p>
   <h1>Questions?</h1>
   <p>Tomorrow: displaying content, commerce, headless APIs, workflow and publishing, search, objects and personalization.</p>
