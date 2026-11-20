@@ -100,11 +100,21 @@ body {
   text-transform: uppercase;
   color: var(--accent);
   margin: 0 0 .5em;
+  display: flex;
+  align-items: center;
+  gap: .6em;
+}
+.slide:not(.title):not(.divider):not(.challenge) .kicker::before {
+  content: "";
+  width: 1.8em;
+  height: .22em;
+  border-radius: .2em;
+  background: linear-gradient(90deg, var(--accent), var(--cyan));
 }
 
 .slide h1, .slide h2, .slide h3 { margin: 0; color: var(--ink); line-height: 1.15; }
 .slide h1 { font-size: 2.6em; font-weight: 700; letter-spacing: -.01em; }
-.slide h2 { font-size: 1.65em; font-weight: 700; margin-bottom: .7em; color: var(--navy-2); letter-spacing: -.005em; }
+.slide h2 { font-size: 1.8em; font-weight: 700; margin-bottom: .75em; color: var(--navy-2); letter-spacing: -.01em; }
 .slide h3 { font-size: 1.05em; font-weight: 700; margin-bottom: .45em; color: var(--accent); }
 .slide p { margin: 0 0 .6em; }
 .slide .lead { font-size: 1.05em; color: var(--ink-soft); max-width: 46em; }
@@ -134,7 +144,8 @@ body {
   border-radius: 0;
   background: var(--accent);
 }
-.slide ul.bullets { font-size: 1.05em; max-width: 48em; }
+.slide ul.bullets { font-size: 1.12em; max-width: 48em; }
+.slide ul.bullets li { margin-bottom: .6em; }
 
 .body { flex: 1; min-height: 0; }
 
@@ -489,6 +500,275 @@ figure.shot figcaption {
 .diagram .edge.cyan { stroke: var(--cyan); }
 .diagram .edge.muted { stroke: #9a9aa6; stroke-dasharray: 5 4; }
 .diagram .dot { fill: var(--liferay); }
+
+/* ---------- Photo side panel (.slide.photo) ---------- */
+
+/* A full-height photo on the right; the slide's content keeps to the left. */
+.slide.photo { padding-right: calc(38% + 2.6em); }
+.photo-panel {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 38%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--navy);
+}
+.photo-panel img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.photo-panel::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: .35em;
+  background: linear-gradient(180deg, var(--accent), var(--cyan));
+  z-index: 1;
+}
+.photo-panel figcaption {
+  position: absolute;
+  left: 1.4em; right: 1.4em; bottom: 1.4em;
+  font-size: .62em;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .6);
+}
+.slide.photo .slide-foot { right: calc(38% + 1.6em); }
+.slide.photo[data-instructor]::after { z-index: 2; }
+
+/* ---------- Photo banner on a business-case column ---------- */
+
+.col .banner {
+  margin: -1em -1.3em .7em;
+  height: 4.6em;
+  overflow: hidden;
+  border-radius: .3em .3em 0 0;
+}
+.col .banner img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.slide.context .col h3 { margin-top: 0; }
+.slide.context .col .banner + h3 { margin-bottom: .5em; }
+.slide.context .col:has(.banner) ul li { margin-bottom: .4em; }
+
+/* ---------- Agenda (a day's plan) ---------- */
+
+ol.agenda { font-size: .8em; border-top: 2px solid var(--accent); }
+ol.agenda li {
+  display: grid;
+  grid-template-columns: 4.4em 1fr auto;
+  gap: .9em;
+  align-items: baseline;
+  padding: .32em .2em;
+  border-bottom: 1px solid var(--line);
+}
+ol.agenda .time { font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+ol.agenda .what b { color: var(--navy-2); }
+ol.agenda .what span { color: var(--ink-soft); }
+ol.agenda .tag {
+  font-size: .78em;
+  font-weight: 700;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 1em;
+  padding: .12em .7em;
+  white-space: nowrap;
+}
+ol.agenda .tag.talk { color: var(--ink-soft); background: var(--paper-soft); }
+ol.agenda li.pause { padding: .12em .2em; background: var(--paper-soft); font-size: .85em; color: var(--muted); }
+ol.agenda li.pause .time { color: var(--muted); font-weight: 600; }
+
+/* ---------- People cards (personas) ---------- */
+
+ul.people {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 1fr;
+  gap: .9em;
+}
+ul.people li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--paper-soft);
+  border: 1px solid var(--line);
+  border-top: .22em solid var(--accent);
+  border-radius: .5em;
+  padding: .8em .7em .6em;
+  font-size: .8em;
+}
+ul.people .avatar {
+  width: 3.8em;
+  height: 3.8em;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: .5em;
+  box-shadow: 0 0 0 .2em #fff, 0 0 0 .32em var(--accent);
+}
+ul.people span.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  width: 2.9em;
+  height: 2.9em;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--clarity), var(--clarity-dark));
+}
+ul.people li.ext { border-top-color: #c58b2a; }
+ul.people li.ext span.avatar, ul.people li.ext .avatar { box-shadow: 0 0 0 .2em #fff, 0 0 0 .32em #c58b2a; }
+ul.people b { font-size: 1.12em; color: var(--navy-2); }
+ul.people .job { color: var(--accent); font-weight: 600; margin: .1em 0 .35em; }
+ul.people .does { color: var(--ink-soft); line-height: 1.3; }
+ul.people .group {
+  margin-top: auto;
+  padding-top: .45em;
+  font-size: .85em;
+  color: var(--muted);
+}
+
+/* ---------- Numbered tiles (takeaways, recaps, checklists) ---------- */
+
+ul.tiles {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 1em;
+  counter-reset: tile;
+}
+ul.tiles.two { grid-template-columns: repeat(2, 1fr); }
+ul.tiles li {
+  position: relative;
+  counter-increment: tile;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: .55em;
+  padding: 1em 1.1em .9em;
+  box-shadow: 0 .3em 1.1em rgba(3, 0, 40, .06);
+  font-size: .9em;
+  color: var(--ink-soft);
+  overflow: hidden;
+}
+ul.tiles li::before {
+  content: counter(tile, decimal-leading-zero);
+  display: block;
+  font-size: 1.6em;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: .35em;
+  background: linear-gradient(90deg, var(--accent), var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+ul.tiles li::after {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: .22em;
+  background: linear-gradient(180deg, var(--accent), var(--cyan));
+}
+ul.tiles li b { display: block; color: var(--navy-2); font-size: 1.12em; margin-bottom: .25em; }
+ul.tiles.plain li::before { content: none; }
+ul.tiles.five { grid-template-columns: repeat(6, 1fr); }
+ul.tiles.five li { grid-column: span 2; }
+ul.tiles.five li:nth-child(-n+2) { grid-column: span 3; }
+.flow.three { grid-template-columns: repeat(3, 1fr); margin: .7em 0 .7em; }
+.flow.three .step { font-size: .8em; padding: .55em .8em; }
+.flow.three .step .n { margin-bottom: .2em; }
+
+/* ---------- Photo strip (three captioned photos) ---------- */
+
+.strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+  margin-top: 1em;
+}
+.strip figure { margin: 0; }
+.strip img {
+  display: block;
+  width: 100%;
+  height: 6.6em;
+  object-fit: cover;
+  border-radius: .45em;
+  box-shadow: 0 .3em 1em rgba(3, 0, 40, .12);
+}
+.strip figcaption { margin-top: .35em; font-size: .7em; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .05em; }
+
+/* ---------- Icon on a column ---------- */
+
+.col .ico {
+  display: block;
+  width: 2.4em;
+  height: 2.4em;
+  margin-bottom: .6em;
+  color: var(--accent);
+}
+.cols.three.roomy .col { font-size: .95em; padding: 1.1em 1.2em .8em; }
+
+/* ---------- Chips (category examples) ---------- */
+
+.chip-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: .9em 1.2em; margin-top: 1.1em; font-size: .78em; }
+.chip-groups h4 { margin: 0 0 .4em; font-size: .9em; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: .35em; }
+.chip {
+  display: inline-block;
+  padding: .15em .7em;
+  border-radius: 1em;
+  background: var(--accent-soft);
+  color: var(--navy-2);
+  border: 1px solid rgba(11, 95, 255, .18);
+  white-space: nowrap;
+}
+.chip.sub { background: #fff; color: var(--ink-soft); }
+
+/* ---------- Stairs (an ordered escalation) ---------- */
+
+ol.stairs {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+  align-items: end;
+  padding-bottom: .4em;
+}
+ol.stairs li {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: .55em .55em .2em .2em;
+  padding: .9em 1em;
+  color: #fff;
+  font-size: .92em;
+}
+ol.stairs li:nth-child(1) { height: 48%; background: linear-gradient(160deg, var(--cyan), var(--blue-2)); }
+ol.stairs li:nth-child(2) { height: 63%; background: linear-gradient(160deg, var(--blue-2), var(--liferay)); }
+ol.stairs li:nth-child(3) { height: 78%; background: linear-gradient(160deg, var(--liferay), var(--indigo)); }
+ol.stairs li:nth-child(4) { height: 94%; background: linear-gradient(160deg, var(--indigo), var(--navy-2)); }
+ol.stairs .n { font-size: 2em; font-weight: 700; line-height: 1; opacity: .9; margin-bottom: .3em; }
+ol.stairs b { font-size: 1.15em; display: block; margin-bottom: .25em; }
+ol.stairs span.d { color: rgba(255, 255, 255, .88); }
+.stairs-axis { display: flex; justify-content: space-between; font-size: .7em; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-top: .3em; }
+
+/* ---------- Phone width for the components above ---------- */
+
+@media screen {
+  html.stacked .slide.photo { padding-right: 16px; }
+  html.stacked .photo-panel { position: relative; width: auto; height: 12em; margin: 16px -16px 0; order: 98; }
+  html.stacked .slide.photo .slide-foot { right: 16px; }
+  html.stacked ul.people { grid-template-columns: 1fr 1fr; }
+  html.stacked ul.tiles.five li { grid-column: auto; }
+  html.stacked ul.tiles, html.stacked ul.tiles.two, html.stacked ul.tiles.five, html.stacked .strip, html.stacked .chip-groups { grid-template-columns: 1fr; }
+  html.stacked ol.stairs { grid-template-columns: 1fr; }
+  html.stacked ol.stairs li { height: auto !important; }
+  html.stacked ol.agenda li { grid-template-columns: 3.6em 1fr; }
+  html.stacked ol.agenda .tag { display: none; }
+}
 
 /* ---------- Chrome: toolbar, notes, help ---------- */
 
