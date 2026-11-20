@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schedule</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  /* Design tokens pulled from learn.liferay.com's own stylesheet
+     (https://liferaylearnglobalcss-exte5a2learn-extprd.lfr.cloud/global.css)
+     — the CSS custom-property fallback values there, e.g.
+     var(--color-brand-primary, #0b5fff), are learn.liferay.com's real
+     palette, not an approximation of it. */
+  --lf-brand: #0b5fff;
+  --lf-brand-hover: #0053f0;
+  --lf-brand-active: #004ad7;
+
+  --lf-neutral-0: #ffffff;
+  --lf-neutral-1: #f7f7f8;
+  --lf-neutral-2: #e2e2e4;
+  --lf-neutral-4: #b1b2b9;
+  --lf-neutral-6: #82828c;
+  --lf-neutral-8: #54555f;
+  --lf-neutral-9: #33343d;
+  --lf-neutral-10: #282934;
+
+  --lf-active-bg: #e6edfb;
+  --lf-hover-bg: #edf3fe;
+
+  --lf-warning-bg: #f7eae0;   --lf-warning-text: #944000;
+  --lf-success-bg: #e9f5e8;   --lf-success-text: #3b892f;
+  --lf-info-bg: #e6ebf5;      --lf-info-text: #25488a;
+
+  --lf-font-sans: 'Source Sans 3', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --lf-font-mono: 'Source Code Pro', Consolas, Menlo, "Liberation Mono", monospace;
+  --lf-radius: 0.5rem;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--lf-font-sans);
+  color: var(--lf-neutral-8);
+  background: var(--lf-neutral-0);
+  line-height: 1.6;
+}
+
+/* Top bar */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; height: 60px;
+  background: var(--lf-neutral-0); color: var(--lf-neutral-10);
+  display: flex; align-items: center; gap: .75rem; padding: 0 1rem;
+  z-index: 50; border-bottom: 1px solid var(--lf-neutral-2);
+}
+.topbar .logo { font-weight: 700; font-size: 1.05rem; display: flex; align-items: center; gap: .45rem; letter-spacing: .01em; color: var(--lf-neutral-10); }
+.topbar .logo .dot { width: .55rem; height: .55rem; border-radius: 50%; background: var(--lf-brand); }
+.topbar .doc-title {
+  color: var(--lf-neutral-6); font-size: .85rem; border-left: 1px solid var(--lf-neutral-2);
+  padding-left: .75rem; margin-left: .1rem; white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; max-width: 55vw;
+}
+.topbar .spacer { flex: 1; }
+.menu-toggle {
+  display: none; background: transparent; border: 1px solid var(--lf-neutral-2);
+  color: var(--lf-neutral-10); border-radius: 6px; padding: .3rem .55rem; font-size: 1rem; cursor: pointer;
+}
+
+/* Layout */
+.layout { display: flex; padding-top: 60px; min-height: 100vh; }
+.sidebar {
+  position: fixed; top: 60px; bottom: 0; left: 0; width: 300px;
+  overflow-y: auto; background: var(--lf-neutral-1); border-right: 1px solid var(--lf-neutral-2);
+  padding: 1rem .85rem 2.5rem; z-index: 40;
+}
+.toc-filter {
+  width: 100%; padding: .5rem .65rem; border: 1px solid var(--lf-neutral-2);
+  border-radius: 6px; font-size: .85rem; margin-bottom: .85rem; background: var(--lf-neutral-0);
+  font-family: inherit; color: var(--lf-neutral-10);
+}
+.toc ul { list-style: none; margin: 0; padding-left: 1rem; }
+.toc > div > ul, .toc > ul { padding-left: 0; }
+.toc a {
+  display: block; padding: .32rem .55rem .32rem .65rem; color: var(--lf-neutral-8);
+  text-decoration: none; font-size: .86rem; line-height: 1.35; border-left: 2px solid transparent;
+}
+.toc li.toc-level-2 > a { font-weight: 700; color: var(--lf-neutral-10); font-size: .9rem; margin-top: .4rem; }
+.toc li.toc-level-3 > a { font-weight: 500; }
+.toc li.toc-level-4 > a { font-size: .8rem; color: var(--lf-neutral-6); }
+.toc a:hover { color: var(--lf-neutral-10); background: var(--lf-hover-bg); }
+.toc a.active { background: var(--lf-active-bg); border-left-color: var(--lf-brand); color: var(--lf-brand-active); font-weight: 700; }
+
+.content-wrap { margin-left: 300px; flex: 1; display: flex; justify-content: center; padding: 2.5rem 2rem 7rem; }
+.doc-content { max-width: 840px; width: 100%; }
+
+/* Headings — learn.liferay.com's article headings are plain, undecorated:
+   no colored rule under h1, just weight and the neutral-10 ink. */
+.doc-content h1 { font-size: 2rem; line-height: 1.25; margin: 0 0 1rem; color: var(--lf-neutral-10); font-weight: 700; }
+.doc-content h1 + p { font-size: 1.1rem; color: var(--lf-neutral-6); margin-top: 0; }
+.doc-content h2 {
+  font-size: 1.5rem; margin: 2.75rem 0 1rem; padding-top: .75rem;
+  border-top: 1px solid var(--lf-neutral-2); color: var(--lf-neutral-10); font-weight: 700; scroll-margin-top: 78px;
+}
+.doc-content h2:first-of-type { border-top: 0; margin-top: 1.75rem; }
+.doc-content h3 { font-size: 1.2rem; margin: 2rem 0 .75rem; color: var(--lf-neutral-10); font-weight: 600; scroll-margin-top: 78px; }
+.doc-content h4 { font-size: 1rem; margin: 1.5rem 0 .6rem; color: var(--lf-neutral-10); font-weight: 600; scroll-margin-top: 78px; }
+.heading-anchor { margin-left: .45rem; opacity: 0; text-decoration: none; color: var(--lf-brand); font-weight: 400; font-size: .8em; }
+h2:hover .heading-anchor, h3:hover .heading-anchor, h4:hover .heading-anchor { opacity: 1; }
+
+/* Body text — learn.liferay.com renders article paragraphs in neutral-8,
+   reserving neutral-10 for headings and emphasis. */
+.doc-content p { margin: .85rem 0; color: var(--lf-neutral-8); }
+.doc-content strong { color: var(--lf-neutral-10); font-weight: 600; }
+.doc-content ul, .doc-content ol { padding-left: 1.4rem; }
+.doc-content li { margin: .3rem 0; color: var(--lf-neutral-8); }
+.doc-content hr { border: 0; border-top: 1px solid var(--lf-neutral-2); margin: 2.75rem 0; }
+.doc-content a { color: var(--lf-brand); }
+.doc-content a:hover { color: var(--lf-brand-active); text-decoration: underline; }
+.doc-content code {
+  font-family: var(--lf-font-mono); background: var(--lf-neutral-2); color: var(--lf-neutral-10);
+  padding: .125rem .4rem; border-radius: 4px; font-size: .88em;
+}
+em { color: inherit; }
+.doc-content img {
+  max-width: 100%; height: auto; display: block; margin: 1.1rem 0;
+  border: 1px solid var(--lf-neutral-2); border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+
+/* Admonitions — learn.liferay.com's own "adm-*" callout vocabulary
+   (adm-warning / adm-note / adm-important), same background/text pairs. */
+.doc-content p.adm-block { padding: .75rem 1rem; border-radius: var(--lf-radius); margin: 1.1rem 0; }
+.doc-content p.adm-warning { background: var(--lf-warning-bg); color: var(--lf-warning-text); }
+.doc-content p.adm-note { background: var(--lf-success-bg); color: var(--lf-success-text); }
+.doc-content p.adm-important { background: var(--lf-info-bg); color: var(--lf-info-text); }
+.doc-content p.adm-block strong:first-child { color: inherit; }
+
+/* Blockquotes — learn.liferay.com's lightweight quoted style: a thin blue
+   rule and no filled background, used both for a short quoted prompt and
+   for a documentation aside that mixes prose with nested code examples. */
+.doc-content blockquote {
+  border-left: 2px solid var(--lf-brand); color: var(--lf-neutral-8);
+  font-size: 1.125rem; font-weight: 300; line-height: 1.5;
+  margin: 1.5rem 0; padding-left: 1.5rem;
+}
+.doc-content blockquote p { margin: .6rem 0; }
+.doc-content blockquote code { background: var(--lf-neutral-2); }
+.doc-content blockquote.aside { font-size: 1rem; font-weight: 400; }
+.doc-content blockquote.aside h3 { font-size: 1.1rem; margin-top: 0; }
+.doc-content blockquote.aside .copy-frame-code { margin: 1rem 0; }
+
+/* Prompt / copy frames: a dark "code" frame for fenced code (matching
+   learn.liferay.com's own pre[class*="language-"] surface) and a light
+   "quote" frame that leaves the blockquote's own thin-rule style intact. */
+.copy-frame { position: relative; margin: 1rem 0 1.6rem; }
+.copy-frame-code { border-radius: var(--lf-radius); overflow: hidden; background: var(--lf-neutral-9); }
+.copy-frame-code pre {
+  margin: 0; padding: 1em 3.4rem 1em 1.25rem; color: var(--lf-neutral-0);
+  background: transparent; border: 0; font-family: var(--lf-font-mono);
+  font-size: .9rem; line-height: 1.6; white-space: pre-wrap; word-break: break-word;
+}
+.copy-frame-code pre code { background: transparent; color: inherit; padding: 0; border-radius: 0; }
+.copy-frame-quote blockquote { margin: 0; padding-right: 3.2rem; }
+
+.copy-btn {
+  position: absolute; top: .6rem; right: .6rem; z-index: 2;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; padding: 0; border: 0; border-radius: 6px; background: transparent;
+  cursor: pointer; transition: background .15s ease, color .15s ease;
+}
+.copy-btn .icon-check { display: none; }
+.copy-btn.copied .icon-copy { display: none; }
+.copy-btn.copied .icon-check { display: inline; }
+.copy-frame-code .copy-btn { color: rgba(255,255,255,.75); }
+.copy-frame-code .copy-btn:hover { background: rgba(255,255,255,.12); color: var(--lf-neutral-0); }
+.copy-frame-quote .copy-btn { top: .4rem; color: var(--lf-neutral-6); }
+.copy-frame-quote .copy-btn:hover { background: var(--lf-hover-bg); color: var(--lf-brand-active); }
+.copy-btn.copied { color: var(--lf-success-text) !important; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 1.4rem 0; border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); }
+.doc-content table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+.doc-content th, .doc-content td { padding: .55rem .75rem; border-bottom: 1px solid var(--lf-neutral-2); text-align: left; vertical-align: top; color: var(--lf-neutral-8); }
+.doc-content thead th { background: var(--lf-neutral-1); color: var(--lf-neutral-10); font-weight: 600; position: sticky; top: 0; }
+.doc-content tbody tr:nth-child(even) { background: var(--lf-neutral-1); }
+
+/* Back to top */
+.back-to-top {
+  position: fixed; right: 1.5rem; bottom: 1.5rem; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--lf-brand); color: #fff; border: 0; display: flex; align-items: center;
+  justify-content: center; cursor: pointer; box-shadow: 0 2px 10px rgba(11,95,255,.35);
+  opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease, background .15s ease; z-index: 45; font-size: 1.1rem;
+}
+.back-to-top:hover { background: var(--lf-brand-active); transform: translateY(-2px); }
+.back-to-top.visible { opacity: 1; pointer-events: auto; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .sidebar { transform: translateX(-100%); transition: transform .2s ease; box-shadow: 2px 0 14px rgba(0,0,0,.12); }
+  body.sidebar-open .sidebar { transform: translateX(0); }
+  .content-wrap { margin-left: 0; padding: 2rem 1.15rem 5rem; }
+  body.sidebar-open::after {
+    content: ""; position: fixed; inset: 60px 0 0 0; background: rgba(40,41,52,.35); z-index: 39;
+  }
+}
+
+@media print {
+  .topbar, .sidebar, .copy-btn, .menu-toggle, .back-to-top { display: none !important; }
+  .content-wrap { margin-left: 0; padding: 0; }
+  .copy-frame-code { border: 1px solid #999; }
+  .copy-frame-code pre { color: #111; }
+  :root { --lf-neutral-9: #f4f4f4; }
+}
+
+</style>
+</head>
+<body>
+<header class="topbar">
+  <button class="menu-toggle" type="button" aria-label="Toggle table of contents">&#9776;</button>
+  <a class="logo" href="../"><span class="dot"></span>BEWL with AI</a>
+  <div class="doc-title">Schedule</div>
+  <div class="spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar" aria-label="Table of contents">
+    <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
+    <div class="toc"><ul><li class="toc-level-2"><a href="#day-1-foundations-to-content">Day 1 — Foundations to content</a></li><li class="toc-level-2"><a href="#day-2-displaying-selling-governing-and-personalizing">Day 2 — Displaying, selling, governing and personalizing</a></li></ul></div>
+  </nav>
+  <div class="content-wrap">
+    <main class="doc-content">
+<h1 id="schedule">Schedule</h1>
+<p>Two days, 9:00 to 17:00, with a 60-minute lunch and two 15-minute breaks. Each block pairs a short talk (slides) with the level's exercises. Times assume a class of up to 16 with prerequisites done before day 1.</p>
+<h2 id="day-1-foundations-to-content">Day 1 — Foundations to content<a aria-hidden="true" class="heading-anchor" href="#day-1-foundations-to-content" tabindex="-1">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Time</th>
+<th>Block</th>
+<th>Type</th>
+<th>Workbook</th>
+<th>Slides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9:00–9:30</td>
+<td>Kickoff, introductions, the Clarity case, how the course works (prompt → verify)</td>
+<td>Talk</td>
+<td>README</td>
+<td>Day 1: 1–8</td>
+</tr>
+<tr>
+<td>9:30–10:15</td>
+<td>Setup: workspace, PostgreSQL, DXP, MCP, context files</td>
+<td>Hands-on</td>
+<td>Setup</td>
+<td>Day 1: 9–12</td>
+</tr>
+<tr>
+<td>10:15–10:30</td>
+<td>Capabilities and deployment options; Liferay Data Platform overview (no exercise)</td>
+<td>Talk</td>
+<td>—</td>
+<td>Day 1: 13–15</td>
+</tr>
+<tr>
+<td>10:30–10:45</td>
+<td>Break</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10:45–11:30</td>
+<td>Users, user groups, roles and permissions</td>
+<td>Talk + hands-on</td>
+<td>Level 1</td>
+<td>Day 1: 16–19</td>
+</tr>
+<tr>
+<td>11:30–12:15</td>
+<td>Sites, membership, site and instance settings</td>
+<td>Talk + hands-on</td>
+<td>Level 2</td>
+<td>Day 1: 20–22</td>
+</tr>
+<tr>
+<td>12:15–13:15</td>
+<td>Lunch</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>13:15–14:15</td>
+<td>Pages, master pages, navigation; sites in code</td>
+<td>Talk + hands-on</td>
+<td>Level 3</td>
+<td>Day 1: 23–27</td>
+</tr>
+<tr>
+<td>14:15–15:00</td>
+<td>Fragments and compositions</td>
+<td>Talk + hands-on</td>
+<td>Level 4</td>
+<td>Day 1: 28–30</td>
+</tr>
+<tr>
+<td>15:00–15:15</td>
+<td>Break</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>15:15–15:55</td>
+<td>Design: style books, Theme CSS, favicon, logo</td>
+<td>Talk + hands-on</td>
+<td>Level 5</td>
+<td>Day 1: 31–33</td>
+</tr>
+<tr>
+<td>15:55–16:50</td>
+<td>Liferay CMS: Spaces, structures, taxonomy, content</td>
+<td>Talk + hands-on</td>
+<td>Level 6</td>
+<td>Day 1: 34–38</td>
+</tr>
+<tr>
+<td>16:50–17:00</td>
+<td>Day 1 wrap-up, Q&amp;A</td>
+<td>Talk</td>
+<td>—</td>
+<td>Day 1: 39–40</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="day-2-displaying-selling-governing-and-personalizing">Day 2 — Displaying, selling, governing and personalizing<a aria-hidden="true" class="heading-anchor" href="#day-2-displaying-selling-governing-and-personalizing" tabindex="-1">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Time</th>
+<th>Block</th>
+<th>Type</th>
+<th>Workbook</th>
+<th>Slides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9:00–9:15</td>
+<td>Recap; catch-up for anyone behind (see the instructor guide)</td>
+<td>Talk</td>
+<td>—</td>
+<td>Day 2: 1–3</td>
+</tr>
+<tr>
+<td>9:15–10:15</td>
+<td>Mapping, display pages, collections; AI content tools (no exercise)</td>
+<td>Talk + hands-on</td>
+<td>Level 7</td>
+<td>Day 2: 4–9</td>
+</tr>
+<tr>
+<td>10:15–10:30</td>
+<td>Break</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>10:30–11:20</td>
+<td>Commerce: catalogs, products, channels, product pages</td>
+<td>Talk + hands-on</td>
+<td>Level 8</td>
+<td>Day 2: 10–13</td>
+</tr>
+<tr>
+<td>11:20–12:00</td>
+<td>Headless APIs and batch import</td>
+<td>Talk + hands-on</td>
+<td>Level 9</td>
+<td>Day 2: 14–16</td>
+</tr>
+<tr>
+<td>12:00–13:00</td>
+<td>Lunch</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>13:00–13:45</td>
+<td>Workflow and publishing</td>
+<td>Talk + hands-on</td>
+<td>Level 10</td>
+<td>Day 2: 17–19</td>
+</tr>
+<tr>
+<td>13:45–14:40</td>
+<td>Search and Search Blueprints</td>
+<td>Talk + hands-on</td>
+<td>Level 11</td>
+<td>Day 2: 20–23</td>
+</tr>
+<tr>
+<td>14:40–14:55</td>
+<td>Break</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>14:55–15:55</td>
+<td>Objects: form, workflow, data set</td>
+<td>Talk + hands-on</td>
+<td>Level 12</td>
+<td>Day 2: 24–27</td>
+</tr>
+<tr>
+<td>15:55–16:25</td>
+<td>Personalization by audience</td>
+<td>Talk + hands-on</td>
+<td>Level 13</td>
+<td>Day 2: 28–29</td>
+</tr>
+<tr>
+<td>16:25–16:45</td>
+<td>Performance tuning and maintenance (no exercise)</td>
+<td>Talk</td>
+<td>—</td>
+<td>Day 2: 30–31</td>
+</tr>
+<tr>
+<td>16:45–17:00</td>
+<td>Conclusion, feedback, Q&amp;A</td>
+<td>Talk</td>
+<td>—</td>
+<td>Day 2: 32–33</td>
+</tr>
+</tbody>
+</table></div>
+<p>Bonus exercises (⭐) are for fast learners during the hands-on blocks; skip them in the schedule.</p>
+    </main>
+  </div>
+</div>
+<button class="back-to-top" type="button" aria-label="Back to top">&#8593;</button>
+<script>
+
+(function () {
+  // Copy-to-clipboard for every prompt frame.
+  document.addEventListener("click", function (event) {
+    var btn = event.target.closest(".copy-btn");
+    if (!btn) return;
+    var frame = btn.closest(".copy-frame");
+    var target = frame.querySelector("pre, blockquote");
+    var text = target ? target.innerText : "";
+
+    function feedback() {
+      btn.classList.add("copied");
+      setTimeout(function () {
+        btn.classList.remove("copied");
+      }, 1500);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(feedback).catch(function () {
+        fallbackCopy(text, feedback);
+      });
+    } else {
+      fallbackCopy(text, feedback);
+    }
+  });
+
+  function fallbackCopy(text, done) {
+    var textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+    try { document.execCommand("copy"); } catch (err) { /* no-op */ }
+    document.body.removeChild(textarea);
+    done();
+  }
+
+  // Mobile sidebar toggle.
+  var menuToggle = document.querySelector(".menu-toggle");
+  if (menuToggle) {
+    menuToggle.addEventListener("click", function () {
+      document.body.classList.toggle("sidebar-open");
+    });
+  }
+  document.querySelectorAll(".toc a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      document.body.classList.remove("sidebar-open");
+    });
+  });
+
+  // Table-of-contents filter (recursively keeps a branch visible if any
+  // descendant entry matches).
+  var filterInput = document.querySelector(".toc-filter");
+  if (filterInput) {
+    filterInput.addEventListener("input", function () {
+      var query = filterInput.value.trim().toLowerCase();
+      document.querySelectorAll(".toc > ul > li").forEach(function (li) {
+        filterItem(li, query);
+      });
+    });
+  }
+
+  function filterItem(li, query) {
+    var link = li.querySelector(":scope > a");
+    var text = link ? link.textContent.toLowerCase() : "";
+    var childList = li.querySelector(":scope > ul");
+    var childMatch = false;
+    if (childList) {
+      childList.querySelectorAll(":scope > li").forEach(function (childLi) {
+        if (filterItem(childLi, query)) childMatch = true;
+      });
+    }
+    var selfMatch = !query || text.indexOf(query) !== -1;
+    var show = selfMatch || childMatch;
+    li.style.display = show ? "" : "none";
+    return show;
+  }
+
+  // Scroll-spy: highlight the current section in the sidebar.
+  var headings = document.querySelectorAll(".doc-content h2[id], .doc-content h3[id], .doc-content h4[id]");
+  var linkMap = {};
+  document.querySelectorAll(".toc a").forEach(function (a) {
+    linkMap[a.getAttribute("href").slice(1)] = a;
+  });
+
+  if ("IntersectionObserver" in window && headings.length) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var link = linkMap[entry.target.id];
+        if (!link || !entry.isIntersecting) return;
+        document.querySelectorAll(".toc a.active").forEach(function (a) { a.classList.remove("active"); });
+        link.classList.add("active");
+      });
+    }, { rootMargin: "0px 0px -72% 0px", threshold: 0 });
+    headings.forEach(function (h) { observer.observe(h); });
+  }
+
+  // Back-to-top button.
+  var backToTop = document.querySelector(".back-to-top");
+  if (backToTop) {
+    window.addEventListener("scroll", function () {
+      backToTop.classList.toggle("visible", window.scrollY > 600);
+    }, { passive: true });
+    backToTop.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+})();
+
+</script>
+</body>
+</html>

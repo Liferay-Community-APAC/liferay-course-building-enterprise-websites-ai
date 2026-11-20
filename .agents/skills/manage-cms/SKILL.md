@@ -307,3 +307,57 @@ To make a whole Space reproducible, use one `batch` CET (`manage-objects` → "I
 - Entries and folders read back in the right place.
 - `connected-sites` lists every Site that renders the content.
 - A page bound to a structure shows its entries to an admin, and to the intended audience once permissions are granted (`manage-roles-permissions`).
+
+## More Verified Facts (2026.q3.10, 2026-11-20)
+
+### Space Roles and Membership
+
+- **Space roles** (`GET /o/headless-asset-library/v1.0/asset-libraries/{erc}/roles`, roleType 5) are labeled "Space …" in the UI and named *Asset Library …* in the API, with ERCs `L_ASSET_LIBRARY_*`: Administrator, Member (implicit for every member), Content Reviewer, Connected Site Member, Owner. The admin who creates a Space becomes its Owner.
+- **Add a user group:** `PUT /asset-libraries/{erc}/user-groups/{userGroupErc}` (no body). **Add a user:** `PUT /asset-libraries/{erc}/user-accounts/{userErc}` (no body).
+- **Give a member a Space role:** `PUT /asset-libraries/{erc}/user-accounts/{userErc}/roles` with `[{"name": "Asset Library Administrator"}]`. Roles are matched by **`name`**: a body with only the role's ERC or id answers `404`.
+- **Read back** with `?nestedFields=roles` on the members lists.
+- **A Space connected to a Site is visible to every member of that Site** (they hold *Connected Site Member*): they can browse it and read its entries in CMS, but get no authoring actions. Don't connect a Space whose content the Site's members mustn't read.
+- **Every signed-in user can list entries** of a Space through the API by default (`User` VIEW on entries). Restrict it per structure if needed.
+
+### Fields
+
+- **A `DateTime` field needs the setting `timeStorage`** (`convertToUTC` or `useInputAsEntered`), or the create fails with `400 ObjectFieldSettingValueException.MissingRequiredValues`.
+- **DateTime values need a zone on write:** `2027-05-06T09:00:00Z`. Without it: `500 DateTimeParseException`. They read back as `2027-05-06T09:00:00.000`.
+
+### Vocabularies Limited to a Structure
+
+`assetTypes[].type` in a vocabulary body must be the structure's **label** (e.g. `"FAQ"`, `"Job Listing"`), plus `subtype: "AllAssetSubtypes"`. A className (`com.liferay.object.model.ObjectDefinition#C4G9`) or a numeric type id is silently stored as *All Asset Types* (`TaxonomyVocabularyResourceImpl._getClassNameId` matches on the model resource label). Each new Space also gets *Topic*, *Audience* and *Stage* vocabularies automatically.
+
+### Categories on Entries
+
+Write `taxonomyCategoryIds` (numbers). It reads back **`null`**: compare `taxonomyCategoryBriefs[].taxonomyCategoryId` instead, or every re-run rewrites the entry and adds a version.
+
+### Files
+
+`PUT /o/cms/basic-documents/scopes/{spaceErc}/by-external-reference-code/{fileErc}` with `{"file": {"externalReferenceCode", "fileBase64", "name"}, "objectEntryFolderExternalReferenceCode", "title"}` upserts a Basic Document into a Files folder.
+
+### Guest Access
+
+Published CMS content is **not** readable by Guest by default: `/o/c/<plural>/{id}` answers `404` and the scoped list `403` (Service Access Policy) for Guest. Pages that show CMS content (display pages, Collection Displays) render it server-side and need Guest **VIEW** on the entries, and **DOWNLOAD_FILE** on the files they link (`rules/guest-access.md`). Grant them per structure when the content is public.
+
+### Granting Guest Access to Entries and Files (Verified 2026.q3.10)
+
+- Per entry: `GET {restContextPath}/{id}/permissions`, then `PUT` the full list back with every other role row unchanged (`actionIds`, `roleExternalReferenceCode`, `roleName`) plus `{"actionIds": ["VIEW"], "roleExternalReferenceCode": "L_GUEST", "roleName": "Guest"}`. File entries (`/o/cms/basic-documents/{id}`, custom file types) take `["VIEW", "DOWNLOAD_FILE"]`. The GET omits `roleType`; the PUT doesn't need it. Grant only approved entries.
+- With that, the default Service Access Policy already admits Guest **get-by-id** (`GET /o/c/<plural>/{id}` → `200`) and the file download (`link.href`, `/documents/<groupId>/<folderId>/<name>/<uuid>`, `/documents/d/asset-library-<depot id>/<friendly name>`). Scoped lists, by-ERC reads, `/permissions` and folders stay `403` for Guest: leave them closed.
+- **Server-side renders (Collection Display, display pages) need entry VIEW only**: no folder VIEW, no SAP change.
+- **A file linked from a content field (`fileSource: CMSBasicDocument`, e.g. an Article's `image`) has an empty `link.href` for Guest**, because the content structure has no `DOWNLOAD_*` action. Link the **Basic Document's** own URL (or `/documents/…`) on public pages, not the field's structure-param URL, which answers `404` for Guest.
+
+### Batch Import Into a Space
+
+CMS structures have no `/batch` of their own. Use the batch engine: `POST /o/headless-batch-engine/v1.0/import-task/com.liferay.object.rest.dto.v1_0.ObjectEntry?taskItemDelegateName=C_<ObjectName>&scopeKey=<space erc>` with a JSON array of items `{"externalReferenceCode", "objectEntryFolderExternalReferenceCode", "taxonomyCategoryIds", "properties": {…fields…}}`, then poll `GET /o/headless-batch-engine/v1.0/import-task/{id}` until `executeStatus` is `COMPLETED` (`processedItemsCount`, `failedItems`). The task's `taskItemDelegateName` reads back `null`; that's harmless.
+
+### Authoring Rights
+
+Creating entries of a structure needs `ADD_OBJECT_ENTRY` on `com.liferay.object#<object definition id>` (plus `ADD_ENTRY` on the target folder). Give it to Space members through the Space roles (depot role permissions), not a regular role, so it applies in that Space only.
+
+### Space Roles and Default Permissions (Verified on 2026.q3.10)
+
+- **Grant a Space role permissions** (e.g. *Asset Library Member*) with `PATCH /o/headless-admin-user/v1.0/roles/{roleId}` and the **full** `rolePermissions` list (read it first; omitted rows are kept only if you send them back), at `scope: 3`. Resource names: `com.liferay.object#<object definition id>` for `ADD_OBJECT_ENTRY`; the definition's `className` (`com.liferay.object.model.ObjectDefinition#XXXX`) for `VIEW`/`UPDATE`/`DELETE` on entries; `com.liferay.object.model.ObjectEntryFolder` for `ADD_ENTRY` on folders.
+- **Each Space has CMS default permissions** that new entries receive: `GET`/`PUT /o/cms/default-permissions` (one `L_CMS_DEFAULT_PERMISSION` entry per Space). **By default they give the entry's Owner `DELETE`, and Members no `UPDATE`.** So "only administrators delete" needs DELETE removed from Owner (and Content Reviewer) there too, or the creator can delete their own entry.
+- **Folders:** `scopes/{space}/object-entry-folders?filter=parentObjectEntryFolderId eq …` answers `400 InvalidFilterException`; filter the list on the client (items carry `parentObjectEntryFolderId`).
+- The *Topic*, *Audience* and *Stage* vocabularies a Space lists belong to the Global group (they're shared), not to the Space.

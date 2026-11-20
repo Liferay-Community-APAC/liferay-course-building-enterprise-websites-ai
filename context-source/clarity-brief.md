@@ -69,7 +69,7 @@ Blog
 FAQ
 Careers
 └── Open Positions         (job search)
-Calendar                   (upcoming hiring events)
+Events                     (upcoming hiring events)
 Contact Us                 (Contact Us form)
 Contact Us Responses       (internal: pending requests, hidden from navigation)
 Search                     (site search results)
@@ -90,7 +90,7 @@ Display page templates: **Leadership Profile**, **Article**, **Product Details**
 | Menu | Items |
 | --- | --- |
 | Header Page Menu | Products, About Us, Blog, FAQ, Careers, Contact Us |
-| Footer Resources Menu | Blog, FAQ, Careers |
+| Footer Resources Menu | Blog, FAQ, Careers (and Events, from Level 11) |
 | Footer Company Menu | About Us, Contact Us |
 | Footer Legal Menu | Privacy Policy, Terms of Use (external links) |
 
@@ -100,10 +100,7 @@ Display page templates: **Leadership Profile**, **Article**, **Product Details**
 | --- | --- |
 | Brand primary, Clarity teal (`--color-brand-primary`) | `#1D8C8C`; darker `#177272`, `#135D5D`; lighter `#64AFAF`, `#D0E7E7`, `#F5FAFA` |
 | Brand secondary, Clarity gold (`--color-brand-secondary`) | `#D79839`; darker `#C18933`; lighter `#F7EBD9`, `#FDFBF7` |
-| Neutral 0, white (`--color-neutral-0`) | `#FFFFFF` |
-| Neutral 1, page background (`--color-neutral-1`) | `#F8F8F8` |
-| Neutral 8, body text (`--color-neutral-8`) | `#3A4747` |
-| Neutral 10, headings (`--color-neutral-10`) | `#041515` |
+| Neutrals (`--color-neutral-0` to `--color-neutral-10`) | 0 `#FFFFFF` (white), 1 `#F8F8F8` (page background), 2 `#DCDFDF`, 3 `#A6ACAC`, 4 `#A6ACAC`, 5 `#8B9393`, 6 `#707A7A`, 7 `#556161`, 8 `#3A4747` (body text), 9 `#1F2E2E`, 10 `#041515` (headings) |
 | Font (all text) | Poppins (Google Fonts), 400 and 600 |
 | Corner radius | `0.5rem` on cards (`--card-border-radius`), pill on buttons (`--btn-border-radius: 50rem`) |
 
@@ -149,7 +146,7 @@ A **Clarity Eyewear** catalog with specifications (Frame Material, Frame Color, 
 | R7 | Pages that show content from collections, not hard-coded copies | Level 7 |
 | R8 | Product catalog browsable by category | Level 8 |
 | R9 | Legacy content and data imported through APIs | Level 9 |
-| R10 | New content approved before it goes live; page changes released in batches | Level 10 |
+| R10 | New content, including site-wide announcements, approved before it goes live | Level 10 |
 | R11 | Job search and event listings driven by search | Level 11 |
 | R12 | Contact Us form, follow-up workflow and an internal dashboard | Level 12 |
-| R13 | A personalized Home page for distributors | Level 13 |
+| R13 | A Home page tailored to signed-in distributors | Level 13 |

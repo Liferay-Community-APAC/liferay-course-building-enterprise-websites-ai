@@ -16,9 +16,9 @@ Everything the course's prompts read: the brief, the sample content, the images 
 | `content/job-listings.json` | Ten job listings with region, location and job position | Levels 6, 11 |
 | `content/about-us.json`, `content/legal-pages.json` | About Us copy; Cookie Policy, Terms of Use, Privacy Policy | Level 6 |
 | `content/events.json` | The Clarity Vision Showcase event and its image | Level 6 |
-| `content/hiring-events.json` | Sample calendar events, dated relative to today | Level 11 |
-| `content/blog-posts.json` | 27 blog posts with images | Level 6 |
-| `legacy-import/` | Content from Clarity's old portal, imported through the APIs: three articles, five products, twelve office locations and a blog post | Level 9 |
+| `content/hiring-events.json` | Hiring events (Event Information entries), dated relative to today | Level 11 |
+| `content/blog-posts.json` | 27 blog posts with images: extra content for your own experiments | — |
+| `legacy-import/` | Content from Clarity's old portal, imported through the APIs: three articles, eight products, twelve office locations and a blog post | Level 9 |
 | `assets/branding/` | Logos (SVG and PNG, several shapes) and the favicon | Levels 5, 6 |
 | `assets/marketing/` | Banners, promotions, category images and article images | Levels 6, 7, 8 |
 | `assets/leadership/`, `assets/personas/` | Portraits | Levels 1, 6 |

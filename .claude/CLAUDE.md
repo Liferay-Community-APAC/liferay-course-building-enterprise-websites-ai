@@ -21,6 +21,14 @@ Before answering, identify four things:
 
 1. **Authentication**: look first for `configs/local/admin.properties` (git-ignored; `ADMIN_EMAIL=...` / `ADMIN_PASSWORD=...`), then the `LIFERAY_ADMIN_EMAIL` / `LIFERAY_ADMIN_PASSWORD` environment variables. Use them for Basic Auth without ever printing, logging, or echoing the password into the conversation or any generated file. If neither exists, ask the user once for the admin account to use, then — with their explicit confirmation — write it to `configs/local/admin.properties` so no future session has to ask again. Never accept a password typed inline as part of a task description.
 
+## Course Conventions
+
+- **Workspace id:** `clarity`. Prefix client extension keys with it (`clarity-site-init`, `clarity-theme-css`).
+- **Sites:** `clarity-public` (Clarity Public Enterprise Website, `/clarity`) and `clarity-distributor-portal`. Address them by these ERCs.
+- **The site lives in code:** `client-extensions/clarity-site` is the site initializer for `clarity-public`. Change pages, masters, menus, fragments, collections and style books there, then clean-redeploy.
+- **Training passwords:** every persona's password is `learn` (`context-source/data/personas.csv`).
+- **Don't build on deprecated or maintenance-mode features** (Liferay's 2026 deprecation pages): no Web Content, Blogs, Documents and Media or Asset Libraries (use Liferay CMS Spaces, structures and files), no Publications (use workflow), no DXP segments or experiences (target signed-in users by user group or role; anonymous personalization belongs to Liferay Data Platform), no Custom Fields (use Object fields on system objects), no Widget Pages or Dialect theme (content pages, Classic). If a task seems to need one, say so and propose the supported alternative.
+
 ## Project Paths
 
 | Purpose | Path |
@@ -115,7 +123,8 @@ Every skill lives under `skills/` and owns one workflow. Match the user's intent
 | Create the OAuth application a client extension needs, or call a CET from browser code | `setup-oauth` |
 | Build a page fragment or reusable page component | `scaffold-fragment` |
 | Build a form field fragment that binds to an object field | `scaffold-form-fragment` |
-| Create a site, set its members, site roles, languages or other site and instance settings | `manage-sites` |
+| Create a site, set its members, site roles, languages or other site and instance settings, or enable and publish Publications | `manage-sites` |
+| Build a search page, facets, a Search Blueprint or element, or a list driven by a blueprint | `manage-search` |
 | Create pages, navigation, SEO, or page and display templates | `manage-pages` |
 | Change the theme, colors, fonts, master page, or style book | `theme-and-design` |
 | Scaffold any client extension type | `scaffold-client-extension` |

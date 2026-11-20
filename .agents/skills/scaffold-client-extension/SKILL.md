@@ -320,3 +320,7 @@ Do not gate Custom Element UI on `roleBriefs`. Use a functional data check again
 ## Success Signal
 
 TODO / inferred — verify against a running bundle. Confirm the deployed CET manifests for its type via `deploy-and-verify`'s Smoke Check on a live bundle.
+
+## Site Initializer OAuth Entry (Verified on 2026.q3.10)
+
+The `oAuthApplicationHeadlessServer` entry of a `siteInitializer` project **needs `.serviceAddress` and `.serviceScheme`** (e.g. `localhost:8080`, `http`; use the Tomcat port). Without them the deploy logs `OAuth2ApplicationHomePageURLSchemeException` and the OAuth app isn't created. See the full example in `rules/site-initializer-format.md`.

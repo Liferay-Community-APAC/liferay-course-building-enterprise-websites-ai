@@ -25,6 +25,14 @@ Before answering, identify four things:
 
 1. **Authentication**: look first for `configs/local/admin.properties` (git-ignored; `ADMIN_EMAIL=...` / `ADMIN_PASSWORD=...`), then the `LIFERAY_ADMIN_EMAIL` / `LIFERAY_ADMIN_PASSWORD` environment variables. Use them for Basic Auth without ever printing, logging, or echoing the password into the conversation or any generated file. If neither exists, ask the user once for the admin account to use, then — with their explicit confirmation — write it to `configs/local/admin.properties` so no future session has to ask again. Never accept a password typed inline as part of a task description.
 
+## Course Conventions
+
+- **Workspace id:** `clarity`. Prefix client extension keys with it (`clarity-site-init`, `clarity-theme-css`).
+- **Sites:** `clarity-public` (Clarity Public Enterprise Website, `/clarity`) and `clarity-distributor-portal`. Address them by these ERCs.
+- **The site lives in code:** `client-extensions/clarity-site` is the site initializer for `clarity-public`. Change pages, masters, menus, fragments, collections and style books there, then clean-redeploy.
+- **Training passwords:** every persona's password is `learn` (`context-source/data/personas.csv`).
+- **Don't build on deprecated or maintenance-mode features** (Liferay's 2026 deprecation pages): no Web Content, Blogs, Documents and Media or Asset Libraries (use Liferay CMS Spaces, structures and files), no Publications (use workflow), no DXP segments or experiences (target signed-in users by user group or role; anonymous personalization belongs to Liferay Data Platform), no Custom Fields (use Object fields on system objects), no Widget Pages or Dialect theme (content pages, Classic). If a task seems to need one, say so and propose the supported alternative.
+
 ## Project Paths
 
 | Purpose | Path |
@@ -75,7 +83,7 @@ Whatever the choice:
 - **Non-local environments always need confirmation** (dev, UAT, prod, Liferay Cloud), whatever was chosen; see `production-standards`.
 - **After any restart,** wait for the server to answer, then prompt the user to reconnect MCP if it is in use (`skills/mcp-server/SKILL.md`).
 
-Skills that restart the server (`feature-flags`, `deploy-and-verify`, `build-site`, `workspace-init`, `manage-environments`) apply this policy instead of restarting on their own.
+Skills that restart the server (`feature-flags`, `deploy-and-verify`, `build-site`, `workspace-init`) apply this policy instead of restarting on their own.
 
 ## Preflight Rule for New Code Generation
 
@@ -94,8 +102,6 @@ Before writing the **first line** of any artifact below, load its skill. Always,
 | CMS Space, Content Structure, or folder | `manage-cms` |
 | Form Container, or a form that saves to an object | `manage-form-containers` |
 | Data Set definition or Data Set fragment | `manage-data-sets` |
-| AI Hub agent call, `<ai-hub-agent>` workflow node, Search Blueprint for RAG, or chatbot embed | `manage-ai-hub` |
-| `Analytics.track` call or segment lookup | `manage-analytics` |
 
 Most real tasks match two or more rows — load all of them. Skipping one is not the smaller risk: much of what these skills document are failures that are **silent**, where the build succeeds and the defect only shows later, and the skill is the only place that behavior is written down. Reading portal source instead is not a substitute — the source shows what the code does, not which of its behaviors have already cost someone a day.
 
@@ -111,7 +117,6 @@ Every skill lives under `skills/` and owns one workflow. Match the user's intent
 
 | User Intent | Skill |
 | --- | --- |
-| First time user: a guided first run creating a workspace and starting the server | `initial-setup-guide` |
 | Set up, initialize, or repair a workspace and bundle | `workspace-init` |
 | Check, prompt for, or enable a required feature flag | `feature-flags` |
 | Deploy a target and confirm it started | `deploy-and-verify` |
@@ -120,26 +125,18 @@ Every skill lives under `skills/` and owns one workflow. Match the user's intent
 | Create or change an object definition, field, relationship, picklist, or validation | `manage-objects` |
 | Add object business logic — actions, workflows, notifications | `manage-object-logic` |
 | Create the OAuth application a client extension needs, or call a CET from browser code | `setup-oauth` |
-| Back an object with an external REST, database, or SaaS data source | `integrate-external-data` |
 | Build a page fragment or reusable page component | `scaffold-fragment` |
 | Build a form field fragment that binds to an object field | `scaffold-form-fragment` |
+| Create a site, set its members, site roles, languages or other site and instance settings, or enable and publish Publications | `manage-sites` |
+| Build a search page, facets, a Search Blueprint or element, or a list driven by a blueprint | `manage-search` |
 | Create pages, navigation, SEO, or page and display templates | `manage-pages` |
 | Change the theme, colors, fonts, master page, or style book | `theme-and-design` |
-| Build a React based Custom Element widget | `react-custom-elements` |
 | Scaffold any client extension type | `scaffold-client-extension` |
-| Walk a beginner through a first client extension | `guided-client-extension` |
 | Create roles or grant permissions on objects, pages, or sites | `manage-roles-permissions` |
-| Manage environment configs, promote to UAT, or capture a site initializer | `manage-environments` |
 | Manage Commerce catalogs, products, SKUs, or B2B accounts | `commerce-catalogs` |
-| Diagnose slow pages, SQL, pool, cache, or thread issues with Glowroot APM, or add a Glowroot gauge or instrumentation | `glowroot-performance` |
 | Create CMS Spaces, content structures, entries, or files, or connect a Space to a Site | `manage-cms` |
 | Build a form that creates or edits an object entry, or fix one that renders nothing | `manage-form-containers` |
 | Show object entries as a table, list, or cards with filters, sort, and row actions | `manage-data-sets` |
-| Plan or track a content campaign — CMP Projects and Tasks, assignees, due dates | `manage-cmp-campaigns` |
-| Create Digital Sales Rooms from code or an object action, build a custom room template, add room members, or store data inside a room | `manage-dsr` |
-| Connect DXP to AI Hub, list or call its agents, build a RAG chatbot, or add an AI step to a workflow | `manage-ai-hub` |
-| Connect DXP to Analytics Cloud / LDP, track a custom event, read real-time segments, or verify an event in an Event Analysis | `manage-analytics` |
-| Deploy and operate a Liferay Cloud (LXC) project via `lcp` | `manage-cloud-project` |
 | Verify a page or journey in a real browser as a specific test user or as Guest, or take a screenshot of what they see | `browser-verify` |
 | Build an entire site experience from one prompt (orchestrator; calls the others) | `build-site` |
 

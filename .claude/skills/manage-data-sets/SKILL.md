@@ -223,3 +223,11 @@ In the tree (`layouts/<page>/page-definition.json`):
 - Filters emit the expected OData and narrow the rows.
 - The default sort is applied on load, and actions open the right target.
 - `GET …?nestedFields=…` lists every child under the chosen ERC.
+
+## Verified on 2026.q3.10 (Clarity course)
+
+- A data set over a site-scoped object: `restApplication: "/c/<plural>"`, `restEndpoint: "/scopes/<site erc>"`, `additionalAPIURLParameters: "filter=status eq 1"` for pending entries.
+- A selection filter on a picklist: `{"source": "<PICKLIST ERC>", "sourceType": "OBJECT_PICKLIST"}`.
+- An async delete action: `target: "async"`, `method: "delete"`, `url: "/o/c/<plural>/{id}"`, `confirmationMessageType: "danger"`, with success and error messages `_i18n`. It shows only to users with DELETE on the entry.
+- A link action to the entry's admin page can use the ERC: `…mvcRenderCommandName=/object_entries/edit_object_entry&…externalReferenceCode={externalReferenceCode}` (the portlet id carries the object's className suffix, so it's environment-specific).
+- The users reading the data set need VIEW on the object's entries, or it shows 0 rows.

@@ -411,3 +411,18 @@ Never pass interpolated strings (`"${var}"`) to Liferay Service APIs. Groovy `GS
 ## Success Signal
 
 TODO / inferred — verify against a running bundle. The Verify Object Actions and Test the Trigger steps above (each action `"active": true`; a test entry fires the expected side effect) are the observable completion checks; confirm on a live bundle.
+## Workflow on CMS Structures (Verified on 2026.q3.10)
+
+- **A group-scoped workflow link engages for a CMS structure in its Space.** `POST /o/headless-admin-workflow/v1.0/workflow-definitions/{id}/workflow-definition-links` with `{"className": "com.liferay.object.model.ObjectDefinition#<suffix>", "groupExternalReferenceCode": "<space erc>"}`. New entries then start as `pending` (`status.code 1`) with a workflow instance. The object definition's own `workflowDefinitionLinks` stays `[]`, so read the link from the workflow side. (This differs from the company-scope behavior described elsewhere in this skill.)
+- **Copy, don't edit, a shipped definition:** read Single Approver's `content`, change the review roles, and deploy it under a new name with `POST /workflow-definitions/deploy`. Single Approver's review roles include *Asset Library Administrator* but not a custom Content Manager role.
+- **Submit as a user:** a plain `POST /o/c/<plural>/scopes/<space erc>` authenticated as that user is the submission (there's no separate submit call).
+- **Review as a user:** `GET /workflow-tasks/assigned-to-my-roles`, then `POST /workflow-tasks/{id}/assign-to-me` with `{"workflowTaskId": …}`, then `POST /workflow-tasks/{id}/change-transition` with `{"transitionName": "approve", "comment": "…", "workflowTaskId": …}`.
+
+### Linking a Workflow to an Object on a Site (Verified on 2026.q3.10)
+
+`PUT /o/headless-admin-workflow/v1.0/workflow-definition-links/by-external-reference-code/{linkErc}` with `{"className": "com.liferay.object.model.ObjectDefinition#XXXX", "groupExternalReferenceCode": "<site erc>", "workflowDefinitionName": "<name>", "workflowDefinitionVersion": <n>}`. **Without `workflowDefinitionVersion`: `500` NPE.** Read it back with `GET /workflow-definitions/by-external-reference-code/{definitionErc}/workflow-definition-links`.
+
+- **Kaleo XML element order is enforced by the XSD:** in the definition, `initial` before `labels`; in a task, `actions`, then `assignments`, then `labels`. Validate with `xmllint` against the XSD in `portal-impl.jar` before deploying.
+- An end state that approves the entry: `<action><status>0</status><execution-type>onEntry</execution-type></action>`.
+- A deployed definition's `content` reads back as JSON: compare parsed values, not strings, or every re-run deploys a new version.
+- **Discussion actions (`ADD_DISCUSSION`, …) in `resource-permissions.json` for an object without comments make the handler skip the whole row** ("No resource action found").

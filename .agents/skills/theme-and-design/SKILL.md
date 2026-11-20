@@ -386,3 +386,12 @@ After deploying and assigning:
 1. Confirm brand colors appear in primary buttons and headings.
 
 1. Run a browser contrast audit (DevTools → Accessibility) to validate WCAG compliance.
+## Binding the Brand From the Site Initializer (Verified on 2026.q3.10)
+
+- **Theme CSS** on each master: `settings.themeCSSClientExtension: {"externalReferenceCode": "LXC:<cet-key>", "name": "<name>"}`.
+- **Favicon** on each master: `settings.favIcon: {"externalReferenceCode": "LXC:<favicon-cet-key>", "name": "<name>"}`. Keep `name`: it makes the value match the client-extension branch of the schema (without it, it's read as a document).
+- **Site logo:** `layout-set/public/logo.png` beside `layout-set/public/metadata.json` (`{"themeName": "Classic"}`); `_updateLayoutSet` sets it as the layout set's logo.
+- **A `frontend-token-definition.json` copied from Classic overrides your CSS.** Liferay writes every token's default inline after `main.css`, so Classic's `--primary: #0b5fff` beats your `:root` value. Set the defaults of the tokens you restyle (primary, secondary, brand colors, body, fonts…) to your values or to `var(--color-brand-…)` in the token definition itself.
+- **A style book belongs to one theme.** A Classic style book stops applying on pages whose master binds a Theme CSS client extension. A style book for the client extension needs `themeId: "LXC:<cet-key>"` and its own token keys; `themeId` can't change on an existing style book.
+- `WARN No theme found for … _WAR_…` when the Theme CSS is requested is harmless.
+- **The token definition is wired in `client-extension.yaml`** with the key `frontendTokenDefinitionJSON: src/frontend-token-definition.json` on the `themeCSS` entry (next to `clayURL`, `mainURL`); the build inlines it into the client extension's configuration.

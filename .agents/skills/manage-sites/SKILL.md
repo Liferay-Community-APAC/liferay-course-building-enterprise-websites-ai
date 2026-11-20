@@ -39,6 +39,7 @@ name: manage-sites
 ## Members and Site Roles
 
 - **Assign a site role to a user:** `POST /o/headless-admin-user/v1.0/roles/by-external-reference-code/{roleErc}/association/user-account/{userId}/site/{siteId}` → `204`. It also makes the user a **direct** site member. Built-in site roles have ERCs such as `L_SITE_ADMINISTRATOR`, `L_SITE_MEMBER`.
+- **A member with no extra site role:** associate the built-in `L_SITE_MEMBER` role the same way (it stores an explicit Site Member row).
 - **Read members:** `GET /o/headless-admin-user/v1.0/sites/{siteId}/user-accounts`, and each user's `siteBriefs`.
 - **A user group can't be made a site member over headless REST**, and its site membership can't be read back. If the requirement is "the whole department", either add each user, or give the user the UI steps: Site Menu → *People* → *Memberships* → *User Groups* → *Add*.
 
@@ -77,7 +78,16 @@ The instance navigation values also exist as portal properties (`company.default
 To prove a permission, act as that user, not as admin:
 
 - **Headless:** Basic auth with the persona's email and password (`configs/local/test-users.properties`, or the course's training password).
-- **A browser session over curl:** fetch `/c/portal/login`, scrape the form's `action` (its action parameter is `jakarta.portlet.action` on this release, so a hand-built `javax.portlet.action` URL fails), post the credentials with a cookie jar, then send headless calls with the `x-csrf-token` read from the page's `Liferay.authToken`.
+- **A browser session over curl:** fetch `/c/portal/login`, scrape the form's `action` (its action parameter is `jakarta.portlet.action` on this release, so a hand-built `javax.portlet.action` URL fails), post the credentials with a cookie jar, then send headless calls with the `x-csrf-token` read from the page source's `authToken: '…'` (not `Liferay.authToken = …`).
 - **In a real browser:** `browser-verify`.
 
 A regular role's permissions apply at **company** scope: in every site the user can reach, not only the sites they're a member of.
+
+## Publications (Verified on 2026.q3.10)
+
+Publications is in **maintenance mode** since 2026.Q1, with no replacement. Use workflow to gate publishing in new work (`manage-object-logic`); the facts below are for existing customers.
+
+- **Enable it with OSGi configuration** (no REST endpoint): `com.liferay.change.tracking.configuration.CTSettingsConfiguration.config` with `enabled=B"true"` in `bundles/osgi/configs` (applies live, company scope) and `configs/local/osgi/configs`.
+- **Publications REST:** `/o/change-tracking-rest/v1.0`: `POST /ct-collections` (`{name, description}`), `GET /ct-collections/{id}/ct-entries?showHideable=true` (tracked changes), `POST /ct-collections/{id}/publish`, `POST /ct-collections/{id}/checkout` (switch the calling user; `0` = production). No endpoint invites users or checks conflicts: both are UI-only (*Invite Users*, *Review Changes*).
+- **Headless content and page writes ignore the checkout.** `CTContainerRequestFilter` forces production for every resource method not annotated `@CTAware`; in `headless-admin-site` only `SiteResourceImpl` is. There's no CT header or `ctCollectionId` parameter, and `?previewCTCollectionId=` fails with Basic auth (NPE, user null). **So changes inside a publication are made in the UI**, and the API can create, read and publish the publication. Never write pages over headless while a user expects them to be in a publication: they go live.
+- **Guest HTML can be cached**: a Guest `curl` right after a write may show the old page. Read the stored value or wait before concluding.
