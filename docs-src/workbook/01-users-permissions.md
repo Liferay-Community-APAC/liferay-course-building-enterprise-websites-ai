@@ -33,7 +33,7 @@ groups and roles as Liferay returns them, not as you intended them.
 ```
 
 ✅ **Verify** (as the Clarity Admin):
-- Global Menu → *Control Panel* → *Users and Organizations*: the seven personas are listed and active. Open **Christian Carter**: his portrait shows, his job title is *Marketing Coordinator*, and under *Memberships* → *User Groups* he's in **Marketing**.
+- Global Menu → *Control Panel* → *Users and Organizations*: the seven personas are listed and active. Open **Christian Carter**: the portrait shows, the job title is *Marketing Coordinator*, and *Memberships* → *User Groups* lists **Marketing**.
 - *Control Panel* → *User Groups*: five groups. Open **Marketing**: Christian Carter and Clara Murphy are members.
 - *Control Panel* → *Roles*: the *Regular Roles* tab has the five Clarity roles; the *Site Roles* tab has **Site Content Contributor**. Open **Marketing Coordinator** → *Assignees* → *Users*: **Christian Carter** is listed.
 - In a private browser window, sign in as `christian.carter@clarityvisionsolutions.com` / `learn`. You land in the portal without a password change prompt.
@@ -46,4 +46,4 @@ groups and roles as Liferay returns them, not as you intended them.
 
 ### ⭐ 1.2 — Bonus: a manager for the Marketing team
 
-Let Clara Murphy view the members of the **Marketing** user group and add new ones, **without** the Administrator or Site Administrator role and without access to any other user group. Write the prompt yourself. Success: impersonating Clara, she can open *Control Panel* → *User Groups* → *Marketing* and add a member; another user group shows no *Assign Members* action.
+Let Clara Murphy view the members of the **Marketing** user group and add new ones, **without** the Administrator or Site Administrator role and without access to any other user group. Write the prompt yourself. Success: impersonating Clara, you can open *Control Panel* → *User Groups* → *Marketing* and add a member; another user group shows no *Assign Members* action.

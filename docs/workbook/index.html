@@ -643,7 +643,7 @@ groups and roles as Liferay returns them, not as you intended them.
 </code></pre></div>
 <p>✅ <strong>Verify</strong> (as the Clarity Admin):</p>
 <ul>
-<li>Global Menu → <em>Control Panel</em> → <em>Users and Organizations</em>: the seven personas are listed and active. Open <strong>Christian Carter</strong>: his portrait shows, his job title is <em>Marketing Coordinator</em>, and under <em>Memberships</em> → <em>User Groups</em> he's in <strong>Marketing</strong>.</li>
+<li>Global Menu → <em>Control Panel</em> → <em>Users and Organizations</em>: the seven personas are listed and active. Open <strong>Christian Carter</strong>: the portrait shows, the job title is <em>Marketing Coordinator</em>, and <em>Memberships</em> → <em>User Groups</em> lists <strong>Marketing</strong>.</li>
 <li><em>Control Panel</em> → <em>User Groups</em>: five groups. Open <strong>Marketing</strong>: Christian Carter and Clara Murphy are members.</li>
 <li><em>Control Panel</em> → <em>Roles</em>: the <em>Regular Roles</em> tab has the five Clarity roles; the <em>Site Roles</em> tab has <strong>Site Content Contributor</strong>. Open <strong>Marketing Coordinator</strong> → <em>Assignees</em> → <em>Users</em>: <strong>Christian Carter</strong> is listed.</li>
 <li>In a private browser window, sign in as <code>christian.carter@clarityvisionsolutions.com</code> / <code>learn</code>. You land in the portal without a password change prompt.</li>
@@ -652,7 +652,7 @@ groups and roles as Liferay returns them, not as you intended them.
 <p><img alt="Control Panel → Roles: the Regular Roles tab lists Content Manager, Distributor Representative, IT Manager, Marketing Coordinator and Web Developer next to Liferay's own roles." src="../screenshots/1-1-roles.png"/></p>
 <p>📖 In the Control Panel you can also assign a role to a <strong>user group</strong>, so every member gets it. Liferay's headless API assigns roles to users only, so the agent assigns them one by one here. Look at both in <em>Control Panel</em> → <em>Roles</em> → a role → <em>Assignees</em>.</p>
 <h4 id="12-bonus-a-manager-for-the-marketing-team">⭐ 1.2 — Bonus: a manager for the Marketing team<a aria-hidden="true" class="heading-anchor" href="#12-bonus-a-manager-for-the-marketing-team" tabindex="-1">#</a></h4>
-<p>Let Clara Murphy view the members of the <strong>Marketing</strong> user group and add new ones, <strong>without</strong> the Administrator or Site Administrator role and without access to any other user group. Write the prompt yourself. Success: impersonating Clara, she can open <em>Control Panel</em> → <em>User Groups</em> → <em>Marketing</em> and add a member; another user group shows no <em>Assign Members</em> action.</p>
+<p>Let Clara Murphy view the members of the <strong>Marketing</strong> user group and add new ones, <strong>without</strong> the Administrator or Site Administrator role and without access to any other user group. Write the prompt yourself. Success: impersonating Clara, you can open <em>Control Panel</em> → <em>User Groups</em> → <em>Marketing</em> and add a member; another user group shows no <em>Assign Members</em> action.</p>
 <h3 id="level-2-sites">Level 2 — Sites<a aria-hidden="true" class="heading-anchor" href="#level-2-sites" tabindex="-1">#</a></h3>
 <p>📖 In Liferay DXP, each <strong>site</strong> has its own pages, members and settings. Clarity needs its public enterprise website, configured for launch, and an empty site for a future distributor portal. Visitors who aren't signed in can see a public site's public pages; members get more through <strong>site roles</strong>. Some settings belong to the site (its address, languages, accessibility), others to the whole <strong>instance</strong> (where <code>http://localhost:8080/</code> takes you).</p>
 <h4 id="21-create-claritys-two-sites">2.1 — Create Clarity's two sites<a aria-hidden="true" class="heading-anchor" href="#21-create-claritys-two-sites" tabindex="-1">#</a></h4>
@@ -736,7 +736,7 @@ check the accessibility menu is NOT on for the Clarity Distributor Portal.
 <p>🎯 The <strong>Marketing Coordinator</strong> role can manage collections and categories in the sites its holders work in, and nothing more. You'll see the effect by impersonating Christian Carter before and after.</p>
 <p>🧩 <code>manage-roles-permissions</code></p>
 <p>📎 R1 — least-privilege permissions.</p>
-<p>📖 Permissions are actions (VIEW, ADD, UPDATE…) on resources (an application, a kind of item). A <strong>regular</strong> role's permissions apply at company scope: in every site its holder can work in. A <strong>site</strong> role's permissions apply only in the site where it's assigned, which is why Site Content Contributor exists. In Level 6, Liferay CMS Spaces add their own membership and roles on top: that's where Christian will get his content-authoring rights.</p>
+<p>📖 Permissions are actions (VIEW, ADD, UPDATE…) on resources (an application, a kind of item). A <strong>regular</strong> role's permissions apply at company scope: in every site its holder can work in. A <strong>site</strong> role's permissions apply only in the site where it's assigned, which is why Site Content Contributor exists. In Level 6, Liferay CMS Spaces add their own membership and roles on top: that's where Christian gets content-authoring rights.</p>
 <p>📋 <strong>Steps:</strong></p>
 <ol>
 <li>As the Clarity Admin, go to <em>Control Panel</em> → <em>Users and Organizations</em>, click the Actions menu (⋮) next to <strong>Christian Carter</strong>, and choose <strong>Impersonate User</strong>. In the tab that opens, go to <code>http://localhost:8080/web/clarity</code> and open the Site Menu: Christian has no <em>Site Builder</em> or <em>Categorization</em> section. Keep the tab open.</li>
@@ -1057,7 +1057,7 @@ clarity-public who isn't a member of a Space can do in it.
 <p><img alt="Liferay CMS → All Spaces: Marketing, Branding, HR, Events and Products." src="../screenshots/6-1-spaces.png"/></p>
 <ul>
 <li>Open the <strong>Marketing</strong> Space → its settings (the gear icon) → <em>Members</em>: the Marketing user group, and Clara Murphy with the administrator role. <em>Connected Sites</em>: Clarity Public Enterprise Website.</li>
-<li>Impersonate <strong>Christian Carter</strong> (as in 2.4) and open CMS. He sees every Space connected to the public site, because he's a member of that site. Open <strong>HR</strong>: he can browse it but has no <strong>New</strong> button. Open <strong>Marketing</strong>: he can add content there, as a member through the Marketing group. Close the tab when you're done.</li>
+<li>Impersonate <strong>Christian Carter</strong> (as in 2.4) and open CMS. Christian sees every Space connected to the public site, as a member of that site. <strong>HR</strong> can be browsed, with no <strong>New</strong> button. In <strong>Marketing</strong>, Christian can add content, as a member through the Marketing group. Close the tab when you're done.</li>
 </ul>
 <p>📖 Connecting a Space to a site gives the site's members read access to it (the <em>Connected Site Member</em> Space role). Authoring takes Space membership and a Space role. Keep that in mind when a Space holds content site members shouldn't read: don't connect it to that site.</p>
 <h4 id="62-model-claritys-content-structures">6.2 — Model Clarity's content structures<a aria-hidden="true" class="heading-anchor" href="#62-model-claritys-content-structures" tabindex="-1">#</a></h4>
@@ -1094,7 +1094,7 @@ not through regular roles.
 Publish them, then read each one back and show its fields and its REST
 path. Prove the access as Christian Carter (training password "learn") by
 creating and deleting a throwaway FAQ in the Marketing Space: the create
-must succeed and his delete must be refused.
+must succeed and the delete must be refused.
 </code></pre></div>
 <p>✅ <strong>Verify:</strong> in CMS, open <em>Structures</em> (under the <em>Admin</em> section of the left panel): the seven structures are listed. Open <strong>Event Information</strong>: its fields and their types match the prompt, and <em>Spaces</em> lists only <strong>Events</strong>. Close it without saving.</p>
 <p><img alt="Liferay CMS → Content Structures listing Article, FAQ, Announcement, Leadership Profile, Job Listing, Event Information and Event Image." src="../screenshots/6-2-structures.png"/></p>
@@ -1472,7 +1472,7 @@ collaborative collection.", image: the Space file revolutionizing_industry.
 Submit it for workflow rather than saving it as a draft. Show me its status
 as Liferay returns it, and its workflow instance.
 </code></pre></div>
-<p>✅ <strong>Verify (part 1):</strong> sign in as <strong>Clara Murphy</strong> in a private window. User menu (her avatar) → <em>My Workflow Tasks</em> → <em>Assigned to My Roles</em>: a review task for <strong>Clarity x Almanac Optics</strong>. Don't act on it. In CMS → <strong>Marketing</strong> → <em>Articles</em>, the entry is <strong>Pending</strong>, created by Christian Carter.</p>
+<p>✅ <strong>Verify (part 1):</strong> sign in as <strong>Clara Murphy</strong> in a private window. User menu (the avatar) → <em>My Workflow Tasks</em> → <em>Assigned to My Roles</em>: a review task for <strong>Clarity x Almanac Optics</strong>. Don't act on it. In CMS → <strong>Marketing</strong> → <em>Articles</em>, the entry is <strong>Pending</strong>, created by Christian Carter.</p>
 <p>💬 <strong>Prompt (part 2 — Clara approves):</strong></p>
 <div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Authenticating as Clara Murphy (clara.murphy@clarityvisionsolutions.com,
 training password "learn"), assign the pending review task of "Clarity x
@@ -1576,7 +1576,7 @@ client-extensions/clarity-site, under Search Options, and deploy. Search
 <p><img alt="The Events page: Upcoming Events lists Summer Job Fair, Campus Recruiting Event and Clarity Vision Showcase 2027 with their locations." src="../screenshots/11-3-events.png"/></p>
 <p>📖 The original BEWL course used the Calendar widget here. On this release calendar events have no REST API, so the course keeps events in Liferay CMS, where your agent can create them and a blueprint can query them.</p>
 <h4 id="114-bonus-find-a-user-by-an-external-id-through-search">⭐ 11.4 — Bonus: find a user by an external id through search<a aria-hidden="true" class="heading-anchor" href="#114-bonus-find-a-user-by-an-external-id-through-search" tabindex="-1">#</a></h4>
-<p>Clarity's benefits system knows employees by a registration id. Extend the <strong>User</strong> system object with an Object field <strong>registrationId</strong> (Integer), set it to <code>555777</code> on Ian Miller, create a <strong>Registration ID</strong> blueprint that filters users on that field with the search keywords, and have your agent call <code>POST /o/search/v1.0/search</code> with the blueprint and the keyword <code>555777</code>. Success: the response returns Ian Miller, and only him. (Use an Object field, not a Custom Field: Liferay recommends Objects for extending system entities.)</p>
+<p>Clarity's benefits system knows employees by a registration id. Extend the <strong>User</strong> system object with an Object field <strong>registrationId</strong> (Integer), set it to <code>555777</code> on Ian Miller, create a <strong>Registration ID</strong> blueprint that filters users on that field with the search keywords, and have your agent call <code>POST /o/search/v1.0/search</code> with the blueprint and the keyword <code>555777</code>. Success: the response returns Ian Miller and no one else. (Use an Object field, not a Custom Field: Liferay recommends Objects for extending system entities.)</p>
 <h3 id="level-12-objects-the-contact-us-form-and-its-follow-up">Level 12 — Objects: the Contact Us form and its follow-up<a aria-hidden="true" class="heading-anchor" href="#level-12-objects-the-contact-us-form-and-its-follow-up" tabindex="-1">#</a></h3>
 <p>📖 <strong>Liferay Objects</strong> let you define the data you want to store; Liferay generates its storage, its REST APIs, a basic admin UI and permissions. A <strong>picklist</strong> holds reusable, translatable options. A <strong>Form Container</strong> turns a content page section into a form that creates an object entry. A <strong>workflow</strong> routes each new entry to the people who handle it, and a <strong>Data Set</strong> shows entries as a filterable, sortable table or list.</p>
 <h4 id="121-the-inquiry-types-picklist-and-the-contact-us-object">12.1 — The Inquiry Types picklist and the Contact Us object<a aria-hidden="true" class="heading-anchor" href="#121-the-inquiry-types-picklist-and-the-contact-us-object" tabindex="-1">#</a></h4>
@@ -1663,7 +1663,7 @@ this data set. Deploy.
 <p>✅ <strong>Verify:</strong></p>
 <ol>
 <li>As Guest, submit two entries on <strong>Contact Us</strong>.</li>
-<li>Sign in as <strong>Daniel Raymond</strong> in a private window: a notification (the bell) tells him about each new request. Open <code>/web/clarity/contact-us-responses</code>: both entries are listed; sort by Name and filter by Inquiry Type.</li>
+<li>Sign in as <strong>Daniel Raymond</strong> in a private window: a notification (the bell) announces each new request. Open <code>/web/clarity/contact-us-responses</code>: both entries are listed; sort by Name and filter by Inquiry Type.</li>
 </ol>
 <p><img alt="Contact Us Responses as Daniel Raymond: one pending request from Priya Sharma, with filter, sort and row actions." src="../screenshots/12-4-responses.png"/></p>
 <ol start="3">
@@ -1715,7 +1715,7 @@ for each.
 <li>In a private window, sign in as <strong>Terrence Wheatley</strong>: Home says <em>Welcome Back!…</em> and has no <em>Become a Clarity Distributor</em> section. Sign out: the default Home is back, with the promotion.</li>
 <li>Open <strong>Home</strong> in edit mode: both banners show, each labeled with its audience. Leave without publishing.</li>
 </ul>
-<p><img alt='Home as Terrence Wheatley, a distributor: the banner reads "Welcome Back! Elevate Your Inventory with Premium Eyewear." and his avatar replaces the Sign In button.' src="../screenshots/13-2-terrence-home.png"/></p>
+<p><img alt="Home as Terrence Wheatley, a distributor: the banner reads &quot;Welcome Back! Elevate Your Inventory with Premium Eyewear.&quot; and Terrence's avatar replaces the Sign In button." src="../screenshots/13-2-terrence-home.png"/></p>
 <p>📖 This works for signed-in users and user groups. For anonymous visitors (by behavior, location or campaign), you need Liferay Data Platform segments, which is the supported path for that kind of personalization.</p>
     </main>
   </div>

@@ -41,7 +41,7 @@ Submit it for workflow rather than saving it as a draft. Show me its status
 as Liferay returns it, and its workflow instance.
 ```
 
-✅ **Verify (part 1):** sign in as **Clara Murphy** in a private window. User menu (her avatar) → *My Workflow Tasks* → *Assigned to My Roles*: a review task for **Clarity x Almanac Optics**. Don't act on it. In CMS → **Marketing** → *Articles*, the entry is **Pending**, created by Christian Carter.
+✅ **Verify (part 1):** sign in as **Clara Murphy** in a private window. User menu (the avatar) → *My Workflow Tasks* → *Assigned to My Roles*: a review task for **Clarity x Almanac Optics**. Don't act on it. In CMS → **Marketing** → *Articles*, the entry is **Pending**, created by Christian Carter.
 
 💬 **Prompt (part 2 — Clara approves):**
 ```

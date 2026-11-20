@@ -109,7 +109,7 @@ check the accessibility menu is NOT on for the Clarity Distributor Portal.
 
 📎 R1 — least-privilege permissions.
 
-📖 Permissions are actions (VIEW, ADD, UPDATE…) on resources (an application, a kind of item). A **regular** role's permissions apply at company scope: in every site its holder can work in. A **site** role's permissions apply only in the site where it's assigned, which is why Site Content Contributor exists. In Level 6, Liferay CMS Spaces add their own membership and roles on top: that's where Christian will get his content-authoring rights.
+📖 Permissions are actions (VIEW, ADD, UPDATE…) on resources (an application, a kind of item). A **regular** role's permissions apply at company scope: in every site its holder can work in. A **site** role's permissions apply only in the site where it's assigned, which is why Site Content Contributor exists. In Level 6, Liferay CMS Spaces add their own membership and roles on top: that's where Christian gets content-authoring rights.
 
 📋 **Steps:**
 1. As the Clarity Admin, go to *Control Panel* → *Users and Organizations*, click the Actions menu (⋮) next to **Christian Carter**, and choose **Impersonate User**. In the tab that opens, go to `http://localhost:8080/web/clarity` and open the Site Menu: Christian has no *Site Builder* or *Categorization* section. Keep the tab open.

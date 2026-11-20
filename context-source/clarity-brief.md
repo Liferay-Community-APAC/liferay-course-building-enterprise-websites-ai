@@ -19,7 +19,7 @@ All personas use the password `learn` in the training environment. Email domain:
 | Screen name | Name | Job title | Department (user group) | Responsibilities on the site |
 | --- | --- | --- | --- | --- |
 | `admin` | Clarity Admin | Administrator | — | Instance-level settings only. |
-| `ianmiller` | Ian Miller | IT Manager | IT | Sites, commerce catalog, objects, Publications. |
+| `ianmiller` | Ian Miller | IT Manager | IT | Sites, commerce catalog, objects, workflow definitions. |
 | `walterdouglas` | Walter Douglas | Web Developer | IT | Pages, master pages, fragments, design, search pages. Site Administrator of the public site. |
 | `claramurphy` | Clara Murphy | Marketing Manager | Marketing | Owns marketing content; approves articles. |
 | `christiancarter` | Christian Carter | Marketing Coordinator | Marketing | Writes articles, FAQs and announcements. |

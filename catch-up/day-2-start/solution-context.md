@@ -23,7 +23,7 @@ Training password `learn`; email domain `clarityvisionsolutions.com`. Full data 
 | Persona | Role on the site |
 | --- | --- |
 | admin (Clarity Admin) | Instance-level settings only |
-| ianmiller (IT Manager, IT) | Sites, commerce catalog, objects, Publications |
+| ianmiller (IT Manager, IT) | Sites, commerce catalog, objects, workflow definitions |
 | walterdouglas (Web Developer, IT) | Pages, masters, fragments, design, search pages; Site Administrator of the public site |
 | claramurphy (Marketing Manager, Marketing) | Owns marketing content; approves articles |
 | christiancarter (Marketing Coordinator, Marketing) | Writes articles, FAQs, announcements |

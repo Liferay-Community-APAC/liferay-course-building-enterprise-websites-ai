@@ -113,7 +113,7 @@ this data set. Deploy.
 
 ✅ **Verify:**
 1. As Guest, submit two entries on **Contact Us**.
-2. Sign in as **Daniel Raymond** in a private window: a notification (the bell) tells him about each new request. Open `/web/clarity/contact-us-responses`: both entries are listed; sort by Name and filter by Inquiry Type.
+2. Sign in as **Daniel Raymond** in a private window: a notification (the bell) announces each new request. Open `/web/clarity/contact-us-responses`: both entries are listed; sort by Name and filter by Inquiry Type.
 
 ![Contact Us Responses as Daniel Raymond: one pending request from Priya Sharma, with filter, sort and row actions.](screenshots/12-4-responses.png)
 3. User menu → *My Workflow Tasks* → *Assigned to My Roles*: assign one task to himself and **Approve** it. Back on the page, that entry is gone.
