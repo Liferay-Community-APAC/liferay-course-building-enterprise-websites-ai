@@ -229,6 +229,27 @@ def add_heading_anchors(soup: BeautifulSoup) -> None:
             heading.append(anchor)
 
 
+def mark_schedule_tables(soup: BeautifulSoup) -> None:
+    """A table whose first header is "Time" is a schedule: break rows (only a
+    time and a label) become one muted row spanning the table."""
+    for table in soup.find_all("table"):
+        first = table.find("th")
+        if not first or first.get_text(strip=True) != "Time":
+            continue
+        table["class"] = table.get("class", []) + ["schedule"]
+        headers = [th.get_text(strip=True) for th in table.find("tr").find_all("th")]
+        columns = len(headers)
+        for row in table.find_all("tr"):
+            cells = row.find_all("td")
+            for label, cell in zip(headers, cells):
+                cell["data-label"] = label
+            if len(cells) > 2 and not any(c.get_text(strip=True) for c in cells[2:]):
+                for cell in cells[2:]:
+                    cell.decompose()
+                cells[1]["colspan"] = str(columns - 1)
+                row["class"] = row.get("class", []) + ["row-break"]
+
+
 def wrap_tables(soup: BeautifulSoup) -> None:
     for table in soup.find_all("table"):
         wrapper = soup.new_tag("div", **{"class": "table-wrap"})
@@ -444,7 +465,7 @@ body {
 .toc a.active { background: var(--lf-active-bg); border-left-color: var(--lf-brand); color: var(--lf-brand-active); font-weight: 700; }
 
 .content-wrap { margin-left: 300px; flex: 1; display: flex; justify-content: center; padding: 2.5rem 2rem 7rem; }
-.doc-content { max-width: 840px; width: 100%; }
+.doc-content { max-width: 840px; width: 100%; min-width: 0; }
 
 /* Headings — learn.liferay.com's article headings are plain, undecorated:
    no colored rule under h1, just weight and the neutral-10 ink. */
@@ -535,6 +556,32 @@ em { color: inherit; }
 .doc-content th, .doc-content td { padding: .55rem .75rem; border-bottom: 1px solid var(--lf-neutral-2); text-align: left; vertical-align: top; color: var(--lf-neutral-8); }
 .doc-content thead th { background: var(--lf-neutral-1); color: var(--lf-neutral-10); font-weight: 600; position: sticky; top: 0; }
 .doc-content tbody tr:nth-child(even) { background: var(--lf-neutral-1); }
+
+/* Schedule tables: values that must not break stay on one line */
+.doc-content table.schedule tbody tr:nth-child(even) { background: none; }
+.doc-content table.schedule td:first-child { white-space: nowrap; font-variant-numeric: tabular-nums; font-weight: 600; color: var(--lf-neutral-10); }
+.doc-content table.schedule td:nth-child(3),
+.doc-content table.schedule td:nth-child(4),
+.doc-content table.schedule td:nth-child(5),
+.doc-content table.schedule th { white-space: nowrap; }
+.doc-content table.schedule td:nth-child(6) a { white-space: nowrap; }
+.doc-content table.schedule td:nth-child(2) { min-width: 15rem; }
+.doc-content table.schedule tr.row-break td { background: var(--lf-neutral-1); color: var(--lf-neutral-6); font-size: .82rem; padding-top: .35rem; padding-bottom: .35rem; }
+.doc-content table.schedule tr.row-break td:first-child { font-weight: 400; color: var(--lf-neutral-6); }
+.doc-content table.schedule tr.row-break td:nth-child(2) { font-style: italic; }
+
+/* Phone: each schedule row becomes a card */
+@media (max-width: 640px) {
+  .doc-content table.schedule thead { display: none; }
+  .doc-content table.schedule, .doc-content table.schedule tbody, .doc-content table.schedule tr { display: block; width: 100%; }
+  .doc-content table.schedule tr { border-bottom: 1px solid var(--lf-neutral-2); padding: .6rem .75rem; }
+  .doc-content table.schedule td { display: none; border: 0; padding: .1rem 0; white-space: normal; min-width: 0; }
+  .doc-content table.schedule td:nth-child(1), .doc-content table.schedule td:nth-child(2) { display: block; }
+  .doc-content table.schedule td:nth-child(n+3) { display: inline-block; margin-right: 1rem; font-size: .82rem; }
+  .doc-content table.schedule td:nth-child(n+3):not(:empty)::before { content: attr(data-label) ": "; color: var(--lf-neutral-6); }
+  .doc-content table.schedule tr.row-break { padding: .35rem .75rem; background: var(--lf-neutral-1); }
+  .doc-content table.schedule tr.row-break td { display: inline; background: none; padding: 0 .5rem 0 0; }
+}
 
 /* Back to top */
 .back-to-top {
@@ -685,6 +732,7 @@ def build_page(md_text: str, home: str = "../") -> str:
     toc_html = render_toc(toc_tree)
 
     add_heading_anchors(soup)
+    mark_schedule_tables(soup)
     wrap_tables(soup)
     apply_callouts(soup)
     wrap_copyable_blocks(soup)
