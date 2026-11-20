@@ -85,6 +85,8 @@ context-source/clarity-brief.md:
 Prefer the headless APIs; for a setting they don't cover, use the site's
 group-scoped OSGi configuration; if neither exists, don't use an
 unsupported API: give me the exact screen and field to set it myself.
+Put settings 1–4 in a re-runnable script, scripts/site_settings.py: you'll
+re-apply them after later deploys.
 Tell me which mechanism you used for each setting, read each one back, and
 check the accessibility menu is NOT on for the Clarity Distributor Portal.
 ```

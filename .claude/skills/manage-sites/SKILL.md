@@ -27,6 +27,7 @@ name: manage-sites
 - The calling admin is added as a member with the **Site Owner** role.
 - `/sites/{erc}` supports `GET`, `PUT` and `DELETE` only: **no `PATCH`**. `PUT` is a full replacement, so send back the body you `GET`, changed.
 - A site initializer client extension whose `siteExternalReferenceCode` equals an existing site's ERC **updates that site** instead of creating one (verified 2026.q3.10). So: create the site here, build its pages in a site initializer later.
+- **But every deploy of that initializer resets the site's membership type to restricted and its languages to inherited (all instance locales)** (verified 2026.q3.10; description, members, site roles and group OSGi configs survive). Keep membership in the tree's `site-configuration.json` (`{"typeSite": 1, "manualMembership": true, "membershipRestriction": 0}` for Open; `typeSite` 2 restricted, 3 private). No initializer file sets languages, so re-apply them (the `PUT /sites/{erc}` above) after every deploy: wrap the deploy in a script that waits for the `Initialized` log line, then re-runs the settings.
 
 ## Site Settings Over `PUT /sites/{erc}`
 

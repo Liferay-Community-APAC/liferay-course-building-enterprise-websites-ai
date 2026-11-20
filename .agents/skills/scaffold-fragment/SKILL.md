@@ -459,3 +459,5 @@ TODO / inferred — verify against a running bundle. The `### Verify` step above
 - **A default inside a macro argument:** `[#if]` can't be used inside `[@clay["icon"] symbol=…]`; use `(configuration.iconName?has_content)?then(configuration.iconName, "search")`.
 - **Booleans to markup:** publish a checkbox as a data attribute, `data-hide-label="${(configuration.hideLabel!true)?c}"`, and style on it.
 - **Checking fragments compiled** without the fragment API (`LPD-39244` off): look for `Invoking addFragmentEntries took N ms` and no FreeMarker exception in the log, and that each fragment renders on a page.
+- **Edit mode on the server:** FreeMarker has `layoutMode` (`[#assign editMode = ((layoutMode!"view") == "edit")]`); use it to show labels or all content in the page editor. Mark a fragment that renders per user `cacheable: false`.
+- **Who's viewing:** `themeDisplay.isSignedIn()` and `themeDisplay.getUser().getUserGroups()` (match by name) let a fragment render a drop zone only for a user group, server-side (hidden content never reaches the browser). A FragmentDropZone element in a page definition takes only `fragmentDropZoneId`.

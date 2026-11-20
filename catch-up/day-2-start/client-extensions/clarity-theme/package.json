@@ -1,0 +1,9 @@
+{
+	"liferayDesignPack": {
+		"baseTheme": "styled"
+	},
+	"main": "package.json",
+	"name": "@liferay/clarity-theme",
+	"private": true,
+	"version": "1.0.0"
+}

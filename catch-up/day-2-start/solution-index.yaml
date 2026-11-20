@@ -1,0 +1,99 @@
+requirements:
+  - id: R1
+    title: "Personas, user groups, roles and least-privilege permissions"
+    level: 1
+    status: todo
+    artifacts: []
+  - id: R2
+    title: "Public site with its own address, languages and accessibility"
+    level: 2
+    status: in-progress
+    artifacts:
+      - type: site
+        name: "Clarity Public Enterprise Website"
+        externalReferenceCode: clarity-public
+        friendlyUrlPath: /clarity
+        id: 37408
+      - type: site
+        name: "Clarity Distributor Portal"
+        externalReferenceCode: clarity-distributor-portal
+        friendlyUrlPath: /distributor-portal
+        id: 37476
+  - id: R3
+    title: "Page hierarchy, master pages, display pages and navigation"
+    level: 3
+    status: in-progress
+    artifacts:
+      - type: client-extension
+        kind: siteInitializer
+        name: "Clarity Public Site Initializer"
+        key: clarity-site-init
+        path: client-extensions/clarity-site
+        siteExternalReferenceCode: clarity-public
+      - type: client-extension
+        kind: oAuthApplicationHeadlessServer
+        key: clarity-site-oauth
+        path: client-extensions/clarity-site
+      - type: pages
+        site: clarity-public
+        source: client-extensions/clarity-site/site-initializer/layouts
+        items:
+          - {name: Home, friendlyUrl: /home}
+          - {name: Products, friendlyUrl: /products, children: [{name: Product List, friendlyUrl: /product-list}]}
+          - {name: About Us, friendlyUrl: /about-us}
+          - {name: Blog, friendlyUrl: /blog}
+          - {name: FAQ, friendlyUrl: /faq}
+          - {name: Careers, friendlyUrl: /careers, children: [{name: Open Positions, friendlyUrl: /open-positions}]}
+          - {name: Contact Us, friendlyUrl: /contact-us}
+          - {name: Search, friendlyUrl: /search-results}
+    notes: "Product Detail, Events and Contact Us Responses come in later levels."
+  - id: R4
+    title: "Reusable Clarity fragments and page compositions"
+    level: 4
+    status: todo
+    artifacts: []
+  - id: R5
+    title: "Clarity's brand applied without editing each page"
+    level: 5
+    status: todo
+    artifacts: []
+  - id: R6
+    title: "Editorial content in CMS Spaces, shared across sites"
+    level: 6
+    status: todo
+    artifacts: []
+  - id: R7
+    title: "Pages that show content from collections, not hard-coded copies"
+    level: 7
+    status: todo
+    artifacts: []
+  - id: R8
+    title: "Product catalog browsable by category"
+    level: 8
+    status: todo
+    artifacts: []
+  - id: R9
+    title: "Legacy content and data imported through APIs"
+    level: 9
+    status: todo
+    artifacts: []
+  - id: R10
+    title: "New content approved before it goes live; page changes released in batches"
+    level: 10
+    status: todo
+    artifacts: []
+  - id: R11
+    title: "Job search and event listings driven by search"
+    level: 11
+    status: todo
+    artifacts: []
+  - id: R12
+    title: "Contact Us form, follow-up workflow and an internal dashboard"
+    level: 12
+    status: todo
+    artifacts: []
+  - id: R13
+    title: "A personalized Home page for distributors"
+    level: 13
+    status: todo
+    artifacts: []

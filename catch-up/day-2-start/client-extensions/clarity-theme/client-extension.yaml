@@ -1,0 +1,17 @@
+assemble:
+    - from: assets
+      into: static
+
+clarity-favicon:
+    name: Clarity Favicon
+    type: themeFavicon
+    url: images/clarity-favicon.svg
+
+clarity-theme-css:
+    clayRTLURL: css/clay_rtl.css
+    clayURL: css/clay.css
+    frontendTokenDefinitionJSON: src/frontend-token-definition.json
+    mainRTLURL: css/main_rtl.css
+    mainURL: css/main.css
+    name: Clarity Theme CSS
+    type: themeCSS

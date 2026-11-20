@@ -202,7 +202,7 @@ client-extensions/<name>/
     plo-entries.json              # Fragment i18n strings: [{key, value:"{\"en_US\": \"...\"}"}]
     resource-permissions.json     # Role grants on objects and other resources
     roles.json                    # Site roles — description/name_i18n MUST be locale-keyed objects
-    site-configuration.json       # typeSite / manualMembership / membershipRestriction
+    site-configuration.json       # typeSite (1 open, 2 restricted, 3 private) / manualMembership / membershipRestriction; deploys otherwise reset an existing site to restricted. Languages are reset too, and no file sets them (see manage-sites)
     site-settings.json            # Group-scoped OSGi configs [{pid, properties}]
     site-navigation-menus.json    # Navigation menus (array of menus)
     taxonomy-vocabularies/        # company/ (portal wide, survives site deletion) or group/

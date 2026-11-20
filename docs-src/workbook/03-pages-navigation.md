@@ -28,11 +28,20 @@ order: Home (/home), Products (/products) with its child Product List
 (/contact-us) and Search (/search-results — /search is reserved). Leave out
 Product Detail, Events and Contact Us Responses: later levels add them.
 
-Deploy it, confirm in the log that the initializer ran for clarity-public,
-and read the page tree back from Liferay. Update solution-index.yaml (R3).
+Keep the site's Open membership from Level 2 in the initializer
+(site-configuration.json). Each deploy of this initializer resets the
+site's languages, so also write scripts/deploy_site.sh: a clean deploy of
+client-extensions/clarity-site, a wait for its "Initialized" log line, then
+scripts/site_settings.py from 2.3. Use it for every deploy of clarity-site
+from now on.
+
+Deploy it with that script, confirm in the log that the initializer ran
+for clarity-public, read the page tree back from Liferay, and confirm the
+site still has Open membership and only English and Spanish. Update
+solution-index.yaml (R3).
 ```
 
-✅ **Verify:** in the public site, Site Menu → *Site Builder* → *Pages*: the pages are listed in this order, with **Product List** under **Products** and **Open Positions** under **Careers**. Open `http://localhost:8080/web/clarity/home`: an empty page with Liferay's default header.
+✅ **Verify:** in the public site, Site Menu → *Configuration* → *Site Settings* → *Localization*: still only English and Spanish. Then Site Menu → *Site Builder* → *Pages*: the pages are listed in this order, with **Product List** under **Products** and **Open Positions** under **Careers**. Open `http://localhost:8080/web/clarity/home`: an empty page with Liferay's default header.
 
 ![Site Builder → Pages: Home, Products with Product List, About Us, Blog, FAQ, Careers with Open Positions, Contact Us and Search.](screenshots/3-1-pages.png)
 

@@ -716,3 +716,7 @@ curl \
 ```
 
 Confirm the definition name appears and `status` is `approved`.
+
+## Admin Placement (Verified on 2026.q3.10)
+
+Show a site-scoped object under the site's *Content & Data* with `panelCategoryKey: "site_administration.content"`; `portlet: false` keeps it out of the page editor's widgets. Entry history needs `enableObjectEntryHistory` PATCHed after create (it's stored false on create). Entry resource actions include `OBJECT_ENTRY_HISTORY`. Even with only `ADD_OBJECT_ENTRY` granted, Guest keeps the platform default `ADD_TO_PAGE` on the object's portlet.

@@ -1,0 +1,49 @@
+.clarity-faq {
+	border-top: 1px solid var(--color-neutral-2, var(--gray-300));
+}
+
+.clarity-faq__heading {
+	font-size: 1rem;
+	margin: 0;
+}
+
+.clarity-faq__toggle {
+	align-items: center;
+	background: none;
+	border: 0;
+	color: var(--color-neutral-10, var(--dark));
+	cursor: pointer;
+	display: flex;
+	font-weight: 600;
+	gap: var(--spacer-3, 1rem);
+	justify-content: space-between;
+	padding: var(--spacer-3, 1rem) 0;
+	text-align: left;
+	width: 100%;
+}
+
+.clarity-faq__toggle:focus-visible {
+	outline: 2px solid var(--color-brand-primary, var(--primary));
+	outline-offset: 2px;
+}
+
+.clarity-faq__icon {
+	color: var(--color-brand-primary, var(--primary));
+	flex-shrink: 0;
+}
+
+.clarity-faq__toggle[aria-expanded='false'] .clarity-faq__icon--minus,
+.clarity-faq__toggle[aria-expanded='true'] .clarity-faq__icon--plus {
+	display: none;
+}
+
+.clarity-faq__answer {
+	color: var(--color-neutral-8, var(--body-color));
+	max-width: 860px;
+	padding-bottom: var(--spacer-3, 1rem);
+}
+
+/* Keep the answer visible while authors edit the page */
+body.has-edit-mode-menu .clarity-faq__answer[hidden] {
+	display: block;
+}

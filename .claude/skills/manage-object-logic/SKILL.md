@@ -426,3 +426,4 @@ TODO / inferred — verify against a running bundle. The Verify Object Actions a
 - An end state that approves the entry: `<action><status>0</status><execution-type>onEntry</execution-type></action>`.
 - A deployed definition's `content` reads back as JSON: compare parsed values, not strings, or every re-run deploys a new version.
 - **Discussion actions (`ADD_DISCUSSION`, …) in `resource-permissions.json` for an object without comments make the handler skip the whole row** ("No resource action found").
+- A shipped definition's `content` (e.g. Single Approver) reads back as JSON and can be deployed as JSON after editing.

@@ -1,0 +1,15 @@
+<div class="clarity-login-user-menu">
+	[#if themeDisplay.isSignedIn()]
+		<div class="clarity-login-user-menu__user">
+			[@liferay.user_personal_bar /]
+		</div>
+	[#else]
+		<a
+			class="btn btn-primary btn-sm clarity-login-user-menu__sign-in"
+			href="${themeDisplay.getURLSignIn()}"
+			id="fragment-${fragmentEntryLinkNamespace}-sign-in"
+		>
+			${(configuration.signInLabel?has_content)?then(configuration.signInLabel, 'Sign In')}
+		</a>
+	[/#if]
+</div>

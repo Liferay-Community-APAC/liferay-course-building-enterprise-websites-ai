@@ -14,7 +14,7 @@ The website must:
 
 ## 2. Personas
 
-All personas use the password `learn` in the training environment. Email domain: `clarityvisionsolutions.com`.
+All personas use the password `learn` in the training environment. Email domain: `clarityvisionsolutions.com`, except the external distributor Terrence Wheatley (`terrence.wheatley@distributor.com`). `context-source/data/personas.csv` has every address.
 
 | Screen name | Name | Job title | Department (user group) | Responsibilities on the site |
 | --- | --- | --- | --- | --- |
