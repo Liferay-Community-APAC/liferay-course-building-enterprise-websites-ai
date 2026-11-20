@@ -22,7 +22,7 @@ Detect the current state of feature flags, report gaps against required sets, an
 
 Check both sources, in order:
 
-1. `bundles/portal-ext.properties` for `feature.flag.LPD-XXXXX=true|false` entries.
+1. `configs/local/portal-ext.properties` (this course's Docker container copies it in at every start; a Tomcat bundle reads its synced copy, `bundles/portal-ext.properties`) for `feature.flag.LPD-XXXXX=true|false` entries.
 
 1. `bundles/osgi/configs/com.liferay.portal.feature.flag*.config` for runtime overrides.
 
@@ -30,7 +30,7 @@ A flag missing from both files takes the default declared in `rules/feature-flag
 
 When Tomcat is running and the user is signed in as `test@liferay.com`, also fetch the UI source of truth at `http://localhost:${PORT}/group/control_panel/manage?p_p_id=com_liferay_configuration_admin_web_portlet_InstanceSettingsPortlet&_com_liferay_configuration_admin_web_portlet_InstanceSettingsPortlet_factoryPid=com.liferay.portal.feature.flag.internal.configuration.FeatureFlagsConfiguration` for confirmation.
 
-For Docker workspaces, see "Enabling a Flag" below — flag state is read from `liferay.env` (prebuilt image) or `configs/docker/portal-ext.properties` (custom image) instead.
+Other Docker workspaces may read flags from `liferay.env` (prebuilt image) or `configs/docker/portal-ext.properties` (custom image) instead: check the compose file, and see "Enabling a Flag" below.
 
 ### Report the Gap
 
@@ -72,7 +72,11 @@ feature.flag.LPD-XXXXX=true
 
 Do NOT use `blade gw initBundle` — it deletes and reinitializes the entire bundle directory.
 
-### Docker (Prebuilt Image)
+### Docker (This Course's `docker-compose.yml`)
+
+The `liferay` service mounts `configs/local/portal-ext.properties` and copies it in at every container start. Add the flag there, then restart Liferay with `docker compose restart liferay` (per `CLAUDE.md` → "Server Restarts") and wait for `Server startup in` in `docker compose logs liferay`. No `liferay.env`, no image rebuild.
+
+### Docker (Prebuilt Image, Other Workspaces)
 
 For workspaces using a prebuilt `liferay/dxp` image, flags are set as environment variables in `liferay.env` — not in `portal-ext.properties`. Liferay converts these env vars to portal properties at startup. Add the encoded variable to `liferay.env` and restart the container (`docker compose down && docker compose up`).
 

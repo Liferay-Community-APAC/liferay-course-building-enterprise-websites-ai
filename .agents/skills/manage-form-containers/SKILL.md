@@ -312,7 +312,7 @@ There is no submission event to hook. Liferay swaps the form's markup for the su
 })();
 ```
 
-Use a native `successFormContainerSubmissionResult` whenever one fits. To track the submission in Analytics Cloud, see `manage-analytics`.
+Use a native `successFormContainerSubmissionResult` whenever one fits. Analytics Cloud tracking is outside this course's skill library.
 
 ## Recipe: Gated Content on a Display Page
 
@@ -332,7 +332,7 @@ Use a native `successFormContainerSubmissionResult` whenever one fits. To track 
 
 	Leave `formSuccessSubmissionResult` out: the default embedded message is the marker the watcher waits for.
 1. **The wrapper's `index.js` is the watcher** ("Reacting to Success in the Browser"). It reads the entry id (`INFO_ITEM.objectEntryId`, written as a data attribute), the site path (`${themeDisplay.getPathFriendlyURLPublic()}${themeDisplay.getScopeGroup().getFriendlyURL()}`) and the environment-specific `classNameId` and DPT URL (`fragmentConfig`, `manage-pages` → "Links, Forms, and Menus in the Tree"), then opens `<site>/e/<dpt-url>/<classNameId>/<entryId>`. To let the next page tell a gated arrival from a direct one, set a `sessionStorage` flag keyed by the entry id before redirecting.
-1. **The full DPT** maps the remaining fields. Any tracking runs in its own fragment JS on load (`manage-analytics`).
+1. **The full DPT** maps the remaining fields. Any tracking runs in its own fragment JS on load.
 1. **Guest grants** in `resource-permissions.json`, scope `"1"`: `VIEW` on the content's `[$OBJECT_DEFINITION_CLASS_NAME:…$]`, and `ADD_OBJECT_ENTRY` (no `VIEW`) on `com.liferay.object#[$OBJECT_DEFINITION_ID:<Target>$]`.
 
 The full DPT stays reachable by URL without the form. Say so to the user: this is a soft gate.

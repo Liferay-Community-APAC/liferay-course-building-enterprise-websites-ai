@@ -38,8 +38,8 @@ Do this the week before, on the laptop you'll present from. You run the whole wo
    ```
    Open `~/courses/bewl-ai` in VS Code, trust the folder, open the terminal and your agent's chat.
 4. **Run the whole workbook**: Setup S.1 to S.5, then Levels 1 to 13, including the verify steps. It takes most of a day. Note the prompts where your agent needed help: learners' agents will too.
-5. **Check the result** with [demo D1.1](demos.html#d11-tour-of-the-finished-clarity-site): Home as Guest and as Terrence. Then stop Liferay (`blade server stop` at the workspace root) and PostgreSQL (`docker compose stop`): the data stays for the course.
-6. **Keep the build.** Don't reset it before the course. Every course's PostgreSQL uses the container name `clarity-postgres`, so a second clone of the course on the same laptop would share this database: keep one copy.
+5. **Check the result** with [demo D1.1](demos.html#d11-tour-of-the-finished-clarity-site): Home as Guest and as Terrence. Then stop Liferay and PostgreSQL (`docker compose stop` at the workspace root): the data stays in Docker volumes for the course.
+6. **Keep the build.** Don't reset it before the course. Every copy of the course uses the Compose project `clarity` (containers `clarity-postgres` and `clarity-liferay`, and their volumes), so a second clone on the same laptop would share this database: keep one copy.
 7. **Prepare the projector view:** VS Code's zoom (*View* → *Appearance* → *Zoom In*) so the back row can read prompts, the terminal and the agent's chat side by side, and a browser with the workbook, the slides and a private window.
 
 ## The first 30 minutes
@@ -54,6 +54,7 @@ Most setup problems show up in the first half hour. Before the first slide, put 
    - Windows: `Filename too long` during the clone. Run `git config --global core.longpaths true`, delete the half-cloned folder and clone again.
    - The agent isn't signed in, or Copilot is in *Ask* mode instead of *Agent*.
    - Docker Desktop isn't running: start it before S.2.
+   - Docker has less than 8 GB of memory: Setup S.2 step 2 has the setting for macOS and Windows. Check with `docker info --format '{{.MemTotal}}'` (about 8000000000 or more).
 3. **Then demo S.1** ([D1.4](demos.html#d14-setup-s1-on-the-projector)) and let learners run S.1 to S.5 at their own pace while you walk the room.
 
 ## Running the hands-on blocks
@@ -88,9 +89,11 @@ These original BEWL topics have no exercise. Present them with the slides marked
 
 | Symptom | Likely cause | Fix |
 | --- | --- | --- |
-| `blade server init` downloads the bundle again | The pre-downloaded file is missing or truncated in `~/.liferay/bundles` | Let it download, or copy the file from a USB stick. |
-| Liferay won't start: database connection refused | PostgreSQL isn't running | `docker compose up -d`, wait for *healthy*, start Liferay again. |
-| Port 8080 or 5432 in use | Another Liferay or PostgreSQL | Stop the other one, or change the port in `server.xml` / `docker-compose.yml` and `portal-ext.properties`. |
+| `docker compose up` downloads the images again, slowly | The images weren't pulled before the course | Let it download, or load them from a USB stick (`docker save` on your laptop, `docker load` on theirs). |
+| `clarity-liferay` restarts in a loop, or exits with code 137 | Docker doesn't have enough memory | Raise it to 8 GB or more (Setup S.2 step 2), then `docker compose up -d`. |
+| Linux: the agent can't read `bundles/logs` | The learner's user ID isn't 1000 (`id -u`) | Use Docker Desktop for Linux, or the Tomcat bundle (Setup S.2, optional section). |
+| Liferay won't start: database connection refused | PostgreSQL isn't running | `docker compose up -d`, wait for *healthy*. With the Tomcat bundle, start Liferay again. |
+| Port 8080 or 5432 in use | Another Liferay or PostgreSQL, or a Tomcat bundle and the container both started | Stop the other one, or change the port in `docker-compose.yml` and `portal-ext.properties` (and `server.xml` for the Tomcat bundle). |
 | The agent's MCP server shows connected with no tools | Liferay restarted since the session started | Reconnect or restart the agent session. |
 | `/o/mcp` answers 404 | The MCP Server instance setting is off | Rerun prompt S.4. |
 | A deploy "succeeds" but nothing changes | Unchanged zip, or the wrong deploy order | Ask the agent to `blade gw clean deploy` and check the `Initialized` log line, per the site-initializer rules. |
@@ -99,12 +102,10 @@ These original BEWL topics have no exercise. Present them with the slides marked
 
 ## Resetting a learner's environment
 
-To start over completely: stop Liferay, then
+To start over completely, at the workspace root:
 
 ```bash
 docker compose down -v
-rm -rf bundles
-blade server init
 ```
 
-Then start PostgreSQL and Liferay again (Setup S.2) and rerun the prompts, or use the catch-up starting point.
+That deletes the database and Liferay's data. Then delete the `bundles` folder (in VS Code's Explorer, or `rm -rf bundles` on macOS and Linux), start again with `docker compose up -d` (Setup S.2), and rerun the prompts, or use the catch-up starting point. With the Tomcat bundle, stop it first (`blade server stop`), and run `blade server init` after deleting `bundles`.

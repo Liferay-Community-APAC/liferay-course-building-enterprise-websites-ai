@@ -8,8 +8,9 @@ Reads context-source/data/ and:
    roles, the ERC in the body (PUT by ERC ignores the path ERC). An existing role with that name
    keeps its id; its ERC and description are patched when they differ.
 3. Personas (personas.csv), ERC PERSONA-<SCREENNAME>: created by ERC (or adopted by email), then
-   only the fields that differ are patched. The training password "learn" is set once, when the
-   user is created or adopted (a "password is invalid" 400 means it is already set). The
+   only the fields that differ are patched. The training password "learn" is set whenever the
+   persona can't sign in with it (checked with Basic auth first), so a rerun repairs a password
+   an earlier run failed to set (a "password is invalid" 400 means it is already set). The
    portrait is uploaded when the user has none.
 4. Each persona joins the user group in their row and gets the regular role in their row,
    assigned to the user directly (headless REST can't assign a role to a user group).
@@ -20,10 +21,13 @@ The password is never printed.
 Usage: python3 -I scripts/setup_people.py
 """
 
+import base64
 import csv
 import mimetypes
 import os
 import sys
+import urllib.error
+import urllib.request
 import uuid
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -154,6 +158,19 @@ def upload_portrait(lr, user_id, path):
 		headers={"Content-Type": "multipart/form-data; boundary=" + boundary})
 
 
+def password_works(lr, email):
+	token = base64.b64encode(f"{email}:{PERSONA_PASSWORD}".encode()).decode()
+	request = urllib.request.Request(
+		f"{lr.base_url}{API}/my-user-account",
+		headers={"Accept": "application/json", "Authorization": "Basic " + token})
+
+	try:
+		with urllib.request.urlopen(request, timeout=60) as response:
+			return response.status == 200
+	except urllib.error.HTTPError:
+		return False
+
+
 def set_password(lr, user, erc):
 	status, body = lr.request(
 		"PATCH", f"{API}/user-accounts/{user['id']}", {"password": PERSONA_PASSWORD}, raise_errors=False)
@@ -176,8 +193,6 @@ def upsert_persona(lr, row, groups, roles):
 		"givenName": row["givenName"],
 		"jobTitle": row["jobTitle"],
 	}
-	new_password = False
-
 	status, user = lr.request("GET", f"{API}/user-accounts/by-external-reference-code/{q(erc)}", raise_errors=False)
 
 	if status == 404:
@@ -191,8 +206,6 @@ def upsert_persona(lr, row, groups, roles):
 			user = lr.put(
 				f"{API}/user-accounts/by-external-reference-code/{q(erc)}", dict(wanted, externalReferenceCode=erc))
 			print(f"  created   {erc} (id {user['id']})")
-
-		new_password = True
 	elif status != 200:
 		raise ApiError(status, "GET", f"user {erc}", str(user))
 	else:
@@ -208,7 +221,7 @@ def upsert_persona(lr, row, groups, roles):
 		user = lr.patch(f"{API}/user-accounts/{user['id']}", {"status": "Active"})
 		print(f"            reactivated {erc}")
 
-	if new_password:
+	if not password_works(lr, row["emailAddress"]):
 		set_password(lr, user, erc)
 
 	if row["portrait"]:
