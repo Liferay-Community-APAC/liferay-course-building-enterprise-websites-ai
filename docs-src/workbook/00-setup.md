@@ -1,16 +1,78 @@
 # Setup — Your workspace, Liferay DXP and the MCP server
 
-Do this chapter once, on the first morning. It gets Liferay DXP running on PostgreSQL, connects your AI agent to Liferay's MCP server, and seeds the two files every later session reads.
+Do this chapter once, on the first morning. It gets the course repository onto your computer and open in VS Code, gets Liferay DXP running on PostgreSQL, connects your AI agent to Liferay's MCP server, and seeds the two files every later session reads.
 
-### S.1 — Open the workspace and seed the context files
+**Before you start**, finish the [prerequisites](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/): Git, JDK 21, Blade, Docker running, the DXP bundle and PostgreSQL image downloaded, VS Code and your AI agent installed and signed in. Have the activation key file from your email at hand.
 
-🎯 The course repository open in VS Code, your agent able to read its skills, and two files at the workspace root that let any new agent session pick up the project: `solution-context.md` (what Clarity is building) and `solution-index.yaml` (what's done and what's left).
+### S.0 — Get the course repository and open it in VS Code
+
+🎯 The course repository on your computer, open as a folder in VS Code, with a terminal and your agent's chat ready, and your agent reading the course's instructions.
+
+🧩 None — you do this yourself, step by step.
+
+📋 **Steps:**
+
+1. **Pick a short folder for your courses.** Use a path with no spaces, outside any folder synced by OneDrive, iCloud Drive or Dropbox: sync tools lock the files the build writes. We use `~/courses` on macOS and Linux, and `C:\courses` on Windows.
+2. **Open a terminal**: the *Terminal* app on macOS or Linux, *PowerShell* on Windows. Create the folder and go into it.
+
+   macOS and Linux:
+   ```bash
+   mkdir -p ~/courses
+   cd ~/courses
+   ```
+
+   Windows (PowerShell):
+   ```powershell
+   New-Item -ItemType Directory -Force C:\courses
+   Set-Location C:\courses
+   git config --global core.longpaths true
+   ```
+   The last line lets Git on Windows handle the long paths a Liferay workspace creates.
+3. **Clone the repository** into a folder named `bewl-ai`. You don't need a GitHub account:
+   ```bash
+   git clone https://github.com/Liferay-Community-APAC/liferay-course-building-enterprise-websites-ai.git bewl-ai
+   ```
+   It takes a minute and ends with `Resolving deltas: 100%` (or `done`).
+4. **Open the folder in VS Code.** Start VS Code, choose *File* → *Open Folder…* (on macOS, *File* → *Open…*), select `courses/bewl-ai` and click *Open* (*Select Folder* on Windows). Open the **folder**, not a file inside it: that's how your agent finds the course's instructions and skills.
+
+   If you've installed VS Code's `code` command, `cd bewl-ai` then `code .` does the same.
+5. **Trust the folder.** VS Code asks *Do you trust the authors of the files in this folder?* Click **Yes, I trust the authors**. In Restricted Mode, agents and the terminal can't work in the folder.
+6. **Look around.** In the *Explorer* (the top icon in the left bar) you see `.agents`, `.claude`, `catch-up`, `client-extensions`, `configs`, `context-source`, `docs`, `AGENTS.md`, `docker-compose.yml` and `gradle.properties`. `client-extensions` is empty: your agent builds the site there.
+7. **Open VS Code's terminal**: *Terminal* → *New Terminal*. It opens at the folder's root, which the workbook calls the **workspace root**. Run:
+   ```bash
+   git status
+   ```
+   It answers `On branch main` and `nothing to commit, working tree clean`. From now on, run every command in this terminal unless a step says otherwise.
+8. **Open your agent's chat**, as you did for the prerequisites check:
+   - *Claude Code:* click the Claude icon, or run *Claude Code: Open* from the Command Palette (*View* → *Command Palette…*).
+   - *OpenAI Codex:* click the Codex icon in the left bar.
+   - *GitHub Copilot:* open the Chat view (*View* → *Chat*) and switch the mode to **Agent**.
+
+   Sign in if it asks.
+9. Send the prompt below. When your agent asks for permission to read files or run a command, read what it wants to do, then allow it. By default your agent asks before it changes files or runs commands; keep it that way for this course.
+
+💬 **Prompt:**
+```
+Read this workspace's instructions (.claude/CLAUDE.md, or AGENTS.md if
+that's the file you read) and answer in four short lines, without changing
+anything: what this workspace is for, the Liferay DXP version named in
+gradle.properties, the folder your skills come from, and the absolute path
+of the workspace root.
+```
+
+✅ **Verify:**
+- The answer names a Liferay Workspace for Clarity Vision Solutions, `dxp-2026.q3.10`, and `.claude/skills` (Claude Code) or `.agents/skills` (other agents).
+- The workspace root it reports is the `bewl-ai` folder you opened, and VS Code's status bar (bottom left) shows the branch **main**.
+
+⚠️ If the agent says it can't find these files, VS Code has a file open instead of the folder, or a different folder: repeat step 4. If your agent offers to start Liferay or install something at this point, say no: you do that yourself in S.2.
+
+### S.1 — Seed the context files
+
+🎯 Two files at the workspace root that let any new agent session pick up the project: `solution-context.md` (what Clarity is building) and `solution-index.yaml` (what's done and what's left).
 
 🧩 None — the prompt below is self-contained.
 
-📋 **Steps:**
-1. Clone the repository the instructor shares, then open its folder in VS Code (*File* → *Open Folder*). Open the **folder**, not a file: that's how your agent finds `.claude/` (Claude Code) or `.agents/` (other agents) and their skills.
-2. Open your agent's chat in agent mode, then send the prompt.
+📋 **Steps:** in your agent's chat (from S.0), send the prompt.
 
 💬 **Prompt:**
 ```
@@ -45,8 +107,8 @@ Don't create or change anything else. Read both files back to me.
 🧩 None — you run these commands yourself, in your own terminal.
 
 📋 **Steps:**
-1. Copy the activation key file you received by email into `configs/local/deploy/` (create the folder if it doesn't exist). It's git-ignored: it never leaves your computer.
-2. In VS Code's terminal (*Terminal* → *New Terminal*), at the workspace root, start the database:
+1. Copy the activation key file you received by email into `configs/local/deploy/` (create the `deploy` folder if it doesn't exist: right-click `configs/local` in VS Code's Explorer → *New Folder…*, then drag the key file from your email or Downloads folder onto it). It's git-ignored: it never leaves your computer.
+2. Make sure Docker Desktop (or the Docker engine on Linux) is running. Then in VS Code's terminal, at the workspace root, start the database:
    ```bash
    docker compose up -d
    ```
@@ -74,7 +136,7 @@ Don't create or change anything else. Read both files back to me.
 🧩 None.
 
 📋 **Steps:**
-1. Create `configs/local/admin.properties` yourself in VS Code, with these two lines:
+1. Create `configs/local/admin.properties` yourself in VS Code (right-click `configs/local` in the Explorer → *New File…*, type `admin.properties`, press Enter), with these two lines, then save it (*File* → *Save*):
    ```properties
    ADMIN_EMAIL=admin@clarityvisionsolutions.com
    ADMIN_PASSWORD=learn

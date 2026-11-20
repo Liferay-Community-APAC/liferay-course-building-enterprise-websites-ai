@@ -22,8 +22,39 @@ Hold that line in class. When a learner says "the agent did it, it works", ask t
 
 - **Two weeks before:** send learners the [prerequisites page](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/). It covers Git, JDK 21, Blade, Docker, the DXP bundle download, the PostgreSQL image and their AI agent. They bring their own agent subscription.
 - **One week before:** email each learner a **DXP activation key** (training developer key). Never put a key in the repository.
-- **The day before:** run the whole workbook on your own machine from a clean clone, with the agent you'll demo with. Note anything that changed with agent or DXP updates.
-- **On the morning of day 1:** share the repository URL (it's not on the prerequisites page). The workbook is also published on the repository's GitHub Pages.
+- **The day before:** run the whole workbook on your own machine from a clean clone, with the agent you'll demo with (see *Set up your own machine* below). Note anything that changed with agent or DXP updates.
+- **On the morning of day 1:** share the repository URL (it's not on the prerequisites page) and walk the room through Setup S.0 (see *The first 30 minutes* below). The workbook is also published on the repository's GitHub Pages.
+
+## Set up your own machine
+
+Do this the week before, on the laptop you'll present from. You run the whole workbook once, in one copy of the course, and present from that finished build: the [demo workbook](demos.html) assumes it. Live demos of a level's first prompt also run on it, because every prompt is safe to rerun.
+
+1. **Install the prerequisites** from the [prerequisites page](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/), and run its agent check prompt until every line passes. Use the agent you'll demo with; if you can, install a second one, so you can answer questions about both.
+2. **Get a DXP activation key** for yourself (a training developer key), the same kind you send learners.
+3. **Clone the course** and open it in VS Code, exactly as learners do in [Setup S.0](../workbook/#s0-get-the-course-repository-and-open-it-in-vs-code):
+   ```bash
+   mkdir -p ~/courses && cd ~/courses
+   git clone https://github.com/Liferay-Community-APAC/liferay-course-building-enterprise-websites-ai.git bewl-ai
+   ```
+   Open `~/courses/bewl-ai` in VS Code, trust the folder, open the terminal and your agent's chat.
+4. **Run the whole workbook**: Setup S.1 to S.5, then Levels 1 to 13, including the verify steps. It takes most of a day. Note the prompts where your agent needed help: learners' agents will too.
+5. **Check the result** with [demo D1.1](demos.html#d11-tour-of-the-finished-clarity-site): Home as Guest and as Terrence. Then stop Liferay (`blade server stop` at the workspace root) and PostgreSQL (`docker compose stop`): the data stays for the course.
+6. **Keep the build.** Don't reset it before the course. Every course's PostgreSQL uses the container name `clarity-postgres`, so a second clone of the course on the same laptop would share this database: keep one copy.
+7. **Prepare the projector view:** VS Code's zoom (*View* → *Appearance* → *Zoom In*) so the back row can read prompts, the terminal and the agent's chat side by side, and a browser with the workbook, the slides and a private window.
+
+## The first 30 minutes
+
+Most setup problems show up in the first half hour. Before the first slide, put the repository URL on the screen; then, after the kickoff slides:
+
+1. **Walk the room through [S.0](../workbook/#s0-get-the-course-repository-and-open-it-in-vs-code) together, step by step, on the projector.** Don't let people run ahead: clone, open the **folder** in VS Code, trust it, open the terminal, open the agent's chat, send the S.0 prompt.
+2. **Check every laptop before moving on.** Each learner's agent should name `dxp-2026.q3.10` and the `bewl-ai` folder. The usual problems:
+   - VS Code opened a file instead of the folder, or the parent `courses` folder: reopen the right folder.
+   - Restricted Mode: click *Manage* in the banner and trust the folder.
+   - The clone is inside a OneDrive, iCloud Drive or Dropbox folder: move it to `~/courses` or `C:\courses`.
+   - Windows: `Filename too long` during the clone. Run `git config --global core.longpaths true`, delete the half-cloned folder and clone again.
+   - The agent isn't signed in, or Copilot is in *Ask* mode instead of *Agent*.
+   - Docker Desktop isn't running: start it before S.2.
+3. **Then demo S.1** ([D1.4](demos.html#d14-setup-s1-on-the-projector)) and let learners run S.1 to S.5 at their own pace while you walk the room.
 
 ## Running the hands-on blocks
 

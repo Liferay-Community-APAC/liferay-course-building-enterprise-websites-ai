@@ -21,17 +21,21 @@ A two-day, hands-on course in which you build **Clarity Vision Solutions' public
 
 ## Quick start
 
-You need Git, JDK 21, Blade CLI 7+, Docker and an AI coding agent: see the prerequisites. Then:
+You need Git, JDK 21, Blade CLI 7+, Docker, VS Code and an AI coding agent: see the prerequisites. Then (step by step in the workbook's [Setup S.0](https://liferay-community-apac.github.io/liferay-course-building-enterprise-websites-ai/workbook/#s0-get-the-course-repository-and-open-it-in-vs-code)):
 
-1. Copy your DXP activation key into `configs/local/deploy/` (it's git-ignored).
-2. Start PostgreSQL, unpack DXP and start it:
+1. Clone the repository into a short path outside any synced folder, and open the folder in VS Code:
+   ```bash
+   git clone https://github.com/Liferay-Community-APAC/liferay-course-building-enterprise-websites-ai.git bewl-ai
+   ```
+2. Copy your DXP activation key into `configs/local/deploy/` (it's git-ignored).
+3. Start PostgreSQL, unpack DXP and start it:
    ```bash
    docker compose up -d
    blade server init
    blade server start --tail
    ```
-3. Open `http://localhost:8080` and sign in as `admin@clarityvisionsolutions.com` / `learn`.
-4. Open this folder in VS Code with your agent, and follow the workbook from **Setup**.
+4. Open `http://localhost:8080` and sign in as `admin@clarityvisionsolutions.com` / `learn`.
+5. Open your agent's chat in VS Code, and follow the workbook from **Setup S.1**.
 
 This is a training environment: the passwords are shared training values, and it must not be exposed to the internet.
 

@@ -93,7 +93,7 @@ body {
 .toc a:hover { color: var(--lf-neutral-10); background: var(--lf-hover-bg); }
 .toc a.active { background: var(--lf-active-bg); border-left-color: var(--lf-brand); color: var(--lf-brand-active); font-weight: 700; }
 
-.content-wrap { margin-left: 300px; flex: 1; display: flex; justify-content: center; padding: 2.5rem 2rem 7rem; }
+.content-wrap { margin-left: 300px; flex: 1; min-width: 0; display: flex; justify-content: center; padding: 2.5rem 2rem 7rem; }
 .doc-content { max-width: 840px; width: 100%; min-width: 0; }
 
 /* Headings — learn.liferay.com's article headings are plain, undecorated:
@@ -194,14 +194,26 @@ em { color: inherit; }
 .doc-content table.schedule td:nth-child(5),
 .doc-content table.schedule th { white-space: nowrap; }
 .doc-content table.schedule td:nth-child(6) a { white-space: nowrap; }
-.doc-content table.schedule td:nth-child(2) { min-width: 15rem; }
+.doc-content table.schedule td:nth-child(2) { min-width: 11rem; }
 .doc-content table.schedule tr.row-break td { background: var(--lf-neutral-1); color: var(--lf-neutral-6); font-size: .82rem; padding-top: .35rem; padding-bottom: .35rem; }
 .doc-content table.schedule tr.row-break td:first-child { font-weight: 400; color: var(--lf-neutral-6); }
 .doc-content table.schedule tr.row-break td:nth-child(2) { font-style: italic; }
 
+/* Who each column is for */
+.doc-content table.schedule thead tr.audience-row th { position: static; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; padding: .3rem .75rem; border-bottom: 0; background: var(--lf-neutral-0); }
+.doc-content table.schedule th.aud-learners { background: #e6f6f3; color: #0f6b5c; border-top: 3px solid #1d8c8c; }
+.doc-content table.schedule th.aud-instructor { background: #eef0fb; color: #3b3e9e; border-top: 3px solid #5b5fd6; }
+.doc-content table.schedule .col-learners { background: rgba(29, 140, 140, .06); }
+.doc-content table.schedule .col-instructor { background: rgba(91, 95, 214, .06); }
+.doc-content table.schedule thead th.col-learners { background: #e6f6f3; }
+.doc-content table.schedule thead th.col-instructor { background: #eef0fb; }
+.doc-content table.schedule tr.row-break td { background: var(--lf-neutral-1); }
+
 /* Phone: each schedule row becomes a card */
 @media (max-width: 640px) {
   .doc-content table.schedule thead { display: none; }
+  .doc-content table.schedule td.col-learners:not(:empty)::before { content: "Learners · " attr(data-label) ": " !important; }
+  .doc-content table.schedule td.col-instructor:not(:empty)::before { content: "Instructor · " attr(data-label) ": " !important; }
   .doc-content table.schedule, .doc-content table.schedule tbody, .doc-content table.schedule tr { display: block; width: 100%; }
   .doc-content table.schedule tr { border-bottom: 1px solid var(--lf-neutral-2); padding: .6rem .75rem; }
   .doc-content table.schedule td { display: none; border: 0; padding: .1rem 0; white-space: normal; min-width: 0; }
@@ -253,7 +265,7 @@ em { color: inherit; }
 <div class="layout">
   <nav class="sidebar" aria-label="Table of contents">
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#what-the-course-is-and-isnt">What the course is, and isn&#x27;t</a></li><li class="toc-level-2"><a href="#before-the-course">Before the course</a></li><li class="toc-level-2"><a href="#running-the-hands-on-blocks">Running the hands-on blocks</a></li><li class="toc-level-2"><a href="#catching-up">Catching up</a></li><li class="toc-level-2"><a href="#topics-covered-in-slides-only">Topics covered in slides only</a></li><li class="toc-level-2"><a href="#when-something-goes-wrong">When something goes wrong</a></li><li class="toc-level-2"><a href="#resetting-a-learners-environment">Resetting a learner&#x27;s environment</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#what-the-course-is-and-isnt">What the course is, and isn&#x27;t</a></li><li class="toc-level-2"><a href="#before-the-course">Before the course</a></li><li class="toc-level-2"><a href="#set-up-your-own-machine">Set up your own machine</a></li><li class="toc-level-2"><a href="#the-first-30-minutes">The first 30 minutes</a></li><li class="toc-level-2"><a href="#running-the-hands-on-blocks">Running the hands-on blocks</a></li><li class="toc-level-2"><a href="#catching-up">Catching up</a></li><li class="toc-level-2"><a href="#topics-covered-in-slides-only">Topics covered in slides only</a></li><li class="toc-level-2"><a href="#when-something-goes-wrong">When something goes wrong</a></li><li class="toc-level-2"><a href="#resetting-a-learners-environment">Resetting a learner&#x27;s environment</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -304,9 +316,47 @@ em { color: inherit; }
 <ul>
 <li><strong>Two weeks before:</strong> send learners the <a href="https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/">prerequisites page</a>. It covers Git, JDK 21, Blade, Docker, the DXP bundle download, the PostgreSQL image and their AI agent. They bring their own agent subscription.</li>
 <li><strong>One week before:</strong> email each learner a <strong>DXP activation key</strong> (training developer key). Never put a key in the repository.</li>
-<li><strong>The day before:</strong> run the whole workbook on your own machine from a clean clone, with the agent you'll demo with. Note anything that changed with agent or DXP updates.</li>
-<li><strong>On the morning of day 1:</strong> share the repository URL (it's not on the prerequisites page). The workbook is also published on the repository's GitHub Pages.</li>
+<li><strong>The day before:</strong> run the whole workbook on your own machine from a clean clone, with the agent you'll demo with (see <em>Set up your own machine</em> below). Note anything that changed with agent or DXP updates.</li>
+<li><strong>On the morning of day 1:</strong> share the repository URL (it's not on the prerequisites page) and walk the room through Setup S.0 (see <em>The first 30 minutes</em> below). The workbook is also published on the repository's GitHub Pages.</li>
 </ul>
+<h2 id="set-up-your-own-machine">Set up your own machine<a aria-hidden="true" class="heading-anchor" href="#set-up-your-own-machine" tabindex="-1">#</a></h2>
+<p>Do this the week before, on the laptop you'll present from. You run the whole workbook once, in one copy of the course, and present from that finished build: the <a href="demos.html">demo workbook</a> assumes it. Live demos of a level's first prompt also run on it, because every prompt is safe to rerun.</p>
+<ol>
+<li><strong>Install the prerequisites</strong> from the <a href="https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/">prerequisites page</a>, and run its agent check prompt until every line passes. Use the agent you'll demo with; if you can, install a second one, so you can answer questions about both.</li>
+<li><strong>Get a DXP activation key</strong> for yourself (a training developer key), the same kind you send learners.</li>
+<li>
+<p><strong>Clone the course</strong> and open it in VS Code, exactly as learners do in <a href="../workbook/#s0-get-the-course-repository-and-open-it-in-vs-code">Setup S.0</a>:</p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>mkdir -p ~/courses &amp;&amp; cd ~/courses
+git clone https://github.com/Liferay-Community-APAC/liferay-course-building-enterprise-websites-ai.git bewl-ai
+</code></pre></div>
+<p>Open <code>~/courses/bewl-ai</code> in VS Code, trust the folder, open the terminal and your agent's chat.</p>
+</li>
+<li>
+<p><strong>Run the whole workbook</strong>: Setup S.1 to S.5, then Levels 1 to 13, including the verify steps. It takes most of a day. Note the prompts where your agent needed help: learners' agents will too.</p>
+</li>
+<li><strong>Check the result</strong> with <a href="demos.html#d11-tour-of-the-finished-clarity-site">demo D1.1</a>: Home as Guest and as Terrence. Then stop Liferay (<code>blade server stop</code> at the workspace root) and PostgreSQL (<code>docker compose stop</code>): the data stays for the course.</li>
+<li><strong>Keep the build.</strong> Don't reset it before the course. Every course's PostgreSQL uses the container name <code>clarity-postgres</code>, so a second clone of the course on the same laptop would share this database: keep one copy.</li>
+<li><strong>Prepare the projector view:</strong> VS Code's zoom (<em>View</em> → <em>Appearance</em> → <em>Zoom In</em>) so the back row can read prompts, the terminal and the agent's chat side by side, and a browser with the workbook, the slides and a private window.</li>
+</ol>
+<h2 id="the-first-30-minutes">The first 30 minutes<a aria-hidden="true" class="heading-anchor" href="#the-first-30-minutes" tabindex="-1">#</a></h2>
+<p>Most setup problems show up in the first half hour. Before the first slide, put the repository URL on the screen; then, after the kickoff slides:</p>
+<ol>
+<li><strong>Walk the room through <a href="../workbook/#s0-get-the-course-repository-and-open-it-in-vs-code">S.0</a> together, step by step, on the projector.</strong> Don't let people run ahead: clone, open the <strong>folder</strong> in VS Code, trust it, open the terminal, open the agent's chat, send the S.0 prompt.</li>
+<li>
+<p><strong>Check every laptop before moving on.</strong> Each learner's agent should name <code>dxp-2026.q3.10</code> and the <code>bewl-ai</code> folder. The usual problems:</p>
+<ul>
+<li>VS Code opened a file instead of the folder, or the parent <code>courses</code> folder: reopen the right folder.</li>
+<li>Restricted Mode: click <em>Manage</em> in the banner and trust the folder.</li>
+<li>The clone is inside a OneDrive, iCloud Drive or Dropbox folder: move it to <code>~/courses</code> or <code>C:\courses</code>.</li>
+<li>Windows: <code>Filename too long</code> during the clone. Run <code>git config --global core.longpaths true</code>, delete the half-cloned folder and clone again.</li>
+<li>The agent isn't signed in, or Copilot is in <em>Ask</em> mode instead of <em>Agent</em>.</li>
+<li>Docker Desktop isn't running: start it before S.2.</li>
+</ul>
+</li>
+<li>
+<p><strong>Then demo S.1</strong> (<a href="demos.html#d14-setup-s1-on-the-projector">D1.4</a>) and let learners run S.1 to S.5 at their own pace while you walk the room.</p>
+</li>
+</ol>
 <h2 id="running-the-hands-on-blocks">Running the hands-on blocks<a aria-hidden="true" class="heading-anchor" href="#running-the-hands-on-blocks" tabindex="-1">#</a></h2>
 <ul>
 <li><strong>Demo the first prompt of each level</strong> on the projector, including the verify step. Then let learners run the rest. The <a href="demos.html">instructor demo workbook</a> has the step-by-step for every other demo, with optional prompts.</li>
