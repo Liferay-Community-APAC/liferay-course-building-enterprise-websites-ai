@@ -48,6 +48,7 @@ This is a training environment: the passwords are shared training values, and it
   .venv/bin/python scripts/build_docs.py
   ```
 - Pushing to `main` publishes `docs/` to GitHub Pages (Settings → Pages → Source: GitHub Actions).
+- The *Check generated files* workflow fails a pull request when `docs/`, `.agents/` or `AGENTS.md` is out of date with its source.
 
 Based on the [Liferay masterclass](https://github.com/mrtonylim/liferay-course-masterclass) workbook format and skill library, and on the content of Liferay's *Building Enterprise Websites with Liferay* course.
 
