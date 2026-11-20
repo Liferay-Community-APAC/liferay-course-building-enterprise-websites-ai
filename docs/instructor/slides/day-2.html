@@ -44,15 +44,18 @@
 <section class="slide bullets">
   <p class="kicker">Recap</p>
   <h2>Catching up, and today's plan</h2>
-  <ul class="bullets">
-    <li>Levels are chained: Level 7 needs Level 6 done</li>
-    <li>Prompts are idempotent: rerunning an earlier one is safe</li>
-    <li>Behind? Use <code>catch-up/day-2-start/</code>: about ten minutes to reach Level 7</li>
-    <li>Morning: displaying content, commerce, headless APIs</li>
-    <li>Afternoon: workflow and publishing, search, objects, personalization</li>
-  </ul>
+  <div class="split">
+    <ul class="bullets">
+      <li>Levels are chained: Level 7 needs Level 6 done</li>
+      <li>Prompts are idempotent: rerunning one is safe</li>
+      <li>Behind? <code>catch-up/day-2-start/</code> takes about ten minutes</li>
+      <li>Morning: displaying content, commerce, headless APIs</li>
+      <li>Afternoon: workflow, search, objects, personalization</li>
+    </ul>
+    <figure class="shot"><div class="frame"><img src="assets/shots/cms-home.png" alt="Liferay CMS home with Quick Actions for each content structure and the Marketing, Branding, HR, Events and Products Spaces"></div><figcaption>Ready for Level 7: Liferay CMS with the five Spaces and Clarity's structures</figcaption></figure>
+  </div>
   <aside class="notes">
-    <p>The catch-up folder holds the solution up to the end of Level 6: the site initializer, the theme project, and a script that creates users, Spaces, structures and content. Give learners who need it the steps in its README and check on them in ten minutes. Learners ask whether using the catch-up loses anything; they skip building those levels, not the concepts, and the verify steps still work on the result.</p>
+    <p>The screenshot is the Liferay CMS home a learner should see before Level 7: the five Spaces in the sidebar and a Quick Action per structure. The catch-up folder holds the solution up to the end of Level 6: the site initializer, the theme project, and a script that creates users, Spaces, structures and content. Give learners who need it the steps in its README and check on them in ten minutes. Learners ask whether using the catch-up loses anything; they skip building those levels, not the concepts, and the verify steps still work on the result.</p>
   </aside>
 </section>
 
@@ -61,53 +64,85 @@
 <section class="slide bullets">
   <p class="kicker">Displaying content</p>
   <h2>Map content, don't copy it</h2>
-  <ul class="bullets">
-    <li>A page shouldn't hold copies of content: it maps to it</li>
-    <li>A fragment's editable image, text or link maps to a content field</li>
-    <li>Change the content and every page that maps it updates</li>
-    <li>Map by a reference that survives a rebuild, not a numeric ID</li>
-  </ul>
+  <div class="diagram">
+    <svg viewBox="0 0 900 340" role="img" aria-label="A CMS Space entry's fields are mapped to a fragment's editable image, text and link, which show on a page fragment and on a display page template">
+      <defs><marker id="ar-map" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B5FFF"/></marker></defs>
+      <rect class="box dark" x="10" y="105" width="240" height="120" rx="10"/>
+      <text class="t w" x="130" y="145" text-anchor="middle">CMS Space entry</text>
+      <text class="s w" x="130" y="172" text-anchor="middle">Marketing Space</text>
+      <text class="s w" x="130" y="194" text-anchor="middle">title, image, summary, link</text>
+      <rect class="box soft" x="335" y="105" width="230" height="120" rx="10"/>
+      <text class="t" x="450" y="145" text-anchor="middle">Mapped fields</text>
+      <text class="s" x="450" y="172" text-anchor="middle">editable image → image</text>
+      <text class="s" x="450" y="194" text-anchor="middle">editable text → title</text>
+      <rect class="box" x="650" y="30" width="240" height="100" rx="10"/>
+      <text class="t" x="770" y="72" text-anchor="middle">Fragment on a page</text>
+      <text class="s" x="770" y="98" text-anchor="middle">Home banner, Clarity Cards</text>
+      <rect class="box" x="650" y="200" width="240" height="100" rx="10"/>
+      <text class="t" x="770" y="242" text-anchor="middle">Display page template</text>
+      <text class="s" x="770" y="268" text-anchor="middle">one page per entry</text>
+      <line class="edge" x1="250" y1="165" x2="333" y2="165" marker-end="url(#ar-map)"/>
+      <text class="lbl" x="292" y="152" text-anchor="middle">reference</text>
+      <path class="edge" d="M565,150 C610,150 600,80 648,80" marker-end="url(#ar-map)"/>
+      <path class="edge" d="M565,180 C610,180 600,250 648,250" marker-end="url(#ar-map)"/>
+      <text class="lbl" x="450" y="275" text-anchor="middle">Edit the entry once: every mapped page updates</text>
+    </svg>
+  </div>
+  <p class="vs-note">Map by a reference that survives a rebuild, not a numeric ID.</p>
   <aside class="notes">
-    <p>Structure is the what and mapping is the how: keeping content and display separate lets one item render in several places. In 7.1 the Home images come from the Marketing Space's files instead of copies on the page. Demo selecting the banner's Image fragment in edit mode, where Source Selection reads Mapping. Learners ask why the prompt prefers an external reference code; numeric IDs change when the site is rebuilt on another environment.</p>
+    <p>Use the diagram: the entry lives once in its Space, the page only holds a mapping to its fields. Structure is the what and mapping is the how: keeping content and display separate lets one item render in several places. In 7.1 the Home images come from the Marketing Space's files instead of copies on the page. Demo selecting the banner's Image fragment in edit mode, where Source Selection reads Mapping. Learners ask why the prompt prefers an external reference code; numeric IDs change when the site is rebuilt on another environment.</p>
   </aside>
 </section>
 
 <section class="slide bullets clarity">
   <p class="kicker">Displaying content</p>
   <h2>Display page templates</h2>
-  <ul class="bullets">
-    <li>Each item gets its own page at its own URL</li>
-    <li>Built once per structure, fields mapped onto fragments, no code</li>
-    <li>Content, object entries, products, categories and more</li>
-    <li>Clarity: Article and Leadership Profile, each marked default</li>
-  </ul>
+  <div class="split">
+    <ul class="bullets">
+      <li>Each item gets its own page at its own URL</li>
+      <li>Built once per structure, fields mapped onto fragments, no code</li>
+      <li>Content, object entries, products, categories and more</li>
+      <li>Clarity: Article and Leadership Profile, each marked default</li>
+    </ul>
+    <figure class="shot"><div class="frame"><img src="../../screenshots/7-2-leadership.png" alt="Nigel Cook's leadership profile rendered by the Leadership Profile display page template"></div><figcaption>A Leadership Profile entry on its display page</figcaption></figure>
+  </div>
   <aside class="notes">
-    <p>A structure can have several display page templates for different scenarios, each with its own URL; the default is used when none is named. The Article template uses the Primary Master Page and the Leadership Profile one uses the Secondary. Demo opening one article's display page URL in a private window. If a display page answers 404 for Guest, the Space's content may not be viewable by Guest or the Space isn't connected to the site: ask the agent to check both.</p>
+    <p>The screenshot is one Leadership Profile entry rendered by its display page template: photo, name, title and biography are all mapped fields. A structure can have several display page templates for different scenarios, each with its own URL; the default is used when none is named. The Article template uses the Primary Master Page and the Leadership Profile one uses the Secondary. Demo opening one article's display page URL in a private window. If a display page answers 404 for Guest, the Space's content may not be viewable by Guest or the Space isn't connected to the site: ask the agent to check both.</p>
   </aside>
 </section>
 
 <section class="slide compare">
   <p class="kicker">Displaying content</p>
   <h2>Manual or dynamic collections</h2>
-  <div class="cols">
-    <div class="col">
-      <h3>Manual</h3>
-      <ul>
-        <li>You hand-pick the items and their order</li>
-        <li>Clarity: Helpful Articles on Home and FAQ</li>
-      </ul>
-    </div>
-    <div class="col">
-      <h3>Dynamic</h3>
-      <ul>
-        <li>Rules select the items, such as a category</li>
-        <li>Clarity: one FAQ collection per category, and Announcements</li>
-      </ul>
-    </div>
+  <div class="diagram">
+    <svg viewBox="0 0 900 330" role="img" aria-label="A dynamic collection selects by structure and filter, a manual one holds hand-picked items; the collection feeds Collection Displays on Home and FAQ">
+      <defs><marker id="ar-col" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B5FFF"/></marker></defs>
+      <rect class="box" x="10" y="20" width="250" height="110" rx="10"/>
+      <text class="t" x="135" y="58" text-anchor="middle">Dynamic: rules</text>
+      <text class="s" x="135" y="84" text-anchor="middle">structure + filter, e.g. a category</text>
+      <text class="s" x="135" y="106" text-anchor="middle">Helpful Articles, FAQ, Announcements</text>
+      <rect class="box soft" x="10" y="190" width="250" height="110" rx="10"/>
+      <text class="t" x="135" y="228" text-anchor="middle">Manual: hand-picked</text>
+      <text class="s" x="135" y="254" text-anchor="middle">your items, in your order</text>
+      <text class="s" x="135" y="276" text-anchor="middle">Editor's Picks, the 7.3b bonus</text>
+      <rect class="box dark" x="350" y="110" width="190" height="110" rx="10"/>
+      <text class="t w" x="445" y="155" text-anchor="middle">Collection</text>
+      <text class="s w" x="445" y="181" text-anchor="middle">selects, never renders</text>
+      <rect class="box" x="630" y="20" width="260" height="110" rx="10"/>
+      <text class="t" x="760" y="62" text-anchor="middle">Collection Display on Home</text>
+      <text class="s" x="760" y="90" text-anchor="middle">one Clarity Card per item</text>
+      <rect class="box" x="630" y="190" width="260" height="110" rx="10"/>
+      <text class="t" x="760" y="232" text-anchor="middle">Collection Display on FAQ</text>
+      <text class="s" x="760" y="260" text-anchor="middle">same collection, another page</text>
+      <path class="edge" d="M260,75 C310,75 300,145 348,145" marker-end="url(#ar-col)"/>
+      <path class="edge" d="M260,245 C310,245 300,185 348,185" marker-end="url(#ar-col)"/>
+      <path class="edge" d="M540,150 C590,150 580,75 628,75" marker-end="url(#ar-col)"/>
+      <path class="edge" d="M540,180 C590,180 580,245 628,245" marker-end="url(#ar-col)"/>
+    </svg>
   </div>
-  <p class="vs-note">A collection only selects. A Collection Display renders it, item by item, with any fragment. One collection can feed several displays, and Asset Publishers still fit complex templates.</p>
+  <p class="vs-note">A Collection Display renders any collection with any fragment. Asset Publishers still fit complex templates.</p>
   <aside class="notes">
-    <p>Collections separate selection from display, so one collection renders in several ways: Helpful Articles appears as Clarity Cards on both Home and FAQ. Use collections for selection even when you still need an Asset Publisher for complex FreeMarker templating. Collection providers are also created when a structure is published, and on day 2 afternoon a search blueprint becomes one. Learners ask why the FAQ needs four collections; each FAQ section filters on its own category.</p>
+    <p>Walk the diagram left to right: rules or hand-picking fill the collection, and displays render it. In this course every collection is dynamic, because no API writes a manual collection on this release; the 7.3b bonus has learners build a manual one, Editor's Picks, by hand. Collections separate selection from display, so one collection renders in several ways: Helpful Articles appears as Clarity Cards on both Home and FAQ. Use collections for selection even when you still need an Asset Publisher for complex FreeMarker templating. Collection providers are also created when a structure is published, and on day 2 afternoon a search blueprint becomes one. Learners ask why the FAQ needs four collections; each FAQ section filters on its own category.</p>
   </aside>
 </section>
 
@@ -145,16 +180,19 @@
   <p class="kicker">Challenge time</p>
   <h2>Level 7: displaying content</h2>
   <p class="source">Workbook: Level 7 · Original BEWL challenges 12 and 15 · Requirements R3, R7</p>
-  <ol class="exercises">
-    <li><span class="id">7.1</span><span>Map the Home page images to Marketing files</span></li>
-    <li><span class="id">7.2</span><span>Display page templates for articles and leadership profiles</span></li>
-    <li><span class="id">7.3</span><span>Helpful Articles: a collection on Home</span></li>
-    <li><span class="id">7.4</span><span>The FAQ page from dynamic collections</span></li>
-    <li><span class="id">7.5</span><span>The announcement bar on the Primary Master Page</span></li>
-  </ol>
-  <p class="verify"><b>Verify habit:</b> every check is as Guest in a private window first, then in edit mode and Site Builder, Collections. Leave editors without publishing.</p>
+  <div class="split">
+    <ol class="exercises">
+      <li><span class="id">7.1</span><span>Map the Home page images to Marketing files</span></li>
+      <li><span class="id">7.2</span><span>Display page templates for articles and leadership profiles</span></li>
+      <li><span class="id">7.3</span><span>Helpful Articles: a collection on Home</span></li>
+      <li><span class="id">7.4</span><span>The FAQ page from dynamic collections</span></li>
+      <li><span class="id">7.5</span><span>The announcement bar on the Primary Master Page</span></li>
+    </ol>
+    <figure class="shot"><div class="frame"><img src="assets/shots/collections.png" alt="Site Builder Collections list: Helpful Articles, four FAQ collections, Announcements and Blog Posts, all dynamic" style="max-height:14em"></div><figcaption>Site Builder, Collections: Clarity's dynamic collections</figcaption></figure>
+  </div>
+  <p class="verify"><b>Verify habit:</b> as Guest in a private window first, then edit mode and Site Builder, Collections. Leave editors without publishing.</p>
   <aside class="notes">
-    <p>Demo 7.3: show the three Clarity Cards on Home as Guest, click one to land on its display page, then open the collection in Site Builder. In 7.4 learners expand "What is your return policy?" under Returns and Exchanges and check a collection's filter. In 7.5 the teal bar should appear on every page except Sign In, which uses the Secondary master. Learners ask why a card's link works without a URL in the fragment; it maps to the entry's display page.</p>
+    <p>The screenshot is the Collections list after Level 7: Helpful Articles, one FAQ collection per category and Announcements, all dynamic (Blog Posts arrives in Level 9). Demo 7.3: show the three Clarity Cards on Home as Guest, click one to land on its display page, then open the collection in Site Builder. In 7.4 learners expand "What is your return policy?" under Returns and Exchanges and check a collection's filter. In 7.5 the teal bar should appear on every page except Sign In, which uses the Secondary master. Learners ask why a card's link works without a URL in the fragment; it maps to the entry's display page.</p>
   </aside>
 </section>
 
@@ -163,14 +201,36 @@
 <section class="slide bullets">
   <p class="kicker">Commerce</p>
   <h2>Catalogs, products and channels</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 900 250" role="img" aria-label="The catalog holds products with specifications; a channel sells them, linked to the clarity-public site or used through headless APIs">
+      <defs><marker id="ar-com" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B5FFF"/></marker></defs>
+      <rect class="box dark" x="5" y="20" width="195" height="100" rx="10"/>
+      <text class="t w" x="102" y="60" text-anchor="middle">Catalog</text>
+      <text class="s w" x="102" y="86" text-anchor="middle">default language, currency</text>
+      <rect class="box" x="240" y="20" width="195" height="100" rx="10"/>
+      <text class="t" x="337" y="60" text-anchor="middle">Products</text>
+      <text class="s" x="337" y="86" text-anchor="middle">types, specifications</text>
+      <rect class="box indigo" x="475" y="20" width="195" height="100" rx="10"/>
+      <text class="t w" x="572" y="60" text-anchor="middle">Channel</text>
+      <text class="s w" x="572" y="86" text-anchor="middle">where products are sold</text>
+      <rect class="box clarity" x="710" y="20" width="185" height="100" rx="10"/>
+      <text class="t" x="802" y="60" text-anchor="middle">clarity-public site</text>
+      <text class="s" x="802" y="86" text-anchor="middle">list and product pages</text>
+      <rect class="box dashed" x="710" y="160" width="185" height="70" rx="10"/>
+      <text class="t" x="802" y="201" text-anchor="middle">Headless APIs</text>
+      <line class="edge" x1="200" y1="70" x2="238" y2="70" marker-end="url(#ar-com)"/>
+      <line class="edge" x1="435" y1="70" x2="473" y2="70" marker-end="url(#ar-com)"/>
+      <line class="edge" x1="670" y1="70" x2="708" y2="70" marker-end="url(#ar-com)"/>
+      <path class="edge muted" d="M572,120 C572,190 640,195 708,195" marker-end="url(#ar-com)"/>
+      <text class="lbl" x="560" y="185" text-anchor="end">or used through</text>
+    </svg>
+  </div>
   <ul class="bullets">
-    <li>A catalog holds what exists, with a default language and currency</li>
     <li>Product types: simple, grouped, virtual and diagram</li>
     <li>Specifications describe products, grouped in specification groups</li>
-    <li>A channel is where products are sold, linked to a site or used through APIs</li>
   </ul>
   <aside class="notes">
-    <p>Clarity's products are content held in Liferay Commerce, so nothing has to be rebuilt elsewhere. Creating a catalog also creates its base price list and promotion list. Specifications marked for faceted navigation become filters on the Product List page in 8.5. Learners ask why a B2B channel for a site that doesn't sell; Clarity's site showcases products and sends visitors to Contact Us, and the site type is from the brief.</p>
+    <p>Read the diagram left to right: the catalog holds what exists, the channel decides where it's sold. Clarity's products are content held in Liferay Commerce, so nothing has to be rebuilt elsewhere. Creating a catalog also creates its base price list and promotion list. Specifications marked for faceted navigation become filters on the Product List page in 8.5. Learners ask why a B2B channel for a site that doesn't sell; Clarity's site showcases products and sends visitors to Contact Us, and the site type is from the brief.</p>
   </aside>
 </section>
 
@@ -181,38 +241,42 @@
     <div class="col alt">
       <h3>Product page</h3>
       <ul>
-        <li>A content or widget page built from product widgets</li>
-        <li>Widgets support widget templates</li>
+        <li>Built from product widgets, with widget templates</li>
         <li>Required on older versions</li>
       </ul>
     </div>
     <div class="col">
       <h3>Product display page template</h3>
       <ul>
-        <li>Built with standard Page Builder features</li>
-        <li>Fragments map to product fields</li>
+        <li>Page Builder fragments mapped to product fields</li>
         <li>The modern choice; a few features may lack a fragment</li>
       </ul>
     </div>
   </div>
-  <p class="vs-note">Listing pages (PLP) list a category's products; detail pages (PDP) show one product. Both matter for SEO.</p>
+  <div class="shots" style="margin-top:1em">
+    <figure class="shot"><div class="frame"><img src="../../screenshots/8-5-category.png" alt="The Sunglasses Product List page with a search bar, Category and Frame Color facets and one product card" style="max-height:12em"></div><figcaption>Listing page (PLP): Sunglasses, with facets</figcaption></figure>
+    <figure class="shot"><div class="frame"><img src="../../screenshots/8-5-product.png" alt="Classic Aviator Sunglasses on the Product Details display page: name, SKU, description, Contact Sales and specifications" style="max-height:12em"></div><figcaption>Detail page (PDP): one product, from the display page template</figcaption></figure>
+  </div>
   <aside class="notes">
-    <p>Clarity uses both ideas: a Product List page that displays a category with search widgets and a widget template, and a Product Details display page template for each product. A product listing page is really a search page with filters applied up front, which links to this afternoon's search block. Demo the Products page's category cards and its widget template. Learners ask why use a widget template at all; the Commerce Categories Navigation widget needs one for the bento layout.</p>
+    <p>The two screenshots are Clarity's listing page (PLP) and detail page (PDP); both matter for SEO. Clarity uses both ideas: a Product List page that displays a category with search widgets and a widget template, and a Product Details display page template for each product. A product listing page is really a search page with filters applied up front, which links to this afternoon's search block. Demo the Products page's category cards and its widget template. Learners ask why use a widget template at all; the Commerce Categories Navigation widget needs one for the bento layout.</p>
   </aside>
 </section>
 
 <section class="slide bullets clarity">
   <p class="kicker">The Clarity case</p>
   <h2>A storefront that doesn't take orders</h2>
-  <ul class="bullets">
-    <li>The Clarity Eyewear catalog, priced in USD</li>
-    <li>Frame Material, Frame Color and Frame Size specifications</li>
-    <li>Four categories: Eyeglasses, Sunglasses, Contacts, Lenses</li>
-    <li>The Clarity Public channel, B2B, linked to the public site</li>
-    <li>Every product page links to Contact Sales</li>
-  </ul>
+  <div class="split">
+    <ul class="bullets">
+      <li>The Clarity Eyewear catalog, priced in USD</li>
+      <li>Frame Material, Color and Size specifications</li>
+      <li>Eyeglasses, Sunglasses, Contacts, Lenses</li>
+      <li>The Clarity Public channel, B2B, linked to the site</li>
+      <li>Product pages link to Contact Sales</li>
+    </ul>
+    <figure class="shot"><div class="frame"><img src="assets/shots/commerce-products.png" alt="Commerce Products admin listing Clarity Eyewear products, all simple and approved"></div><figcaption>Commerce, Products: the Clarity Eyewear catalog</figcaption></figure>
+  </div>
   <aside class="notes">
-    <p>In 8.2 the agent writes each product's full description itself; in the product editor, Liferay's AI Creator could have drafted it instead. Show both if you have time. The Clarity Products vocabulary is created at the instance's global scope, because commerce categories come from there. Learners ask where product images come from; they're in context-source/assets/products and the Products Space.</p>
+    <p>The screenshot is Commerce, Products after Level 8: every product in the Clarity Eyewear catalog, simple and approved. In 8.2 the agent writes each product's full description itself; in the product editor, Liferay's AI Creator could have drafted it instead. Show both if you have time. The Clarity Products vocabulary is created at the instance's global scope, because commerce categories come from there. Learners ask where product images come from; they're in context-source/assets/products and the Products Space.</p>
   </aside>
 </section>
 
@@ -220,16 +284,19 @@
   <p class="kicker">Challenge time</p>
   <h2>Level 8: commerce</h2>
   <p class="source">Workbook: Level 8 · Original BEWL challenge 16 · Requirement R8</p>
-  <ol class="exercises">
-    <li><span class="id">8.1</span><span>The Clarity Eyewear catalog and its specifications</span></li>
-    <li><span class="id">8.2</span><span>Create the products</span></li>
-    <li><span class="id">8.3</span><span>A channel for the public site</span></li>
-    <li><span class="id">8.4</span><span>Category cards on the Products page</span></li>
-    <li><span class="id">8.5</span><span>The Product List page and a product display page</span></li>
-  </ol>
+  <div class="split">
+    <ol class="exercises">
+      <li><span class="id">8.1</span><span>The Clarity Eyewear catalog and its specifications</span></li>
+      <li><span class="id">8.2</span><span>Create the products</span></li>
+      <li><span class="id">8.3</span><span>A channel for the public site</span></li>
+      <li><span class="id">8.4</span><span>Category cards on the Products page</span></li>
+      <li><span class="id">8.5</span><span>The Product List page and a product display page</span></li>
+    </ol>
+    <figure class="shot"><div class="frame"><img src="../../screenshots/8-4-products.png" alt="The Products page as Guest with Eyeglasses, Sunglasses, Contacts and Lenses category cards" style="max-height:14em"></div><figcaption>8.4: the category cards on Products, as Guest</figcaption></figure>
+  </div>
   <p class="verify"><b>Verify habit:</b> Commerce, Catalogs, Specifications, Products and Channels; then as Guest, Products, Explore Sunglasses, and open Classic Aviator Sunglasses.</p>
   <aside class="notes">
-    <p>Demo 8.1 and show the specification labels with Use in Faceted Navigation. Walk the room during 8.4 and 8.5, which are the longest prompts of the morning. The final check is a visitor journey: category card, product list, product display page with name, SKU, description, specifications and Contact Sales. Learners ask why the price doesn't show; the site showcases products and doesn't take orders.</p>
+    <p>The screenshot is where the visitor journey starts: the four category cards on Products. Demo 8.1 and show the specification labels with Use in Faceted Navigation. Walk the room during 8.4 and 8.5, which are the longest prompts of the morning. The final check is a visitor journey: category card, product list, product display page with name, SKU, description, specifications and Contact Sales. Learners ask why the price doesn't show; the site showcases products and doesn't take orders.</p>
   </aside>
 </section>
 
@@ -238,29 +305,59 @@
 <section class="slide bullets">
   <p class="kicker">Headless APIs</p>
   <h2>Everything your agent did went through these</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 900 290" role="img" aria-label="Your agent through the MCP server, scripts and remote apps all call the headless REST and GraphQL APIs and the batch engine, which act on Liferay DXP">
+      <defs><marker id="ar-api" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B5FFF"/></marker></defs>
+      <rect class="box soft" x="5" y="10" width="220" height="76" rx="10"/>
+      <text class="t" x="115" y="44" text-anchor="middle">Your agent</text>
+      <text class="s" x="115" y="66" text-anchor="middle">through the MCP server</text>
+      <rect class="box soft" x="5" y="106" width="220" height="76" rx="10"/>
+      <text class="t" x="115" y="140" text-anchor="middle">Scripts and curl</text>
+      <text class="s" x="115" y="162" text-anchor="middle">batch imports, checks</text>
+      <rect class="box soft" x="5" y="202" width="220" height="76" rx="10"/>
+      <text class="t" x="115" y="236" text-anchor="middle">Remote apps</text>
+      <text class="s" x="115" y="258" text-anchor="middle">OAuth 2.0 with scopes</text>
+      <rect class="box" x="330" y="30" width="270" height="100" rx="10"/>
+      <text class="t" x="465" y="70" text-anchor="middle">Headless REST and GraphQL</text>
+      <text class="s" x="465" y="96" text-anchor="middle">/o/... documented with OpenAPI</text>
+      <rect class="box cyan" x="330" y="160" width="270" height="100" rx="10"/>
+      <text class="t" x="465" y="200" text-anchor="middle">Batch engine</text>
+      <text class="s" x="465" y="226" text-anchor="middle">a JSON array, one import task</text>
+      <rect class="box dark" x="690" y="60" width="205" height="170" rx="10"/>
+      <text class="t w" x="792" y="128" text-anchor="middle">Liferay DXP</text>
+      <text class="s w" x="792" y="154" text-anchor="middle">sites, pages, content,</text>
+      <text class="s w" x="792" y="174" text-anchor="middle">users, commerce</text>
+      <path class="edge" d="M225,48 C280,48 275,80 328,80" marker-end="url(#ar-api)"/>
+      <path class="edge" d="M225,144 C280,144 275,90 328,90" marker-end="url(#ar-api)"/>
+      <path class="edge" d="M225,144 C280,144 275,205 328,205" marker-end="url(#ar-api)"/>
+      <path class="edge" d="M225,240 C280,240 275,100 328,100" marker-end="url(#ar-api)"/>
+      <line class="edge" x1="600" y1="80" x2="688" y2="110" marker-end="url(#ar-api)"/>
+      <line class="edge" x1="600" y1="210" x2="688" y2="180" marker-end="url(#ar-api)"/>
+    </svg>
+  </div>
   <ul class="bullets">
-    <li>REST and GraphQL for sites, pages, content, users, commerce and more</li>
-    <li>Documented with OpenAPI; run them at <code>/o/api</code>, the API Explorer</li>
-    <li>Remote apps use OAuth 2.0, with scopes for least privilege</li>
+    <li>Run any of them yourself at <code>/o/api</code>, the API Explorer</li>
     <li>Guest access is off by default; opening it is a deliberate policy</li>
-    <li>The MCP server exposes these same APIs to your agent</li>
   </ul>
   <aside class="notes">
-    <p>Headless keeps systems decoupled: build a UI in any framework, deliver to web and mobile from one source, migrate from legacy systems. Basic authentication suits testing but not production and isn't available on SaaS; OAuth 2.0 registers each app with scopes. Demo the API Explorer: choose headless-admin-user, find GET my-user-account and execute it, the same call the agent made in Setup. Learners ask about building their own endpoints; API Builder does it in the Control Panel without code, while REST Builder is a developer toolchain not available on SaaS.</p>
+    <p>Point at the diagram: the agent, a script and a remote app all land on the same APIs; the MCP server exposes them to the agent. Headless keeps systems decoupled: build a UI in any framework, deliver to web and mobile from one source, migrate from legacy systems. Basic authentication suits testing but not production and isn't available on SaaS; OAuth 2.0 registers each app with scopes. Demo the API Explorer: choose headless-admin-user, find GET my-user-account and execute it, the same call the agent made in Setup. Learners ask about building their own endpoints; API Builder does it in the Control Panel without code, while REST Builder is a developer toolchain not available on SaaS.</p>
   </aside>
 </section>
 
 <section class="slide bullets clarity">
   <p class="kicker">Headless APIs</p>
   <h2>Batch imports of legacy data</h2>
-  <ul class="bullets">
-    <li>Batch endpoints take a whole JSON array in one request</li>
-    <li>Liferay processes it as an asynchronous import task</li>
-    <li>Poll the task until it completes, then check the counts</li>
-    <li>Clarity: a blog post, three articles, eight products, twelve locations</li>
-  </ul>
+  <div class="split">
+    <ul class="bullets">
+      <li>Batch endpoints take a whole JSON array in one request</li>
+      <li>Liferay runs it as an asynchronous import task</li>
+      <li>Poll the task until it completes, then check the counts</li>
+      <li>Clarity: a blog post, three articles, eight products, twelve locations</li>
+    </ul>
+    <figure class="shot"><div class="frame"><img src="../../screenshots/9-2-blog.png" alt="The Blog page as Guest showing the imported post Things I Find Interesting in Eyewear"></div><figcaption>The imported legacy post on the Blog page</figcaption></figure>
+  </div>
   <aside class="notes">
-    <p>Clarity has content and data in its old portal and its product information system; this level brings it across securely. The prompts ask the agent to show the batch request it sends and to report the task status and processed count. Demo running GET on the import task in the API Explorer: executeStatus reads COMPLETED. Learners ask why not post items one by one; for hundreds of items a batch is one call and one task to check.</p>
+    <p>The screenshot is the result of 9.2: the legacy blog post, imported in one batch, on the Blog page. Clarity has content and data in its old portal and its product information system; this level brings it across securely. The prompts ask the agent to show the batch request it sends and to report the task status and processed count. Demo running GET on the import task in the API Explorer: executeStatus reads COMPLETED. Learners ask why not post items one by one; for hundreds of items a batch is one call and one task to check.</p>
   </aside>
 </section>
 
@@ -268,14 +365,17 @@
   <p class="kicker">Challenge time</p>
   <h2>Level 9: headless APIs</h2>
   <p class="source">Workbook: Level 9 · Original BEWL challenge 17 · Requirement R9</p>
-  <ol class="exercises">
-    <li><span class="id">9.1</span><span>Explore the API your agent uses (you run it in the API Explorer)</span></li>
-    <li><span class="id">9.2</span><span>Import the legacy blog post and articles</span></li>
-    <li><span class="id">9.3</span><span>Import legacy products and office locations</span></li>
-  </ol>
+  <div class="split">
+    <ol class="exercises">
+      <li><span class="id">9.1</span><span>Explore the API your agent uses (you run it in the API Explorer)</span></li>
+      <li><span class="id">9.2</span><span>Import the legacy blog post and articles</span></li>
+      <li><span class="id">9.3</span><span>Import legacy products and office locations</span></li>
+    </ol>
+    <figure class="shot"><div class="frame"><img src="assets/shots/api-explorer.png" alt="The Liferay API Explorer at /o/api showing Headless Delivery endpoints" style="max-height:14em"></div><figcaption>9.1: the API Explorer at /o/api</figcaption></figure>
+  </div>
   <p class="verify"><b>Verify habit:</b> find each endpoint the agent named in the API Explorer; then the Blog entry and six articles in Marketing, the Blog page, eight products, and 26 locations in HR.</p>
   <aside class="notes">
-    <p>9.1 is the one exercise where learners use the tool themselves: the agent finds the endpoints but doesn't call them, and the learner finds each one in the API Explorer and reads its request schema. Demo that comparison for one endpoint. In 9.2 the blog post becomes an entry of Liferay CMS's built-in Blog structure in the Marketing Space, its cover image a Space file, shown on the Blog page by a collection and a Blog Post display page template: Blogs and Documents and Media are in maintenance mode on 2026.Q1. In 9.3 the agent also assigns "Morocco, Casablanca" to the Retail Associate job listing as an example. Learners ask whether the agent used MCP or curl; either reaches the same APIs, and the prompt prefers MCP discovery.</p>
+    <p>The screenshot is the API Explorer learners use in 9.1: pick a REST application, then find the endpoint. 9.1 is the one exercise where learners use the tool themselves: the agent finds the endpoints but doesn't call them, and the learner finds each one in the API Explorer and reads its request schema. Demo that comparison for one endpoint. In 9.2 the blog post becomes an entry of Liferay CMS's built-in Blog structure in the Marketing Space, its cover image a Space file, shown on the Blog page by a collection and a Blog Post display page template: Blogs and Documents and Media are in maintenance mode on 2026.Q1. In 9.3 the agent also assigns "Morocco, Casablanca" to the Retail Associate job listing as an example. Learners ask whether the agent used MCP or curl; either reaches the same APIs, and the prompt prefers MCP discovery.</p>
   </aside>
 </section>
 
@@ -284,31 +384,61 @@
 <section class="slide bullets">
   <p class="kicker">Workflow and publishing</p>
   <h2>Workflow is how content gets published</h2>
-  <ul class="bullets">
-    <li>Draft: saved by the author, not on the site</li>
-    <li>Pending: submitted, waiting for a reviewer, still not on the site</li>
-    <li>Approved: published, live for visitors</li>
-    <li>Rejected: back to the author to update and resubmit</li>
-    <li>Nothing reaches visitors before approval</li>
-    <li>Scheduling extends it: a future display date publishes later</li>
-  </ul>
+  <div class="diagram">
+    <svg viewBox="0 0 900 300" role="img" aria-label="Workflow states: Draft, submitted to Pending; the Content Manager approves to Approved, live for visitors, or rejects back to the author; a future display date publishes later">
+      <defs><marker id="ar-wf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B5FFF"/></marker></defs>
+      <rect class="box soft" x="10" y="40" width="180" height="90" rx="10"/>
+      <text class="t" x="100" y="78" text-anchor="middle">Draft</text>
+      <text class="s" x="100" y="102" text-anchor="middle">saved, not on the site</text>
+      <rect class="box" x="270" y="40" width="190" height="90" rx="10"/>
+      <text class="t" x="365" y="78" text-anchor="middle">Pending</text>
+      <text class="s" x="365" y="102" text-anchor="middle">waiting, not on the site</text>
+      <rect class="box dark" x="630" y="40" width="260" height="90" rx="10"/>
+      <text class="t w" x="760" y="78" text-anchor="middle">Approved</text>
+      <text class="s w" x="760" y="102" text-anchor="middle">published, live for visitors</text>
+      <rect class="box" x="270" y="200" width="190" height="80" rx="10"/>
+      <text class="t" x="365" y="235" text-anchor="middle">Rejected</text>
+      <text class="s" x="365" y="259" text-anchor="middle">back to the author</text>
+      <rect class="box dashed" x="630" y="200" width="260" height="80" rx="10"/>
+      <text class="t" x="760" y="235" text-anchor="middle">Future display date</text>
+      <text class="s" x="760" y="259" text-anchor="middle">approved now, live on that date</text>
+      <line class="edge" x1="190" y1="85" x2="268" y2="85" marker-end="url(#ar-wf)"/>
+      <text class="lbl" x="229" y="74" text-anchor="middle">submit</text>
+      <line class="edge" x1="460" y1="85" x2="628" y2="85" marker-end="url(#ar-wf)"/>
+      <text class="lbl" x="544" y="60" text-anchor="middle">Content Manager</text>
+      <text class="lbl" x="544" y="76" text-anchor="middle">approves</text>
+      <line class="edge" x1="365" y1="130" x2="365" y2="198" marker-end="url(#ar-wf)"/>
+      <text class="lbl" x="375" y="170">rejects</text>
+      <path class="edge" d="M268,240 L125,240 Q100,240 100,215 L100,132" marker-end="url(#ar-wf)"/>
+      <text class="lbl" x="190" y="230" text-anchor="middle">author updates</text>
+      <line class="edge muted" x1="760" y1="130" x2="760" y2="198" marker-end="url(#ar-wf)"/>
+      <text class="lbl" x="770" y="170">scheduled</text>
+    </svg>
+  </div>
+  <p class="vs-note">Nothing reaches visitors before approval. Scheduling extends workflow, it doesn't replace it.</p>
   <aside class="notes">
-    <p>Workflow puts a review step between submitted and published; Clarity uses Single Approver with the Content Manager role as reviewer. Walk the states: only Approved is visible to visitors, and a rejected item goes back to its author. Scheduling is an extension, not a separate tool: approve today, and the entry goes live on its display date. Existing customers may use Publications to release batches of page changes; it's in maintenance mode on 2026.Q1 with no replacement, so this course publishes through workflow. Learners ask how to release several changes at once; schedule them with the same display date.</p>
+    <p>Walk the diagram state by state. Workflow puts a review step between submitted and published; Clarity uses Single Approver with the Content Manager role as reviewer. Walk the states: only Approved is visible to visitors, and a rejected item goes back to its author. Scheduling is an extension, not a separate tool: approve today, and the entry goes live on its display date. Existing customers may use Publications to release batches of page changes; it's in maintenance mode on 2026.Q1 with no replacement, so this course publishes through workflow. Learners ask how to release several changes at once; schedule them with the same display date.</p>
   </aside>
 </section>
 
 <section class="slide bullets">
   <p class="kicker">Workflow and publishing</p>
   <h2>Publishing a site-wide change</h2>
-  <ul class="bullets">
-    <li>The announcement bar shows the newest Announcement entry of the Marketing Space</li>
-    <li>Put Announcement under the same workflow, and every page is gated at once</li>
-    <li>Christian submits "Spring Campaign": the bar doesn't change</li>
-    <li>Clara approves it: the bar changes on every page</li>
-    <li>The agent can act as a persona by signing in with their credentials</li>
-  </ul>
+  <div class="split">
+    <ul class="bullets">
+      <li>The bar shows the newest Announcement entry in Marketing</li>
+      <li>Announcement under workflow gates every page at once</li>
+      <li>Christian submits "Spring Campaign": no change</li>
+      <li>Clara approves it: the bar changes everywhere</li>
+      <li>The agent can act as a persona by signing in</li>
+    </ul>
+    <div>
+      <figure class="shot"><div class="frame"><img src="../../screenshots/7-4-faq.png" alt="The FAQ page as Guest with the earlier announcement bar: See Clarity's latest eyewear innovations" style="max-height:7.5em"></div><figcaption>Before: the earlier announcement on FAQ</figcaption></figure>
+      <figure class="shot" style="margin-top:1em"><div class="frame"><img src="../../screenshots/10-3-announcement.png" alt="The FAQ page as Guest with the new announcement bar: Spring into Style with Clarity, new frames have arrived" style="max-height:7.5em"></div><figcaption>After Clara approves: the Spring Campaign bar</figcaption></figure>
+    </div>
+  </div>
   <aside class="notes">
-    <p>One Announcement entry feeds the bar on every page that uses the Primary Master Page, so a single approval is a site-wide release. Acting as a persona lets the agent test the workflow end to end: Liferay applies that user's permissions and records them as author or reviewer. This is the course's answer to what Publications used to do for a campaign: prepare it, review it, release it in one step. Learners ask why the bar still shows the old text after approval; the page may be cached for Guest, so wait a minute and reload.</p>
+    <p>The two screenshots are the FAQ page as Guest before and after Clara's approval: the Spring Campaign text replaces the old bar. One Announcement entry feeds the bar on every page that uses the Primary Master Page, so a single approval is a site-wide release. Acting as a persona lets the agent test the workflow end to end: Liferay applies that user's permissions and records them as author or reviewer. This is the course's answer to what Publications used to do for a campaign: prepare it, review it, release it in one step. Learners ask why the bar still shows the old text after approval; the page may be cached for Guest, so wait a minute and reload.</p>
   </aside>
 </section>
 
@@ -316,14 +446,17 @@
   <p class="kicker">Challenge time</p>
   <h2>Level 10: workflow and publishing</h2>
   <p class="source">Workbook: Level 10 · Original BEWL challenge 18 · Requirement R10</p>
-  <ol class="exercises">
-    <li><span class="id">10.1</span><span>Approval workflow for Marketing articles</span></li>
-    <li><span class="id">10.2</span><span>Christian submits an article, Clara approves it</span></li>
-    <li><span class="id">10.3</span><span>Publish a site-wide change through workflow</span></li>
-  </ol>
+  <div class="split">
+    <ol class="exercises">
+      <li><span class="id">10.1</span><span>Approval workflow for Marketing articles</span></li>
+      <li><span class="id">10.2</span><span>Christian submits an article, Clara approves it</span></li>
+      <li><span class="id">10.3</span><span>Publish a site-wide change through workflow</span></li>
+    </ol>
+    <figure class="shot"><div class="frame"><img src="assets/shots/workflow-definitions.png" alt="Process Builder listing Single Approver, Clarity Article Approval and Contact Us Follow Up" style="max-height:14em"></div><figcaption>Process Builder: Clarity Article Approval (Contact Us Follow Up comes in Level 12)</figcaption></figure>
+  </div>
   <p class="verify"><b>Verify habit:</b> as Clara, My Workflow Tasks shows the task, then Completed; as Guest, the announcement bar keeps its old text until Clara approves Spring Campaign, then changes on every page.</p>
   <aside class="notes">
-    <p>Demo 10.2 part 1, then sign in as Clara in a private window to show the pending task without acting on it. In 10.3 the agent links the Announcement structure to the same workflow and Christian submits Spring Campaign; learners check that Home as Guest still shows the old bar and that Clara has the task. Then Clara approves it, and learners see the new bar on Home and FAQ. Learners ask why the workflow is a copy; if Liferay's shipped definition doesn't use Content Manager, the agent publishes a copy instead of editing the original.</p>
+    <p>The screenshot is Process Builder: Clarity Article Approval is the copy of Single Approver with Content Manager among the reviewers. Demo 10.2 part 1, then sign in as Clara in a private window to show the pending task without acting on it. In 10.3 the agent links the Announcement structure to the same workflow and Christian submits Spring Campaign; learners check that Home as Guest still shows the old bar and that Clara has the task. Then Clara approves it, and learners see the new bar on Home and FAQ. Learners ask why the workflow is a copy; if Liferay's shipped definition doesn't use Content Manager, the agent publishes a copy instead of editing the original.</p>
   </aside>
 </section>
 
@@ -332,45 +465,74 @@
 <section class="slide bullets">
   <p class="kicker">Search</p>
   <h2>Search in Liferay</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 900 290" role="img" aria-label="The search page widgets share one search; the query passes through an optional Search Blueprint to the Elasticsearch or OpenSearch index, and ranked results and facet counts come back to the page">
+      <defs><marker id="ar-srch" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B5FFF"/></marker></defs>
+      <rect class="box dashed" x="5" y="10" width="300" height="270" rx="10"/>
+      <text class="t" x="155" y="40" text-anchor="middle">Search page</text>
+      <rect class="box soft" x="22" y="60" width="128" height="60" rx="10"/>
+      <text class="t" x="86" y="95" text-anchor="middle">Search bar</text>
+      <rect class="box soft" x="160" y="60" width="128" height="60" rx="10"/>
+      <text class="t" x="224" y="95" text-anchor="middle">Facets</text>
+      <rect class="box soft" x="22" y="140" width="128" height="60" rx="10"/>
+      <text class="t" x="86" y="175" text-anchor="middle">Results</text>
+      <rect class="box soft" x="160" y="140" width="128" height="60" rx="10"/>
+      <text class="t" x="224" y="175" text-anchor="middle">Search Options</text>
+      <text class="s" x="155" y="240" text-anchor="middle">widgets you assemble,</text>
+      <text class="s" x="155" y="260" text-anchor="middle">all sharing one search</text>
+      <rect class="box indigo" x="385" y="50" width="215" height="100" rx="10"/>
+      <text class="t w" x="492" y="92" text-anchor="middle">Search Blueprint</text>
+      <text class="s w" x="492" y="118" text-anchor="middle">optional: filter, boost</text>
+      <rect class="box dark" x="680" y="50" width="215" height="100" rx="10"/>
+      <text class="t w" x="787" y="92" text-anchor="middle">Search index</text>
+      <text class="s w" x="787" y="118" text-anchor="middle">Elasticsearch or OpenSearch</text>
+      <line class="edge" x1="305" y1="100" x2="383" y2="100" marker-end="url(#ar-srch)"/>
+      <text class="lbl" x="344" y="90" text-anchor="middle">query</text>
+      <line class="edge" x1="600" y1="100" x2="678" y2="100" marker-end="url(#ar-srch)"/>
+      <path class="edge cyan" d="M787,150 L787,215 Q787,230 772,230 L307,230" marker-end="url(#ar-srch)"/>
+      <text class="lbl" x="545" y="220" text-anchor="middle">ranked results and facet counts</text>
+    </svg>
+  </div>
   <ul class="bullets">
-    <li>One search API over Elasticsearch or OpenSearch</li>
     <li>A wide range of content types indexed out of the box</li>
-    <li>A search page is widgets you assemble: bar, results, facets, options</li>
-    <li>All search widgets on a page share one search</li>
     <li>Synonyms and result rankings tune results for little effort</li>
   </ul>
   <aside class="notes">
-    <p>Clarity wants marketing to design the search experience, customers to find documentation, and results personalized by role. Each search capability is a component, so you build the page the business needs. Demo the site's Search page with the global search bar and a facet. Learners ask whether CMS content is searchable from the site; yes, once its Space is connected to the site, which is why the HR Space connection matters in 11.1.</p>
+    <p>Use the diagram: every widget on the page reads the same search, which goes through a blueprint if one is applied. Clarity wants marketing to design the search experience, customers to find documentation, and results personalized by role. Each search capability is a component, so you build the page the business needs. Demo the site's Search page with the global search bar and a facet. Learners ask whether CMS content is searchable from the site; yes, once its Space is connected to the site, which is why the HR Space connection matters in 11.1.</p>
   </aside>
 </section>
 
 <section class="slide bullets clarity">
   <p class="kicker">Search</p>
   <h2>Facets and the Open Positions job search</h2>
-  <ul class="bullets">
-    <li>More than ten facets ship: categories, tags, dates, content type</li>
-    <li>Several facets are specific to commerce</li>
-    <li>Custom facets work with almost any indexed field</li>
-    <li>Templates give a facet a custom view</li>
-    <li>Clarity: a category facet grouped by Region, Location and Job Positions</li>
-  </ul>
+  <div class="split">
+    <ul class="bullets">
+      <li>More than ten facets ship, some for commerce</li>
+      <li>Custom facets work with almost any indexed field</li>
+      <li>Templates give a facet a custom view</li>
+      <li>Clarity: categories grouped by Job Positions, Location and Region</li>
+    </ul>
+    <figure class="shot"><div class="frame"><img src="../../screenshots/11-1-open-positions.png" alt="Open Positions as Guest: a search for Developer with Job Positions and Location facets and six results"></div><figcaption>Open Positions as Guest: "Developer", with grouped facets</figcaption></figure>
+  </div>
   <aside class="notes">
-    <p>In 11.1 the agent builds Open Positions with a search bar, a category facet grouped by vocabulary, results, and Search Options allowing empty searches. If the default facet display can't group, the agent writes a facet widget template. Demo searching Developer as Guest and narrowing by the Remote location. Learners ask why empty searches matter; without them the page shows nothing until a visitor types.</p>
+    <p>The screenshot is the 11.1 result: a search for Developer with the category facet grouped by vocabulary. In 11.1 the agent builds Open Positions with a search bar, a category facet grouped by vocabulary, results, and Search Options allowing empty searches. If the default facet display can't group, the agent writes a facet widget template. Demo searching Developer as Guest and narrowing by the Remote location. Learners ask why empty searches matter; without them the page shows nothing until a visitor types.</p>
   </aside>
 </section>
 
 <section class="slide bullets">
   <p class="kicker">Search</p>
   <h2>Search Blueprints</h2>
-  <ul class="bullets">
-    <li>Change how results are filtered and scored, with no code</li>
-    <li>A blueprint is a set of query elements: filters, boosts and more</li>
-    <li>A page applies it through the Blueprints Options widget</li>
-    <li>A blueprint can be a collection provider for a Collection Display</li>
-    <li>Results can differ by user, page or audience</li>
-  </ul>
+  <div class="split">
+    <ul class="bullets">
+      <li>Filter and score results, with no code</li>
+      <li>Query elements: filters, boosts and more</li>
+      <li>A page applies it with Blueprints Options</li>
+      <li>Or it feeds a Collection Display as a collection provider</li>
+    </ul>
+    <figure class="shot"><div class="frame"><img src="assets/shots/blueprints.png" alt="The Blueprints application listing Future Events, a collection provider, and Boost Associate Job Listings"></div><figcaption>Blueprints: Future Events is also a collection provider</figcaption></figure>
+  </div>
   <aside class="notes">
-    <p>Clarity uses two blueprints: one that keeps only job listings and boosts Associate positions, and one that lists future hiring events (Event Information entries in the Events Space) as a collection on the Events page. The agent validates each blueprint with its preview endpoint before saving. Demo the Blueprints application and its Preview with the search Associate. Learners ask how this relates to semantic search; semantic search interprets meaning through text embeddings, and blueprints shape the query either way.</p>
+    <p>The screenshot is the Blueprints application with Clarity's two blueprints; only Future Events is enabled as a collection provider. Results can differ by user, page or audience. Clarity uses two blueprints: one that keeps only job listings and boosts Associate positions, and one that lists future hiring events (Event Information entries in the Events Space) as a collection on the Events page. The agent validates each blueprint with its preview endpoint before saving. Demo the Blueprints application and its Preview with the search Associate. Learners ask how this relates to semantic search; semantic search interprets meaning through text embeddings, and blueprints shape the query either way.</p>
   </aside>
 </section>
 
@@ -378,15 +540,18 @@
   <p class="kicker">Challenge time</p>
   <h2>Level 11: search</h2>
   <p class="source">Workbook: Level 11 · Original BEWL challenges 19 and 20 · Requirement R11</p>
-  <ol class="exercises">
-    <li><span class="id">11.1</span><span>The Open Positions job search</span></li>
-    <li><span class="id">11.2</span><span>A blueprint that keeps only job listings and boosts associates</span></li>
-    <li><span class="id">11.3</span><span>The Events page of upcoming hiring events</span></li>
-    <li class="bonus"><span class="id">11.4</span><span>Bonus: find a user by an Object field through search</span></li>
-  </ol>
+  <div class="split">
+    <ol class="exercises">
+      <li><span class="id">11.1</span><span>The Open Positions job search</span></li>
+      <li><span class="id">11.2</span><span>A blueprint that keeps only job listings and boosts associates</span></li>
+      <li><span class="id">11.3</span><span>The Events page of upcoming hiring events</span></li>
+      <li class="bonus"><span class="id">11.4</span><span>Bonus: find a user by an Object field through search</span></li>
+    </ol>
+    <figure class="shot"><div class="frame"><img src="../../screenshots/11-3-events.png" alt="The Events page as Guest listing three upcoming hiring events" style="max-height:14em"></div><figcaption>11.3: Upcoming Events, future hiring events only</figcaption></figure>
+  </div>
   <p class="verify"><b>Verify habit:</b> search as Guest and watch the order of results; open the blueprint's Preview and close it without saving; Events lists only future hiring events, soonest first.</p>
   <aside class="notes">
-    <p>Demo 11.1 end to end from the Careers banner. In 11.2 the prompt asks for results before and after the blueprint, so learners see the boost work. In 11.3 the hiring events are dated relative to today, so the past one exists in the Events Space but doesn't appear in Upcoming Hiring Events. The original course used the Calendar widget; calendar events have no REST API on this release, so events live in the CMS. Learners ask why the blueprint filters on an indexed field; job listings are CMS entries, and the agent reads one entry's indexed fields to find the one that identifies its structure.</p>
+    <p>The screenshot is the 11.3 result: the Events page lists the upcoming hiring events from the Future Events blueprint. Demo 11.1 end to end from the Careers banner. In 11.2 the prompt asks for results before and after the blueprint, so learners see the boost work. In 11.3 the hiring events are dated relative to today, so the past one exists in the Events Space but doesn't appear in Upcoming Hiring Events. The original course used the Calendar widget; calendar events have no REST API on this release, so events live in the CMS. Learners ask why the blueprint filters on an indexed field; job listings are CMS entries, and the agent reads one entry's indexed fields to find the one that identifies its structure.</p>
   </aside>
 </section>
 
@@ -410,26 +575,50 @@
 <section class="slide bullets">
   <p class="kicker">Objects</p>
   <h2>Liferay Objects</h2>
-  <ul class="bullets">
-    <li>Define the data; Liferay generates storage, APIs and admin screens</li>
-    <li>Fields, validations, relationships and picklists</li>
-    <li>Permissions, workflow and search apply as everywhere else</li>
-    <li>Definitions move between environments with the site</li>
-  </ul>
+  <div class="split">
+    <ul class="bullets">
+      <li>Define the data; Liferay generates storage, APIs and admin screens</li>
+      <li>Fields, validations, relationships and picklists</li>
+      <li>Permissions, workflow and search apply as everywhere else</li>
+      <li>Definitions move between environments with the site</li>
+    </ul>
+    <figure class="shot"><div class="frame"><img src="../../screenshots/12-2-contact-us.png" alt="The Contact Us form as Guest: Full Name, Email Address, Phone, Inquiry Type, State or Province, City and Comment"></div><figcaption>The Contact Us object's seven fields, as a form for Guest</figcaption></figure>
+  </div>
   <aside class="notes">
-    <p>An object is a first-class citizen of the platform: permissions and roles, workflow, indexing, and the audit framework all apply automatically. A picklist holds reusable, translatable options, like the Inquiry Types in English and Spanish. Demo Control Panel, Objects, Contact Us after 12.1: published, site scope, seven fields. Learners ask why Guest gets add but not view; visitors submit, they never read other people's submissions.</p>
+    <p>The screenshot is the Contact Us form from 12.2: one input per object field, with Inquiry Type from the picklist. An object is a first-class citizen of the platform: permissions and roles, workflow, indexing, and the audit framework all apply automatically. A picklist holds reusable, translatable options, like the Inquiry Types in English and Spanish. Demo Control Panel, Objects, Contact Us after 12.1: published, site scope, seven fields. Learners ask why Guest gets add but not view; visitors submit, they never read other people's submissions.</p>
   </aside>
 </section>
 
 <section class="slide process clarity">
   <p class="kicker">The Clarity case</p>
   <h2>From a form to a dashboard</h2>
-  <div class="flow five">
-    <div class="step"><span class="n">1</span><b>Picklist</b>Inquiry Types, translated</div>
-    <div class="step"><span class="n">2</span><b>Object</b>Contact Us, site-scoped</div>
-    <div class="step"><span class="n">3</span><b>Form</b>A Form Container on the Contact Us page</div>
-    <div class="step"><span class="n">4</span><b>Workflow</b>A Follow Up task for Distributor Representatives</div>
-    <div class="step"><span class="n">5</span><b>Data set</b>Pending requests on a hidden page</div>
+  <div class="diagram">
+    <svg viewBox="0 0 900 280" role="img" aria-label="A Guest submits the Contact Us form, which creates a Contact Us entry using the Inquiry Types picklist; the Follow Up workflow gives Distributor Representatives a task; the Data Set lists pending requests">
+      <defs><marker id="ar-form" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B5FFF"/></marker></defs>
+      <rect class="box soft" x="240" y="5" width="195" height="70" rx="10"/>
+      <text class="t" x="337" y="36" text-anchor="middle">Inquiry Types</text>
+      <text class="s" x="337" y="58" text-anchor="middle">picklist, translated</text>
+      <rect class="box clarity" x="5" y="125" width="195" height="110" rx="10"/>
+      <text class="t" x="102" y="165" text-anchor="middle">Contact Us form</text>
+      <text class="s" x="102" y="190" text-anchor="middle">a Form Container,</text>
+      <text class="s" x="102" y="210" text-anchor="middle">submitted by Guest</text>
+      <rect class="box dark" x="240" y="125" width="195" height="110" rx="10"/>
+      <text class="t w" x="337" y="165" text-anchor="middle">Contact Us entry</text>
+      <text class="s w" x="337" y="190" text-anchor="middle">object, site-scoped</text>
+      <rect class="box indigo" x="475" y="125" width="195" height="110" rx="10"/>
+      <text class="t w" x="572" y="165" text-anchor="middle">Follow Up workflow</text>
+      <text class="s w" x="572" y="190" text-anchor="middle">a task for Distributor</text>
+      <text class="s w" x="572" y="210" text-anchor="middle">Representatives</text>
+      <rect class="box" x="710" y="125" width="185" height="110" rx="10"/>
+      <text class="t" x="802" y="165" text-anchor="middle">Data Set</text>
+      <text class="s" x="802" y="190" text-anchor="middle">pending requests</text>
+      <text class="s" x="802" y="210" text-anchor="middle">on a hidden page</text>
+      <line class="edge" x1="337" y1="75" x2="337" y2="123" marker-end="url(#ar-form)"/>
+      <line class="edge" x1="200" y1="180" x2="238" y2="180" marker-end="url(#ar-form)"/>
+      <line class="edge" x1="435" y1="180" x2="473" y2="180" marker-end="url(#ar-form)"/>
+      <line class="edge" x1="670" y1="180" x2="708" y2="180" marker-end="url(#ar-form)"/>
+      <text class="lbl" x="690" y="262" text-anchor="middle">approving the task removes it from the list</text>
+    </svg>
   </div>
   <ul class="bullets">
     <li>A Form Container turns a page section into a form that creates an entry</li>
@@ -444,13 +633,16 @@
   <p class="kicker">Challenge time</p>
   <h2>Level 12: objects</h2>
   <p class="source">Workbook: Level 12 · Original BEWL challenge 21 · Requirement R12</p>
-  <ol class="exercises">
-    <li><span class="id">12.1</span><span>The Inquiry Types picklist and the Contact Us object</span></li>
-    <li><span class="id">12.2</span><span>The Contact Us form</span></li>
-    <li><span class="id">12.3</span><span>A follow-up workflow for new requests</span></li>
-    <li><span class="id">12.4</span><span>The Contact Us Responses dashboard</span></li>
-    <li class="bonus"><span class="id">12.5</span><span>Bonus: a two-step form</span></li>
-  </ol>
+  <div class="split">
+    <ol class="exercises">
+      <li><span class="id">12.1</span><span>The Inquiry Types picklist and the Contact Us object</span></li>
+      <li><span class="id">12.2</span><span>The Contact Us form</span></li>
+      <li><span class="id">12.3</span><span>A follow-up workflow for new requests</span></li>
+      <li><span class="id">12.4</span><span>The Contact Us Responses dashboard</span></li>
+      <li class="bonus"><span class="id">12.5</span><span>Bonus: a two-step form</span></li>
+    </ol>
+    <figure class="shot"><div class="frame"><img src="../../screenshots/12-4-responses.png" alt="Contact Us Responses page: a Data Set with Filter, Order and Search, listing one pending request from Priya Sharma" style="max-height:14em"></div><figcaption>12.4: Contact Us Responses, signed in as Daniel</figcaption></figure>
+  </div>
   <p class="verify"><b>Verify habit:</b> submit entries as Guest; then as Daniel, read the notification, open the dashboard, sort and filter, and approve one task. That approval is an action, not a check.</p>
   <aside class="notes">
     <p>Demo 12.2 by submitting the form yourself in a private window, then show the entries as the admin. The approval in 12.4 is one of the two places learners act on purpose, because it's how you'd accept the workflow in a real project. Switch the Picklists language to Spanish to show the translations. Learners ask why the View action uses an external reference code; a hard-coded URL breaks on another environment.</p>
@@ -466,23 +658,43 @@
     <div class="col">
       <h3>Supported path: Data Platform</h3>
       <ul>
-        <li>Liferay Data Platform is the source of truth for segments</li>
         <li>Segments can use behavior, not only attributes</li>
-        <li>Needs an LDP workspace connected to each instance</li>
+        <li>Needs an LDP workspace for each instance</li>
       </ul>
     </div>
     <div class="col alt">
       <h3>In this course</h3>
       <ul>
-        <li>DXP's own segments and experiences are deprecated on 2026.Q1</li>
-        <li>A Clarity Audience Container fragment checks the user's user groups</li>
-        <li>Decided on the server, so hidden content never reaches the browser</li>
+        <li>DXP segments are deprecated on 2026.Q1</li>
+        <li>An audience container checks user groups</li>
       </ul>
     </div>
   </div>
-  <p class="vs-note">With Data Platform, an experience is a version of a page shown to a segment. A user-group check covers signed-in users only; anonymous and behavioral personalization needs Data Platform segments.</p>
+  <div class="diagram">
+    <svg viewBox="0 0 900 200" role="img" aria-label="On each Home request the Clarity Audience Container checks on the server whether the user is a signed-in member of Distributors: yes shows the Welcome Back banner, otherwise the default banner and the distributor promotion">
+      <defs><marker id="ar-aud" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B5FFF"/></marker></defs>
+      <rect class="box soft" x="5" y="60" width="160" height="80" rx="10"/>
+      <text class="t" x="85" y="97" text-anchor="middle">Home request</text>
+      <text class="s" x="85" y="119" text-anchor="middle">any visitor</text>
+      <rect class="box dark" x="230" y="45" width="270" height="110" rx="10"/>
+      <text class="t w" x="365" y="85" text-anchor="middle">Clarity Audience Container</text>
+      <text class="s w" x="365" y="110" text-anchor="middle">signed-in member of Distributors?</text>
+      <text class="s w" x="365" y="132" text-anchor="middle">checked on the server</text>
+      <rect class="box clarity" x="590" y="5" width="305" height="75" rx="10"/>
+      <text class="t" x="742" y="38" text-anchor="middle">Distributors</text>
+      <text class="s" x="742" y="61" text-anchor="middle">"Welcome Back!" banner</text>
+      <rect class="box" x="590" y="120" width="305" height="75" rx="10"/>
+      <text class="t" x="742" y="153" text-anchor="middle">Everyone else</text>
+      <text class="s" x="742" y="176" text-anchor="middle">default banner, distributor promotion</text>
+      <line class="edge" x1="165" y1="100" x2="228" y2="100" marker-end="url(#ar-aud)"/>
+      <path class="edge" d="M500,85 C545,85 545,42 588,42" marker-end="url(#ar-aud)"/>
+      <path class="edge" d="M500,115 C545,115 545,157 588,157" marker-end="url(#ar-aud)"/>
+      <text class="lbl" x="540" y="52" text-anchor="middle">yes</text>
+      <text class="lbl" x="540" y="155" text-anchor="middle">no</text>
+    </svg>
+  </div>
   <aside class="notes">
-    <p>Tie this back to the Data Platform slide on day 1: in a real project you'd build the Distributors segment in Data Platform and target it with an experience of Home. DXP's own segments and experiences are deprecated on 2026.Q1 in favor of Data Platform segmentation, which needs a workspace connected to each instance, so the class has no exercise on it. Instead learners build a fragment that renders its drop zone only for a chosen user group, or only for everyone else. Learners ask when to use which; the container for signed-in users by user group, Data Platform segments for anonymous visitors, behavior, location or campaigns.</p>
+    <p>The diagram is what Level 13 builds: the container decides on the server, so hidden content never reaches the browser. With Data Platform, an experience is a version of a page shown to a segment; a user-group check covers signed-in users only, and anonymous or behavioral personalization needs Data Platform segments. Tie this back to the Data Platform slide on day 1: in a real project you'd build the Distributors segment in Data Platform and target it with an experience of Home. DXP's own segments and experiences are deprecated on 2026.Q1 in favor of Data Platform segmentation, which needs a workspace connected to each instance, so the class has no exercise on it. Instead learners build a fragment that renders its drop zone only for a chosen user group, or only for everyone else. Learners ask when to use which; the container for signed-in users by user group, Data Platform segments for anonymous visitors, behavior, location or campaigns.</p>
   </aside>
 </section>
 
@@ -494,9 +706,13 @@
     <li><span class="id">13.1</span><span>The Clarity Audience Container fragment</span></li>
     <li><span class="id">13.2</span><span>A distributor variant of Home</span></li>
   </ol>
+  <div class="shots" style="margin-top:.6em">
+    <figure class="shot"><div class="frame"><img src="../../screenshots/13-2-guest-home.png" alt="Home as Guest: Elevate Your Brand with Premium Eyewear" style="max-height:9.5em"></div><figcaption>Guest: the default banner</figcaption></figure>
+    <figure class="shot"><div class="frame"><img src="../../screenshots/13-2-terrence-home.png" alt="Home signed in as Terrence: Welcome Back! Elevate Your Inventory with Premium Eyewear" style="max-height:9.5em"></div><figcaption>Terrence, a distributor: "Welcome Back!"</figcaption></figure>
+  </div>
   <p class="verify"><b>Verify habit:</b> Fragments lists Clarity Audience Container with userGroup and mode; sign in as Terrence and see "Welcome Back!" with no distributor promotion; sign out and the promotion is back.</p>
   <aside class="notes">
-    <p>In 13.1 the agent writes the fragment's check in FreeMarker, so it runs on the server and hidden content never reaches the browser. In 13.2 Home gets two banners and a wrapped Distributor Promo; in edit mode both banners show, each labeled with its audience. Demo signing in as Terrence in a private window, then signing out. Learners ask why their Home doesn't change; the most common cause is checking as the admin, who isn't a member of Distributors.</p>
+    <p>The screenshots are the before and after of 13.2: the same Home as Guest and as Terrence. In 13.1 the agent writes the fragment's check in FreeMarker, so it runs on the server and hidden content never reaches the browser. In 13.2 Home gets two banners and a wrapped Distributor Promo; in edit mode both banners show, each labeled with its audience. Demo signing in as Terrence in a private window, then signing out. Learners ask why their Home doesn't change; the most common cause is checking as the admin, who isn't a member of Distributors.</p>
   </aside>
 </section>
 
