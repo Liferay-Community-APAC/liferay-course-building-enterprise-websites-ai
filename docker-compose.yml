@@ -18,7 +18,9 @@ services:
       POSTGRES_USER: liferay
       POSTGRES_PASSWORD: liferay
     ports:
-      - "${CLARITY_POSTGRES_PORT:-5432}:5432"
+      # localhost only: the training password must not be reachable from the network.
+      # To use another port, change it here and in configs/local/portal-ext.properties.
+      - "127.0.0.1:5432:5432"
     volumes:
       - clarity-postgres-data:/var/lib/postgresql/data
     healthcheck:

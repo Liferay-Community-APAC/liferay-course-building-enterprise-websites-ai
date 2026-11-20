@@ -45,5 +45,6 @@ activation-key*.xml
 .vscode/mcp.json
 .codex/
 
-# Local Python environment for scripts/build_docs.py
+# Local Python environment and bytecode for scripts/build_docs.py
 .venv/
+__pycache__/
