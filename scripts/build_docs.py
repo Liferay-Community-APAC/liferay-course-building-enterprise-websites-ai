@@ -9,6 +9,7 @@ Writes:
     docs/workbook/index.html      the student workbook (both days, one page)
     docs/instructor/index.html    the instructor guide
     docs/instructor/schedule.html the two-day schedule
+    docs/instructor/demos.html    the instructor demo workbook
     docs/screenshots/             copied from docs-src/workbook/screenshots/
 
 The landing page (docs/index.html) and the slides (docs/instructor/slides/)
@@ -71,6 +72,7 @@ def write(path: Path, page: str) -> None:
 def main() -> None:
     write(OUT / "workbook" / "index.html", build_page(workbook(), home="../"))
     write(OUT / "instructor" / "index.html", build_page((SRC / "instructor" / "guide.md").read_text(encoding="utf-8"), home="../"))
+    write(OUT / "instructor" / "demos.html", build_page((SRC / "instructor" / "demos.md").read_text(encoding="utf-8"), home="../"))
     write(OUT / "instructor" / "schedule.html", build_page((SRC / "instructor" / "schedule.md").read_text(encoding="utf-8"), home="../"))
     shots = SRC / "workbook" / "screenshots"
     if shots.is_dir():

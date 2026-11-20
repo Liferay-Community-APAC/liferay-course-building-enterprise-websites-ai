@@ -1,6 +1,6 @@
 # Instructor guide
 
-This guide is for the person running *Building Enterprise Websites with Liferay and AI*. Read it with the [schedule](schedule.html) and the day slides open.
+This guide is for the person running *Building Enterprise Websites with Liferay and AI*. Read it with the [schedule](schedule.html), the [instructor demo workbook](demos.html) and the day slides open.
 
 ## What the course is, and isn't
 
@@ -27,7 +27,7 @@ Hold that line in class. When a learner says "the agent did it, it works", ask t
 
 ## Running the hands-on blocks
 
-- **Demo the first prompt of each level** on the projector, including the verify step. Then let learners run the rest.
+- **Demo the first prompt of each level** on the projector, including the verify step. Then let learners run the rest. The [instructor demo workbook](demos.html) has the step-by-step for every other demo, with optional prompts.
 - **One agent session per exercise** keeps costs and confusion down. If a learner's agent goes off track, have them start a new session: `solution-context.md` and `solution-index.yaml` carry the context.
 - **Agents differ.** Prompts are written to work with Claude Code, Codex and Copilot in agent mode. A weaker model may need the skill named explicitly (the 🧩 line) or a follow-up ("read the X skill and try again").
 - **Learners never start or stop Liferay through the agent.** If an agent offers to, they say no and do it themselves.
@@ -42,7 +42,7 @@ The levels are chained: a learner who can't finish Level 6 can't do Level 7. Two
 
 ## Topics covered in slides only
 
-These original BEWL topics have no exercise. Present them with the slides marked *Instructor only* and the speaker notes:
+These original BEWL topics have no exercise. Present them with the slides marked *Instructor only*, the speaker notes and the matching demos in the [instructor demo workbook](demos.html):
 
 | Topic | Original BEWL | Why it has no exercise |
 | --- | --- | --- |
