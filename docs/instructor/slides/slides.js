@@ -31,9 +31,9 @@
 
     var foot = document.createElement('footer');
     foot.className = 'slide-foot';
-    foot.innerHTML = '<span></span><span></span>';
-    foot.children[0].textContent = deckTitle;
-    foot.children[1].textContent = (i + 1) + ' / ' + total;
+    foot.innerHTML = '<span class="foot-brand"><img class="logo-color" src="assets/liferay-logo.svg" alt="Liferay"><img class="logo-white" src="assets/liferay-logo-white.svg" alt="Liferay"><span class="foot-title"></span></span><span class="foot-num"></span>';
+    foot.querySelector('.foot-title').textContent = deckTitle;
+    foot.querySelector('.foot-num').textContent = (i + 1) + ' / ' + total;
     slide.appendChild(foot);
 
     var notes = slide.querySelector('aside.notes');
