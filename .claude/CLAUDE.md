@@ -26,7 +26,7 @@ Before answering, identify four things:
 - **Workspace id:** `clarity`. Prefix client extension keys with it (`clarity-site-init`, `clarity-theme-css`).
 - **Sites:** `clarity-public` (Clarity Public Enterprise Website, `/clarity`) and `clarity-distributor-portal`. Address them by these ERCs.
 - **The site lives in code:** `client-extensions/clarity-site` is the site initializer for `clarity-public`. Change pages, masters, menus, fragments, collections and style books there, then deploy with `scripts/deploy_site.sh` (it clean-deploys, waits for the initializer, then re-applies the site settings that every deploy resets; see `manage-sites`).
-- **Training passwords:** every persona's password is `learn` (`context-source/data/personas.csv`).
+- **Training passwords:** every persona's password is `learn` (`context-source/README.md`; the personas themselves are in `context-source/data/personas.csv`).
 - **Don't build on deprecated or maintenance-mode features** (Liferay's 2026 deprecation pages): no Web Content, Blogs, Documents and Media or Asset Libraries (use Liferay CMS Spaces, structures and files), no Publications (use workflow), no DXP segments or experiences (target signed-in users by user group or role; anonymous personalization belongs to Liferay Data Platform), no Custom Fields (use Object fields on system objects), no Widget Pages or Dialect theme (content pages, Classic). If a task seems to need one, say so and propose the supported alternative.
 
 ## Project Paths

@@ -38,7 +38,7 @@ Gather from the user or infer from context:
 - `pluralLabel` — REST path safe plural (e.g. `books`)
 - `scope` — `company` (default, global) or `site`
 - `externalReferenceCode` — must NOT start with `L_` (reserved for Liferay-shipped definitions; a `C_` prefix is conventional but not required)
-- `storageType` — where entries are stored: Liferay's own DB (the default) or an external source such as `salesforce`, or the yaml key of a deployed `objectEntryManager` CET (see `integrate-external-data`). Do **not** send this on the create call for default DB storage — omit it and Liferay assigns the default (see **Create the Object Definition**).
+- `storageType` — where entries are stored: Liferay's own DB (the default) or an external source such as `salesforce`, or the yaml key of a deployed `objectEntryManager` CET (external storage is outside this course's skill library). Do **not** send this on the create call for default DB storage — omit it and Liferay assigns the default (see **Create the Object Definition**).
 - Fields list — each with `businessType`, `name`, `label`, `required`
 
 ### Create the Object Definition
@@ -58,7 +58,7 @@ curl \
 	--user "test@liferay.com:test"
 ```
 
-**Do not send `"storageType": "default"` on create** — it returns `400 ObjectDefinitionStorageTypeException`. Omit `storageType` and Liferay assigns default DB storage (for external storage, see `integrate-external-data`).
+**Do not send `"storageType": "default"` on create** — it returns `400 ObjectDefinitionStorageTypeException`. Omit `storageType` and Liferay assigns default DB storage (external storage is outside this course's skill library).
 
 Save the returned `id` as `<definition-id>`.
 
