@@ -148,7 +148,9 @@ link it from the entries:
 Access expectations: these entries and files are for the public website,
 so published entries and their linked files in Marketing, HR, Events,
 Branding and Products must be viewable by Guest (VIEW, and DOWNLOAD_FILE
-for files). Nothing else for Guest: no add, update or delete.
+for files), including entries and files created later: set it in each
+Space's default permissions too. Nothing else for Guest: no add, update or
+delete.
 
 Write a small, re-runnable script in scripts/ (Python or Node) instead of
 issuing hundreds of calls by hand, upserting by ERC. Run it, and show me a

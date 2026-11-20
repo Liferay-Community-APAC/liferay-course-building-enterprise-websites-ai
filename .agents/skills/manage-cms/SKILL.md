@@ -361,3 +361,8 @@ Creating entries of a structure needs `ADD_OBJECT_ENTRY` on `com.liferay.object#
 - **Each Space has CMS default permissions** that new entries receive: `GET`/`PUT /o/cms/default-permissions` (one `L_CMS_DEFAULT_PERMISSION` entry per Space). **By default they give the entry's Owner `DELETE`, and Members no `UPDATE`.** So "only administrators delete" needs DELETE removed from Owner (and Content Reviewer) there too, or the creator can delete their own entry.
 - **Folders:** `scopes/{space}/object-entry-folders?filter=parentObjectEntryFolderId eq …` answers `400 InvalidFilterException`; filter the list on the client (items carry `parentObjectEntryFolderId`).
 - The *Topic*, *Audience* and *Stage* vocabularies a Space lists belong to the Global group (they're shared), not to the Space.
+- **New entries get only signed-in VIEW by default.** For a public Space, add Guest `VIEW` (and `DOWNLOAD_FILE` for files) to the Space's `/o/cms/default-permissions` entry too, or every entry created later (and approved through workflow) stays invisible to visitors until someone grants it by hand.
+
+### Built-in Blog Structure (Verified on 2026.q3.10)
+
+Liferay CMS's Blog: name `CMSBlog`, ERC `L_CMS_BLOG`, REST `/o/cms/blogs` (scoped to a Space like any structure). Fields: `title`, `subtitle`, `content` (RichText), `coverImage` (Attachment, `fileSource: userComputerToCMSBasicDocument`, so linking a Space file **copies** it into the entry). A vocabulary limited to it uses `assetTypes[].type: "Blog"`. Its display page URL is `/web/<site>/cmsblog/asset-library-<depot id>/<slug>` (no `c_` prefix for this system structure).

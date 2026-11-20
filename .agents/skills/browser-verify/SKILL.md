@@ -213,3 +213,7 @@ Still unverified: a journey with fragments that fetch object data, a chatbot str
 - `skills/manage-analytics/SKILL.md` — asserting tracked events from a headless browser.
 - `skills/manage-ai-hub/SKILL.md` — chatbot stream events.
 - Playwright: `https://playwright.dev/docs/auth` (storage state), `https://playwright.dev/docs/browsers#google-chrome--microsoft-edge` (channel).
+
+## Port
+
+The scripts' base URL falls back to `http://localhost:8080` and don't read `server.xml`: pass the instance's base URL explicitly (e.g. `base: 'http://localhost:<port>'`) when Tomcat listens elsewhere.
