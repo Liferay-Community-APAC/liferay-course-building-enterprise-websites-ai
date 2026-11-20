@@ -1,0 +1,3 @@
+# setenv.sh must keep LF to run on Linux/macOS; setenv.bat keeps CRLF
+*.sh text eol=lf
+*.bat text eol=crlf

@@ -1,0 +1,7 @@
+type,name,description
+regular,Content Manager,Clarity role for those managing content on Liferay.
+regular,IT Manager,Clarity role for a manager within the IT department.
+regular,Web Developer,Clarity role for a front-end developer within the IT department.
+regular,Marketing Coordinator,Clarity role for an individual contributor from the marketing team.
+regular,Distributor Representative,Clarity role for staff who follow up distributor and visitor requests.
+site,Site Content Contributor,Site-based role for those contributing to the Clarity site.

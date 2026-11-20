@@ -1,0 +1,5 @@
+[
+  {"title": "Spring Job Fair", "start": "past: 30 days before today, 10:00-16:00", "location": "Main Campus, Building A"},
+  {"title": "Summer Job Fair", "start": "future: 20 days after today, 10:00-16:00", "location": "Main Campus, Building A"},
+  {"title": "Campus Recruiting Event", "start": "future: 45 days after today, 13:00-17:00", "location": "State University Career Center"}
+]

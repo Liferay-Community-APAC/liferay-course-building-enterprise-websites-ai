@@ -1,0 +1,49 @@
+**/*.iml
+**/.ivy
+**/.classpath
+**/.project
+**/.sass-cache
+**/.settings
+**/bin
+**/build
+**/build_gradle
+**/dist
+**/node_modules
+**/node_modules_cache
+**/test-coverage
+**/tmp
+**/.web_bundle_build
+.gradle
+.idea
+/bundles
+/gradle-*.properties
+/plugins-sdk/**/classes
+/plugins-sdk/**/ivy.xml.MD5
+/plugins-sdk/**/liferay-hook.xml.processed
+/plugins-sdk/build.*.properties
+/plugins-sdk/dependencies/**/*.jar
+/plugins-sdk/dist
+/plugins-sdk/lib
+test-results
+# Tomcat overlays copied into bundles/ by blade server init
+!/configs/*/tomcat/bin/
+
+# Local admin credentials (never commit)
+configs/local/admin.properties
+
+# Test persona credentials for browser-verify (never commit)
+configs/local/test-users.properties
+
+# DXP activation keys are sent to you by email: never commit them
+configs/*/deploy/activation-key*.xml
+activation-key*.xml
+
+.DS_Store
+
+# Agent MCP configurations hold a credential
+.mcp.json
+.vscode/mcp.json
+.codex/
+
+# Local Python environment for scripts/build_docs.py
+.venv/

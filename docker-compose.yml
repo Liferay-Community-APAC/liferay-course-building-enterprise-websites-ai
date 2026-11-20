@@ -1,0 +1,32 @@
+# PostgreSQL for the course's Liferay DXP bundle.
+#
+#   docker compose up -d      start the database (run it before `blade server start`)
+#   docker compose down       stop it; your data stays in the "clarity-postgres-data" volume
+#   docker compose down -v    stop it AND delete all data (a clean start)
+#
+# Liferay itself runs as a Tomcat bundle (`blade server init` / `blade server start`)
+# and connects to this database on localhost:5432 (see configs/local/portal-ext.properties).
+
+name: clarity
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: clarity-postgres
+    environment:
+      POSTGRES_DB: lportal
+      POSTGRES_USER: liferay
+      POSTGRES_PASSWORD: liferay
+    ports:
+      - "${CLARITY_POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - clarity-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U liferay -d lportal"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+volumes:
+  clarity-postgres-data:

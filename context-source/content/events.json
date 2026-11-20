@@ -1,0 +1,15 @@
+[
+  {
+    "title": "Clarity Vision Showcase 2027",
+    "subtitleDescription": "<p>Join Clarity's design and product teams for a day of talks and hands-on demonstrations. Hear how our precision eyeglasses are engineered, try the new designer sunglasses range, and get a first look at our smart contact lenses.</p>",
+    "location": "Innovation Hub Auditorium, Main Campus (Building B, Room 201)",
+    "startDateTime": "2027-05-06T09:00",
+    "endDateTime": "2027-05-06T17:00",
+    "ctaLink": "https://clarityvisionsolutions.com/events",
+    "image": {
+      "title": "See the World with Clarity",
+      "file": "assets/marketing/glasses-in-front-of-leaf.jpg",
+      "descriptionContext": "Discover our exclusive events showcasing the latest in designer sunglasses, precision eyeglasses, and revolutionary contact lenses."
+    }
+  }
+]

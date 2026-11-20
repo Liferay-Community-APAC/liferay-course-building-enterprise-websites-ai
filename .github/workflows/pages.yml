@@ -1,0 +1,21 @@
+# Publishes docs/ (the student workbook and the instructor materials) to GitHub Pages
+# with the Liferay Community APAC shared publishing workflow.
+# In Settings → Pages, set "Source" to "GitHub Actions".
+name: Publish course pages
+
+on:
+  push:
+    branches: [main]
+    paths: [docs/**, .github/workflows/pages.yml]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    uses: Liferay-Community-APAC/liferay-community-apac.github.io/.github/workflows/publish-site.yml@main
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    with:
+      builder: static
+      source: docs

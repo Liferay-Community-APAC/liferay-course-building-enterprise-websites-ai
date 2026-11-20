@@ -1,0 +1,100 @@
+[
+  {
+    "name": "Family Prescription Sunglasses",
+    "shortDescription": "UV protection, stylish design",
+    "description": "Family Prescription Sunglasses",
+    "category": "Sunglasses",
+    "externalReferenceCode": "BB-34099-789-N",
+    "sku": "123412554",
+    "price": 101,
+    "specifications": {
+      "frame-material": "Metal"
+    }
+  },
+  {
+    "name": "Kids Prescription Sunglasses",
+    "shortDescription": "UV protection, stylish design for kids",
+    "description": "Kids Prescription Sunglasses",
+    "category": "Sunglasses",
+    "externalReferenceCode": "BB-34098-789-N",
+    "sku": "123413556",
+    "price": 101,
+    "specifications": {
+      "frame-color": "Blue",
+      "frame-material": "Plastic"
+    }
+  },
+  {
+    "name": "Kids Prescription Eyeglasses",
+    "shortDescription": "Stylish design for kids",
+    "description": "Kids Prescription Eyeglasses",
+    "category": "Eyeglasses",
+    "externalReferenceCode": "BB-34098-699-N",
+    "sku": "123412557",
+    "price": 101,
+    "specifications": {
+      "frame-color": "Pink",
+      "frame-material": "Plastic"
+    }
+  },
+  {
+    "name": "Family Prescription Eyeglasses",
+    "shortDescription": "Stylish design",
+    "description": "Family Prescription Eyeglasses",
+    "category": "Eyeglasses",
+    "externalReferenceCode": "BB-35099-789-N",
+    "sku": "123412554",
+    "price": 101,
+    "specifications": {
+      "frame-color": "Black"
+    }
+  },
+  {
+    "name": "Soft Contacts",
+    "shortDescription": "Comfortable design",
+    "description": "Soft Contacts",
+    "category": "Eyeglasses",
+    "externalReferenceCode": "BB-39099-789-N",
+    "sku": "1234335554",
+    "price": 101,
+    "specifications": {
+      "frame-material": "Soft"
+    }
+  },
+  {
+    "name": "Hard Contacts",
+    "shortDescription": "Comfortable design",
+    "description": "Hard Contacts",
+    "category": "Eyeglasses",
+    "externalReferenceCode": "BB-39099-766-N",
+    "sku": "1222412554",
+    "price": 101,
+    "specifications": {
+      "frame-material": "Hard"
+    }
+  },
+  {
+    "name": "Tinted Lenses",
+    "shortDescription": "Comfortable design",
+    "description": "Tinted Lenses",
+    "category": "Eyeglasses",
+    "externalReferenceCode": "BB-39099-7611-N",
+    "sku": "12445412554",
+    "price": 101,
+    "specifications": {
+      "frame-size": "One-Size"
+    }
+  },
+  {
+    "name": "Polarized Lenses",
+    "shortDescription": "Comfortable design",
+    "description": "Polarized Lenses",
+    "category": "Eyeglasses",
+    "externalReferenceCode": "BB-38099-7611-N",
+    "sku": "1295412554",
+    "price": 101,
+    "specifications": {
+      "frame-size": "One-Size"
+    }
+  }
+]
