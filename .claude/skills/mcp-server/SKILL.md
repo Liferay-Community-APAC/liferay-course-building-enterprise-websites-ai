@@ -33,7 +33,7 @@ The toggle is a classic session-authenticated admin screen, outside what Basic a
 printf 'enabled=B"true"\n' > bundles/osgi/configs/com.liferay.mcp.server.rest.internal.configuration.MCPServerConfiguration.config
 ```
 
-Write the same file to `configs/local/osgi/configs/` too, so the next `blade server init` keeps it. A `.config` file in `osgi/configs` is a system-scope default, which the instance inherits unless someone saved a different instance value in Instance Settings. None of the flag state sources in `rules/feature-flags-catalog.md` reflect it.
+Write the same file to `configs/local/osgi/configs/` too, so it survives: this course's Docker container copies that folder in at every start, and the next `blade server init` keeps it for a Tomcat bundle. (Verified on 2026.q3.10 in the `clarity-liferay` container: the file written to the mounted `bundles/osgi/configs` turned `/o/mcp` from `404` to `200` within seconds.) A `.config` file in `osgi/configs` is a system-scope default, which the instance inherits unless someone saved a different instance value in Instance Settings. None of the flag state sources in `rules/feature-flags-catalog.md` reflect it.
 
 **A `200` elsewhere proves nothing about the transport.** `/o/mcp-server/v1.0/openapi.json` and `/o/mcp/server-profiles` come from the same module and answer whether or not the toggle is on. Only an `initialize` call on `/o/mcp` tests the transport.
 
@@ -41,7 +41,7 @@ Write the same file to `configs/local/osgi/configs/` too, so the next `blade ser
 
 Most CLI based agents load MCP configuration at startup only and cannot pick up new settings midsession. Prompt the user to exit and restart their agent session **before starting the Liferay server** — so the restart costs nothing while the server is still down.
 
-The CLI session restart kills any running Liferay server. If `blade server start` runs before the restart, the restart will tear the server down — forcing a second cold boot cycle. Liferay cold boot is several minutes. Complete the CLI restart before running `blade server start`.
+With this course's Docker container, the CLI session restart does not touch Liferay: the container belongs to Docker, not to the agent session. With a Tomcat bundle started from the agent's shell, the CLI session restart kills it; if `blade server start` runs before the restart, the restart tears the server down, forcing a second cold boot of several minutes, so complete the CLI restart before running `blade server start`.
 
 ### Endpoint URL by DXP Version
 

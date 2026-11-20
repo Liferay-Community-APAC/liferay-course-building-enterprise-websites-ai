@@ -25,7 +25,7 @@ Run the deploy command and verify via logs and HTTP. Continue with the Workflow 
 
 ### Path B: Text Only Agent
 
-Provide the user with the exact command (Tomcat: `blade gw deploy`; Docker: `./gradlew deploy "-Ddeploy.docker.container.id=$(docker compose ps --quiet liferay)"`). Ask them to paste back any lines containing `STARTED` or `Error`. For UI verification, instruct them to check the "Client Extensions" or "App Manager" Control Panel.
+Provide the user with the exact command (`blade gw deploy`, for this course's Docker container and the Tomcat bundle alike; other Docker workspaces: `./gradlew deploy "-Ddeploy.docker.container.id=$(docker compose ps --quiet liferay)"`). Ask them to paste back any lines containing `STARTED` or `Error`. For UI verification, instruct them to check the "Client Extensions" or "App Manager" Control Panel.
 
 ## Workflow
 
@@ -33,7 +33,7 @@ Provide the user with the exact command (Tomcat: `blade gw deploy`; Docker: `./g
 
 Target type drives the command:
 
-| Target type | Detection | Tomcat command | Docker command |
+| Target type | Detection | Command (this course: Docker or Tomcat) | Other Docker workspaces |
 | --- | --- | --- | --- |
 | Client extension | `client-extension.yaml` under `client-extensions/<name>/` | `cd client-extensions/<name> && blade gw deploy` | `./gradlew deploy "-Ddeploy.docker.container.id=$(docker compose ps --quiet liferay)"` |
 | OSGi module | `bnd.bnd` and `build.gradle` under `modules/<name>/` | `cd modules/<name> && blade gw deploy` | Same as client extension (run from module dir) |
@@ -42,20 +42,13 @@ Target type drives the command:
 
 When the target lives across multiple modules (siteInitializer with batch + layouts + fragments), deploy from the client extension root.
 
-**Docker note**: do NOT use `docker cp` or `docker exec` for deployment. The Gradle deploy targets the running container directly via `-Ddeploy.docker.container.id`. The container must be running and healthy first.
+**This course's Docker container** bind-mounts `bundles/osgi/client-extensions`, `bundles/osgi/modules` and `bundles/osgi/configs` at `/opt/liferay/osgi/…`, so `blade gw deploy` writes the artifact where the running container picks it up, exactly as for a Tomcat bundle. No `-Ddeploy.docker.container.id`, no image build, no `docker cp`. `rm bundles/osgi/client-extensions/<name>.zip` before a clean deploy works the same way (verified 2026.q3.10: a `siteInitializer` zip deployed into the mount ran `Initialized … in 1400 ms`).
 
-**Initial Docker startup** (first run only): before the first `docker compose up`, build artifacts so they are present when the container initializes:
-
-```
-./gradlew deploy
-docker compose up
-```
-
-The workspace Gradle plugin outputs client extensions to a docker build directory, which docker-compose mounts into the container at `/opt/liferay/osgi/client-extensions`. After the container is up, switch to iterative deploys above.
+**Other Docker workspaces**: do NOT use `docker cp` or `docker exec` for deployment. The Gradle deploy targets the running container directly via `-Ddeploy.docker.container.id`. The container must be running and healthy first. Before the first `docker compose up`, run `./gradlew deploy` so artifacts are present when the container initializes.
 
 ### Run the Deploy
 
-Always invoke through Blade for Tomcat (`blade gw deploy`) or Gradle for Docker. Capture the build output. A failure here is a build problem; surface the message and stop.
+Always invoke through Blade (`blade gw deploy`); in other Docker workspaces, Gradle with the container id. Capture the build output. A failure here is a build problem; surface the message and stop.
 
 **Parallel execution**: run the deploy command as a nonblocking background process so log watching can happen concurrently. Use whatever background execution mechanism your tool provides.
 
@@ -66,7 +59,7 @@ Watch the log until either of these markers appears:
 - `STARTED <bundle-symbolic-name>_<version>` — success
 - `Error processing <path>` or stack trace mentioning the bundle — failure
 
-For Tomcat, the log is `bundles/logs/liferay.<YYYY-MM-DD>.log`. For Docker, use `docker compose logs --follow liferay`.
+The log is `bundles/logs/liferay.<YYYY-MM-DD>.log` (date in GMT) for this course's Docker container and the Tomcat bundle alike; `docker compose logs --follow liferay` shows the same lines plus Tomcat's own output.
 
 **catalina.out caveat (Tomcat only)**: `bundles/tomcat*/logs/catalina.out` is append only across reboots — a previous boot's `Server startup in` line will false positive on a naive grep. Bookmark the line count before booting and check only lines added after:
 
@@ -96,9 +89,9 @@ For Headless APIs and Client Extension assets, success means HTTP `200 OK` on th
 
 When STARTED never appears:
 
-- **Tomcat down**: probe `http://localhost:${PORT}`. If down, start it.
+- **Liferay down**: probe `http://localhost:${PORT}` and check `docker compose ps`. If it is down, ask the user to start it (`docker compose up -d`, or `blade server start` for the bundle).
 - **Bundle in `INSTALLED` state but not `ACTIVE`**: open a Gogo shell with `telnet localhost 11311` and run `lb | grep <bsn>` to see the wired state, then `diag <id>` to read the resolution error.
-- **Stale cache**: stop Tomcat, delete `bundles/osgi/state/` and `work/`, start Tomcat. This is a restart under `CLAUDE.md` → "Server Restarts".
+- **Stale cache**: Docker: `docker compose up -d --force-recreate liferay` (a new container starts with a clean OSGi state; data and mounts are kept). Tomcat: stop it, delete `bundles/osgi/state/` and `work/`, start it. Either is a restart under `CLAUDE.md` → "Server Restarts".
 - **Missing dependency**: read `bnd.bnd` `Import-Package` against the OSGi registry.
 
 ## MultiCET Deployment Sequencing
@@ -113,18 +106,19 @@ When deploying multiple client extensions in the same cycle, deploy in this orde
 
 1. **Site Initializers** (`siteInitializer`) — last, after every CET they depend on is verified active.
 
-**Site Initializer timing pitfall.** Site Initializers place Custom Element widgets onto pages during deploy. If a Custom Element CET is not yet `STARTED` when the Site Initializer runs, the widget placement is **silently skipped**: `catalina.out` shows a `Cannot invoke` warning and the initializer reports success anyway. If widgets are missing on the provisioned site, redeploy the Site Initializer once every referenced CE shows `STARTED` in the log. Treat any `Cannot invoke` line in `catalina.out` during initializer deploy as a hard failure even when the overall task reports success.
+**Site Initializer timing pitfall.** Site Initializers place Custom Element widgets onto pages during deploy. If a Custom Element CET is not yet `STARTED` when the Site Initializer runs, the widget placement is **silently skipped**: the log shows a `Cannot invoke` warning and the initializer reports success anyway. If widgets are missing on the provisioned site, redeploy the Site Initializer once every referenced CE shows `STARTED` in the log. Treat any `Cannot invoke` line in the log during initializer deploy as a hard failure even when the overall task reports success.
 
 ## Starting and Stopping the Liferay Server
 
 **Tomcat only**: `blade server run` (foreground, real time logs) or `blade server start` (background). Prefer `blade server run` when debugging — `blade server start` can silently exit without console output. These commands do **not** work for Docker.
 
-**Docker**: `docker compose up` (foreground) or `docker compose up --detach` (background). Use `docker compose down` to stop.
+**Docker** (this course's default): the user runs `docker compose up -d` at the workspace root, and `docker compose stop` to stop. `docker compose restart liferay` restarts Liferay alone. Never `docker compose down -v`: it deletes the database and Liferay's data.
 
 ## Environment Specifics
 
 - **Tomcat**: if `configs/local/portal-ext.properties` changed, copy it to `bundles/portal-ext.properties` and restart the server, following `CLAUDE.md` → "Server Restarts". Do NOT use `blade gw initBundle` — it deletes the entire bundle directory.
-- **Docker (prebuilt image)**: configure via `liferay.env` environment variables. Changes require a container restart (`docker compose down && docker compose up`), under the same restart policy.
+- **Docker (this course)**: edit `configs/local/portal-ext.properties` or `configs/local/osgi/configs`; they are copied into the container at every start, so `docker compose restart liferay` applies them (a `.config` file also applies live when written to `bundles/osgi/configs`). Environment variables in `docker-compose.yml` override properties.
+- **Docker (prebuilt image, other workspaces)**: configure via `liferay.env` environment variables. Changes require a container restart (`docker compose down && docker compose up`), under the same restart policy.
 - **Docker (custom image)**: if `docker-compose.yaml` uses `build:` instead of `image:`, configuration files in `configs/docker/` are baked into the image by the workspace Gradle plugin. Rebuild the image to apply changes.
 
 ## portal-ext.properties Sync (Tomcat)

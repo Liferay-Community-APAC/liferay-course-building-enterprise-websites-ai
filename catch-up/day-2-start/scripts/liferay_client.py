@@ -3,7 +3,8 @@
 - Workspace root: the parent of this scripts/ folder.
 - Admin credentials: configs/local/admin.properties (ADMIN_EMAIL / ADMIN_PASSWORD),
   falling back to LIFERAY_ADMIN_EMAIL / LIFERAY_ADMIN_PASSWORD. Never printed.
-- Port: the HTTP/1.1 Connector in bundles/tomcat*/conf/server.xml (LIFERAY_PORT overrides).
+- Port: LIFERAY_PORT, else the HTTP/1.1 Connector in bundles/tomcat*/conf/server.xml (Tomcat bundle),
+  else 8080 (the clarity-liferay Docker container).
 - Signs in once through /c/portal/login and reuses the session (much faster than Basic auth
   on every call), sending the CSRF token as x-csrf-token.
 """

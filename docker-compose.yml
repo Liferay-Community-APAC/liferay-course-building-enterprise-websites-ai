@@ -1,11 +1,29 @@
-# PostgreSQL for the course's Liferay DXP bundle.
+# PostgreSQL and Liferay DXP for the course. Works the same on macOS, Linux and Windows.
 #
-#   docker compose up -d      start the database (run it before `blade server start`)
-#   docker compose down       stop it; your data stays in the "clarity-postgres-data" volume
-#   docker compose down -v    stop it AND delete all data (a clean start)
+#   docker compose up -d                  start PostgreSQL and Liferay (the default)
+#   docker compose logs -f liferay        watch Liferay start; wait for "Server startup in"
+#   docker compose restart liferay        restart Liferay (re-reads configs/local)
+#   docker compose stop                   stop both; your data stays in the volumes below
+#   docker compose down -v                stop both AND delete all data (a clean start)
 #
-# Liferay itself runs as a Tomcat bundle (`blade server init` / `blade server start`)
-# and connects to this database on localhost:5432 (see configs/local/portal-ext.properties).
+# Optional Tomcat bundle instead of the Liferay container: start PostgreSQL only
+# (`docker compose up -d postgres`), then `blade server init` and `blade server start`.
+# Never run both: they share port 8080 and the database.
+#
+# The Liferay container uses the same workspace paths as a Tomcat bundle, so deploys,
+# logs, OSGi configs and the course scripts work unchanged:
+#
+#   bundles/osgi/client-extensions   blade gw deploy writes here; Liferay deploys it live
+#   bundles/osgi/configs             runtime OSGi .config files; applied live
+#   bundles/osgi/modules             OSGi modules
+#   bundles/logs                     liferay.<YYYY-MM-DD>.log (dates in GMT)
+#   bundles/routes                   client extension OAuth routes
+#
+# At every container start, configs/local/portal-ext.properties, configs/local/osgi/configs
+# and configs/local/deploy (your activation key) are copied into the container.
+#
+# Give Docker at least 8 GB of memory (Docker Desktop → Settings → Resources on macOS;
+# %UserProfile%\.wslconfig on Windows; see the workbook's Setup chapter).
 
 name: clarity
 
@@ -30,5 +48,67 @@ services:
       retries: 20
     restart: unless-stopped
 
+  # Runs once before each start of Liferay: creates the bundles/ folders the container
+  # mounts, seeds bundles/osgi/configs with the image's defaults, and makes the folders
+  # writable by both Liferay (inside the container) and you (on your computer).
+  liferay-init:
+    image: liferay/dxp:2026.q3.10
+    container_name: clarity-liferay-init
+    user: root
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        set -e
+        mkdir -p /seed/logs /seed/routes
+        for dir in client-extensions configs modules; do
+          mkdir -p "/seed/osgi/$${dir}"
+          if [ -d "/opt/liferay/osgi/$${dir}" ] && [ -z "$$(ls -A "/seed/osgi/$${dir}")" ]; then
+            cp -r "/opt/liferay/osgi/$${dir}/." "/seed/osgi/$${dir}/"
+          fi
+        done
+        chmod -R a+rwX /seed 2>/dev/null || true
+    volumes:
+      - ./bundles:/seed
+    restart: "no"
+
+  liferay:
+    image: liferay/dxp:2026.q3.10
+    container_name: clarity-liferay
+    depends_on:
+      postgres:
+        condition: service_healthy
+      liferay-init:
+        condition: service_completed_successfully
+    environment:
+      # portal-ext.properties points at localhost:5432 for the Tomcat bundle;
+      # inside Docker the database is the "postgres" service.
+      LIFERAY_JDBC_PERIOD_DEFAULT_PERIOD_URL: jdbc:postgresql://postgres:5432/lportal
+      LIFERAY_JVM_OPTS: -Dfile.encoding=UTF-8 -Duser.timezone=GMT -Xms4096m -Xmx4096m -XX:MaxMetaspaceSize=768m -XX:ReservedCodeCacheSize=512m
+    ports:
+      # localhost only, like PostgreSQL.
+      - "127.0.0.1:8080:8080"
+    volumes:
+      # Copied into /opt/liferay at every start (configs/local/deploy holds the activation key).
+      - ./configs/local/portal-ext.properties:/mnt/liferay/files/portal-ext.properties:ro
+      - ./configs/local/osgi/configs:/mnt/liferay/files/osgi/configs:ro
+      - ./configs/local/deploy:/mnt/liferay/files/deploy:ro
+      # Shared with the workspace, at the same paths as a Tomcat bundle.
+      - ./bundles/osgi/client-extensions:/opt/liferay/osgi/client-extensions
+      - ./bundles/osgi/configs:/opt/liferay/osgi/configs
+      - ./bundles/osgi/modules:/opt/liferay/osgi/modules
+      - ./bundles/logs:/opt/liferay/logs
+      - ./bundles/routes:/opt/liferay/routes
+      # Document library, search index and license: kept between restarts.
+      - clarity-liferay-data:/opt/liferay/data
+    healthcheck:
+      # Healthy once Liferay answers HTTP; the first start takes several minutes.
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/8080 && printf 'GET / HTTP/1.0\\r\\n\\r\\n' >&3 && head -n 1 <&3 | grep -q '^HTTP/'"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 15m
+    restart: unless-stopped
+
 volumes:
   clarity-postgres-data:
+  clarity-liferay-data:

@@ -17,7 +17,7 @@ Before answering, identify four things:
 
 1. **DXP version**: read `liferay.workspace.product` from `gradle.properties`. Quarterly releases (`-Qx`) and 7.4 lines use the modern path (Client Extensions, Objects, Fragments). Versions below 7.4 use legacy OSGi modules.
 
-1. **Bundle state**: `bundles/` exists when `blade server init` has run. The Tomcat install lives at `bundles/tomcat*/`. The active HTTP port is the `port` attribute on the `<Connector protocol="HTTP/1.1">` element in `bundles/tomcat*/conf/server.xml`. Default is 8080.
+1. **Runtime**: Liferay runs in **Docker** by default: the `liferay` service of `docker-compose.yml` (container `clarity-liferay`, image `liferay/dxp`), next to `postgres`. `docker compose ps` shows whether it runs; its port is **8080**. The container bind-mounts `bundles/osgi/client-extensions`, `bundles/osgi/configs`, `bundles/osgi/modules`, `bundles/logs` and `bundles/routes`, so deploys, runtime OSGi configs, the log and CX routes are at the same workspace paths as with a Tomcat bundle. There is no `bundles/tomcat*`, no `catalina.out` (read `docker compose logs liferay`) and no `bundles/portal-ext.properties`: `configs/local/portal-ext.properties`, `configs/local/osgi/configs` and `configs/local/deploy` are copied into the container at **every start**, and `LIFERAY_*` environment variables in `docker-compose.yml` override `portal-ext.properties` (the JDBC URL, for one). **Optional Tomcat bundle:** when `bundles/tomcat*/` exists and the `clarity-liferay` container is not running, Liferay is a bundle started with `blade server start`; its HTTP port is the `port` attribute on the `<Connector protocol="HTTP/1.1">` element in `bundles/tomcat*/conf/server.xml` (default 8080). Never run both.
 
 1. **Authentication**: look first for `configs/local/admin.properties` (git-ignored; `ADMIN_EMAIL=...` / `ADMIN_PASSWORD=...`), then the `LIFERAY_ADMIN_EMAIL` / `LIFERAY_ADMIN_PASSWORD` environment variables. Use them for Basic Auth without ever printing, logging, or echoing the password into the conversation or any generated file. If neither exists, ask the user once for the admin account to use, then — with their explicit confirmation — write it to `configs/local/admin.properties` so no future session has to ask again. Never accept a password typed inline as part of a task description.
 
@@ -37,8 +37,8 @@ Before answering, identify four things:
 | OSGi modules | `modules` |
 | Themes | `themes` |
 | Per environment properties | `configs/{common,local,dev,uat,prod,docker}` |
-| Runtime OSGi configs | `bundles/osgi/configs` |
-| Logs | `bundles/tomcat*/logs/catalina.out` and `bundles/logs/liferay.<YYYY-MM-DD>.log` |
+| Runtime OSGi configs | `bundles/osgi/configs` (applies live; mounted into the container) |
+| Logs | `bundles/logs/liferay.<YYYY-MM-DD>.log` (dates in GMT); Tomcat output: `docker compose logs liferay` (Docker) or `bundles/tomcat*/logs/catalina.out` (bundle) |
 | Deployed bundles | `bundles/osgi/modules` and `bundles/osgi/client-extensions` |
 
 `configs/common` holds shared settings. `configs/local` is the default for development. Promotion order is `local` to `dev` to `uat` to `prod`.
@@ -48,9 +48,9 @@ Before answering, identify four things:
 Use Blade as the primary CLI. Prefer `blade gw <task>` over invoking Gradle directly; this guarantees the workspace Gradle wrapper. Key commands:
 
 - `blade init` to scaffold a workspace
-- `blade server init` to download the bundle
-- `blade server start --tail` to start Tomcat and tail the log
-- `blade gw deploy` to package and deploy a module or client extension
+- `docker compose up -d` to start PostgreSQL and Liferay; `docker compose logs -f liferay` to follow Liferay's output (the user runs these, see "Server Restarts")
+- `blade server init` and `blade server start --tail` only for the optional Tomcat bundle (with `docker compose up -d postgres`)
+- `blade gw deploy` to package and deploy a module or client extension; it writes to `bundles/osgi/`, which the container reads, so it works the same for Docker and the bundle
 - `blade gw tasks` to list available Gradle tasks
 
 ## AI Agent Guidelines
@@ -63,7 +63,7 @@ Use Blade as the primary CLI. Prefer `blade gw <task>` over invoking Gradle dire
 
 Stopping a running Liferay server interrupts the user: sessions end, open editors lose work, and the MCP connection drops without reconnecting. So the **user** decides how restarts are handled, once per session.
 
-**Covered:** any stop, restart, or kill of a running Tomcat or Liferay container — `shutdown.sh`/`startup.sh`, `blade server stop`, `docker compose down`/`restart`. It also covers anything that requires one, such as clearing `bundles/osgi/state/`. **Not covered:** starting a server that is not running, when the user asked for it or a setup skill calls for it.
+**Covered:** any stop, restart, or kill of a running Tomcat or Liferay container — `docker compose stop`/`restart liferay`/`down`, `blade server stop`, `shutdown.sh`/`startup.sh`. It also covers anything that requires one, such as a `portal-ext.properties` change (`docker compose restart liferay` copies it in again) or clearing the OSGi state (`docker compose up -d --force-recreate liferay`, which recreates the container; `bundles/osgi/state/` for the bundle). Never `docker compose down -v`: it deletes the database. **Not covered:** starting a server that is not running, when the user asked for it or a setup skill calls for it.
 
 **The first time a restart is needed in a session**, stop and ask which behavior the user wants for the rest of the session:
 

@@ -13,7 +13,7 @@ Stand up a working Liferay Workspace from zero, or diagnose a workspace that loo
 
 - The user asks to set up, initialize, or scaffold a workspace, or asks for setup help.
 - The server appears down or unreachable.
-- The workspace looks uninitialized — missing `bundles/`, or missing `gradle.properties`.
+- The workspace looks uninitialized — missing `gradle.properties`, or (Tomcat bundle only) missing `bundles/`. With this course's Docker setup `bundles/` is created by the first `docker compose up`.
 - Do not run through all steps for a returning user whose server is already running.
 
 > **Note:** These rules apply to local workspace initialization and must not be used to configure higher environments (UAT/Prod).
@@ -24,8 +24,8 @@ Stand up a working Liferay Workspace from zero, or diagnose a workspace that loo
 
 - **Check version**: read `liferay.workspace.product` in `gradle.properties`.
 - **Verify tooling**: check that `blade` (`blade --version`) and Java (`javac -version`) are installed. If missing, provide installation steps.
-- **DXP License**: if `liferay.workspace.product` contains `dxp`, a license file is required. Liferay identifies license files by XML content, not filename — check `bundles/deploy/` for any `.xml` file whose root element is `<license>` or `<licenses>`. If none is found, stop and ask the user to place their license file in `bundles/deploy/` before continuing. For Docker, apply the same check to the directory mounted to the container's deploy path. Community Edition and free tier products do not require a license — skip this check for those.
-- **License is consumed on boot**: Liferay registers the key into the database and deletes the file, so an empty `bundles/deploy/` on an already booted instance is the normal licensed state, not a missing license. Confirm activation from the log instead — `grep --extended-regexp --ignore-case 'license validation passed|License registered' bundles/tomcat*/logs/catalina.out`. Because the license now lives in the database, **clearing `bundles/data` also discards it**; copy a key again into `bundles/deploy/` as part of any such reset.
+- **DXP License**: if `liferay.workspace.product` contains `dxp`, a license file is required. Liferay identifies license files by XML content, not filename — check `bundles/deploy/` for any `.xml` file whose root element is `<license>` or `<licenses>`. If none is found, stop and ask the user to place their license file in `bundles/deploy/` before continuing. **This course's Docker setup** reads the key from `configs/local/deploy/` instead (copied into the container at every start, so it is never consumed there); check that folder. The `liferay/dxp` image also carries a 30-day trial license, so a missing key shows only after 30 days. Community Edition and free tier products do not require a license — skip this check for those.
+- **License is consumed on boot**: Liferay registers the key into the database and deletes the file, so an empty `bundles/deploy/` on an already booted instance is the normal licensed state, not a missing license. Confirm activation from the log instead — `grep --extended-regexp --ignore-case 'license validation passed|License registered' bundles/logs/liferay.*.log` (both runtimes write it there). Because the license now lives in the database, **clearing `bundles/data` also discards it**; copy a key again into `bundles/deploy/` as part of any such reset.
 
 ### Environment Readiness and State Sync
 
@@ -73,7 +73,18 @@ Skip this block if MCP is not supported in your DXP version.
 
 - **Login**: use `test@liferay.com` / `test` (or credentials found in `portal-ext.properties`).
 
-#### Docker
+#### Docker (This Course — the Default)
+
+The workspace root's `docker-compose.yml` runs `postgres` and `liferay` (`liferay/dxp`, container `clarity-liferay`), plus a one-off `liferay-init` that creates the mounted `bundles/` folders. Everything is preconfigured; **the user starts it**, never the agent:
+
+- **Start**: the user runs `docker compose up -d` at the workspace root, then `docker compose logs -f liferay` until `Server startup in`.
+- **Configuration**: `configs/local/portal-ext.properties`, `configs/local/osgi/configs` and `configs/local/deploy` are copied in at every container start; `LIFERAY_*` variables in the compose file override properties (the JDBC URL points at the `postgres` service). Apply a `portal-ext.properties` change with `docker compose restart liferay`, under `CLAUDE.md` → "Server Restarts". No `liferay.env`, no image build, no `-Ddeploy.docker.container.id`.
+- **Deploys and logs**: `bundles/osgi/{client-extensions,configs,modules}`, `bundles/logs` and `bundles/routes` are bind mounts, so `blade gw deploy`, runtime `.config` files and `bundles/logs/liferay.<date>.log` work as with a bundle.
+- **Memory**: Docker needs 8 GB or more (Docker Desktop on macOS: Settings → Resources; Windows: `memory=` in `%UserProfile%\.wslconfig`; Linux: host memory). A container restarting in a loop or exiting with code `137` is out of memory.
+- **Linux user ID**: Liferay runs as UID 1000 and writes logs mode `640`. A host user with another UID cannot read `bundles/logs`: say so, and suggest Docker Desktop for Linux or the Tomcat bundle.
+- **Login**: `admin@clarityvisionsolutions.com` / `learn` (from `configs/local/portal-ext.properties`).
+
+#### Docker (Other Workspaces)
 
 - **Locate compose file**: search the workspace for `docker-compose.yaml` or `docker-compose.yml` — its location varies by project.
 - **Database**: verify the compose file defines a database service (MySQL). Docker has no embedded database; both the database and Liferay containers must be running.
@@ -87,7 +98,7 @@ Skip this block if MCP is not supported in your DXP version.
 ### Server Verification
 
 - **Tomcat**: watch `bundles/tomcat*/logs/catalina.out` for `Server startup in [X] ms`. Then verify `http://localhost:${PORT}` is reachable.
-- **Docker**: poll the health check endpoint until it returns `200`: `curl --fail http://localhost:${PORT}/c/portal/status`. Then verify `http://localhost:${PORT}` is reachable. (Port may differ if the compose file maps a different host port.)
+- **Docker**: wait until `docker compose ps liferay` reads `healthy` (this course's compose file defines the check), or `docker compose logs liferay` shows `Server startup in`. Then verify `http://localhost:${PORT}` is reachable. (Port may differ if the compose file maps a different host port.)
 
 ### First Login Bootstrap (Mandatory Before API/MCP Calls)
 
@@ -116,7 +127,7 @@ If the user prompts for setup assistance, guide them through these steps one by 
 ## Success Signal
 
 - `gradle.properties` and `settings.gradle` present
-- `bundles/tomcat*/` present
+- Docker: `docker compose ps` shows `clarity-liferay` and `clarity-postgres` healthy; Tomcat bundle: `bundles/tomcat*/` present
 - HTTP request to `http://localhost:${PORT}` returns 200
 - User can sign in with the default credentials
 - BasicAuth verifier configured (if doing local REST/MCP work)

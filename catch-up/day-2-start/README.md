@@ -24,8 +24,9 @@ Bring this Liferay instance to the end of Day 1 using the catch-up kit I
 just copied. In order:
 1. Run the scripts in scripts/ as catch-up/day-2-start/README.md lists
    them, with the admin credentials from configs/local/admin.properties
-   and the Tomcat port from bundles/tomcat/conf/server.xml. Stop at the
-   first error and show it to me.
+   and Liferay's HTTP port (8080, or with the optional Tomcat bundle the
+   port in bundles/tomcat/conf/server.xml). Stop at the first error and
+   show it to me.
 2. Deploy client-extensions/clarity-theme (blade gw clean deploy), then
    client-extensions/clarity-site with bash scripts/deploy_site.sh (it waits
    for the site initializer, then re-applies the site settings each deploy
@@ -49,7 +50,7 @@ Run each from the workspace root with no arguments, for example `python3 -I scri
 
 Deploy `clarity-site` with `scripts/deploy_site.sh`, now and later in the course: every deploy of the site initializer resets the site's languages, and the script puts them back.
 
-Every script reads `configs/local/admin.properties` and the Tomcat port, and upserts by external reference code, so running it twice is safe.
+Every script reads `configs/local/admin.properties` and Liferay's port (8080 unless a Tomcat bundle's `server.xml` says otherwise), and upserts by external reference code, so running it twice is safe.
 
 ## What you still do by hand
 
