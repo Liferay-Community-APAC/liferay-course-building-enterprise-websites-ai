@@ -62,3 +62,5 @@ A CMS structure's fields are indexed inside **`nestedFieldArray`**, as rows such
 - **Sort:** `{"nestedFieldArray.value_date": {"order": "asc", "nested": {"nested_path": "nestedFieldArray", "nested_filter": {"term": {"nestedFieldArray.fieldName": "startDateTime"}}}}}`. A plain sort on the field is an Elasticsearch error.
 - For a CMS structure, `collectionProviderType` and `searchableAssetTypes` are the structure's className (`com.liferay.object.model.ObjectDefinition#XXXX`, read it live).
 - **A blueprint collection with `displayAllItems: true` renders an empty container** (no log line). Leave `displayAllItems`/`showAllItems` out.
+
+- **A boost is a `should` clause:** a "boost Associate" element also lifts Associate items in unrelated searches. Combine it with a filter when it should only reorder a known result set.

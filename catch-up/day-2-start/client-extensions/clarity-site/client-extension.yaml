@@ -1,0 +1,18 @@
+clarity-site-init:
+    name: Clarity Public Site Initializer
+    oAuthApplicationHeadlessServer: clarity-site-oauth
+    siteExternalReferenceCode: clarity-public
+    siteName: Clarity Public Enterprise Website
+    type: siteInitializer
+
+clarity-site-oauth:
+    .serviceAddress: localhost:8480
+    .serviceScheme: http
+    name: Clarity Public Site OAuth
+    scopes:
+        - Liferay.Headless.Admin.Site.everything
+        - Liferay.Headless.Admin.Content.everything
+        - Liferay.Object.Admin.REST.everything
+        - Liferay.Headless.Object.everything
+        - Liferay.Headless.Admin.User.everything
+    type: oAuthApplicationHeadlessServer

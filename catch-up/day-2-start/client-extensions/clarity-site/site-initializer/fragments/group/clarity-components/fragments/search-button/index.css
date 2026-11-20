@@ -1,0 +1,37 @@
+.clarity-search-button__link {
+	align-items: center;
+	color: var(--color-brand-primary, var(--primary));
+	display: inline-flex;
+	gap: var(--spacer-2, 0.5rem);
+	padding: var(--spacer-2, 0.5rem);
+	text-decoration: none;
+}
+
+.clarity-search-button__link:hover,
+.clarity-search-button__link:focus {
+	color: var(--color-brand-primary-darken-1, var(--primary-d1, var(--primary)));
+	text-decoration: none;
+}
+
+.clarity-search-button__icon {
+	display: inline-flex;
+	line-height: 1;
+}
+
+.clarity-search-button__icon .lexicon-icon {
+	height: 1em;
+	width: 1em;
+}
+
+/* hideLabel: keep the label for screen readers only */
+.clarity-search-button[data-hide-label='true'] .clarity-search-button__label {
+	border: 0;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}

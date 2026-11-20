@@ -119,7 +119,7 @@ TODO / inferred — verify against a running bundle. Confirm the created catalog
 | Search Options | `…SearchOptionsPortlet` | `allowEmptySearches: "true"`. **Without it, Commerce Search Results shows "No products were found", even for admin.** |
 | Specification facet | `…CPSpecificationOptionFacetsPortlet` | |
 
-Read each widget's exact name from a page built in the editor, or from Liferay's Minium site initializer.
+The `…` names are abbreviated: read each widget's full name from a page built in the editor, from Liferay's Minium site initializer, or from the portlet's jar. Re-running a product load that sets categories clears the categories' descriptions too: re-apply them afterwards.
 
 ### Widget Templates in the Site Initializer
 
@@ -132,3 +132,7 @@ Read each widget's exact name from a page built in the editor, or from Liferay's
 ### Product Display Page Template
 
 `display-page-template.json`: `{"contentType": {"className": "com.liferay.commerce.product.model.CPDefinition"}, "defaultTemplate": true, "name": "Product Details"}`. Map `name`, `sku`, `description` with `contextSource: "DisplayPageItem"`. Specifications and attachments are `Collection` elements of type `CollectionProvider` with className `com.liferay.commerce.product.content.web.internal.info.collection.provider.CPDefinitionSpecificationOptionValuesRelatedInfoItemCollectionProvider` and `…CPAttachmentFileEntriesRelatedInfoItemCollectionProvider`; inside, map `name`/`value` and `title`/`downloadURL` with `CollectionItem`.
+
+### Product Batch Images
+
+In `POST /products/batch`, an image can reference an existing file instead of uploading one: `"images": [{"fileEntryExternalReferenceCode": "<file erc>", "fileEntryGroupExternalReferenceCode": "<space or site erc>", "priority": 10, "title": {…}}]` (it renders through `/o/commerce-media`). **Re-sending an image that's already attached fails the whole task** with `DuplicateCPAttachmentFileEntryException`: skip images the product already has.

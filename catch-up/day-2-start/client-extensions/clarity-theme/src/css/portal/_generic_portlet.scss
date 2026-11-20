@@ -1,0 +1,30 @@
+.lfr-table {
+	border-collapse: collapse;
+	clear: both;
+
+	> tbody,
+	> thead,
+	> tfoot {
+		> tr {
+			> td,
+			> th {
+				overflow-wrap: break-word;
+				padding: 0 5px;
+
+				&:first-child,
+				&.first-child {
+					padding-left: 0;
+				}
+
+				&:last-child,
+				&.last-child {
+					padding-right: 0;
+				}
+			}
+		}
+
+		> tr > th {
+			font-weight: bold;
+		}
+	}
+}

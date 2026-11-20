@@ -366,3 +366,6 @@ Creating entries of a structure needs `ADD_OBJECT_ENTRY` on `com.liferay.object#
 ### Built-in Blog Structure (Verified on 2026.q3.10)
 
 Liferay CMS's Blog: name `CMSBlog`, ERC `L_CMS_BLOG`, REST `/o/cms/blogs` (scoped to a Space like any structure). Fields: `title`, `subtitle`, `content` (RichText), `coverImage` (Attachment, `fileSource: userComputerToCMSBasicDocument`, so linking a Space file **copies** it into the entry). A vocabulary limited to it uses `assetTypes[].type: "Blog"`. Its display page URL is `/web/<site>/cmsblog/asset-library-<depot id>/<slug>` (no `c_` prefix for this system structure).
+- **The default-permissions body:** `PATCH /o/cms/default-permissions/{id}` with `defaultPermissions` as a **JSON string** keyed `OBJECT_ENTRY_FOLDERS`, `L_CONTENTS` and `L_FILES`, each mapping role names to action lists (e.g. Guest `["VIEW"]` under `L_CONTENTS`, `["VIEW", "DOWNLOAD_FILE"]` under `L_FILES`). **Each existing folder keeps its own copy** of the Space defaults, taken when it was created: update the folders' entries too, or entries created in existing folders miss the change.
+- **The CMS OpenAPI is per structure:** `/o/cms/<plural>/openapi.json` (e.g. `/o/cms/blogs/openapi.json`); `/o/cms/openapi.json` is `404`.
+- **Re-importing entries under workflow** sends them back to *pending* and adds a version each time: compare before writing.

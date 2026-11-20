@@ -231,3 +231,4 @@ In the tree (`layouts/<page>/page-definition.json`):
 - An async delete action: `target: "async"`, `method: "delete"`, `url: "/o/c/<plural>/{id}"`, `confirmationMessageType: "danger"`, with success and error messages `_i18n`. It shows only to users with DELETE on the entry.
 - A link action to the entry's admin page can use the ERC: `…mvcRenderCommandName=/object_entries/edit_object_entry&…externalReferenceCode={externalReferenceCode}` (the portlet id carries the object's className suffix, so it's environment-specific).
 - The users reading the data set need VIEW on the object's entries, or it shows 0 rows.
+- **An item action's `permissionKey` is the row's action name** (`get`, `delete`, as in the entry's `actions` map), not a permission id: with `"VIEW"` the action never shows. The `UPDATE` form elsewhere in this skill is wrong for object entries.

@@ -1,0 +1,589 @@
+{
+	"pageElement": {
+		"pageElements": [
+			{
+				"definition": {
+					"name": "Banner",
+					"layout": {
+						"paddingTop": 6,
+						"paddingBottom": 6
+					}
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"name": "Banner Content",
+							"layout": {
+								"containerType": "Fixed"
+							}
+						},
+						"pageElements": [
+							{
+								"definition": {
+									"gutters": true,
+									"modulesPerRow": 2,
+									"numberOfColumns": 2,
+									"verticalAlignment": "middle"
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"size": 6
+										},
+										"pageElements": [
+											{
+												"definition": {
+													"fragment": {
+														"key": "BASIC_COMPONENT-heading"
+													},
+													"fragmentConfig": {
+														"headingLevel": "h1"
+													},
+													"fragmentFields": [
+														{
+															"id": "element-text",
+															"value": {
+																"fragmentLink": {},
+																"text": {
+																	"value_i18n": {
+																		"en_US": "Elevate Your Brand with Premium Eyewear"
+																	}
+																}
+															}
+														}
+													]
+												},
+												"type": "Fragment"
+											},
+											{
+												"definition": {
+													"fragment": {
+														"key": "BASIC_COMPONENT-paragraph"
+													},
+													"fragmentFields": [
+														{
+															"id": "element-text",
+															"value": {
+																"fragmentLink": {},
+																"text": {
+																	"value_i18n": {
+																		"en_US": "Discover premium craftsmanship, innovative lenses, and designs that help your brand stand out."
+																	}
+																}
+															}
+														}
+													]
+												},
+												"type": "Fragment"
+											},
+											{
+												"definition": {
+													"fragment": {
+														"key": "clarity-button",
+														"siteKey": "[$GROUP_KEY$]"
+													},
+													"fragmentConfig": {
+														"inverted": false,
+														"size": "large",
+														"style": "primary",
+														"type": "solid"
+													},
+													"fragmentFields": [
+														{
+															"id": "link",
+															"value": {
+																"fragmentLink": {
+																	"value": {
+																		"href": {
+																			"value": "/web/clarity/products"
+																		}
+																	}
+																},
+																"text": {
+																	"value_i18n": {
+																		"en_US": "Explore Products"
+																	}
+																}
+															}
+														}
+													]
+												},
+												"type": "Fragment"
+											}
+										],
+										"type": "Column"
+									},
+									{
+										"definition": {
+											"size": 6
+										},
+										"pageElements": [
+											{
+												"definition": {
+													"fragment": {
+														"key": "BASIC_COMPONENT-image"
+													}
+												},
+												"type": "Fragment"
+											}
+										],
+										"type": "Column"
+									}
+								],
+								"type": "Row"
+							}
+						],
+						"type": "Section"
+					}
+				],
+				"type": "Section"
+			},
+			{
+				"definition": {
+					"name": "Clarity Solutions Promo",
+					"layout": {
+						"paddingTop": 6,
+						"paddingBottom": 6
+					}
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"name": "Content Wrapper",
+							"layout": {
+								"containerType": "Fixed",
+								"paddingTop": 4,
+								"paddingBottom": 4
+							}
+						},
+						"pageElements": [
+							{
+								"definition": {
+									"gutters": true,
+									"modulesPerRow": 2,
+									"numberOfColumns": 2,
+									"verticalAlignment": "middle"
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"size": 6
+										},
+										"pageElements": [
+											{
+												"definition": {
+													"fragment": {
+														"key": "BASIC_COMPONENT-heading"
+													},
+													"fragmentConfig": {
+														"headingLevel": "h2"
+													},
+													"fragmentFields": [
+														{
+															"id": "element-text",
+															"value": {
+																"fragmentLink": {},
+																"text": {
+																	"value_i18n": {
+																		"en_US": "See Further with Clarity Vision Solutions"
+																	}
+																}
+															}
+														}
+													]
+												},
+												"type": "Fragment"
+											},
+											{
+												"definition": {
+													"fragment": {
+														"key": "BASIC_COMPONENT-paragraph"
+													},
+													"fragmentFields": [
+														{
+															"id": "element-text",
+															"value": {
+																"fragmentLink": {},
+																"text": {
+																	"value_i18n": {
+																		"en_US": "Take advantage of exclusive offers on the latest products to deliver exceptional value for your business and your customers."
+																	}
+																}
+															}
+														}
+													]
+												},
+												"type": "Fragment"
+											}
+										],
+										"type": "Column"
+									},
+									{
+										"definition": {
+											"size": 6
+										},
+										"pageElements": [
+											{
+												"definition": {
+													"fragment": {
+														"key": "BASIC_COMPONENT-image"
+													}
+												},
+												"type": "Fragment"
+											}
+										],
+										"type": "Column"
+									}
+								],
+								"type": "Row"
+							}
+						],
+						"type": "Section"
+					}
+				],
+				"type": "Section"
+			},
+			{
+				"definition": {
+					"name": "See the Difference",
+					"layout": {
+						"paddingTop": 6,
+						"paddingBottom": 6
+					}
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"fragment": {
+								"key": "BASIC_COMPONENT-heading"
+							},
+							"fragmentConfig": {
+								"headingLevel": "h2"
+							},
+							"fragmentFields": [
+								{
+									"id": "element-text",
+									"value": {
+										"fragmentLink": {},
+										"text": {
+											"value_i18n": {
+												"en_US": "See the Difference"
+											}
+										}
+									}
+								}
+							]
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"gutters": true,
+							"modulesPerRow": 3,
+							"numberOfColumns": 3,
+							"verticalAlignment": "top"
+						},
+						"pageElements": [
+							{
+								"definition": {
+									"size": 4
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-heading"
+											},
+											"fragmentConfig": {
+												"headingLevel": "h3"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"fragmentLink": {},
+														"text": {
+															"value_i18n": {
+																"en_US": "Innovation"
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									},
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-paragraph"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"fragmentLink": {},
+														"text": {
+															"value_i18n": {
+																"en_US": "Advanced lens technology and materials, refined in our own labs."
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									}
+								],
+								"type": "Column"
+							},
+							{
+								"definition": {
+									"size": 4
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-heading"
+											},
+											"fragmentConfig": {
+												"headingLevel": "h3"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"fragmentLink": {},
+														"text": {
+															"value_i18n": {
+																"en_US": "Craftsmanship"
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									},
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-paragraph"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"fragmentLink": {},
+														"text": {
+															"value_i18n": {
+																"en_US": "Precision-crafted frames, built to look good and last."
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									}
+								],
+								"type": "Column"
+							},
+							{
+								"definition": {
+									"size": 4
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-heading"
+											},
+											"fragmentConfig": {
+												"headingLevel": "h3"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"fragmentLink": {},
+														"text": {
+															"value_i18n": {
+																"en_US": "Partnership"
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									},
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-paragraph"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"fragmentLink": {},
+														"text": {
+															"value_i18n": {
+																"en_US": "Dedicated support that helps our distributors and retail partners grow."
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									}
+								],
+								"type": "Column"
+							}
+						],
+						"type": "Row"
+					}
+				],
+				"type": "Section"
+			},
+			{
+				"definition": {
+					"name": "Helpful Articles",
+					"layout": {
+						"paddingTop": 6,
+						"paddingBottom": 6
+					}
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"fragment": {
+								"key": "BASIC_COMPONENT-heading"
+							},
+							"fragmentConfig": {
+								"headingLevel": "h2"
+							},
+							"fragmentFields": [
+								{
+									"id": "element-text",
+									"value": {
+										"fragmentLink": {},
+										"text": {
+											"value_i18n": {
+												"en_US": "Helpful Articles from Our Team"
+											}
+										}
+									}
+								}
+							]
+						},
+						"type": "Fragment"
+					}
+				],
+				"type": "Section"
+			},
+			{
+				"definition": {
+					"name": "Distributor Promo",
+					"layout": {
+						"containerType": "Fixed",
+						"paddingTop": 6,
+						"paddingBottom": 6
+					}
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"fragment": {
+								"key": "BASIC_COMPONENT-heading"
+							},
+							"fragmentConfig": {
+								"headingLevel": "h2"
+							},
+							"fragmentFields": [
+								{
+									"id": "element-text",
+									"value": {
+										"fragmentLink": {},
+										"text": {
+											"value_i18n": {
+												"en_US": "Become a Clarity Distributor"
+											}
+										}
+									}
+								}
+							]
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"key": "BASIC_COMPONENT-paragraph"
+							},
+							"fragmentFields": [
+								{
+									"id": "element-text",
+									"value": {
+										"fragmentLink": {},
+										"text": {
+											"value_i18n": {
+												"en_US": "Partner with Clarity to bring premium eyewear to your customers, with dedicated support, training and marketing resources."
+											}
+										}
+									}
+								}
+							]
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"key": "clarity-button",
+								"siteKey": "[$GROUP_KEY$]"
+							},
+							"fragmentConfig": {
+								"inverted": false,
+								"size": "regular",
+								"style": "primary",
+								"type": "solid"
+							},
+							"fragmentFields": [
+								{
+									"id": "link",
+									"value": {
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value": "/web/clarity/contact-us"
+												}
+											}
+										},
+										"text": {
+											"value_i18n": {
+												"en_US": "Contact Us"
+											}
+										}
+									}
+								}
+							]
+						},
+						"type": "Fragment"
+					}
+				],
+				"type": "Section"
+			}
+		],
+		"type": "Root"
+	},
+	"settings": {
+		"masterPage": {
+			"key": "primary-master-page"
+		}
+	},
+	"version": 1.1
+}

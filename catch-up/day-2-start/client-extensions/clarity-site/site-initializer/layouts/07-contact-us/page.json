@@ -1,0 +1,11 @@
+{
+	"friendlyURL": "/contact-us",
+	"hidden": false,
+	"name": "Contact Us",
+	"name_i18n": {
+		"en_US": "Contact Us"
+	},
+	"private": false,
+	"system": false,
+	"type": "Content"
+}

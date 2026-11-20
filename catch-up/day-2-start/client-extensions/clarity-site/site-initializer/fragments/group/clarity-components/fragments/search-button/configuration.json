@@ -1,0 +1,50 @@
+{
+	"fieldSets": [
+		{
+			"fields": [
+				{
+					"dataType": "string",
+					"defaultValue": "search",
+					"label": "Icon Name",
+					"name": "iconName",
+					"type": "text"
+				},
+				{
+					"dataType": "string",
+					"defaultValue": "1rem",
+					"label": "Icon Size",
+					"name": "iconSize",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{"label": "1rem", "value": "1rem"},
+							{"label": "1.5rem", "value": "1.5rem"},
+							{"label": "2rem", "value": "2rem"},
+							{"label": "2.5rem", "value": "2.5rem"},
+							{"label": "3rem", "value": "3rem"}
+						]
+					}
+				},
+				{
+					"defaultValue": "#",
+					"label": "Link",
+					"name": "link",
+					"type": "url"
+				},
+				{
+					"defaultValue": true,
+					"label": "Hide Label",
+					"name": "hideLabel",
+					"type": "checkbox"
+				},
+				{
+					"dataType": "string",
+					"defaultValue": "Search",
+					"label": "Button Label",
+					"name": "buttonLabel",
+					"type": "text"
+				}
+			]
+		}
+	]
+}

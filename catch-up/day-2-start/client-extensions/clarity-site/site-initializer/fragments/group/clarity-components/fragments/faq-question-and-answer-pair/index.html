@@ -1,0 +1,32 @@
+<div class="clarity-faq">
+	<h3 class="clarity-faq__heading">
+		<button
+			aria-controls="fragment-${fragmentEntryLinkNamespace}-answer"
+			aria-expanded="false"
+			class="clarity-faq__toggle"
+			id="fragment-${fragmentEntryLinkNamespace}-question"
+			type="button"
+		>
+			<span class="clarity-faq__question" data-lfr-editable-id="main-text" data-lfr-editable-type="text">
+				Frequently asked question?
+			</span>
+			<span aria-hidden="true" class="clarity-faq__icon clarity-faq__icon--plus">
+				[@clay["icon"] symbol="plus" /]
+			</span>
+			<span aria-hidden="true" class="clarity-faq__icon clarity-faq__icon--minus">
+				[@clay["icon"] symbol="hr" /]
+			</span>
+		</button>
+	</h3>
+	<div
+		aria-labelledby="fragment-${fragmentEntryLinkNamespace}-question"
+		class="clarity-faq__answer"
+		data-lfr-editable-id="answer-text"
+		data-lfr-editable-type="rich-text"
+		hidden
+		id="fragment-${fragmentEntryLinkNamespace}-answer"
+		role="region"
+	>
+		<p>Answer to the frequently asked question.</p>
+	</div>
+</div>
