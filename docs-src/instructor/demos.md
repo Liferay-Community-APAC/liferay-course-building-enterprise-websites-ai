@@ -12,7 +12,7 @@ Each demo has:
 - 🎯 **What it shows**, in one line.
 - 🧰 **Before:** what to prepare. Do it during the break before the block.
 - 📋 **Steps:** what you click, in order. Demos are read-only unless a step says otherwise.
-- 💬 **Prompt** (optional): when it helps, ask your agent instead of clicking, or to prepare data. Your agent is set up exactly like a learner's (Setup S.1 to S.4).
+- 💬 **Prompt** (optional): when it helps, ask your agent instead of clicking, or to prepare data. Your agent is set up exactly like a learner's (Setup S.0 to S.4).
 - 💡 **Point out:** what learners should take from it.
 
 Personas sign in with password `learn`. Use a **private window** for any persona or Guest, so your admin session stays signed in.
@@ -41,12 +41,12 @@ Personas sign in with password `learn`. Use a **private window** for any persona
 
 🎯 What a healthy first start looks like, so learners recognize it in S.2.
 
-🧰 **Before:** a second clone of the course repository, with the activation key in `configs/local/deploy/` and `blade server init` already run. Stop your demo instance first if it uses port 8080 or 5432, or show the log of your dry run instead.
+🧰 **Before:** stop your demo build (`blade server stop`, then `docker compose stop`) so you can show a start from the beginning. Its data stays; the start just isn't the first one. If you'd rather not restart, show the log of your dry run instead (`bundles/tomcat/logs/catalina.out`).
 
 📋 **Steps:**
 1. In VS Code's terminal: `docker compose up -d`, then `docker compose ps`: `clarity-postgres` is *running (healthy)*.
-2. `blade server start --tail`. Scroll past the database creation to `Server startup in [...] milliseconds`.
-3. Open `http://localhost:8080`, sign in as `admin@clarityvisionsolutions.com`, read and close the *Terms of Use* notice.
+2. `blade server start --tail`. Wait for `Server startup in [...] milliseconds`. Tell learners their first start also creates the database, so it takes a few minutes longer.
+3. Open `http://localhost:8080` and sign in as `admin@clarityvisionsolutions.com`. On their first sign-in learners see a *Terms of Use* notice: they read it and close it with *Done*.
 
 💡 **Point out:** you started Liferay in your own terminal, not through the agent. A server started inside an agent session stops when the session ends.
 
@@ -76,7 +76,19 @@ MCP tools you called.
 
 🎯 The prompt-then-verify loop, once, before learners try it.
 
-📋 **Steps:** run [S.1 from the workbook](../workbook/#s1-open-the-workspace-and-seed-the-context-files) in a fresh clone, then open `solution-context.md` and `solution-index.yaml` and count the 13 requirements, all `status: todo`.
+🧰 **Before:** S.1 rewrites `solution-context.md` and `solution-index.yaml`, and your finished build's index records all 13 requirements as done. Keep a copy:
+```bash
+mkdir -p ~/courses/s1-backup
+cp solution-context.md solution-index.yaml ~/courses/s1-backup/
+```
+
+📋 **Steps:**
+1. Run [S.1 from the workbook](../workbook/#s1-seed-the-context-files) in a new agent session.
+2. Open both files: `solution-context.md` fits on a screen or two and names the personas; `solution-index.yaml` lists the 13 requirements, all `status: todo`, which is where learners start.
+3. Put your copies back:
+   ```bash
+   cp ~/courses/s1-backup/solution-context.md ~/courses/s1-backup/solution-index.yaml .
+   ```
 
 💡 **Point out:** the verify step is yours, not the agent's: open the file and check it against the brief.
 

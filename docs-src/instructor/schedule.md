@@ -2,7 +2,10 @@
 
 Two days, 9:00 to 17:00, with a 60-minute lunch and two 15-minute breaks. Each block pairs a short talk (slides) with the level's exercises. Times assume a class of up to 16 with prerequisites done before day 1.
 
-Every link opens the matching place: **Workbook** jumps to the level in the student workbook, **Slides** opens the deck at the block's first slide, and **Demos** opens what you show on the projector in the [instructor demo workbook](demos.html).
+The last three columns say who uses them:
+
+- **For learners — Workbook:** the level learners work through in the [workbook](../workbook/). Share these links with the class.
+- **For the instructor — Slides and Demos:** the deck at the block's first slide, and what you show on the projector from the [instructor demo workbook](demos.html).
 
 ## Day 1 — Foundations to content
 

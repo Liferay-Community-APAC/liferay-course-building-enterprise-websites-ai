@@ -93,7 +93,7 @@ body {
 .toc a:hover { color: var(--lf-neutral-10); background: var(--lf-hover-bg); }
 .toc a.active { background: var(--lf-active-bg); border-left-color: var(--lf-brand); color: var(--lf-brand-active); font-weight: 700; }
 
-.content-wrap { margin-left: 300px; flex: 1; display: flex; justify-content: center; padding: 2.5rem 2rem 7rem; }
+.content-wrap { margin-left: 300px; flex: 1; min-width: 0; display: flex; justify-content: center; padding: 2.5rem 2rem 7rem; }
 .doc-content { max-width: 840px; width: 100%; min-width: 0; }
 
 /* Headings — learn.liferay.com's article headings are plain, undecorated:
@@ -194,14 +194,26 @@ em { color: inherit; }
 .doc-content table.schedule td:nth-child(5),
 .doc-content table.schedule th { white-space: nowrap; }
 .doc-content table.schedule td:nth-child(6) a { white-space: nowrap; }
-.doc-content table.schedule td:nth-child(2) { min-width: 15rem; }
+.doc-content table.schedule td:nth-child(2) { min-width: 11rem; }
 .doc-content table.schedule tr.row-break td { background: var(--lf-neutral-1); color: var(--lf-neutral-6); font-size: .82rem; padding-top: .35rem; padding-bottom: .35rem; }
 .doc-content table.schedule tr.row-break td:first-child { font-weight: 400; color: var(--lf-neutral-6); }
 .doc-content table.schedule tr.row-break td:nth-child(2) { font-style: italic; }
 
+/* Who each column is for */
+.doc-content table.schedule thead tr.audience-row th { position: static; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; padding: .3rem .75rem; border-bottom: 0; background: var(--lf-neutral-0); }
+.doc-content table.schedule th.aud-learners { background: #e6f6f3; color: #0f6b5c; border-top: 3px solid #1d8c8c; }
+.doc-content table.schedule th.aud-instructor { background: #eef0fb; color: #3b3e9e; border-top: 3px solid #5b5fd6; }
+.doc-content table.schedule .col-learners { background: rgba(29, 140, 140, .06); }
+.doc-content table.schedule .col-instructor { background: rgba(91, 95, 214, .06); }
+.doc-content table.schedule thead th.col-learners { background: #e6f6f3; }
+.doc-content table.schedule thead th.col-instructor { background: #eef0fb; }
+.doc-content table.schedule tr.row-break td { background: var(--lf-neutral-1); }
+
 /* Phone: each schedule row becomes a card */
 @media (max-width: 640px) {
   .doc-content table.schedule thead { display: none; }
+  .doc-content table.schedule td.col-learners:not(:empty)::before { content: "Learners · " attr(data-label) ": " !important; }
+  .doc-content table.schedule td.col-instructor:not(:empty)::before { content: "Instructor · " attr(data-label) ": " !important; }
   .doc-content table.schedule, .doc-content table.schedule tbody, .doc-content table.schedule tr { display: block; width: 100%; }
   .doc-content table.schedule tr { border-bottom: 1px solid var(--lf-neutral-2); padding: .6rem .75rem; }
   .doc-content table.schedule td { display: none; border: 0; padding: .1rem 0; white-space: normal; min-width: 0; }
@@ -267,7 +279,7 @@ em { color: inherit; }
 <li>🎯 <strong>What it shows</strong>, in one line.</li>
 <li>🧰 <strong>Before:</strong> what to prepare. Do it during the break before the block.</li>
 <li>📋 <strong>Steps:</strong> what you click, in order. Demos are read-only unless a step says otherwise.</li>
-<li>💬 <strong>Prompt</strong> (optional): when it helps, ask your agent instead of clicking, or to prepare data. Your agent is set up exactly like a learner's (Setup S.1 to S.4).</li>
+<li>💬 <strong>Prompt</strong> (optional): when it helps, ask your agent instead of clicking, or to prepare data. Your agent is set up exactly like a learner's (Setup S.0 to S.4).</li>
 <li>💡 <strong>Point out:</strong> what learners should take from it.</li>
 </ul>
 <p>Personas sign in with password <code>learn</code>. Use a <strong>private window</strong> for any persona or Guest, so your admin session stays signed in.</p>
@@ -287,12 +299,12 @@ em { color: inherit; }
 <h3 id="d12-the-first-start-of-liferay">D1.2 — The first start of Liferay<a aria-hidden="true" class="heading-anchor" href="#d12-the-first-start-of-liferay" tabindex="-1">#</a></h3>
 <p>🕒 <strong>When:</strong> Day 1 slide 10, <em>Running Liferay locally</em>. 5 minutes.</p>
 <p>🎯 What a healthy first start looks like, so learners recognize it in S.2.</p>
-<p>🧰 <strong>Before:</strong> a second clone of the course repository, with the activation key in <code>configs/local/deploy/</code> and <code>blade server init</code> already run. Stop your demo instance first if it uses port 8080 or 5432, or show the log of your dry run instead.</p>
+<p>🧰 <strong>Before:</strong> stop your demo build (<code>blade server stop</code>, then <code>docker compose stop</code>) so you can show a start from the beginning. Its data stays; the start just isn't the first one. If you'd rather not restart, show the log of your dry run instead (<code>bundles/tomcat/logs/catalina.out</code>).</p>
 <p>📋 <strong>Steps:</strong></p>
 <ol>
 <li>In VS Code's terminal: <code>docker compose up -d</code>, then <code>docker compose ps</code>: <code>clarity-postgres</code> is <em>running (healthy)</em>.</li>
-<li><code>blade server start --tail</code>. Scroll past the database creation to <code>Server startup in [...] milliseconds</code>.</li>
-<li>Open <code>http://localhost:8080</code>, sign in as <code>admin@clarityvisionsolutions.com</code>, read and close the <em>Terms of Use</em> notice.</li>
+<li><code>blade server start --tail</code>. Wait for <code>Server startup in [...] milliseconds</code>. Tell learners their first start also creates the database, so it takes a few minutes longer.</li>
+<li>Open <code>http://localhost:8080</code> and sign in as <code>admin@clarityvisionsolutions.com</code>. On their first sign-in learners see a <em>Terms of Use</em> notice: they read it and close it with <em>Done</em>.</li>
 </ol>
 <p>💡 <strong>Point out:</strong> you started Liferay in your own terminal, not through the agent. A server started inside an agent session stops when the session ends.</p>
 <h3 id="d13-the-agent-connected-to-liferays-mcp-server">D1.3 — The agent connected to Liferay's MCP server<a aria-hidden="true" class="heading-anchor" href="#d13-the-agent-connected-to-liferays-mcp-server" tabindex="-1">#</a></h3>
@@ -313,7 +325,18 @@ MCP tools you called.
 <h3 id="d14-setup-s1-on-the-projector">D1.4 — Setup S.1 on the projector<a aria-hidden="true" class="heading-anchor" href="#d14-setup-s1-on-the-projector" tabindex="-1">#</a></h3>
 <p>🕒 <strong>When:</strong> Day 1 slide 12, the Setup challenge. 5 minutes.</p>
 <p>🎯 The prompt-then-verify loop, once, before learners try it.</p>
-<p>📋 <strong>Steps:</strong> run <a href="../workbook/#s1-open-the-workspace-and-seed-the-context-files">S.1 from the workbook</a> in a fresh clone, then open <code>solution-context.md</code> and <code>solution-index.yaml</code> and count the 13 requirements, all <code>status: todo</code>.</p>
+<p>🧰 <strong>Before:</strong> S.1 rewrites <code>solution-context.md</code> and <code>solution-index.yaml</code>, and your finished build's index records all 13 requirements as done. Keep a copy:</p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code class="language-bash">mkdir -p ~/courses/s1-backup
+cp solution-context.md solution-index.yaml ~/courses/s1-backup/
+</code></pre></div>
+<p>📋 <strong>Steps:</strong></p>
+<ol>
+<li>Run <a href="../workbook/#s1-seed-the-context-files">S.1 from the workbook</a> in a new agent session.</li>
+<li>Open both files: <code>solution-context.md</code> fits on a screen or two and names the personas; <code>solution-index.yaml</code> lists the 13 requirements, all <code>status: todo</code>, which is where learners start.</li>
+<li>Put your copies back:<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>cp ~/courses/s1-backup/solution-context.md ~/courses/s1-backup/solution-index.yaml .
+</code></pre></div>
+</li>
+</ol>
 <p>💡 <strong>Point out:</strong> the verify step is yours, not the agent's: open the file and check it against the brief.</p>
 <h3 id="d15-liferay-data-platform">D1.5 — Liferay Data Platform<a aria-hidden="true" class="heading-anchor" href="#d15-liferay-data-platform" tabindex="-1">#</a></h3>
 <p>🕒 <strong>When:</strong> Day 1 slide 15, <em>Knowing what visitors actually did</em> (instructor only). 8 minutes.</p>

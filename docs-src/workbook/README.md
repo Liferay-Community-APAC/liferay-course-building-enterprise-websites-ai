@@ -25,7 +25,7 @@ Over two days you build **Clarity Vision Solutions' public enterprise website** 
 
 | Day | Level | You build | Original BEWL challenge |
 | --- | --- | --- | --- |
-| 1 | Setup | Workspace, PostgreSQL, DXP, MCP server, context files | 2 |
+| 1 | Setup | The course repository in VS Code, PostgreSQL, DXP, MCP server, context files | 2 |
 | 1 | 1 — Users and permissions | Personas, user groups, roles, least-privilege permissions | 3 |
 | 1 | 2 — Sites | The public site and the distributor portal, membership, site settings, instance home page | 4 |
 | 1 | 3 — Pages and navigation | Page hierarchy, master pages, display page templates, navigation menus | 5, 6 |

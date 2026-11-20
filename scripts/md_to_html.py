@@ -156,8 +156,52 @@ def ensure_blank_line_before_lists(md_text: str) -> str:
     return "\n".join(out)
 
 
+def nest_list_fences(md_text: str) -> str:
+    """Make fenced code inside list items render as code blocks.
+
+    Python-Markdown's fenced-code preprocessor only sees a fence at the very
+    start of a line, and list items need 4-space continuation lines, while
+    the sources indent list content by 3 spaces (as GitHub accepts). Outside
+    top-level fences: a fence indented 1 to 4 spaces becomes an indented code
+    block inside the list item (8 spaces), and a 3-space continuation line
+    becomes a 4-space one.
+    """
+    out: list[str] = []
+    lines = md_text.split("\n")
+    i, top_fence = 0, False
+    while i < len(lines):
+        line = lines[i]
+        if line.startswith("```"):
+            top_fence = not top_fence
+            out.append(line)
+            i += 1
+            continue
+        if not top_fence:
+            m = re.match(r"^( {1,4})```[\w-]*\s*$", line)
+            if m:
+                indent = m.group(1)
+                j = i + 1
+                while j < len(lines) and not re.match(rf"^{indent}```\s*$", lines[j]):
+                    j += 1
+                if j < len(lines):
+                    if out and out[-1].strip():
+                        out.append("")
+                    for code in lines[i + 1:j]:
+                        code = code[len(indent):] if code.startswith(indent) else code.lstrip()
+                        out.append(" " * 8 + code if code else "")
+                    out.append("")
+                    i = j + 1
+                    continue
+            if re.match(r"^ {3}\S", line):
+                line = " " + line
+        out.append(line)
+        i += 1
+    return "\n".join(out)
+
+
 def convert_markdown(md_text: str) -> tuple[BeautifulSoup, str]:
     md_text = hoist_fenced_blockquotes(md_text)
+    md_text = nest_list_fences(md_text)
     md_text = ensure_blank_line_before_lists(md_text)
     md = markdown.Markdown(
         extensions=["tables", "fenced_code", "sane_lists", "toc"],
@@ -237,8 +281,33 @@ def mark_schedule_tables(soup: BeautifulSoup) -> None:
         if not first or first.get_text(strip=True) != "Time":
             continue
         table["class"] = table.get("class", []) + ["schedule"]
-        headers = [th.get_text(strip=True) for th in table.find("tr").find_all("th")]
+        header_row = table.find("tr")
+        headers = [th.get_text(strip=True) for th in header_row.find_all("th")]
         columns = len(headers)
+        # Columns named Workbook are for learners; Slides and Demos for the
+        # instructor. A group row above the headers says so.
+        audience = {"Workbook": "learners", "Slides": "instructor", "Demos": "instructor"}
+        if any(h in audience for h in headers):
+            group = soup.new_tag("tr", **{"class": "audience-row"})
+            spans: list[tuple[str, int]] = []
+            for h in headers:
+                who = audience.get(h, "")
+                if spans and spans[-1][0] == who:
+                    spans[-1] = (who, spans[-1][1] + 1)
+                else:
+                    spans.append((who, 1))
+            labels = {"learners": "For learners", "instructor": "For the instructor", "": ""}
+            for who, span in spans:
+                th = soup.new_tag("th", colspan=str(span), scope="colgroup")
+                if who:
+                    th["class"] = ["aud", f"aud-{who}"]
+                th.string = labels[who]
+                group.append(th)
+            header_row.insert_before(group)
+            for row in [header_row] + table.find("tbody").find_all("tr"):
+                for h, cell in zip(headers, row.find_all(["th", "td"])):
+                    if h in audience:
+                        cell["class"] = cell.get("class", []) + [f"col-{audience[h]}"]
         for row in table.find_all("tr"):
             cells = row.find_all("td")
             for label, cell in zip(headers, cells):
@@ -464,7 +533,7 @@ body {
 .toc a:hover { color: var(--lf-neutral-10); background: var(--lf-hover-bg); }
 .toc a.active { background: var(--lf-active-bg); border-left-color: var(--lf-brand); color: var(--lf-brand-active); font-weight: 700; }
 
-.content-wrap { margin-left: 300px; flex: 1; display: flex; justify-content: center; padding: 2.5rem 2rem 7rem; }
+.content-wrap { margin-left: 300px; flex: 1; min-width: 0; display: flex; justify-content: center; padding: 2.5rem 2rem 7rem; }
 .doc-content { max-width: 840px; width: 100%; min-width: 0; }
 
 /* Headings — learn.liferay.com's article headings are plain, undecorated:
@@ -565,14 +634,26 @@ em { color: inherit; }
 .doc-content table.schedule td:nth-child(5),
 .doc-content table.schedule th { white-space: nowrap; }
 .doc-content table.schedule td:nth-child(6) a { white-space: nowrap; }
-.doc-content table.schedule td:nth-child(2) { min-width: 15rem; }
+.doc-content table.schedule td:nth-child(2) { min-width: 11rem; }
 .doc-content table.schedule tr.row-break td { background: var(--lf-neutral-1); color: var(--lf-neutral-6); font-size: .82rem; padding-top: .35rem; padding-bottom: .35rem; }
 .doc-content table.schedule tr.row-break td:first-child { font-weight: 400; color: var(--lf-neutral-6); }
 .doc-content table.schedule tr.row-break td:nth-child(2) { font-style: italic; }
 
+/* Who each column is for */
+.doc-content table.schedule thead tr.audience-row th { position: static; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; padding: .3rem .75rem; border-bottom: 0; background: var(--lf-neutral-0); }
+.doc-content table.schedule th.aud-learners { background: #e6f6f3; color: #0f6b5c; border-top: 3px solid #1d8c8c; }
+.doc-content table.schedule th.aud-instructor { background: #eef0fb; color: #3b3e9e; border-top: 3px solid #5b5fd6; }
+.doc-content table.schedule .col-learners { background: rgba(29, 140, 140, .06); }
+.doc-content table.schedule .col-instructor { background: rgba(91, 95, 214, .06); }
+.doc-content table.schedule thead th.col-learners { background: #e6f6f3; }
+.doc-content table.schedule thead th.col-instructor { background: #eef0fb; }
+.doc-content table.schedule tr.row-break td { background: var(--lf-neutral-1); }
+
 /* Phone: each schedule row becomes a card */
 @media (max-width: 640px) {
   .doc-content table.schedule thead { display: none; }
+  .doc-content table.schedule td.col-learners:not(:empty)::before { content: "Learners · " attr(data-label) ": " !important; }
+  .doc-content table.schedule td.col-instructor:not(:empty)::before { content: "Instructor · " attr(data-label) ": " !important; }
   .doc-content table.schedule, .doc-content table.schedule tbody, .doc-content table.schedule tr { display: block; width: 100%; }
   .doc-content table.schedule tr { border-bottom: 1px solid var(--lf-neutral-2); padding: .6rem .75rem; }
   .doc-content table.schedule td { display: none; border: 0; padding: .1rem 0; white-space: normal; min-width: 0; }
