@@ -27,20 +27,37 @@
 
 <section id="2" class="slide bullets">
   <p class="kicker">Kickoff</p>
-  <h2>Welcome, and what to expect</h2>
-  <ul class="bullets">
-    <li>You come from many roles: developers, architects, sales and support engineers</li>
-    <li>Some of you are new to Liferay, some have used it for years</li>
-    <li>Everyone leaves with the same solid foundation</li>
-    <li>Two full days, one customer, one website built end to end</li>
-    <li>Ask questions any time: the verify steps are where the learning happens</li>
-  </ul>
+  <h2>Welcome, and today's plan</h2>
+  <div class="split even">
+    <ul class="bullets">
+      <li>You come from many roles: developers, architects, sales and support engineers</li>
+      <li>Some of you are new to Liferay, some have used it for years</li>
+      <li>Everyone leaves with the same solid foundation</li>
+      <li>Two full days, one customer, one website built end to end</li>
+      <li>Ask questions any time: the verify steps are where the learning happens</li>
+    </ul>
+    <ol class="agenda">
+      <li><span class="time">9:00</span><span class="what"><b>Kickoff</b> <span>· the Clarity case</span></span><span class="tag talk">Talk</span></li>
+      <li><span class="time">9:30</span><span class="what"><b>Setup</b> <span>· DXP, MCP, context files</span></span><span class="tag">Hands-on</span></li>
+      <li><span class="time">10:15</span><span class="what"><b>Capabilities</b> <span>· deployment, Data Platform</span></span><span class="tag talk">Talk</span></li>
+      <li class="pause"><span class="time">10:30</span><span class="what">Break</span><span></span></li>
+      <li><span class="time">10:45</span><span class="what"><b>Level 1</b> <span>· users and permissions</span></span><span class="tag">Hands-on</span></li>
+      <li><span class="time">11:30</span><span class="what"><b>Level 2</b> <span>· sites</span></span><span class="tag">Hands-on</span></li>
+      <li class="pause"><span class="time">12:15</span><span class="what">Lunch</span><span></span></li>
+      <li><span class="time">13:15</span><span class="what"><b>Level 3</b> <span>· pages and navigation</span></span><span class="tag">Hands-on</span></li>
+      <li><span class="time">14:15</span><span class="what"><b>Level 4</b> <span>· fragments</span></span><span class="tag">Hands-on</span></li>
+      <li class="pause"><span class="time">15:00</span><span class="what">Break</span><span></span></li>
+      <li><span class="time">15:15</span><span class="what"><b>Level 5</b> <span>· design</span></span><span class="tag">Hands-on</span></li>
+      <li><span class="time">15:55</span><span class="what"><b>Level 6</b> <span>· Liferay CMS</span></span><span class="tag">Hands-on</span></li>
+      <li><span class="time">16:50</span><span class="what"><b>Wrap-up</b> <span>· questions</span></span><span class="tag talk">Talk</span></li>
+    </ol>
+  </div>
   <aside class="notes">
     <p>Run a quick round of introductions: name, role, and how much Liferay and AI agent experience each person has. Use the answers to pair less experienced learners with someone who has used an agent before. Set the tone: we move fast because the agent types, so the time we save goes into understanding what was built. Learners often ask if this is a developer course; say it isn't, it's about how Liferay builds enterprise websites, and the agent is the tool.</p>
-  </aside>
+  <p>The plan on the right is the schedule's Day 1. Point out the rhythm: a short talk, then the level's exercises, with the verify steps as the checkpoint before moving on.</p></aside>
 </section>
 
-<section id="3" class="slide bullets">
+<section id="3" class="slide bullets photo">
   <p class="kicker">Kickoff</p>
   <h2>Course objectives</h2>
   <ul class="bullets">
@@ -50,6 +67,7 @@
     <li>Choose between feature options, knowing the benefits of each</li>
     <li>Direct an AI agent to build it, and check every result in Liferay yourself</li>
   </ul>
+  <figure class="photo-panel"><img src="assets/photos/panel-learning.jpg" alt="Three colleagues working together at their laptops"></figure>
   <aside class="notes">
     <p>The first four objectives are the same as the original course: the learning goal hasn't changed. The last one is new: learners set the requirement, the agent builds it, and they confirm the result on screen. Stress that out-of-the-box and low-code features are faster, supported and upgrade-safe, which is why every exercise uses them. If someone asks whether they'll learn to code Liferay modules, point them to the Liferay Application Developer learning path.</p>
   </aside>
@@ -110,6 +128,11 @@
         <li>Be run by a team, with approval before content goes live</li>
       </ul>
     </div>
+  </div>
+  <div class="strip">
+    <figure><img src="assets/photos/cat-eyeglasses.jpg" alt="Tortoiseshell eyeglasses"><figcaption>Eyeglasses</figcaption></figure>
+    <figure><img src="assets/photos/cat-sunglasses.jpg" alt="Gold aviator sunglasses"><figcaption>Sunglasses</figcaption></figure>
+    <figure><img src="assets/photos/cat-lenses.jpg" alt="Contact lenses and their case"><figcaption>Contact lenses</figcaption></figure>
   </div>
   <aside class="notes">
     <p>Clarity is the running case: every exercise on both days adds to its public enterprise website. Its success factors decide ours: non-technical staff must be able to contribute, and the site must be simple to maintain. Point learners to context-source/clarity-brief.md, which holds the goals, personas, site map, brand and requirements R1 to R13. A common question is whether the brief is the spec the agent follows; yes, most prompts tell the agent to read a section of it.</p>
@@ -303,8 +326,9 @@
 <section id="13" class="slide compare">
   <p class="kicker">Capabilities and deployment options</p>
   <h2>Three ways to run Liferay</h2>
-  <div class="cols three">
+  <div class="cols three roomy">
     <div class="col alt">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01M11 7h6M11 17h6"/></svg>
       <h3>Self-Hosted</h3>
       <ul>
         <li>You own hardware, platform and updates</li>
@@ -313,6 +337,7 @@
       </ul>
     </div>
     <div class="col alt">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="m2 13 10 5 10-5"/><path d="m2 17.5 10 5 10-5"/></svg>
       <h3>PaaS</h3>
       <ul>
         <li>Liferay provides the services; you manage the app</li>
@@ -321,6 +346,7 @@
       </ul>
     </div>
     <div class="col">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 19h9.5a4.5 4.5 0 0 0 .6-8.96A6.5 6.5 0 0 0 5.2 11.6 3.75 3.75 0 0 0 7.5 19z"/></svg>
       <h3>SaaS</h3>
       <ul>
         <li>Liferay runs everything, including upgrades</li>
@@ -356,13 +382,42 @@
 <section id="15" class="slide bullets" data-instructor>
   <p class="kicker">Liferay Data Platform</p>
   <h2>Knowing what visitors actually did</h2>
-  <ul class="bullets">
-    <li>Building the site is half the loop; measuring it is the other half</li>
-    <li>Site, page and content metrics with no tracking code added</li>
-    <li>Known and anonymous visitor profiles, and account profiles</li>
-    <li>A/B tests run in DXP, and Data Platform reports the results</li>
-    <li>Segments built here are the supported path; Level 13 shows a user-group alternative</li>
-  </ul>
+  <div class="split even">
+    <ul class="bullets">
+      <li>Building the site is half the loop; measuring it is the other half</li>
+      <li>Site, page and content metrics with no tracking code added</li>
+      <li>Known and anonymous visitor profiles, and account profiles</li>
+      <li>A/B tests run in DXP, and Data Platform reports the results</li>
+      <li>Segments built here are the supported path; Level 13 shows a user-group alternative</li>
+    </ul>
+    <div class="diagram">
+      <svg viewBox="0 0 460 330" role="img" aria-label="Clarity's sites send events to Liferay Data Platform with no tracking code. Data Platform builds profiles and feeds dashboards, segments and A/B test results; segments flow back to DXP.">
+        <defs><marker id="ah1-15" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B5FFF"/></marker></defs>
+        <rect class="box clarity" x="20" y="8" width="420" height="58" rx="10"/>
+        <text class="t" x="230" y="33" text-anchor="middle">Clarity's sites</text>
+        <text class="s" x="230" y="53" text-anchor="middle">visits, pages, content and forms</text>
+        <path class="edge" d="M230,66 L230,104" marker-end="url(#ah1-15)"/>
+        <text class="lbl" x="242" y="90">events, no tracking code</text>
+        <rect class="box dark" x="20" y="106" width="420" height="64" rx="10"/>
+        <text class="t w" x="230" y="133" text-anchor="middle">Liferay Data Platform</text>
+        <text class="s w" x="230" y="154" text-anchor="middle">profiles: known and anonymous visitors, accounts</text>
+        <path class="edge" d="M95,170 L95,216" marker-end="url(#ah1-15)"/>
+        <path class="edge" d="M230,170 L230,216" marker-end="url(#ah1-15)"/>
+        <path class="edge" d="M365,170 L365,216" marker-end="url(#ah1-15)"/>
+        <rect class="box soft" x="32" y="218" width="126" height="62" rx="10"/>
+        <text class="t" x="95" y="244" text-anchor="middle">Dashboards</text>
+        <text class="s" x="95" y="264" text-anchor="middle">site, page, content</text>
+        <rect class="box soft" x="167" y="218" width="126" height="62" rx="10"/>
+        <text class="t" x="230" y="244" text-anchor="middle">Segments</text>
+        <text class="s" x="230" y="264" text-anchor="middle">who to target</text>
+        <rect class="box soft" x="302" y="218" width="126" height="62" rx="10"/>
+        <text class="t" x="365" y="244" text-anchor="middle">A/B tests</text>
+        <text class="s" x="365" y="264" text-anchor="middle">results reported</text>
+        <path class="edge muted" d="M230,280 L230,312 L455,312 L455,37 L442,37" marker-end="url(#ah1-15)"/>
+        <text class="lbl" x="236" y="306">segments flow back to DXP</text>
+      </svg>
+    </div>
+  </div>
   <aside class="notes">
     <p>There's no exercise because it needs a Liferay Data Platform workspace. Demo: show the Clarity dashboards for site, page and content performance, then an individual profile and the segment builder. Explain that on 2026.Q1 and later Data Platform is the source of truth for segments; DXP pulls batch segments, and real-time segments don't sync down. Learners ask whether they can try it in class; not here: DXP's own segments and experiences are deprecated on 2026.Q1, so Level 13 builds a user-group alternative and points back to Data Platform segments as the supported path.</p>
   </aside>
@@ -375,6 +430,7 @@
   <h2>A website run by a team, not one administrator</h2>
   <div class="cols">
     <div class="col">
+      <div class="banner"><img src="assets/photos/l1-team.jpg" alt="Colleagues working together at a table with laptops"></div>
       <h3>What Clarity needs</h3>
       <ul>
         <li>IT, Marketing, HR and Support each work on the site, and outside distributors sign in to it</li>
@@ -477,21 +533,19 @@
 <section id="19" class="slide bullets clarity">
   <p class="kicker">The Clarity case</p>
   <h2>Clarity's team</h2>
-  <table class="grid">
-    <thead><tr><th>Persona</th><th>Job title</th><th>Group</th><th>On the site</th></tr></thead>
-    <tbody>
-      <tr><td>Ian Miller</td><td>IT Manager</td><td>IT</td><td>Sites, catalog, objects</td></tr>
-      <tr><td>Walter Douglas</td><td>Web Developer</td><td>IT</td><td>Pages, fragments, design, search pages</td></tr>
-      <tr><td>Clara Murphy</td><td>Marketing Manager</td><td>Marketing</td><td>Owns marketing content, approves articles</td></tr>
-      <tr><td>Christian Carter</td><td>Marketing Coordinator</td><td>Marketing</td><td>Writes articles, FAQs, announcements</td></tr>
-      <tr><td>Harper Roberts</td><td>HR Specialist</td><td>Human Resources</td><td>Job listings</td></tr>
-      <tr><td>Daniel Raymond</td><td>Distributor Rep.</td><td>Support Agents</td><td>Follows up Contact Us requests</td></tr>
-      <tr><td>Terrence Wheatley</td><td>Distributor</td><td>Distributors</td><td>Signs in to the public site</td></tr>
-    </tbody>
-  </table>
+  <ul class="people">
+    <li><span class="avatar" aria-hidden="true">IM</span><b>Ian Miller</b><span class="job">IT Manager</span><span class="does">Sites, catalog, objects</span><span class="group">IT</span></li>
+    <li><span class="avatar" aria-hidden="true">WD</span><b>Walter Douglas</b><span class="job">Web Developer</span><span class="does">Pages, fragments, design, search pages</span><span class="group">IT</span></li>
+    <li><img class="avatar" src="assets/photos/p-clara.jpg" alt="Portrait of Clara Murphy"><b>Clara Murphy</b><span class="job">Marketing Manager</span><span class="does">Owns marketing content, approves articles</span><span class="group">Marketing</span></li>
+    <li><img class="avatar" src="assets/photos/p-christian.jpg" alt="Portrait of Christian Carter"><b>Christian Carter</b><span class="job">Marketing Coordinator</span><span class="does">Writes articles, FAQs, announcements</span><span class="group">Marketing</span></li>
+    <li><span class="avatar" aria-hidden="true">HR</span><b>Harper Roberts</b><span class="job">HR Specialist</span><span class="does">Job listings</span><span class="group">Human Resources</span></li>
+    <li><span class="avatar" aria-hidden="true">DR</span><b>Daniel Raymond</b><span class="job">Distributor Rep.</span><span class="does">Follows up Contact Us requests</span><span class="group">Support Agents</span></li>
+    <li class="ext"><img class="avatar" src="assets/photos/p-terrence.jpg" alt="Portrait of Terrence Wheatley"><b>Terrence Wheatley</b><span class="job">Distributor</span><span class="does">Signs in to the public site</span><span class="group">Distributors · external</span></li>
+    <li><span class="avatar" aria-hidden="true">CA</span><b>Clarity Admin</b><span class="job">You, with your agent</span><span class="does">Builds the site and checks every result</span><span class="group">Administrator</span></li>
+  </ul>
   <aside class="notes">
     <p>These seven personas come from context-source/data/personas.csv; all use the password learn. Point out how each later level uses one of them: Christian writes, Clara approves, Daniel follows up contact requests, and Terrence sees the distributor Home page. The Clarity Admin handles instance-level settings only. Learners ask why there are custom roles when Liferay has built-in ones; the built-in ones are too broad for least privilege.</p>
-  </aside>
+  <p>The gold ring marks the one external user, Terrence, a distributor. The last card is the learner: they sign in as Clarity Admin and build everything with their agent.</p></aside>
 </section>
 
 <section id="20" class="slide challenge">
@@ -518,6 +572,7 @@
   <h2>One brand, its own address, two languages</h2>
   <div class="cols">
     <div class="col">
+      <div class="banner"><img src="assets/photos/l2-brand.jpg" alt="A woman wearing clear-framed glasses"></div>
       <h3>What Clarity needs</h3>
       <ul>
         <li>A public website at www.clarityvisionsolutions.com</li>
@@ -639,6 +694,7 @@
   <h2>Visitors must find their way, on every page</h2>
   <div class="cols">
     <div class="col">
+      <div class="banner"><img src="assets/photos/l3-find.jpg" alt="Black-framed glasses in sunlight"></div>
       <h3>What Clarity needs</h3>
       <ul>
         <li>A clear site map: Products, About Us, Blog, FAQ, Careers, Contact Us</li>
@@ -830,6 +886,7 @@
   <h2>Marketing builds pages without waiting for IT</h2>
   <div class="cols">
     <div class="col">
+      <div class="banner"><img src="assets/photos/l4-build.jpg" alt="Gold and pink eyeglasses beside a glasses case"></div>
       <h3>What Clarity needs</h3>
       <ul>
         <li>Clarity's own buttons, cards, search and sign-in, the same everywhere</li>
@@ -918,6 +975,7 @@
   <h2>Clarity's brand on every page, set once</h2>
   <div class="cols">
     <div class="col">
+      <div class="banner"><img src="assets/photos/l5-brand.jpg" alt="Clear eyeglass frames under magenta light"></div>
       <h3>What Clarity needs</h3>
       <ul>
         <li>Clarity teal and gold, the Poppins font, rounded cards and pill buttons</li>
@@ -1037,6 +1095,7 @@
   <h2>Write content once, use it anywhere</h2>
   <div class="cols">
     <div class="col">
+      <div class="banner"><img src="assets/photos/l6-content.jpg" alt="Tortoiseshell glasses resting on an open book"></div>
       <h3>What Clarity needs</h3>
       <ul>
         <li>Articles, FAQs, announcements, leadership profiles, job listings and events</li>
@@ -1179,7 +1238,13 @@
       </ul>
     </div>
   </div>
-  <p class="vs-note">Clarity's vocabularies: FAQ and Articles (Marketing), Region, Location and Job Positions (HR).</p>
+  <div class="chip-groups">
+    <div><h4>FAQ · Marketing</h4><div class="chips"><span class="chip">Pricing and Ordering</span><span class="chip">Products and Services</span><span class="chip">Retail Partners</span><span class="chip">Returns and Exchanges</span></div></div>
+    <div><h4>Articles · Marketing</h4><div class="chips"><span class="chip">Innovation</span><span class="chip">Industry</span><span class="chip">Style</span></div></div>
+    <div><h4>Region · HR</h4><div class="chips"><span class="chip">Asia Pacific</span><span class="chip">Europe</span><span class="chip">Latin America</span><span class="chip">North America</span></div></div>
+    <div><h4>Location · HR</h4><div class="chips"><span class="chip">Brazil, Recife</span><span class="chip">Ireland, Dublin</span><span class="chip">Japan, Tokyo</span><span class="chip">Spain, Madrid</span><span class="chip">Remote</span><span class="chip sub">+ 9 more</span></div></div>
+    <div><h4>Job Positions · HR</h4><div class="chips"><span class="chip">Customer Service</span><span class="chip">Optical Engineers</span><span class="chip">Product Designers</span><span class="chip sub">+ 8 more</span></div></div>
+  </div>
   <aside class="notes">
     <p>Browsing wants categories and search wants tags; most sites need both. The FAQ vocabulary drives the four FAQ collections on day 2, and the HR vocabularies drive the job search facets. Demo the HR Space's Categories, with the Location vocabulary's 14 categories. Learners ask whether vocabularies live in the site; here they live in the Space that uses them.</p>
   </aside>
@@ -1210,7 +1275,7 @@
 <section id="45" class="slide takeaways">
   <p class="kicker">Day 1 wrap-up</p>
   <h2>Key takeaways</h2>
-  <ul class="takeaways">
+  <ul class="tiles">
     <li><b>You verify, the agent builds</b>Every result is checked where it lives in Liferay</li>
     <li><b>Roles to groups, least privilege</b>Scope decides where a permission applies</li>
     <li><b>The site is code</b>A site initializer makes it versioned and rebuildable</li>
