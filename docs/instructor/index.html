@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instructor guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  /* Design tokens pulled from learn.liferay.com's own stylesheet
+     (https://liferaylearnglobalcss-exte5a2learn-extprd.lfr.cloud/global.css)
+     — the CSS custom-property fallback values there, e.g.
+     var(--color-brand-primary, #0b5fff), are learn.liferay.com's real
+     palette, not an approximation of it. */
+  --lf-brand: #0b5fff;
+  --lf-brand-hover: #0053f0;
+  --lf-brand-active: #004ad7;
+
+  --lf-neutral-0: #ffffff;
+  --lf-neutral-1: #f7f7f8;
+  --lf-neutral-2: #e2e2e4;
+  --lf-neutral-4: #b1b2b9;
+  --lf-neutral-6: #82828c;
+  --lf-neutral-8: #54555f;
+  --lf-neutral-9: #33343d;
+  --lf-neutral-10: #282934;
+
+  --lf-active-bg: #e6edfb;
+  --lf-hover-bg: #edf3fe;
+
+  --lf-warning-bg: #f7eae0;   --lf-warning-text: #944000;
+  --lf-success-bg: #e9f5e8;   --lf-success-text: #3b892f;
+  --lf-info-bg: #e6ebf5;      --lf-info-text: #25488a;
+
+  --lf-font-sans: 'Source Sans 3', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --lf-font-mono: 'Source Code Pro', Consolas, Menlo, "Liberation Mono", monospace;
+  --lf-radius: 0.5rem;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--lf-font-sans);
+  color: var(--lf-neutral-8);
+  background: var(--lf-neutral-0);
+  line-height: 1.6;
+}
+
+/* Top bar */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; height: 60px;
+  background: var(--lf-neutral-0); color: var(--lf-neutral-10);
+  display: flex; align-items: center; gap: .75rem; padding: 0 1rem;
+  z-index: 50; border-bottom: 1px solid var(--lf-neutral-2);
+}
+.topbar .logo { font-weight: 700; font-size: 1.05rem; display: flex; align-items: center; gap: .45rem; letter-spacing: .01em; color: var(--lf-neutral-10); }
+.topbar .logo .dot { width: .55rem; height: .55rem; border-radius: 50%; background: var(--lf-brand); }
+.topbar .doc-title {
+  color: var(--lf-neutral-6); font-size: .85rem; border-left: 1px solid var(--lf-neutral-2);
+  padding-left: .75rem; margin-left: .1rem; white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; max-width: 55vw;
+}
+.topbar .spacer { flex: 1; }
+.menu-toggle {
+  display: none; background: transparent; border: 1px solid var(--lf-neutral-2);
+  color: var(--lf-neutral-10); border-radius: 6px; padding: .3rem .55rem; font-size: 1rem; cursor: pointer;
+}
+
+/* Layout */
+.layout { display: flex; padding-top: 60px; min-height: 100vh; }
+.sidebar {
+  position: fixed; top: 60px; bottom: 0; left: 0; width: 300px;
+  overflow-y: auto; background: var(--lf-neutral-1); border-right: 1px solid var(--lf-neutral-2);
+  padding: 1rem .85rem 2.5rem; z-index: 40;
+}
+.toc-filter {
+  width: 100%; padding: .5rem .65rem; border: 1px solid var(--lf-neutral-2);
+  border-radius: 6px; font-size: .85rem; margin-bottom: .85rem; background: var(--lf-neutral-0);
+  font-family: inherit; color: var(--lf-neutral-10);
+}
+.toc ul { list-style: none; margin: 0; padding-left: 1rem; }
+.toc > div > ul, .toc > ul { padding-left: 0; }
+.toc a {
+  display: block; padding: .32rem .55rem .32rem .65rem; color: var(--lf-neutral-8);
+  text-decoration: none; font-size: .86rem; line-height: 1.35; border-left: 2px solid transparent;
+}
+.toc li.toc-level-2 > a { font-weight: 700; color: var(--lf-neutral-10); font-size: .9rem; margin-top: .4rem; }
+.toc li.toc-level-3 > a { font-weight: 500; }
+.toc li.toc-level-4 > a { font-size: .8rem; color: var(--lf-neutral-6); }
+.toc a:hover { color: var(--lf-neutral-10); background: var(--lf-hover-bg); }
+.toc a.active { background: var(--lf-active-bg); border-left-color: var(--lf-brand); color: var(--lf-brand-active); font-weight: 700; }
+
+.content-wrap { margin-left: 300px; flex: 1; display: flex; justify-content: center; padding: 2.5rem 2rem 7rem; }
+.doc-content { max-width: 840px; width: 100%; }
+
+/* Headings — learn.liferay.com's article headings are plain, undecorated:
+   no colored rule under h1, just weight and the neutral-10 ink. */
+.doc-content h1 { font-size: 2rem; line-height: 1.25; margin: 0 0 1rem; color: var(--lf-neutral-10); font-weight: 700; }
+.doc-content h1 + p { font-size: 1.1rem; color: var(--lf-neutral-6); margin-top: 0; }
+.doc-content h2 {
+  font-size: 1.5rem; margin: 2.75rem 0 1rem; padding-top: .75rem;
+  border-top: 1px solid var(--lf-neutral-2); color: var(--lf-neutral-10); font-weight: 700; scroll-margin-top: 78px;
+}
+.doc-content h2:first-of-type { border-top: 0; margin-top: 1.75rem; }
+.doc-content h3 { font-size: 1.2rem; margin: 2rem 0 .75rem; color: var(--lf-neutral-10); font-weight: 600; scroll-margin-top: 78px; }
+.doc-content h4 { font-size: 1rem; margin: 1.5rem 0 .6rem; color: var(--lf-neutral-10); font-weight: 600; scroll-margin-top: 78px; }
+.heading-anchor { margin-left: .45rem; opacity: 0; text-decoration: none; color: var(--lf-brand); font-weight: 400; font-size: .8em; }
+h2:hover .heading-anchor, h3:hover .heading-anchor, h4:hover .heading-anchor { opacity: 1; }
+
+/* Body text — learn.liferay.com renders article paragraphs in neutral-8,
+   reserving neutral-10 for headings and emphasis. */
+.doc-content p { margin: .85rem 0; color: var(--lf-neutral-8); }
+.doc-content strong { color: var(--lf-neutral-10); font-weight: 600; }
+.doc-content ul, .doc-content ol { padding-left: 1.4rem; }
+.doc-content li { margin: .3rem 0; color: var(--lf-neutral-8); }
+.doc-content hr { border: 0; border-top: 1px solid var(--lf-neutral-2); margin: 2.75rem 0; }
+.doc-content a { color: var(--lf-brand); }
+.doc-content a:hover { color: var(--lf-brand-active); text-decoration: underline; }
+.doc-content code {
+  font-family: var(--lf-font-mono); background: var(--lf-neutral-2); color: var(--lf-neutral-10);
+  padding: .125rem .4rem; border-radius: 4px; font-size: .88em;
+}
+em { color: inherit; }
+.doc-content img {
+  max-width: 100%; height: auto; display: block; margin: 1.1rem 0;
+  border: 1px solid var(--lf-neutral-2); border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+
+/* Admonitions — learn.liferay.com's own "adm-*" callout vocabulary
+   (adm-warning / adm-note / adm-important), same background/text pairs. */
+.doc-content p.adm-block { padding: .75rem 1rem; border-radius: var(--lf-radius); margin: 1.1rem 0; }
+.doc-content p.adm-warning { background: var(--lf-warning-bg); color: var(--lf-warning-text); }
+.doc-content p.adm-note { background: var(--lf-success-bg); color: var(--lf-success-text); }
+.doc-content p.adm-important { background: var(--lf-info-bg); color: var(--lf-info-text); }
+.doc-content p.adm-block strong:first-child { color: inherit; }
+
+/* Blockquotes — learn.liferay.com's lightweight quoted style: a thin blue
+   rule and no filled background, used both for a short quoted prompt and
+   for a documentation aside that mixes prose with nested code examples. */
+.doc-content blockquote {
+  border-left: 2px solid var(--lf-brand); color: var(--lf-neutral-8);
+  font-size: 1.125rem; font-weight: 300; line-height: 1.5;
+  margin: 1.5rem 0; padding-left: 1.5rem;
+}
+.doc-content blockquote p { margin: .6rem 0; }
+.doc-content blockquote code { background: var(--lf-neutral-2); }
+.doc-content blockquote.aside { font-size: 1rem; font-weight: 400; }
+.doc-content blockquote.aside h3 { font-size: 1.1rem; margin-top: 0; }
+.doc-content blockquote.aside .copy-frame-code { margin: 1rem 0; }
+
+/* Prompt / copy frames: a dark "code" frame for fenced code (matching
+   learn.liferay.com's own pre[class*="language-"] surface) and a light
+   "quote" frame that leaves the blockquote's own thin-rule style intact. */
+.copy-frame { position: relative; margin: 1rem 0 1.6rem; }
+.copy-frame-code { border-radius: var(--lf-radius); overflow: hidden; background: var(--lf-neutral-9); }
+.copy-frame-code pre {
+  margin: 0; padding: 1em 3.4rem 1em 1.25rem; color: var(--lf-neutral-0);
+  background: transparent; border: 0; font-family: var(--lf-font-mono);
+  font-size: .9rem; line-height: 1.6; white-space: pre-wrap; word-break: break-word;
+}
+.copy-frame-code pre code { background: transparent; color: inherit; padding: 0; border-radius: 0; }
+.copy-frame-quote blockquote { margin: 0; padding-right: 3.2rem; }
+
+.copy-btn {
+  position: absolute; top: .6rem; right: .6rem; z-index: 2;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; padding: 0; border: 0; border-radius: 6px; background: transparent;
+  cursor: pointer; transition: background .15s ease, color .15s ease;
+}
+.copy-btn .icon-check { display: none; }
+.copy-btn.copied .icon-copy { display: none; }
+.copy-btn.copied .icon-check { display: inline; }
+.copy-frame-code .copy-btn { color: rgba(255,255,255,.75); }
+.copy-frame-code .copy-btn:hover { background: rgba(255,255,255,.12); color: var(--lf-neutral-0); }
+.copy-frame-quote .copy-btn { top: .4rem; color: var(--lf-neutral-6); }
+.copy-frame-quote .copy-btn:hover { background: var(--lf-hover-bg); color: var(--lf-brand-active); }
+.copy-btn.copied { color: var(--lf-success-text) !important; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 1.4rem 0; border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); }
+.doc-content table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+.doc-content th, .doc-content td { padding: .55rem .75rem; border-bottom: 1px solid var(--lf-neutral-2); text-align: left; vertical-align: top; color: var(--lf-neutral-8); }
+.doc-content thead th { background: var(--lf-neutral-1); color: var(--lf-neutral-10); font-weight: 600; position: sticky; top: 0; }
+.doc-content tbody tr:nth-child(even) { background: var(--lf-neutral-1); }
+
+/* Back to top */
+.back-to-top {
+  position: fixed; right: 1.5rem; bottom: 1.5rem; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--lf-brand); color: #fff; border: 0; display: flex; align-items: center;
+  justify-content: center; cursor: pointer; box-shadow: 0 2px 10px rgba(11,95,255,.35);
+  opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease, background .15s ease; z-index: 45; font-size: 1.1rem;
+}
+.back-to-top:hover { background: var(--lf-brand-active); transform: translateY(-2px); }
+.back-to-top.visible { opacity: 1; pointer-events: auto; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .sidebar { transform: translateX(-100%); transition: transform .2s ease; box-shadow: 2px 0 14px rgba(0,0,0,.12); }
+  body.sidebar-open .sidebar { transform: translateX(0); }
+  .content-wrap { margin-left: 0; padding: 2rem 1.15rem 5rem; }
+  body.sidebar-open::after {
+    content: ""; position: fixed; inset: 60px 0 0 0; background: rgba(40,41,52,.35); z-index: 39;
+  }
+}
+
+@media print {
+  .topbar, .sidebar, .copy-btn, .menu-toggle, .back-to-top { display: none !important; }
+  .content-wrap { margin-left: 0; padding: 0; }
+  .copy-frame-code { border: 1px solid #999; }
+  .copy-frame-code pre { color: #111; }
+  :root { --lf-neutral-9: #f4f4f4; }
+}
+
+</style>
+</head>
+<body>
+<header class="topbar">
+  <button class="menu-toggle" type="button" aria-label="Toggle table of contents">&#9776;</button>
+  <a class="logo" href="../"><span class="dot"></span>BEWL with AI</a>
+  <div class="doc-title">Instructor guide</div>
+  <div class="spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar" aria-label="Table of contents">
+    <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
+    <div class="toc"><ul><li class="toc-level-2"><a href="#what-the-course-is-and-isnt">What the course is, and isn&#x27;t</a></li><li class="toc-level-2"><a href="#before-the-course">Before the course</a></li><li class="toc-level-2"><a href="#running-the-hands-on-blocks">Running the hands-on blocks</a></li><li class="toc-level-2"><a href="#catching-up">Catching up</a></li><li class="toc-level-2"><a href="#topics-covered-in-slides-only">Topics covered in slides only</a></li><li class="toc-level-2"><a href="#when-something-goes-wrong">When something goes wrong</a></li><li class="toc-level-2"><a href="#resetting-a-learners-environment">Resetting a learner&#x27;s environment</a></li></ul></div>
+  </nav>
+  <div class="content-wrap">
+    <main class="doc-content">
+<h1 id="instructor-guide">Instructor guide</h1>
+<p>This guide is for the person running <em>Building Enterprise Websites with Liferay and AI</em>. Read it with the <a href="schedule.html">schedule</a> and the day slides open.</p>
+<h2 id="what-the-course-is-and-isnt">What the course is, and isn't<a aria-hidden="true" class="heading-anchor" href="#what-the-course-is-and-isnt" tabindex="-1">#</a></h2>
+<p>It's the <em>Building Enterprise Websites with Liferay</em> (BEWL) course in two days instead of three, rebuilt so that <strong>an AI coding agent does the building and the learner does the checking</strong>. The learning goal hasn't changed: learners leave knowing how Liferay builds enterprise websites (users and permissions, sites, pages, fragments, design, CMS, collections, commerce, APIs, workflow, search, objects, personalization). The agent is the tool that lets them cover all of it in two days, and the verify steps are where they learn the product: each one sends them to the screen where that capability lives.</p>
+<p>Hold that line in class. When a learner says "the agent did it, it works", ask them to show you where in Liferay they checked it.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Original BEWL</th>
+<th>This course</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3 days (the third is a half day)</td>
+<td>2 full days</td>
+</tr>
+<tr>
+<td>GUI steps, one click at a time</td>
+<td>One prompt per exercise, then a read-only check in the UI</td>
+</tr>
+<tr>
+<td>Seeded Hypersonic database with half-built site</td>
+<td>PostgreSQL in Docker, empty instance; the agent builds everything from <code>context-source/</code></td>
+</tr>
+<tr>
+<td>Classic Web Content and asset libraries</td>
+<td>Liferay CMS: Spaces, content and file structures</td>
+</tr>
+<tr>
+<td>Classroom files supplied (FTL, fragment zips, batch JSON)</td>
+<td>Generated by the agent from the brief and the design references</td>
+</tr>
+<tr>
+<td>DXP 2026.Q1 LTS</td>
+<td>DXP 2026.Q3.10</td>
+</tr>
+<tr>
+<td>Publications, DXP segments and experiences, Blogs, Documents and Media, Custom Fields</td>
+<td>Workflow, a user-group audience fragment, CMS Blog entries and Space files, Object fields: no deprecated or maintenance-mode features</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="before-the-course">Before the course<a aria-hidden="true" class="heading-anchor" href="#before-the-course" tabindex="-1">#</a></h2>
+<ul>
+<li><strong>Two weeks before:</strong> send learners the <a href="https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/">prerequisites page</a>. It covers Git, JDK 21, Blade, Docker, the DXP bundle download, the PostgreSQL image and their AI agent. They bring their own agent subscription.</li>
+<li><strong>One week before:</strong> email each learner a <strong>DXP activation key</strong> (training developer key). Never put a key in the repository.</li>
+<li><strong>The day before:</strong> run the whole workbook on your own machine from a clean clone, with the agent you'll demo with. Note anything that changed with agent or DXP updates.</li>
+<li><strong>On the morning of day 1:</strong> share the repository URL (it's not on the prerequisites page). The workbook is also published on the repository's GitHub Pages.</li>
+</ul>
+<h2 id="running-the-hands-on-blocks">Running the hands-on blocks<a aria-hidden="true" class="heading-anchor" href="#running-the-hands-on-blocks" tabindex="-1">#</a></h2>
+<ul>
+<li><strong>Demo the first prompt of each level</strong> on the projector, including the verify step. Then let learners run the rest.</li>
+<li><strong>One agent session per exercise</strong> keeps costs and confusion down. If a learner's agent goes off track, have them start a new session: <code>solution-context.md</code> and <code>solution-index.yaml</code> carry the context.</li>
+<li><strong>Agents differ.</strong> Prompts are written to work with Claude Code, Codex and Copilot in agent mode. A weaker model may need the skill named explicitly (the 🧩 line) or a follow-up ("read the X skill and try again").</li>
+<li><strong>Learners never start or stop Liferay through the agent.</strong> If an agent offers to, they say no and do it themselves.</li>
+<li><strong>Verification is read-only.</strong> Encourage learners to open the editors to look, then leave without saving or publishing. The places where they act (approving a workflow task as Daniel in 12.4, and the few settings with no API) are marked 📋.</li>
+</ul>
+<h2 id="catching-up">Catching up<a aria-hidden="true" class="heading-anchor" href="#catching-up" tabindex="-1">#</a></h2>
+<p>The levels are chained: a learner who can't finish Level 6 can't do Level 7. Two safety nets:</p>
+<ol>
+<li><strong>Rerun the prompts.</strong> Every prompt is written to be idempotent (upsert by external reference code), so rerunning an earlier one is safe.</li>
+<li><strong>The Day 2 starting point.</strong> <code>catch-up/day-2-start/</code> holds the solution for everything up to the end of Level 6: the site initializer, the theme project and a script that creates users, Spaces, structures and content. Give a learner the steps in its README: it takes about ten minutes and leaves them ready for Level 7.</li>
+</ol>
+<h2 id="topics-covered-in-slides-only">Topics covered in slides only<a aria-hidden="true" class="heading-anchor" href="#topics-covered-in-slides-only" tabindex="-1">#</a></h2>
+<p>These original BEWL topics have no exercise. Present them with the slides marked <em>Instructor only</em> and the speaker notes:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Original BEWL</th>
+<th>Why it has no exercise</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Touring Clarity's finished site</td>
+<td>Challenge 1</td>
+<td>Learners build it instead; show <code>clarityvisionsolutions.com</code> in the kickoff.</td>
+</tr>
+<tr>
+<td>Liferay Data Platform</td>
+<td>Day 1 section</td>
+<td>Needs an LDP workspace; show the dashboards and how segments now come from LDP (ties into Level 13).</td>
+</tr>
+<tr>
+<td>AI Creator and auto-tagging</td>
+<td>Challenge 13, bonus</td>
+<td>The agent writes content in Level 8; demo AI Creator in the product editor and CKEditor's AI actions.</td>
+</tr>
+<tr>
+<td>Performance tuning and maintenance</td>
+<td>Day 3 module</td>
+<td>Talk only, as in the original course.</td>
+</tr>
+<tr>
+<td>Publications</td>
+<td>Challenge 18</td>
+<td>Maintenance mode on 2026.Q1 with no replacement; 10.3 publishes through workflow instead. Mention it for existing customers.</td>
+</tr>
+<tr>
+<td>DXP segments and experiences</td>
+<td>Challenge 22</td>
+<td>Deprecated on 2026.Q1 in favor of Liferay Data Platform segmentation, which needs an LDP workspace connected to each instance. Show it in the slides; Level 13 uses a user-group audience fragment instead.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="when-something-goes-wrong">When something goes wrong<a aria-hidden="true" class="heading-anchor" href="#when-something-goes-wrong" tabindex="-1">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>blade server init</code> downloads the bundle again</td>
+<td>The pre-downloaded file is missing or truncated in <code>~/.liferay/bundles</code></td>
+<td>Let it download, or copy the file from a USB stick.</td>
+</tr>
+<tr>
+<td>Liferay won't start: database connection refused</td>
+<td>PostgreSQL isn't running</td>
+<td><code>docker compose up -d</code>, wait for <em>healthy</em>, start Liferay again.</td>
+</tr>
+<tr>
+<td>Port 8080 or 5432 in use</td>
+<td>Another Liferay or PostgreSQL</td>
+<td>Stop the other one, or change the port in <code>server.xml</code> / <code>docker-compose.yml</code> and <code>portal-ext.properties</code>.</td>
+</tr>
+<tr>
+<td>The agent's MCP server shows connected with no tools</td>
+<td>Liferay restarted since the session started</td>
+<td>Reconnect or restart the agent session.</td>
+</tr>
+<tr>
+<td><code>/o/mcp</code> answers 404</td>
+<td>The MCP Server instance setting is off</td>
+<td>Rerun prompt S.4.</td>
+</tr>
+<tr>
+<td>A deploy "succeeds" but nothing changes</td>
+<td>Unchanged zip, or the wrong deploy order</td>
+<td>Ask the agent to <code>blade gw clean deploy</code> and check the <code>Initialized</code> log line, per the site-initializer rules.</td>
+</tr>
+<tr>
+<td>A page shows content for the admin, not for Guest</td>
+<td>Permissions, or the Space isn't connected to the site</td>
+<td>Ask the agent to check Guest access (<code>rules/guest-access.md</code>) and the Space's connected sites.</td>
+</tr>
+<tr>
+<td>The first sign-in shows a <em>Terms of Use</em> notice</td>
+<td>Liferay Enterprise Search notice on first admin sign-in</td>
+<td>Read and close it.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="resetting-a-learners-environment">Resetting a learner's environment<a aria-hidden="true" class="heading-anchor" href="#resetting-a-learners-environment" tabindex="-1">#</a></h2>
+<p>To start over completely: stop Liferay, then</p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code class="language-bash">docker compose down -v
+rm -rf bundles
+blade server init
+</code></pre></div>
+<p>Then start PostgreSQL and Liferay again (Setup S.2) and rerun the prompts, or use the catch-up starting point.</p>
+    </main>
+  </div>
+</div>
+<button class="back-to-top" type="button" aria-label="Back to top">&#8593;</button>
+<script>
+
+(function () {
+  // Copy-to-clipboard for every prompt frame.
+  document.addEventListener("click", function (event) {
+    var btn = event.target.closest(".copy-btn");
+    if (!btn) return;
+    var frame = btn.closest(".copy-frame");
+    var target = frame.querySelector("pre, blockquote");
+    var text = target ? target.innerText : "";
+
+    function feedback() {
+      btn.classList.add("copied");
+      setTimeout(function () {
+        btn.classList.remove("copied");
+      }, 1500);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(feedback).catch(function () {
+        fallbackCopy(text, feedback);
+      });
+    } else {
+      fallbackCopy(text, feedback);
+    }
+  });
+
+  function fallbackCopy(text, done) {
+    var textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+    try { document.execCommand("copy"); } catch (err) { /* no-op */ }
+    document.body.removeChild(textarea);
+    done();
+  }
+
+  // Mobile sidebar toggle.
+  var menuToggle = document.querySelector(".menu-toggle");
+  if (menuToggle) {
+    menuToggle.addEventListener("click", function () {
+      document.body.classList.toggle("sidebar-open");
+    });
+  }
+  document.querySelectorAll(".toc a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      document.body.classList.remove("sidebar-open");
+    });
+  });
+
+  // Table-of-contents filter (recursively keeps a branch visible if any
+  // descendant entry matches).
+  var filterInput = document.querySelector(".toc-filter");
+  if (filterInput) {
+    filterInput.addEventListener("input", function () {
+      var query = filterInput.value.trim().toLowerCase();
+      document.querySelectorAll(".toc > ul > li").forEach(function (li) {
+        filterItem(li, query);
+      });
+    });
+  }
+
+  function filterItem(li, query) {
+    var link = li.querySelector(":scope > a");
+    var text = link ? link.textContent.toLowerCase() : "";
+    var childList = li.querySelector(":scope > ul");
+    var childMatch = false;
+    if (childList) {
+      childList.querySelectorAll(":scope > li").forEach(function (childLi) {
+        if (filterItem(childLi, query)) childMatch = true;
+      });
+    }
+    var selfMatch = !query || text.indexOf(query) !== -1;
+    var show = selfMatch || childMatch;
+    li.style.display = show ? "" : "none";
+    return show;
+  }
+
+  // Scroll-spy: highlight the current section in the sidebar.
+  var headings = document.querySelectorAll(".doc-content h2[id], .doc-content h3[id], .doc-content h4[id]");
+  var linkMap = {};
+  document.querySelectorAll(".toc a").forEach(function (a) {
+    linkMap[a.getAttribute("href").slice(1)] = a;
+  });
+
+  if ("IntersectionObserver" in window && headings.length) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var link = linkMap[entry.target.id];
+        if (!link || !entry.isIntersecting) return;
+        document.querySelectorAll(".toc a.active").forEach(function (a) { a.classList.remove("active"); });
+        link.classList.add("active");
+      });
+    }, { rootMargin: "0px 0px -72% 0px", threshold: 0 });
+    headings.forEach(function (h) { observer.observe(h); });
+  }
+
+  // Back-to-top button.
+  var backToTop = document.querySelector(".back-to-top");
+  if (backToTop) {
+    window.addEventListener("scroll", function () {
+      backToTop.classList.toggle("visible", window.scrollY > 600);
+    }, { passive: true });
+    backToTop.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+})();
+
+</script>
+</body>
+</html>

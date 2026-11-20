@@ -229,6 +229,9 @@ curl \
 - **`PATCH /roles/{id}` with `rolePermissions` stores company (scope 1) and group (scope 2) grants but silently drops individual (scope 4) entries.** Keep regular-role permission designs to company scope, or grant individual resources from the resource's own `/permissions` endpoint where it has one.
 - **First sign-in password change:** whether it's asked depends on the default password policy's *Change Required*, stored when the database is created. With `passwords.default.policy.change.required=false` in `portal-ext.properties` before the first start (the course workspace does this), no persona is asked. On a database created without it, see "Set the Password Without Printing It" below.
 
+- **`PATCH` and `PUT /roles/{id}` only add permissions**; neither removes a grant. To remove one, the user does it in Control Panel → Roles → the role → *Define Permissions* (there's no headless API). Plan grants before applying them.
+- **Collections and Categories** resource names: `com_liferay_asset_list_web_portlet_AssetListPortlet` (ACCESS_IN_CONTROL_PANEL, VIEW), `com.liferay.asset.list` (ADD_ASSET_LIST_ENTRY), `com.liferay.asset.list.model.AssetListEntry` (VIEW, UPDATE), `com_liferay_asset_categories_admin_web_portlet_AssetCategoriesAdminPortlet` (ACCESS_IN_CONTROL_PANEL, VIEW), `com.liferay.asset.categories` (ADD_CATEGORY, ADD_VOCABULARY), `com.liferay.asset.kernel.model.AssetCategory` (VIEW, UPDATE).
+
 ## Who Sees Liferay CMS (2026.q3.10)
 
 The **CMS** application appears for a user who is a member of at least one Space, holds the CMS Administrator role, or has VIEW on the CMS group. Inside a Space, the Space's own roles (Space Member, Space Administrator…) decide what they can do. Prefer Space membership and Space roles over regular-role grants for CMS authoring: a regular role grants at company scope, so it applies in **every** Space, and the CMS pages also need per-page VIEW that `PATCH /roles` can't store (above).

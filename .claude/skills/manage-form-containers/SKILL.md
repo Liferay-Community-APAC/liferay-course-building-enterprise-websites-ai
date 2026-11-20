@@ -362,3 +362,9 @@ A `curl` replay of the form is a quick check that the binding and the Guest gran
 - A real submission stores every field with the right value, read back over REST as admin.
 - The chosen success behavior happens.
 - The audience still cannot read other entries if the form is public.
+
+## Verified on 2026.q3.10 (Clarity course)
+
+- **Localization selector** in a form: a `Fragment` with key `localization-select` (a renderer key, no collection prefix), `fragmentConfig: {"size": "small", "hideLanguageLabel": true}`.
+- **Replaying a submission without a browser** (to test as Guest) needs a `Referer` header (without it: a `500` NPE in the redirect, nothing stored) and, for localized fields, inputs named `ObjectField_<field>_<locale>` (e.g. `_en_US`); the Localization Select's JavaScript adds them in a browser. Without them a required localized field fails with "An error occurred while sending the form information." and nothing is logged.
+- Guest can also create entries directly: unauthenticated `POST /o/c/<plural>/scopes/<site erc>` works with Guest `ADD_OBJECT_ENTRY`.

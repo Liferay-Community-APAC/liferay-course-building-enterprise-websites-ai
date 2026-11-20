@@ -1,5 +1,23 @@
 [
-  {"title": "Spring Job Fair", "start": "past: 30 days before today, 10:00-16:00", "location": "Main Campus, Building A"},
-  {"title": "Summer Job Fair", "start": "future: 20 days after today, 10:00-16:00", "location": "Main Campus, Building A"},
-  {"title": "Campus Recruiting Event", "start": "future: 45 days after today, 13:00-17:00", "location": "State University Career Center"}
+  {
+    "title": "Spring Job Fair",
+    "start": "30 days before today, 10:00",
+    "end": "30 days before today, 16:00",
+    "location": "Main Campus, Building A",
+    "subtitleDescription": "<p>Meet Clarity's hiring managers and learn about open positions.</p>"
+  },
+  {
+    "title": "Summer Job Fair",
+    "start": "20 days after today, 10:00",
+    "end": "20 days after today, 16:00",
+    "location": "Main Campus, Building A",
+    "subtitleDescription": "<p>Meet Clarity's hiring managers and learn about open positions.</p>"
+  },
+  {
+    "title": "Campus Recruiting Event",
+    "start": "45 days after today, 13:00",
+    "end": "45 days after today, 17:00",
+    "location": "State University Career Center",
+    "subtitleDescription": "<p>Clarity's recruiters visit campus to meet graduating students.</p>"
+  }
 ]

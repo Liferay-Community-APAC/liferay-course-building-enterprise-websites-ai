@@ -31,7 +31,7 @@ SRC = ROOT / "docs-src"
 OUT = ROOT / "docs"
 
 DAY_1 = ["00-setup", "01-users-permissions", "02-sites", "03-pages-navigation", "04-fragments", "05-design", "06-cms"]
-DAY_2 = ["07-displaying-content", "08-commerce", "09-headless", "10-workflow-publications", "11-search", "12-objects", "13-personalization"]
+DAY_2 = ["07-displaying-content", "08-commerce", "09-headless", "10-workflow", "11-search", "12-objects", "13-personalization"]
 
 
 def demote(md: str) -> str:
@@ -51,8 +51,11 @@ def workbook() -> str:
     wb = SRC / "workbook"
     parts = [(wb / "README.md").read_text(encoding="utf-8")]
     for title, files in (("Day 1", DAY_1), ("Day 2", DAY_2)):
+        present = [name for name in files if (wb / f"{name}.md").exists()]
+        if not present:
+            continue
         parts.append(f"## {title}")
-        for name in files:
+        for name in present:
             parts.append(demote((wb / f"{name}.md").read_text(encoding="utf-8")))
     text = "\n\n".join(parts)
     # Screenshots are referenced as screenshots/<file> from the workbook source.

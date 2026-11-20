@@ -1,0 +1,1175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building Enterprise Websites with Liferay and AI — Workbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  /* Design tokens pulled from learn.liferay.com's own stylesheet
+     (https://liferaylearnglobalcss-exte5a2learn-extprd.lfr.cloud/global.css)
+     — the CSS custom-property fallback values there, e.g.
+     var(--color-brand-primary, #0b5fff), are learn.liferay.com's real
+     palette, not an approximation of it. */
+  --lf-brand: #0b5fff;
+  --lf-brand-hover: #0053f0;
+  --lf-brand-active: #004ad7;
+
+  --lf-neutral-0: #ffffff;
+  --lf-neutral-1: #f7f7f8;
+  --lf-neutral-2: #e2e2e4;
+  --lf-neutral-4: #b1b2b9;
+  --lf-neutral-6: #82828c;
+  --lf-neutral-8: #54555f;
+  --lf-neutral-9: #33343d;
+  --lf-neutral-10: #282934;
+
+  --lf-active-bg: #e6edfb;
+  --lf-hover-bg: #edf3fe;
+
+  --lf-warning-bg: #f7eae0;   --lf-warning-text: #944000;
+  --lf-success-bg: #e9f5e8;   --lf-success-text: #3b892f;
+  --lf-info-bg: #e6ebf5;      --lf-info-text: #25488a;
+
+  --lf-font-sans: 'Source Sans 3', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --lf-font-mono: 'Source Code Pro', Consolas, Menlo, "Liberation Mono", monospace;
+  --lf-radius: 0.5rem;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--lf-font-sans);
+  color: var(--lf-neutral-8);
+  background: var(--lf-neutral-0);
+  line-height: 1.6;
+}
+
+/* Top bar */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; height: 60px;
+  background: var(--lf-neutral-0); color: var(--lf-neutral-10);
+  display: flex; align-items: center; gap: .75rem; padding: 0 1rem;
+  z-index: 50; border-bottom: 1px solid var(--lf-neutral-2);
+}
+.topbar .logo { font-weight: 700; font-size: 1.05rem; display: flex; align-items: center; gap: .45rem; letter-spacing: .01em; color: var(--lf-neutral-10); }
+.topbar .logo .dot { width: .55rem; height: .55rem; border-radius: 50%; background: var(--lf-brand); }
+.topbar .doc-title {
+  color: var(--lf-neutral-6); font-size: .85rem; border-left: 1px solid var(--lf-neutral-2);
+  padding-left: .75rem; margin-left: .1rem; white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; max-width: 55vw;
+}
+.topbar .spacer { flex: 1; }
+.menu-toggle {
+  display: none; background: transparent; border: 1px solid var(--lf-neutral-2);
+  color: var(--lf-neutral-10); border-radius: 6px; padding: .3rem .55rem; font-size: 1rem; cursor: pointer;
+}
+
+/* Layout */
+.layout { display: flex; padding-top: 60px; min-height: 100vh; }
+.sidebar {
+  position: fixed; top: 60px; bottom: 0; left: 0; width: 300px;
+  overflow-y: auto; background: var(--lf-neutral-1); border-right: 1px solid var(--lf-neutral-2);
+  padding: 1rem .85rem 2.5rem; z-index: 40;
+}
+.toc-filter {
+  width: 100%; padding: .5rem .65rem; border: 1px solid var(--lf-neutral-2);
+  border-radius: 6px; font-size: .85rem; margin-bottom: .85rem; background: var(--lf-neutral-0);
+  font-family: inherit; color: var(--lf-neutral-10);
+}
+.toc ul { list-style: none; margin: 0; padding-left: 1rem; }
+.toc > div > ul, .toc > ul { padding-left: 0; }
+.toc a {
+  display: block; padding: .32rem .55rem .32rem .65rem; color: var(--lf-neutral-8);
+  text-decoration: none; font-size: .86rem; line-height: 1.35; border-left: 2px solid transparent;
+}
+.toc li.toc-level-2 > a { font-weight: 700; color: var(--lf-neutral-10); font-size: .9rem; margin-top: .4rem; }
+.toc li.toc-level-3 > a { font-weight: 500; }
+.toc li.toc-level-4 > a { font-size: .8rem; color: var(--lf-neutral-6); }
+.toc a:hover { color: var(--lf-neutral-10); background: var(--lf-hover-bg); }
+.toc a.active { background: var(--lf-active-bg); border-left-color: var(--lf-brand); color: var(--lf-brand-active); font-weight: 700; }
+
+.content-wrap { margin-left: 300px; flex: 1; display: flex; justify-content: center; padding: 2.5rem 2rem 7rem; }
+.doc-content { max-width: 840px; width: 100%; }
+
+/* Headings — learn.liferay.com's article headings are plain, undecorated:
+   no colored rule under h1, just weight and the neutral-10 ink. */
+.doc-content h1 { font-size: 2rem; line-height: 1.25; margin: 0 0 1rem; color: var(--lf-neutral-10); font-weight: 700; }
+.doc-content h1 + p { font-size: 1.1rem; color: var(--lf-neutral-6); margin-top: 0; }
+.doc-content h2 {
+  font-size: 1.5rem; margin: 2.75rem 0 1rem; padding-top: .75rem;
+  border-top: 1px solid var(--lf-neutral-2); color: var(--lf-neutral-10); font-weight: 700; scroll-margin-top: 78px;
+}
+.doc-content h2:first-of-type { border-top: 0; margin-top: 1.75rem; }
+.doc-content h3 { font-size: 1.2rem; margin: 2rem 0 .75rem; color: var(--lf-neutral-10); font-weight: 600; scroll-margin-top: 78px; }
+.doc-content h4 { font-size: 1rem; margin: 1.5rem 0 .6rem; color: var(--lf-neutral-10); font-weight: 600; scroll-margin-top: 78px; }
+.heading-anchor { margin-left: .45rem; opacity: 0; text-decoration: none; color: var(--lf-brand); font-weight: 400; font-size: .8em; }
+h2:hover .heading-anchor, h3:hover .heading-anchor, h4:hover .heading-anchor { opacity: 1; }
+
+/* Body text — learn.liferay.com renders article paragraphs in neutral-8,
+   reserving neutral-10 for headings and emphasis. */
+.doc-content p { margin: .85rem 0; color: var(--lf-neutral-8); }
+.doc-content strong { color: var(--lf-neutral-10); font-weight: 600; }
+.doc-content ul, .doc-content ol { padding-left: 1.4rem; }
+.doc-content li { margin: .3rem 0; color: var(--lf-neutral-8); }
+.doc-content hr { border: 0; border-top: 1px solid var(--lf-neutral-2); margin: 2.75rem 0; }
+.doc-content a { color: var(--lf-brand); }
+.doc-content a:hover { color: var(--lf-brand-active); text-decoration: underline; }
+.doc-content code {
+  font-family: var(--lf-font-mono); background: var(--lf-neutral-2); color: var(--lf-neutral-10);
+  padding: .125rem .4rem; border-radius: 4px; font-size: .88em;
+}
+em { color: inherit; }
+.doc-content img {
+  max-width: 100%; height: auto; display: block; margin: 1.1rem 0;
+  border: 1px solid var(--lf-neutral-2); border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+
+/* Admonitions — learn.liferay.com's own "adm-*" callout vocabulary
+   (adm-warning / adm-note / adm-important), same background/text pairs. */
+.doc-content p.adm-block { padding: .75rem 1rem; border-radius: var(--lf-radius); margin: 1.1rem 0; }
+.doc-content p.adm-warning { background: var(--lf-warning-bg); color: var(--lf-warning-text); }
+.doc-content p.adm-note { background: var(--lf-success-bg); color: var(--lf-success-text); }
+.doc-content p.adm-important { background: var(--lf-info-bg); color: var(--lf-info-text); }
+.doc-content p.adm-block strong:first-child { color: inherit; }
+
+/* Blockquotes — learn.liferay.com's lightweight quoted style: a thin blue
+   rule and no filled background, used both for a short quoted prompt and
+   for a documentation aside that mixes prose with nested code examples. */
+.doc-content blockquote {
+  border-left: 2px solid var(--lf-brand); color: var(--lf-neutral-8);
+  font-size: 1.125rem; font-weight: 300; line-height: 1.5;
+  margin: 1.5rem 0; padding-left: 1.5rem;
+}
+.doc-content blockquote p { margin: .6rem 0; }
+.doc-content blockquote code { background: var(--lf-neutral-2); }
+.doc-content blockquote.aside { font-size: 1rem; font-weight: 400; }
+.doc-content blockquote.aside h3 { font-size: 1.1rem; margin-top: 0; }
+.doc-content blockquote.aside .copy-frame-code { margin: 1rem 0; }
+
+/* Prompt / copy frames: a dark "code" frame for fenced code (matching
+   learn.liferay.com's own pre[class*="language-"] surface) and a light
+   "quote" frame that leaves the blockquote's own thin-rule style intact. */
+.copy-frame { position: relative; margin: 1rem 0 1.6rem; }
+.copy-frame-code { border-radius: var(--lf-radius); overflow: hidden; background: var(--lf-neutral-9); }
+.copy-frame-code pre {
+  margin: 0; padding: 1em 3.4rem 1em 1.25rem; color: var(--lf-neutral-0);
+  background: transparent; border: 0; font-family: var(--lf-font-mono);
+  font-size: .9rem; line-height: 1.6; white-space: pre-wrap; word-break: break-word;
+}
+.copy-frame-code pre code { background: transparent; color: inherit; padding: 0; border-radius: 0; }
+.copy-frame-quote blockquote { margin: 0; padding-right: 3.2rem; }
+
+.copy-btn {
+  position: absolute; top: .6rem; right: .6rem; z-index: 2;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; padding: 0; border: 0; border-radius: 6px; background: transparent;
+  cursor: pointer; transition: background .15s ease, color .15s ease;
+}
+.copy-btn .icon-check { display: none; }
+.copy-btn.copied .icon-copy { display: none; }
+.copy-btn.copied .icon-check { display: inline; }
+.copy-frame-code .copy-btn { color: rgba(255,255,255,.75); }
+.copy-frame-code .copy-btn:hover { background: rgba(255,255,255,.12); color: var(--lf-neutral-0); }
+.copy-frame-quote .copy-btn { top: .4rem; color: var(--lf-neutral-6); }
+.copy-frame-quote .copy-btn:hover { background: var(--lf-hover-bg); color: var(--lf-brand-active); }
+.copy-btn.copied { color: var(--lf-success-text) !important; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 1.4rem 0; border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); }
+.doc-content table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+.doc-content th, .doc-content td { padding: .55rem .75rem; border-bottom: 1px solid var(--lf-neutral-2); text-align: left; vertical-align: top; color: var(--lf-neutral-8); }
+.doc-content thead th { background: var(--lf-neutral-1); color: var(--lf-neutral-10); font-weight: 600; position: sticky; top: 0; }
+.doc-content tbody tr:nth-child(even) { background: var(--lf-neutral-1); }
+
+/* Back to top */
+.back-to-top {
+  position: fixed; right: 1.5rem; bottom: 1.5rem; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--lf-brand); color: #fff; border: 0; display: flex; align-items: center;
+  justify-content: center; cursor: pointer; box-shadow: 0 2px 10px rgba(11,95,255,.35);
+  opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease, background .15s ease; z-index: 45; font-size: 1.1rem;
+}
+.back-to-top:hover { background: var(--lf-brand-active); transform: translateY(-2px); }
+.back-to-top.visible { opacity: 1; pointer-events: auto; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .sidebar { transform: translateX(-100%); transition: transform .2s ease; box-shadow: 2px 0 14px rgba(0,0,0,.12); }
+  body.sidebar-open .sidebar { transform: translateX(0); }
+  .content-wrap { margin-left: 0; padding: 2rem 1.15rem 5rem; }
+  body.sidebar-open::after {
+    content: ""; position: fixed; inset: 60px 0 0 0; background: rgba(40,41,52,.35); z-index: 39;
+  }
+}
+
+@media print {
+  .topbar, .sidebar, .copy-btn, .menu-toggle, .back-to-top { display: none !important; }
+  .content-wrap { margin-left: 0; padding: 0; }
+  .copy-frame-code { border: 1px solid #999; }
+  .copy-frame-code pre { color: #111; }
+  :root { --lf-neutral-9: #f4f4f4; }
+}
+
+</style>
+</head>
+<body>
+<header class="topbar">
+  <button class="menu-toggle" type="button" aria-label="Toggle table of contents">&#9776;</button>
+  <a class="logo" href="../"><span class="dot"></span>BEWL with AI</a>
+  <div class="doc-title">Building Enterprise Websites with Liferay and AI — Workbook</div>
+  <div class="spacer"></div>
+</header>
+<div class="layout">
+  <nav class="sidebar" aria-label="Table of contents">
+    <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
+    <div class="toc"><ul><li class="toc-level-2"><a href="#how-to-use-this-workbook">How to use this workbook</a></li><li class="toc-level-2"><a href="#roadmap">Roadmap</a></li><li class="toc-level-2"><a href="#day-1">Day 1</a><ul><li class="toc-level-3"><a href="#setup-your-workspace-liferay-dxp-and-the-mcp-server">Setup — Your workspace, Liferay DXP and the MCP server</a><ul><li class="toc-level-4"><a href="#s1-open-the-workspace-and-seed-the-context-files">S.1 — Open the workspace and seed the context files</a></li><li class="toc-level-4"><a href="#s2-start-postgresql-and-liferay-dxp">S.2 — Start PostgreSQL and Liferay DXP</a></li><li class="toc-level-4"><a href="#s3-save-the-admin-credentials-for-the-agent">S.3 — Save the admin credentials for the agent</a></li><li class="toc-level-4"><a href="#s4-turn-on-liferays-mcp-server">S.4 — Turn on Liferay&#x27;s MCP server</a></li><li class="toc-level-4"><a href="#s5-read-the-terrain">S.5 — Read the terrain</a></li></ul></li><li class="toc-level-3"><a href="#level-1-users-and-permissions">Level 1 — Users and permissions</a><ul><li class="toc-level-4"><a href="#11-create-claritys-user-groups-roles-and-personas">1.1 — Create Clarity&#x27;s user groups, roles and personas</a></li><li class="toc-level-4"><a href="#12-bonus-a-manager-for-the-marketing-team">⭐ 1.2 — Bonus: a manager for the Marketing team</a></li></ul></li><li class="toc-level-3"><a href="#level-2-sites">Level 2 — Sites</a><ul><li class="toc-level-4"><a href="#21-create-claritys-two-sites">2.1 — Create Clarity&#x27;s two sites</a></li><li class="toc-level-4"><a href="#22-add-members-and-assign-site-roles">2.2 — Add members and assign site roles</a></li><li class="toc-level-4"><a href="#23-configure-the-public-site">2.3 — Configure the public site</a></li><li class="toc-level-4"><a href="#24-give-the-marketing-coordinator-role-its-permissions">2.4 — Give the Marketing Coordinator role its permissions</a></li><li class="toc-level-4"><a href="#25-point-the-instance-at-the-public-site">2.5 — Point the instance at the public site</a></li></ul></li><li class="toc-level-3"><a href="#level-3-pages-master-pages-and-navigation">Level 3 — Pages, master pages and navigation</a><ul><li class="toc-level-4"><a href="#31-scaffold-the-site-initializer-and-the-page-hierarchy">3.1 — Scaffold the site initializer and the page hierarchy</a></li><li class="toc-level-4"><a href="#32-build-the-primary-and-secondary-master-pages">3.2 — Build the Primary and Secondary master pages</a></li><li class="toc-level-4"><a href="#33-create-the-navigation-menus-and-wire-them-in">3.3 — Create the navigation menus and wire them in</a></li><li class="toc-level-4"><a href="#34-bonus-the-sign-in-utility-page">⭐ 3.4 — Bonus: the Sign In utility page</a></li></ul></li><li class="toc-level-3"><a href="#level-4-fragments-and-page-compositions">Level 4 — Fragments and page compositions</a><ul><li class="toc-level-4"><a href="#41-create-the-clarity-components-fragments">4.1 — Create the Clarity Components fragments</a></li><li class="toc-level-4"><a href="#42-put-the-custom-fragments-in-the-master-pages">4.2 — Put the custom fragments in the master pages</a></li><li class="toc-level-4"><a href="#43-wireframe-the-home-and-faq-pages">4.3 — Wireframe the Home and FAQ pages</a></li><li class="toc-level-4"><a href="#44-bonus-a-configurable-sign-in-url">⭐ 4.4 — Bonus: a configurable sign-in URL</a></li></ul></li><li class="toc-level-3"><a href="#level-5-design-style-book-theme-css-favicon-and-logo">Level 5 — Design: style book, Theme CSS, favicon and logo</a><ul><li class="toc-level-4"><a href="#51-a-style-book-for-a-quick-brand-check">5.1 — A style book for a quick brand check</a></li><li class="toc-level-4"><a href="#52-claritys-theme-css-and-favicon-client-extensions">5.2 — Clarity&#x27;s Theme CSS and favicon client extensions</a></li><li class="toc-level-4"><a href="#53-apply-the-brand-to-the-site-and-its-master-pages">5.3 — Apply the brand to the site and its master pages</a></li></ul></li><li class="toc-level-3"><a href="#level-6-content-in-liferay-cms">Level 6 — Content in Liferay CMS</a><ul><li class="toc-level-4"><a href="#61-create-the-spaces-and-their-members">6.1 — Create the Spaces and their members</a></li><li class="toc-level-4"><a href="#62-model-claritys-content-structures">6.2 — Model Clarity&#x27;s content structures</a></li><li class="toc-level-4"><a href="#63-create-the-vocabularies">6.3 — Create the vocabularies</a></li><li class="toc-level-4"><a href="#64-load-claritys-content-and-files">6.4 — Load Clarity&#x27;s content and files</a></li><li class="toc-level-4"><a href="#65-bonus-relate-events-to-their-images">⭐ 6.5 — Bonus: relate events to their images</a></li></ul></li></ul></li></ul></div>
+  </nav>
+  <div class="content-wrap">
+    <main class="doc-content">
+<h1 id="building-enterprise-websites-with-liferay-and-ai-workbook">Building Enterprise Websites with Liferay and AI — Workbook</h1>
+<p>Over two days you build <strong>Clarity Vision Solutions' public enterprise website</strong> on Liferay DXP 2026.Q3. Every exercise is a <strong>prompt</strong> you give your AI coding agent, followed by a <strong>check</strong> you do yourself in Liferay. The agent does the typing; you set the requirement, read what it did, and confirm the result on screen before you build on it.</p>
+<h2 id="how-to-use-this-workbook">How to use this workbook<a aria-hidden="true" class="heading-anchor" href="#how-to-use-this-workbook" tabindex="-1">#</a></h2>
+<ul>
+<li><strong>Your agent works, you verify.</strong> Each ✅ <strong>Verify</strong> step tells you where to look in Liferay. Verification is read-only: open the screen, look, don't change anything. If what you see doesn't match, tell the agent what's wrong and let it fix it.</li>
+<li><strong>Short sessions.</strong> Start a fresh agent session for each exercise, or each small group of related ones. The agent picks the project up from <code>solution-context.md</code> and <code>solution-index.yaml</code> (Exercise S.1), and the skills in <code>.claude/skills/</code> (or <code>.agents/skills/</code>) tell it how Liferay behaves.</li>
+<li><strong>Prompts name their skill.</strong> The 🧩 line lists the skills the exercise relies on. You don't have to type them: the agent loads them from the prompt's wording. Naming one in the prompt helps a less capable agent.</li>
+<li><strong>Every prompt that creates something says who may see it.</strong> Permission gaps fail silently: a page answers, a form saves, and only a visitor notices. Keep the access lines when you adapt a prompt.</li>
+<li><strong>Personas.</strong> Some checks ask you to sign in as a persona (all passwords are <code>learn</code>). Use a private browser window for a second persona, so you stay signed in as the admin in the other.</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mark</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🎯</td>
+<td>What you're building</td>
+</tr>
+<tr>
+<td>🧩</td>
+<td>Skills the exercise relies on (🆕 = written for this course)</td>
+</tr>
+<tr>
+<td>📖</td>
+<td>Concept to read before you start</td>
+</tr>
+<tr>
+<td>📋</td>
+<td>Steps you do yourself</td>
+</tr>
+<tr>
+<td>💬</td>
+<td>Prompt to paste into your agent</td>
+</tr>
+<tr>
+<td>✅</td>
+<td>How to check it worked, in Liferay</td>
+</tr>
+<tr>
+<td>⚠️</td>
+<td>A gotcha worth knowing before you start</td>
+</tr>
+<tr>
+<td>⭐</td>
+<td>Bonus challenge, if you finish early</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="roadmap">Roadmap<a aria-hidden="true" class="heading-anchor" href="#roadmap" tabindex="-1">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Day</th>
+<th>Level</th>
+<th>You build</th>
+<th>Original BEWL challenge</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Setup</td>
+<td>Workspace, PostgreSQL, DXP, MCP server, context files</td>
+<td>2</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1 — Users and permissions</td>
+<td>Personas, user groups, roles, least-privilege permissions</td>
+<td>3</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2 — Sites</td>
+<td>The public site and the distributor portal, membership, site settings, instance home page</td>
+<td>4</td>
+</tr>
+<tr>
+<td>1</td>
+<td>3 — Pages and navigation</td>
+<td>Page hierarchy, master pages, display page templates, navigation menus</td>
+<td>5, 6</td>
+</tr>
+<tr>
+<td>1</td>
+<td>4 — Fragments</td>
+<td>The Clarity Components fragment set and page compositions</td>
+<td>7</td>
+</tr>
+<tr>
+<td>1</td>
+<td>5 — Design</td>
+<td>Style book, Theme CSS client extension, favicon, logo</td>
+<td>8</td>
+</tr>
+<tr>
+<td>1</td>
+<td>6 — CMS content</td>
+<td>Spaces, content structures, file structures, entries, taxonomy</td>
+<td>9, 10, 11, 14</td>
+</tr>
+<tr>
+<td>2</td>
+<td>7 — Displaying content</td>
+<td>Mapping, collections, the FAQ page, the announcement bar</td>
+<td>12, 15</td>
+</tr>
+<tr>
+<td>2</td>
+<td>8 — Commerce</td>
+<td>Catalog, specifications, products, channel, product pages</td>
+<td>16</td>
+</tr>
+<tr>
+<td>2</td>
+<td>9 — Headless APIs</td>
+<td>API Explorer, batch imports of legacy content and products</td>
+<td>17</td>
+</tr>
+<tr>
+<td>2</td>
+<td>10 — Workflow and publishing</td>
+<td>Approval workflow for articles and the site-wide announcement</td>
+<td>18</td>
+</tr>
+<tr>
+<td>2</td>
+<td>11 — Search</td>
+<td>Job search page, facets, search blueprints, upcoming events</td>
+<td>19, 20</td>
+</tr>
+<tr>
+<td>2</td>
+<td>12 — Objects</td>
+<td>Contact Us object, form, follow-up workflow, data set dashboard</td>
+<td>21</td>
+</tr>
+<tr>
+<td>2</td>
+<td>13 — Personalization</td>
+<td>A Home page variant for distributors, by user group</td>
+<td>22</td>
+</tr>
+</tbody>
+</table></div>
+<p>Challenge 1 (touring the finished site), Challenge 13 (ChatGPT content creation), the Liferay Data Platform overview and the performance tuning module aren't exercises in this course. Your instructor covers them in the slides.</p>
+<p>The course avoids features Liferay has deprecated or moved to maintenance mode on 2026.Q3: it uses Liferay CMS instead of Web Content, Blogs, Documents and Media and Asset Libraries; workflow instead of Publications; Object fields instead of Custom Fields; and user-group targeting instead of DXP segments.</p>
+<h2 id="day-1">Day 1<a aria-hidden="true" class="heading-anchor" href="#day-1" tabindex="-1">#</a></h2>
+<h3 id="setup-your-workspace-liferay-dxp-and-the-mcp-server">Setup — Your workspace, Liferay DXP and the MCP server<a aria-hidden="true" class="heading-anchor" href="#setup-your-workspace-liferay-dxp-and-the-mcp-server" tabindex="-1">#</a></h3>
+<p>Do this chapter once, on the first morning. It gets Liferay DXP running on PostgreSQL, connects your AI agent to Liferay's MCP server, and seeds the two files every later session reads.</p>
+<h4 id="s1-open-the-workspace-and-seed-the-context-files">S.1 — Open the workspace and seed the context files<a aria-hidden="true" class="heading-anchor" href="#s1-open-the-workspace-and-seed-the-context-files" tabindex="-1">#</a></h4>
+<p>🎯 The course repository open in VS Code, your agent able to read its skills, and two files at the workspace root that let any new agent session pick up the project: <code>solution-context.md</code> (what Clarity is building) and <code>solution-index.yaml</code> (what's done and what's left).</p>
+<p>🧩 None — the prompt below is self-contained.</p>
+<p>📋 <strong>Steps:</strong></p>
+<ol>
+<li>Clone the repository the instructor shares, then open its folder in VS Code (<em>File</em> → <em>Open Folder</em>). Open the <strong>folder</strong>, not a file: that's how your agent finds <code>.claude/</code> (Claude Code) or <code>.agents/</code> (other agents) and their skills.</li>
+<li>Open your agent's chat in agent mode, then send the prompt.</li>
+</ol>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>We're building Clarity Vision Solutions' public enterprise website on Liferay
+DXP during a two-day course. Seed two files at the workspace root:
+solution-context.md and solution-index.yaml.
+
+First confirm that context-source/clarity-brief.md and context-source/README.md
+exist. Stop and tell me if either is missing; don't invent content.
+
+solution-context.md: read the brief and write a short summary (one page, not
+a copy): who Clarity is, the site's five goals, the personas with their
+responsibilities, the two sites, and where the content lives (CMS Spaces).
+Cite context-source files by path instead of copying them.
+
+solution-index.yaml: a top-level "requirements" list with one entry per
+requirement R1-R13 in section 8 of the brief, each with: id, title, level
+(the number in the brief's "Built in" column), status: todo, and an empty
+artifacts list.
+
+Don't create or change anything else. Read both files back to me.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong> open both files in VS Code. <code>solution-context.md</code> fits on a screen or two and names the personas; <code>solution-index.yaml</code> has 13 entries, all <code>status: todo</code>.</p>
+<p class="adm-block adm-warning">⚠️ Keep <code>solution-context.md</code> short. Every new session reads it, so a long file costs tokens on every prompt for the rest of the course.</p>
+<h4 id="s2-start-postgresql-and-liferay-dxp">S.2 — Start PostgreSQL and Liferay DXP<a aria-hidden="true" class="heading-anchor" href="#s2-start-postgresql-and-liferay-dxp" tabindex="-1">#</a></h4>
+<p>🎯 PostgreSQL running in Docker, and Liferay DXP 2026.Q3.10 running on it at <code>http://localhost:8080</code>.</p>
+<p>🧩 None — you run these commands yourself, in your own terminal.</p>
+<p>📋 <strong>Steps:</strong></p>
+<ol>
+<li>Copy the activation key file you received by email into <code>configs/local/deploy/</code> (create the folder if it doesn't exist). It's git-ignored: it never leaves your computer.</li>
+<li>
+<p>In VS Code's terminal (<em>Terminal</em> → <em>New Terminal</em>), at the workspace root, start the database:
+   <code>bash
+   docker compose up -d</code></p>
+</li>
+<li>
+<p>Unpack the DXP bundle. It uses the copy you downloaded before the course, in <code>~/.liferay/bundles</code>:
+   <code>bash
+   blade server init</code></p>
+</li>
+<li>
+<p>Start Liferay and watch the log:
+   <code>bash
+   blade server start --tail</code>
+   The first start creates the database and takes a few minutes. Wait for <code>Server startup in [...] milliseconds</code>.</p>
+</li>
+</ol>
+<p>✅ <strong>Verify:</strong></p>
+<ul>
+<li><code>docker compose ps</code> shows <code>clarity-postgres</code> as <code>running (healthy)</code>.</li>
+<li><code>http://localhost:8080</code> shows the Liferay home page. Sign in as <code>admin@clarityvisionsolutions.com</code> with password <code>learn</code>. The first sign-in shows a <em>Terms of Use</em> notice about Liferay Enterprise Search: read it and close it with <strong>Done</strong>.</li>
+<li>In the Global Menu (the grid icon, top right) → <em>Control Panel</em> → <em>Server Administration</em>, the <em>Properties</em> → <em>Portal Properties</em> tab lists <code>jdbc.default.url</code> with <code>postgresql</code>.</li>
+</ul>
+<p class="adm-block adm-warning">⚠️ <strong>You start and stop Liferay, not the agent.</strong> Never ask the agent to run <code>blade server start</code>, <code>stop</code> or any Tomcat script: a server started inside an agent session stops when that session ends, and a stopped server drops the MCP connection. If port 8080 or 5432 is already in use, stop the other program first.</p>
+<h4 id="s3-save-the-admin-credentials-for-the-agent">S.3 — Save the admin credentials for the agent<a aria-hidden="true" class="heading-anchor" href="#s3-save-the-admin-credentials-for-the-agent" tabindex="-1">#</a></h4>
+<p>🎯 A credentials file every agent session finds on its own, so you never type a password into a chat.</p>
+<p>🧩 None.</p>
+<p>📋 <strong>Steps:</strong></p>
+<ol>
+<li>
+<p>Create <code>configs/local/admin.properties</code> yourself in VS Code, with these two lines:
+   <code>properties
+   ADMIN_EMAIL=admin@clarityvisionsolutions.com
+   ADMIN_PASSWORD=learn</code></p>
+</li>
+<li>
+<p>Send the prompt.</p>
+</li>
+</ol>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Confirm configs/local/admin.properties exists and is listed in .gitignore.
+Read the admin email and password from it, never printing the password, and
+check they work: call GET /o/headless-admin-user/v1.0/my-user-account with
+Basic auth on the port Tomcat listens on (read it from
+bundles/tomcat/conf/server.xml). Show me the name and emailAddress from the
+response.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong> the agent shows <em>Clarity Admin</em> and <code>admin@clarityvisionsolutions.com</code>, and its messages never contain the password.</p>
+<h4 id="s4-turn-on-liferays-mcp-server">S.4 — Turn on Liferay's MCP server<a aria-hidden="true" class="heading-anchor" href="#s4-turn-on-liferays-mcp-server" tabindex="-1">#</a></h4>
+<p>🎯 Your agent connected to Liferay's MCP server at <code>http://localhost:8080/o/mcp</code>, so it can call Liferay's APIs as a tool instead of hand-writing <code>curl</code> commands.</p>
+<p>🧩 <code>mcp-server</code></p>
+<p>📖 <strong>What is MCP?</strong> The Model Context Protocol is a standard way for an AI agent to use tools. Liferay DXP 2026.Q3 ships an MCP server that exposes every headless API (sites, pages, CMS, objects, commerce, users…) as tools. The agent discovers them at runtime, reads each operation's schema, then calls it, all with the permissions of the user it authenticates as.</p>
+<p>On 2026.Q3 the MCP server has two switches. The workspace already turns on the first one, the feature flag <code>LPD-63311</code>, in <code>configs/local/portal-ext.properties</code>. The second is the <em>MCP Server</em> instance setting. It's an ordinary OSGi configuration, so your agent can switch it on with a configuration file, live, without a restart.</p>
+<p>📋 <strong>Steps:</strong></p>
+<ol>
+<li>Send the prompt below. It turns the MCP server on and registers it in your agent's own configuration file.</li>
+<li><strong>Restart your agent session</strong> (close and reopen the chat, or reload the VS Code window). Agents read their MCP configuration only when a session starts.</li>
+</ol>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the mcp-server skill, turn on and connect me to the Liferay MCP server
+of this workspace's running DXP.
+
+1. Enable the MCP Server instance setting with its OSGi configuration file,
+   in both bundles/osgi/configs (applies live) and configs/local/osgi/configs
+   (survives the next blade server init). Don't restart Liferay.
+2. Probe it: send a JSON-RPC initialize request to /o/mcp on the Tomcat port,
+   with Basic auth from configs/local/admin.properties. Show me the
+   serverInfo it returns.
+3. Register it as an HTTP (Streamable HTTP, not SSE) MCP server named
+   "liferay" in the configuration file of the agent I'm using right now:
+   .mcp.json for Claude Code, .vscode/mcp.json for GitHub Copilot,
+   .codex/config.toml for Codex. Authenticate with a Basic Authorization
+   header built from configs/local/admin.properties.
+4. Add that configuration file to .gitignore: it contains a credential.
+5. Tell me exactly how to restart my session so the server loads.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong></p>
+<ul>
+<li>In Liferay, open the Global Menu → <em>Control Panel</em> → <em>Instance Settings</em> → <em>Platform</em> → <em>MCP Server</em>: <strong>Enabled</strong> is checked. Don't change it.</li>
+<li>After the restart, approve the project's <code>liferay</code> server if your agent asks (Claude Code does, for servers in <code>.mcp.json</code>), then open your agent's MCP server list (Claude Code: type <code>/mcp</code>; Copilot: <em>MCP: List Servers</em> in the Command Palette; Codex: its MCP settings). <code>liferay</code> is listed as connected.</li>
+<li>Ask the agent <em>"Using the liferay MCP server, list the tool sets it offers"</em>, and check it answers from the server, not from memory.</li>
+</ul>
+<p class="adm-block adm-warning">⚠️ If the server shows as connected but lists no tools, Liferay was restarted since your session started: reconnect or restart the session.</p>
+<h4 id="s5-read-the-terrain">S.5 — Read the terrain<a aria-hidden="true" class="heading-anchor" href="#s5-read-the-terrain" tabindex="-1">#</a></h4>
+<p>🎯 The agent confirms the facts every later prompt depends on, before anything is built.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Read .claude/CLAUDE.md (or .agents/ if that's what you use) and tell me,
+without changing anything: the workspace root, the DXP version from
+gradle.properties, the database Liferay is using, the Tomcat port, how you
+authenticate, whether the liferay MCP server is available to you, and which
+sites already exist in the instance.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong> compare the answer with <code>gradle.properties</code>, <code>configs/local/portal-ext.properties</code> and <em>Control Panel</em> → <em>Sites</em>. The only sites are Liferay's defaults: the Clarity sites don't exist yet.</p>
+<p><strong>From here on, work in short agent sessions.</strong> Start a new session (or <code>/clear</code>) when you move to an exercise that doesn't build directly on the previous one. A fresh session costs fewer tokens and stays focused, and nothing is lost: it picks the project up from <code>solution-context.md</code> and <code>solution-index.yaml</code>.</p>
+<h3 id="level-1-users-and-permissions">Level 1 — Users and permissions<a aria-hidden="true" class="heading-anchor" href="#level-1-users-and-permissions" tabindex="-1">#</a></h3>
+<p>📖 Clarity's website is built by a team, not by one administrator. Before anyone can contribute, the instance needs their accounts, a way to group them (<strong>user groups</strong>), and <strong>roles</strong> that grant each person only what their work requires. A <strong>regular</strong> role applies everywhere in the instance; a <strong>site</strong> role applies only inside the sites where it's assigned. You'll give the roles their permissions once the site exists, in Level 2.</p>
+<h4 id="11-create-claritys-user-groups-roles-and-personas">1.1 — Create Clarity's user groups, roles and personas<a aria-hidden="true" class="heading-anchor" href="#11-create-claritys-user-groups-roles-and-personas" tabindex="-1">#</a></h4>
+<p>🎯 Five user groups, six custom roles and seven personas, each persona in its user group with its regular role and portrait.</p>
+<p>🧩 <code>manage-roles-permissions</code></p>
+<p>📎 R1 — personas, user groups and roles.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the manage-roles-permissions skill, set up Clarity's people from
+context-source:
+
+1. Create the user groups in data/user-groups.csv, with their descriptions.
+2. Create the roles in data/roles.csv: "regular" rows as regular roles,
+   "site" rows as site roles, each with its description.
+3. Create the users in data/personas.csv, with an external reference code
+   of the form PERSONA-&lt;SCREENNAME&gt;, the screen name, email, first and last
+   name and job title from the file. Give each of them the password "learn"
+   (the course's shared training password) and make sure none of them is
+   asked to change it at first sign-in. Upload the portrait where the file
+   lists one.
+4. Add each user to the user group in their row, and assign them the
+   regular role in the "regularRoles" column.
+
+Make every step idempotent (upsert by external reference code or name), so
+I can run this prompt again safely. Report a table of users with their
+groups and roles as Liferay returns them, not as you intended them.
+</code></pre></div>
+<p>✅ <strong>Verify</strong> (as the Clarity Admin):</p>
+<ul>
+<li>Global Menu → <em>Control Panel</em> → <em>Users and Organizations</em>: the seven personas are listed and active. Open <strong>Christian Carter</strong>: his portrait shows, his job title is <em>Marketing Coordinator</em>, and under <em>Memberships</em> → <em>User Groups</em> he's in <strong>Marketing</strong>.</li>
+<li><em>Control Panel</em> → <em>User Groups</em>: five groups. Open <strong>Marketing</strong>: Christian Carter and Clara Murphy are members.</li>
+<li><em>Control Panel</em> → <em>Roles</em>: the <em>Regular Roles</em> tab has the five Clarity roles; the <em>Site Roles</em> tab has <strong>Site Content Contributor</strong>. Open <strong>Marketing Coordinator</strong> → <em>Assignees</em> → <em>Users</em>: <strong>Christian Carter</strong> is listed.</li>
+<li>In a private browser window, sign in as <code>christian.carter@clarityvisionsolutions.com</code> / <code>learn</code>. You land in the portal without a password change prompt.</li>
+</ul>
+<p><img alt="Control Panel → Users and Organizations listing the seven Clarity personas with their screen names, job titles and user groups." src="../screenshots/1-1-users.png"/></p>
+<p><img alt="Control Panel → Roles: the Regular Roles tab lists Content Manager, Distributor Representative, IT Manager, Marketing Coordinator and Web Developer next to Liferay's own roles." src="../screenshots/1-1-roles.png"/></p>
+<p>📖 In the Control Panel you can also assign a role to a <strong>user group</strong>, so every member gets it. Liferay's headless API assigns roles to users only, so the agent assigns them one by one here. Look at both in <em>Control Panel</em> → <em>Roles</em> → a role → <em>Assignees</em>.</p>
+<h4 id="12-bonus-a-manager-for-the-marketing-team">⭐ 1.2 — Bonus: a manager for the Marketing team<a aria-hidden="true" class="heading-anchor" href="#12-bonus-a-manager-for-the-marketing-team" tabindex="-1">#</a></h4>
+<p>Let Clara Murphy view the members of the <strong>Marketing</strong> user group and add new ones, <strong>without</strong> the Administrator or Site Administrator role and without access to any other user group. Write the prompt yourself. Success: impersonating Clara, she can open <em>Control Panel</em> → <em>User Groups</em> → <em>Marketing</em> and add a member; another user group shows no <em>Assign Members</em> action.</p>
+<h3 id="level-2-sites">Level 2 — Sites<a aria-hidden="true" class="heading-anchor" href="#level-2-sites" tabindex="-1">#</a></h3>
+<p>📖 In Liferay DXP, each <strong>site</strong> has its own pages, members and settings. Clarity needs its public enterprise website, configured for launch, and an empty site for a future distributor portal. Visitors who aren't signed in can see a public site's public pages; members get more through <strong>site roles</strong>. Some settings belong to the site (its address, languages, accessibility), others to the whole <strong>instance</strong> (where <code>http://localhost:8080/</code> takes you).</p>
+<h4 id="21-create-claritys-two-sites">2.1 — Create Clarity's two sites<a aria-hidden="true" class="heading-anchor" href="#21-create-claritys-two-sites" tabindex="-1">#</a></h4>
+<p>🎯 <strong>Clarity Public Enterprise Website</strong> and <strong>Clarity Distributor Portal</strong>, both blank sites, with stable external reference codes so every later prompt can address them.</p>
+<p>🧩 <code>manage-sites</code> 🆕</p>
+<p>📎 R2 — the public site.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Create Clarity's two sites as blank sites (no template, no initializer),
+as described in section 3 of context-source/clarity-brief.md:
+
+- "Clarity Public Enterprise Website", external reference code
+  clarity-public, friendly URL /clarity
+- "Clarity Distributor Portal", external reference code
+  clarity-distributor-portal, friendly URL /distributor-portal
+
+If a site with that external reference code already exists, leave it as it
+is and tell me. Read both back and show me their id, external reference
+code, name and friendly URL. Add both to solution-index.yaml under R2.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong> Global Menu → <em>Control Panel</em> → <em>Sites</em>: both sites are listed. Open <strong>Clarity Public Enterprise Website</strong>: it has no pages yet.</p>
+<p><img alt="Control Panel → Sites listing Clarity Public Enterprise Website and Clarity Distributor Portal." src="../screenshots/2-1-sites.png"/></p>
+<h4 id="22-add-members-and-assign-site-roles">2.2 — Add members and assign site roles<a aria-hidden="true" class="heading-anchor" href="#22-add-members-and-assign-site-roles" tabindex="-1">#</a></h4>
+<p>🎯 The people who build and contribute to the public site are its members, with the right site roles.</p>
+<p>🧩 <code>manage-sites</code> 🆕, <code>manage-roles-permissions</code></p>
+<p>📎 R1, R2 — least privilege inside the site.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the manage-sites and manage-roles-permissions skills, set the members
+of the site clarity-public:
+
+- Walter Douglas has the site role Site Administrator.
+- Christian Carter and Harper Roberts have the site role Site Content
+  Contributor.
+- Ian Miller and Clara Murphy are members with no extra site role.
+
+Don't add any other member or role. Read the memberships and site roles
+back from Liferay and show them as a table. Then tell me how I'd add a
+whole user group as a site member, and whether you can do that through
+the API on this release.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong> in the public site, open the Site Menu (the panel on the left; open it with the icon at the top left) → <em>People</em> → <em>Memberships</em>:</p>
+<ul>
+<li>the <em>Users</em> tab lists Walter Douglas, Christian Carter, Harper Roberts, Ian Miller and Clara Murphy (and you, the site's creator);</li>
+<li>the Actions menu (⋮) → <em>Assign Site Roles</em> for Christian Carter shows <strong>Site Content Contributor</strong> selected. Close it without saving.</li>
+</ul>
+<p><img alt="The public site's Memberships screen showing Clarity Admin, Christian Carter, Walter Douglas, Ian Miller, Clara Murphy and Harper Roberts." src="../screenshots/2-2-memberships.png"/></p>
+<p>📖 Adding a <strong>user group</strong> as a site member makes every current and future member of the department a site member. Liferay's headless API can't do that on this release, so your agent told you the screen instead. You'll meet a few settings like this: part of working with an agent is knowing when the UI is the right tool.</p>
+<h4 id="23-configure-the-public-site">2.3 — Configure the public site<a aria-hidden="true" class="heading-anchor" href="#23-configure-the-public-site" tabindex="-1">#</a></h4>
+<p>🎯 The public site is ready for its audience: a description, open membership, English and Spanish only, Liferay's accessibility menu, and a virtual host.</p>
+<p>🧩 <code>manage-sites</code> 🆕</p>
+<p>📎 R2 — address, languages and accessibility.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Configure the site clarity-public as described in section 3 of
+context-source/clarity-brief.md:
+
+1. Description: the text in the brief.
+2. Membership type: Open.
+3. Languages: a custom set with only English (United States), the default,
+   and Spanish (Spain).
+4. Turn on the accessibility menu for this site only.
+5. Virtual host for the public pages: www.clarityvisionsolutions.com.
+   Keep the friendly URL /clarity.
+
+Prefer the headless APIs; for a setting they don't cover, use the site's
+group-scoped OSGi configuration; if neither exists, don't use an
+unsupported API: give me the exact screen and field to set it myself.
+Tell me which mechanism you used for each setting, read each one back, and
+check the accessibility menu is NOT on for the Clarity Distributor Portal.
+</code></pre></div>
+<p>📋 <strong>Steps:</strong> set the virtual host yourself on the screen the agent named (<em>Site Settings</em> → <em>Site Configuration</em> → <em>Site URL</em> → <em>Public Pages</em> → <em>Virtual Host</em>), and save.</p>
+<p>✅ <strong>Verify:</strong> in the public site, Site Menu → <em>Configuration</em> → <em>Site Settings</em>:</p>
+<ul>
+<li><em>Site Configuration</em> → <em>Details</em>: the description, and <em>Membership Type</em> <strong>Open</strong>;</li>
+<li><em>Site URL</em>: friendly URL <code>/clarity</code>, and the virtual host <code>www.clarityvisionsolutions.com</code>;</li>
+<li><em>Localization</em>: only English (United States) and Spanish (Spain) are <em>In Use</em>;</li>
+<li><em>Accessibility</em>: the accessibility menu is enabled.</li>
+</ul>
+<p class="adm-block adm-warning">⚠️ The virtual host only answers once <code>www.clarityvisionsolutions.com</code> resolves to your computer (a <code>hosts</code> file entry). You don't need it during the course: keep using <code>http://localhost:8080/web/clarity</code>.</p>
+<h4 id="24-give-the-marketing-coordinator-role-its-permissions">2.4 — Give the Marketing Coordinator role its permissions<a aria-hidden="true" class="heading-anchor" href="#24-give-the-marketing-coordinator-role-its-permissions" tabindex="-1">#</a></h4>
+<p>🎯 The <strong>Marketing Coordinator</strong> role can manage collections and categories in the sites its holders work in, and nothing more. You'll see the effect by impersonating Christian Carter before and after.</p>
+<p>🧩 <code>manage-roles-permissions</code></p>
+<p>📎 R1 — least-privilege permissions.</p>
+<p>📖 Permissions are actions (VIEW, ADD, UPDATE…) on resources (an application, a kind of item). A <strong>regular</strong> role's permissions apply at company scope: in every site its holder can work in. A <strong>site</strong> role's permissions apply only in the site where it's assigned, which is why Site Content Contributor exists. In Level 6, Liferay CMS Spaces add their own membership and roles on top: that's where Christian will get his content-authoring rights.</p>
+<p>📋 <strong>Steps:</strong></p>
+<ol>
+<li>As the Clarity Admin, go to <em>Control Panel</em> → <em>Users and Organizations</em>, click the Actions menu (⋮) next to <strong>Christian Carter</strong>, and choose <strong>Impersonate User</strong>. In the tab that opens, go to <code>http://localhost:8080/web/clarity</code> and open the Site Menu: Christian has no <em>Site Builder</em> or <em>Categorization</em> section. Keep the tab open.</li>
+<li>Send the prompt.</li>
+</ol>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the manage-roles-permissions skill, grant the regular role "Marketing
+Coordinator", at company scope, the permissions a marketing coordinator
+needs to curate what the site shows, and nothing beyond that:
+
+- Collections: access the Collections application in site
+  administration, view it, add collections, and view and update
+  collections;
+- Categories: access the Categories application in site administration,
+  view it, add vocabularies and categories, and view and update
+  categories.
+
+Before granting anything, read the role's current permissions and list the
+resource names and action keys you'll add, and why each is needed. Don't
+grant PERMISSIONS, DELETE or any administrator action, and don't touch any
+other role. Afterwards, read the role's permissions back and show me the
+difference.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong></p>
+<ul>
+<li><em>Control Panel</em> → <em>Roles</em> → <strong>Marketing Coordinator</strong> → <em>Define Permissions</em> → <em>Summary</em>: the permissions the agent listed, and nothing else.</li>
+<li>Refresh the tab where you're impersonating Christian Carter: the Site Menu now has <em>Site Builder</em> → <strong>Collections</strong> and <em>Categorization</em> → <strong>Categories</strong>, with a <strong>New</strong> button in each. Don't save anything. Close the tab when you're done (<em>Be Yourself Again</em> in the user menu).</li>
+</ul>
+<p>📖 Liferay DXP 2026.Q1 moved Blogs, Documents and Media, Web Content and Asset Libraries to maintenance mode in favor of Liferay CMS, so this course doesn't build on them.</p>
+<h4 id="25-point-the-instance-at-the-public-site">2.5 — Point the instance at the public site<a aria-hidden="true" class="heading-anchor" href="#25-point-the-instance-at-the-public-site" tabindex="-1">#</a></h4>
+<p>🎯 <code>http://localhost:8080/</code> opens Clarity's public site, and users land there after signing in or out.</p>
+<p>🧩 <code>manage-sites</code> 🆕</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>I want the instance's Home URL, Default Landing Page and Default Logout
+Page to be /web/clarity. Check whether this release has a supported API or
+OSGi configuration for these fields. If it has, set them and read them
+back. If it hasn't, don't use an unsupported API and don't restart
+Liferay: give me the exact screen and fields to set them myself.
+</code></pre></div>
+<p>📋 <strong>Steps:</strong> if the agent gave you a screen, set the three fields there and save.</p>
+<p>✅ <strong>Verify:</strong> Global Menu → <em>Control Panel</em> → <em>Instance Settings</em> → <em>Platform</em> → <em>Instance Configuration</em> → <em>General</em>: the three fields read <code>/web/clarity</code>. Open <code>http://localhost:8080/</code> in a private window: it redirects to the Clarity site (still empty until Level 3).</p>
+<h3 id="level-3-pages-master-pages-and-navigation">Level 3 — Pages, master pages and navigation<a aria-hidden="true" class="heading-anchor" href="#level-3-pages-master-pages-and-navigation" tabindex="-1">#</a></h3>
+<p>📖 From here on, the site's structure lives in <strong>code</strong>: a <em>site initializer</em> client extension in <code>client-extensions/clarity-site/</code>. It's a folder tree of JSON files (pages, master pages, menus, fragments, style books) that Liferay applies to the site every time you deploy it. Your agent edits the tree and deploys it; you check the result in Liferay's own editors. Working this way, the site is version-controlled and can be rebuilt on any environment, and the agent never has to click through the page editor.</p>
+<p>📖 A <strong>content page</strong> is built from fragments. A <strong>master page</strong> holds what every page shares (header, footer) around a <em>drop zone</em> where each page's own content goes. Clarity uses two: a <strong>Primary Master Page</strong> for content pages, and a lighter <strong>Secondary Master Page</strong> for the sign-in and utility pages. Each master page can limit which fragments authors may drop into pages that use it.</p>
+<h4 id="31-scaffold-the-site-initializer-and-the-page-hierarchy">3.1 — Scaffold the site initializer and the page hierarchy<a aria-hidden="true" class="heading-anchor" href="#31-scaffold-the-site-initializer-and-the-page-hierarchy" tabindex="-1">#</a></h4>
+<p>🎯 A <code>clarity-site</code> site initializer, bound to the existing site <code>clarity-public</code>, that creates Clarity's page hierarchy as empty content pages.</p>
+<p>🧩 <code>scaffold-client-extension</code>, <code>manage-pages</code>, <code>deploy-and-verify</code></p>
+<p>📎 R3 — page hierarchy.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the scaffold-client-extension, manage-pages and deploy-and-verify
+skills, create a site initializer client extension in
+client-extensions/clarity-site whose siteExternalReferenceCode is
+clarity-public (the site created in Level 2: the initializer must update
+that site, not create a new one).
+
+In it, create the page hierarchy from section 4 of
+context-source/clarity-brief.md as empty, public content pages, in this
+order: Home (/home), Products (/products) with its child Product List
+(/product-list), About Us (/about-us), Blog (/blog), FAQ (/faq), Careers
+(/careers) with its child Open Positions (/open-positions), Contact Us
+(/contact-us) and Search (/search-results — /search is reserved). Leave out
+Product Detail, Events and Contact Us Responses: later levels add them.
+
+Deploy it, confirm in the log that the initializer ran for clarity-public,
+and read the page tree back from Liferay. Update solution-index.yaml (R3).
+</code></pre></div>
+<p>✅ <strong>Verify:</strong> in the public site, Site Menu → <em>Site Builder</em> → <em>Pages</em>: the pages are listed in this order, with <strong>Product List</strong> under <strong>Products</strong> and <strong>Open Positions</strong> under <strong>Careers</strong>. Open <code>http://localhost:8080/web/clarity/home</code>: an empty page with Liferay's default header.</p>
+<p><img alt="Site Builder → Pages: Home, Products with Product List, About Us, Blog, FAQ, Careers with Open Positions, Contact Us and Search." src="../screenshots/3-1-pages.png"/></p>
+<h4 id="32-build-the-primary-and-secondary-master-pages">3.2 — Build the Primary and Secondary master pages<a aria-hidden="true" class="heading-anchor" href="#32-build-the-primary-and-secondary-master-pages" tabindex="-1">#</a></h4>
+<p>🎯 Two master pages wireframed as in section 4 of the brief, applied to the pages, with the allowed fragments limited on the primary one.</p>
+<p>🧩 <code>theme-and-design</code>, <code>manage-pages</code></p>
+<p>📎 R3 — master pages.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the theme-and-design and manage-pages skills, add two master pages to
+client-extensions/clarity-site, wireframed with Liferay's built-in Container,
+Grid, Image, Paragraph and Menu Display fragments (no custom fragments yet;
+Level 4 adds them):
+
+Primary Master Page:
+- A "Page Header" container holding:
+  - a "Header Announcement Bar" container (empty for now; Level 7 fills it),
+  - a "Header Navigation Bar" container, fixed width, with vertical padding
+    spacer 3 and horizontal padding spacer 6, holding a three-column grid
+    (middle column wider, vertically centered) whose columns contain:
+    "Header Branding" (flex row, start: an Image fragment),
+    "Header Navigation" (flex row, centered: a Menu Display fragment),
+    "Header User Actions" (flex row, end: empty for now).
+- The drop zone. On it, disallow the built-in "Footers" and "Navigation
+  Bars" fragment sets.
+- A "Page Footer" container with "Footer Branding" (an Image fragment),
+  "Footer Navigation" (three Menu Display fragments side by side) and a
+  "Footer Copyright" paragraph "© Clarity Vision Solutions".
+
+Secondary Master Page: the same, without the Header Announcement Bar,
+Footer Branding and Footer Navigation containers.
+
+Name each container exactly as above (the names show in the page editor's
+Browser panel). The Header Branding and Footer Branding Image fragments are
+Clarity's logo (Level 7 maps it): keep them no wider than 200px.
+Turn off the Classic theme's own header and footer on both masters. Apply
+the Primary Master Page to every page from 3.1. Deploy, and confirm from
+the log and from the pages' data that both masters exist and each page
+uses the primary one.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong></p>
+<ul>
+<li>Site Menu → <em>Design</em> → <em>Page Templates</em> → <em>Masters</em>: <strong>Primary Master Page</strong> and <strong>Secondary Master Page</strong>. Open the primary one (click its name): the <em>Browser</em> panel (the tree icon on the left) shows <em>Page Header</em> → <em>Header Announcement Bar</em> and <em>Header Navigation Bar</em> → grid → <em>Header Branding</em>, <em>Header Navigation</em>, <em>Header User Actions</em>, then the drop zone and <em>Page Footer</em>. Select the drop zone and click <em>Configure Allowed Fragments</em>: <strong>Footers</strong> and <strong>Navigation Bars</strong> are unchecked. Leave the editor without publishing.</li>
+<li>Open the <strong>Home</strong> page: the header and footer wireframe surround an empty body.</li>
+</ul>
+<p><img alt="Design → Page Templates → Masters: Primary Master Page and Secondary Master Page." src="../screenshots/3-2-masters.png"/></p>
+<h4 id="33-create-the-navigation-menus-and-wire-them-in">3.3 — Create the navigation menus and wire them in<a aria-hidden="true" class="heading-anchor" href="#33-create-the-navigation-menus-and-wire-them-in" tabindex="-1">#</a></h4>
+<p>🎯 The four menus from section 4 of the brief, with the header and footer Menu Display fragments pointing at them.</p>
+<p>🧩 <code>manage-pages</code></p>
+<p>📎 R3 — navigation.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the manage-pages skill, add the four navigation menus from section 4
+of context-source/clarity-brief.md to client-extensions/clarity-site, each
+with its own external reference code. The Footer Legal Menu items are URL
+items to https://www.clarityvisionsolutions.com/privacy and /terms, opening
+in a new tab.
+
+Then point the Menu Display fragments of both master pages at them: the
+header one at Header Page Menu (on both masters), and the three footer ones
+at Footer Resources Menu, Footer Company Menu and Footer Legal Menu, in that
+order. Deploy, then count each menu's items over the API and compare with
+the brief.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong></p>
+<ul>
+<li>Site Menu → <em>Site Builder</em> → <em>Navigation Menus</em>: four menus. Open <strong>Header Page Menu</strong>: Products, About Us, Blog, FAQ, Careers, Contact Us, in that order.</li>
+<li>Open the <strong>Home</strong> page: the header shows those six links, and the footer shows the three footer menus. Click <strong>FAQ</strong>: you're on the FAQ page.</li>
+</ul>
+<p><img alt="Site Builder → Navigation Menus: Header Page Menu, Footer Resources Menu, Footer Company Menu and Footer Legal Menu." src="../screenshots/3-3-menus.png"/></p>
+<h4 id="34-bonus-the-sign-in-utility-page">⭐ 3.4 — Bonus: the Sign In utility page<a aria-hidden="true" class="heading-anchor" href="#34-bonus-the-sign-in-utility-page" tabindex="-1">#</a></h4>
+<p>Add a <strong>Sign In</strong> utility page that uses the <strong>Secondary Master Page</strong> and holds Liferay's Sign In widget, and make it the site's default sign-in page. Success: signing out and clicking <em>Sign In</em> shows Clarity's lighter header and footer around the sign-in form.</p>
+<h3 id="level-4-fragments-and-page-compositions">Level 4 — Fragments and page compositions<a aria-hidden="true" class="heading-anchor" href="#level-4-fragments-and-page-compositions" tabindex="-1">#</a></h3>
+<p>📖 <strong>Fragments</strong> are the building blocks of content pages: HTML, CSS and JavaScript with editable areas, plus a JSON configuration that defines the options an author sets in the page editor (text, select, checkbox, color, URL…). Clarity keeps its own fragments in a <strong>Clarity Components</strong> fragment set. A <strong>composition</strong> is a saved arrangement of fragments that authors reuse; in the site initializer, a page's arrangement simply lives in its <code>page-definition.json</code>.</p>
+<h4 id="41-create-the-clarity-components-fragments">4.1 — Create the Clarity Components fragments<a aria-hidden="true" class="heading-anchor" href="#41-create-the-clarity-components-fragments" tabindex="-1">#</a></h4>
+<p>🎯 Five custom fragments in a <em>Clarity Components</em> set: <strong>Search Button</strong>, <strong>Login and User Menu</strong>, <strong>Clarity Button</strong>, <strong>Clarity Card</strong> and <strong>FAQ Question and Answer Pair</strong>.</p>
+<p>🧩 <code>scaffold-fragment</code></p>
+<p>📎 R4 — reusable components.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the scaffold-fragment skill, add a "Clarity Components" fragment set
+to client-extensions/clarity-site with these fragments. Use
+context-source/design-reference/clarity-components/ as the visual reference
+(same markup ideas, editable ids and configuration), but write clean code
+that works on this release, uses CSS variables rather than hard-coded
+colors, and needs no theme other than Classic:
+
+1. Search Button: a Clay icon link. Configuration: iconName (text, default
+   "search"), iconSize (select: 1rem, 1.5rem, 2rem, 2.5rem, 3rem; default
+   1rem), link (url), hideLabel (checkbox, default true) and buttonLabel
+   (text, default "Search", shown only when hideLabel is false).
+2. Login and User Menu: a "Sign In" button for guests, Liferay's user
+   personal bar for signed-in users.
+3. Clarity Button: an editable link styled as a button, with type (solid,
+   outline, borderless), style (primary, secondary), size (small, regular,
+   large) and inverted (checkbox) options.
+4. Clarity Card: editable image "card-image", text "category", text
+   "card-title", rich text "summary" and link "card-link" (editable ids
+   exactly as written, so they can be mapped later).
+5. FAQ Question and Answer Pair: an accessible disclosure with editable
+   text "main-text" (the question) and rich text "answer-text".
+
+Deploy, and check in the log that addFragmentEntries ran and none of the
+fragments failed to compile.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong> Site Menu → <em>Design</em> → <em>Fragments</em>: the <strong>Clarity Components</strong> set lists the five fragments. Click <strong>Search Button</strong>: the <em>Configuration</em> tab shows the five options, and the <em>Code</em> tab's preview shows a search icon. Close it without publishing.</p>
+<p><img alt="Design → Fragments: the Clarity Components set with Search Button, Login and User Menu, Clarity Button, Clarity Card and FAQ Question and Answer Pair." src="../screenshots/4-1-fragments.png"/></p>
+<h4 id="42-put-the-custom-fragments-in-the-master-pages">4.2 — Put the custom fragments in the master pages<a aria-hidden="true" class="heading-anchor" href="#42-put-the-custom-fragments-in-the-master-pages" tabindex="-1">#</a></h4>
+<p>🎯 The search button and the login/user menu in the header of both master pages, the search button linking to the Search page.</p>
+<p>🧩 <code>scaffold-fragment</code>, <code>manage-pages</code></p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>In client-extensions/clarity-site, add the Search Button and Login and User
+Menu fragments to the "Header User Actions" container of both master pages,
+in that order. Configure the Search Button's link to the Search page
+(/search-results). Deploy (fragments before pages: follow the deploy order
+the site-initializer rules describe), and confirm on a rendered page as
+Guest that both appear.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong> open <code>http://localhost:8080/web/clarity/home</code> in a private window: the header shows a search icon and a <strong>Sign In</strong> button. Click the search icon: you land on the Search page. Sign in as any persona: the <strong>Sign In</strong> button is replaced by the user's avatar menu.</p>
+<h4 id="43-wireframe-the-home-and-faq-pages">4.3 — Wireframe the Home and FAQ pages<a aria-hidden="true" class="heading-anchor" href="#43-wireframe-the-home-and-faq-pages" tabindex="-1">#</a></h4>
+<p>🎯 The Home and FAQ pages laid out like Clarity's previous site, ready for content in Level 7.</p>
+<p>🧩 <code>manage-pages</code>, <code>scaffold-fragment</code></p>
+<p>📎 R4 — page compositions.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using manage-pages, lay out two pages in client-extensions/clarity-site,
+using the compositions in context-source/design-reference/compositions/
+(page-composition-home.zip and page-composition-faq.zip) as the layout
+reference. Unzip them to a temporary folder outside the workspace to read
+them; don't import the zips.
+
+Home: a "Banner" container holding a fixed-width "Banner Content"
+container with a two-column grid (left: heading "Elevate Your Brand with
+Premium Eyewear", a paragraph and a Clarity Button "Explore Products" to
+/products; right: an Image fragment), a "Clarity Solutions Promo" container with a
+"Content Wrapper" (heading, paragraph, Image), a "See the Difference"
+section with three short value statements, a "Helpful Articles" container
+(a heading only for now; Level 7 adds the collection) and a "Distributor
+Promo" container (heading "Become a Clarity Distributor", a paragraph and a
+Clarity Button to /contact-us).
+
+FAQ: a two-column grid with an Image fragment on the left and an "FAQ
+Content" container on the right holding four "FAQ Section" containers, one
+per FAQ category in context-source/content/faqs.json, each with a heading
+(the category name) and nothing else yet; then a "Promoted Articles"
+container with a heading.
+
+Use Clarity Button and built-in fragments only, name every container as
+written, and deploy.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong> open <strong>Home</strong> and <strong>FAQ</strong> in edit mode (the pencil icon at the top right). In the <em>Browser</em> panel, the containers carry the names from the prompt. Leave without publishing.</p>
+<h4 id="44-bonus-a-configurable-sign-in-url">⭐ 4.4 — Bonus: a configurable sign-in URL<a aria-hidden="true" class="heading-anchor" href="#44-bonus-a-configurable-sign-in-url" tabindex="-1">#</a></h4>
+<p>Change the <strong>Login and User Menu</strong> fragment so authors can set the sign-in button's target URL from the fragment configuration instead of a hard-coded one. Success: in the page editor, selecting the fragment shows a URL option, and changing it changes where <em>Sign In</em> goes.</p>
+<h3 id="level-5-design-style-book-theme-css-favicon-and-logo">Level 5 — Design: style book, Theme CSS, favicon and logo<a aria-hidden="true" class="heading-anchor" href="#level-5-design-style-book-theme-css-favicon-and-logo" tabindex="-1">#</a></h3>
+<p>📖 Liferay separates <strong>what's on a page</strong> from <strong>how it looks</strong>. A <strong>style book</strong> changes a theme's design tokens (colors, fonts, spacing) without CSS; each style book belongs to the theme it was made for. A <strong>Theme CSS client extension</strong> replaces the theme's CSS entirely and declares its own tokens, which then appear in the page editor's style options (for example <em>Color Brand Primary</em>). A <strong>favicon</strong> client extension and a site <strong>logo</strong> complete the brand. Master pages carry the Theme CSS, so every page using them follows.</p>
+<h4 id="51-a-style-book-for-a-quick-brand-check">5.1 — A style book for a quick brand check<a aria-hidden="true" class="heading-anchor" href="#51-a-style-book-for-a-quick-brand-check" tabindex="-1">#</a></h4>
+<p>🎯 A <strong>Clarity Style Book</strong> for the Classic theme with Clarity's primary color, marked as the default.</p>
+<p>🧩 <code>theme-and-design</code></p>
+<p>📎 R5 — brand without editing each page.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the theme-and-design skill, add a style book named "Clarity Style
+Book" for the Classic theme to client-extensions/clarity-site, setting only
+the Primary theme color to #187373, and make it the site's default style
+book. Deploy and confirm the style book exists and is the default.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong> Site Menu → <em>Design</em> → <em>Style Books</em>: <strong>Clarity Style Book</strong> is marked <em>Default</em>. Open it: under <em>Color System</em> → <em>Theme Colors</em>, <em>Primary</em> is <code>#187373</code>, and the preview's buttons are teal. Open <strong>Home</strong>: the <em>Explore Products</em> button is teal. Leave the style book editor without publishing.</p>
+<p><img alt="Design → Style Books: Clarity Style Book marked as the default." src="../screenshots/5-1-style-books.png"/></p>
+<h4 id="52-claritys-theme-css-and-favicon-client-extensions">5.2 — Clarity's Theme CSS and favicon client extensions<a aria-hidden="true" class="heading-anchor" href="#52-claritys-theme-css-and-favicon-client-extensions" tabindex="-1">#</a></h4>
+<p>🎯 Two frontend client extensions: <strong>Clarity Theme CSS</strong>, carrying Clarity's full brand from section 5 of the brief and declaring its color tokens for the page editor, and <strong>Clarity Favicon</strong>.</p>
+<p>🧩 <code>theme-and-design</code>, <code>scaffold-client-extension</code>, <code>deploy-and-verify</code></p>
+<p>📎 R5.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the theme-and-design and scaffold-client-extension skills, create a
+frontend client extension project client-extensions/clarity-theme with:
+
+1. A themeCSS client extension "Clarity Theme CSS", built on the Classic
+   theme's CSS, applying the brand in section 5 of
+   context-source/clarity-brief.md: the brand primary and secondary colors
+   with their darker and lighter shades, the neutral colors, Poppins as the
+   font, card and button radii. Include a frontend-token-definition.json
+   that declares the brand colors (Color Brand Primary, its shades, Color
+   Brand Secondary, Color Neutral 0 to 10) so they appear in the page
+   editor's style options.
+2. A themeFavicon client extension "Clarity Favicon" serving
+   context-source/assets/branding/clarity-favicon.svg.
+
+Keep these in their own project: a frontend project can't share one with
+the site initializer. Deploy it and confirm both client extensions are
+registered and the CSS URL answers 200.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong> Global Menu → <em>Applications</em> → <em>Client Extensions</em>: <strong>Clarity Theme CSS</strong> and <strong>Clarity Favicon</strong> are listed and <em>Ready</em> (don't change them).</p>
+<p><img alt="Applications → Client Extensions listing Clarity Theme CSS and Clarity Favicon." src="../screenshots/5-2-client-extensions.png"/></p>
+<h4 id="53-apply-the-brand-to-the-site-and-its-master-pages">5.3 — Apply the brand to the site and its master pages<a aria-hidden="true" class="heading-anchor" href="#53-apply-the-brand-to-the-site-and-its-master-pages" tabindex="-1">#</a></h4>
+<p>🎯 Both master pages use Clarity Theme CSS; the site has Clarity's favicon and logo.</p>
+<p>🧩 <code>theme-and-design</code>, <code>manage-pages</code></p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>In client-extensions/clarity-site, bind Clarity Theme CSS (the themeCSS
+client extension from client-extensions/clarity-theme) to both master pages,
+and set the Clarity Favicon and the logo
+context-source/assets/branding/clarity-logo-c.png on the site's public
+pages. Use the site initializer where it supports a setting and the
+headless APIs where it doesn't, and tell me which you used for each.
+Redeploy (the Theme CSS must already be registered when the initializer
+imports the masters), then fetch the Home page as Guest and show me the
+stylesheet link of Clarity Theme CSS and the favicon link in its HTML.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong></p>
+<ul>
+<li>Open <strong>Home</strong> in a private window: Poppins text, teal buttons, the Clarity favicon in the browser tab.</li>
+</ul>
+<p><img alt="Home at the end of Day 1, as a visitor sees it: Clarity's header and menu, Poppins headings and teal pill buttons. The grey boxes are image placeholders you map to real images in Level 7." src="../screenshots/5-3-home.png"/></p>
+<ul>
+<li>Site Menu → <em>Design</em> → <em>Page Templates</em> → <em>Masters</em> → <strong>Primary Master Page</strong> → the <em>Page Design Options</em> panel (the brush icon) → <em>More Page Design Options</em>: <em>Theme CSS Client Extension</em> shows <strong>Clarity Theme CSS</strong>. Leave without saving.</li>
+<li>In the master's editor, select the <em>Header Announcement Bar</em> container → <em>Styles</em> → <em>Background</em>: the color picker offers <strong>Color Brand Primary</strong>. Leave without publishing.</li>
+</ul>
+<p class="adm-block adm-warning">⚠️ Once a Theme CSS client extension replaces the theme's CSS, the Classic theme's style book no longer applies to those pages: 5.1 is a quick check, 5.2 is Clarity's real brand.</p>
+<h3 id="level-6-content-in-liferay-cms">Level 6 — Content in Liferay CMS<a aria-hidden="true" class="heading-anchor" href="#level-6-content-in-liferay-cms" tabindex="-1">#</a></h3>
+<p>📖 <strong>Liferay CMS</strong> keeps content in <strong>Spaces</strong>, independent of the sites that display it. Each Space has its own members, folders, <strong>content structures</strong> (the fields of a kind of content, like <em>FAQ</em> or <em>Job Listing</em>), <strong>file structures</strong> (files with extra fields) and categories. A Space shows its content on a site once it's <strong>connected</strong> to that site. Publishing a structure also generates REST and GraphQL APIs for its content.</p>
+<p>📖 Clarity used <em>Classic</em> web content and asset libraries on earlier releases. This course uses the new CMS throughout: Spaces replace asset libraries, content structures replace web content structures.</p>
+<h4 id="61-create-the-spaces-and-their-members">6.1 — Create the Spaces and their members<a aria-hidden="true" class="heading-anchor" href="#61-create-the-spaces-and-their-members" tabindex="-1">#</a></h4>
+<p>🎯 Five Spaces (Marketing, Branding, HR, Events, Products), each connected to the public site, with the right people as members.</p>
+<p>🧩 <code>manage-cms</code>, <code>manage-roles-permissions</code></p>
+<p>📎 R6 — content shared across sites.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the manage-cms and manage-roles-permissions skills, create the five
+Spaces listed in section 6 of context-source/clarity-brief.md, each with an
+external reference code of the form space-&lt;name in lowercase&gt; and a short
+description. Connect each one to the site clarity-public (searchable).
+
+Members:
+- Marketing: the Marketing user group as members; Clara Murphy as the
+  Space's administrator.
+- Branding and Products: the IT user group as members; Walter Douglas as
+  administrator.
+- HR: the Human Resources user group as members; Harper Roberts as
+  administrator.
+- Events: Clara Murphy as administrator; Christian Carter as a member.
+
+Use the Space roles Liferay provides on this release; list them first and
+tell me which you chose for "administrator" and "member". Read each Space's
+connected sites and members back, then tell me what a member of the site
+clarity-public who isn't a member of a Space can do in it.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong></p>
+<ul>
+<li>Global Menu → <strong>CMS</strong>: the five Spaces are listed.</li>
+</ul>
+<p><img alt="Liferay CMS → All Spaces: Marketing, Branding, HR, Events and Products." src="../screenshots/6-1-spaces.png"/></p>
+<ul>
+<li>Open the <strong>Marketing</strong> Space → its settings (the gear icon) → <em>Members</em>: the Marketing user group, and Clara Murphy with the administrator role. <em>Connected Sites</em>: Clarity Public Enterprise Website.</li>
+<li>Impersonate <strong>Christian Carter</strong> (as in 2.4) and open CMS. He sees every Space connected to the public site, because he's a member of that site. Open <strong>HR</strong>: he can browse it but has no <strong>New</strong> button. Open <strong>Marketing</strong>: he can add content there, as a member through the Marketing group. Close the tab when you're done.</li>
+</ul>
+<p>📖 Connecting a Space to a site gives the site's members read access to it (the <em>Connected Site Member</em> Space role). Authoring takes Space membership and a Space role. Keep that in mind when a Space holds content site members shouldn't read: don't connect it to that site.</p>
+<h4 id="62-model-claritys-content-structures">6.2 — Model Clarity's content structures<a aria-hidden="true" class="heading-anchor" href="#62-model-claritys-content-structures" tabindex="-1">#</a></h4>
+<p>🎯 Seven structures: <strong>Article</strong>, <strong>FAQ</strong>, <strong>Announcement</strong>, <strong>Leadership Profile</strong>, <strong>Job Listing</strong>, <strong>Event Information</strong> (content) and <strong>Event Image</strong> (file), each limited to the Space that uses it.</p>
+<p>🧩 <code>manage-cms</code>, <code>manage-objects</code></p>
+<p>📎 R6.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the manage-cms skill, create these CMS structures, each accepted only
+in the Space named, with an ERC of the form &lt;NAME_IN_UPPER_SNAKE&gt;_STRUCTURE,
+a field ERC for every field, a field named "title" as the display title,
+and categorization enabled. Model the fields on the matching file in
+context-source/content/:
+
+- Article (Marketing): title, headline (text), content (rich text),
+  image (an attachment that links a file from the Space's Files).
+- FAQ (Marketing): title (the question), answer (rich text).
+- Announcement (Marketing): title, message (text, required), linkText
+  (text, required), linkURL (text).
+- Leadership Profile (Marketing): title (the person's name), jobTitle,
+  bio (rich text), portrait (attachment linking a Space file).
+- Job Listing (HR): title, roleOverview, keyResponsibilities,
+  qualificationsAndSkills (all rich text).
+- Event Information (Events): title, subtitleDescription (rich text),
+  location (long text), startDateTime and endDateTime (date and time),
+  ctaLink (text).
+- Event Image (Events): a file structure with title (optional), the file
+  (jpeg, jpg, png), and descriptionContext (long text).
+
+Access expectations: members of a Space can add, view and update entries
+of the structures that Space accepts, and add files to its Files folders;
+only Space administrators can delete. Set this through the Space's roles,
+not through regular roles.
+
+Publish them, then read each one back and show its fields and its REST
+path. Prove the access as Christian Carter (training password "learn") by
+creating and deleting a throwaway FAQ in the Marketing Space: the create
+must succeed and his delete must be refused.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong> in CMS, open <em>Structures</em> (under the <em>Admin</em> section of the left panel): the seven structures are listed. Open <strong>Event Information</strong>: its fields and their types match the prompt, and <em>Spaces</em> lists only <strong>Events</strong>. Close it without saving.</p>
+<p><img alt="Liferay CMS → Content Structures listing Article, FAQ, Announcement, Leadership Profile, Job Listing, Event Information and Event Image." src="../screenshots/6-2-structures.png"/></p>
+<h4 id="63-create-the-vocabularies">6.3 — Create the vocabularies<a aria-hidden="true" class="heading-anchor" href="#63-create-the-vocabularies" tabindex="-1">#</a></h4>
+<p>🎯 The FAQ, Articles and job vocabularies with their categories, in the Spaces that use them.</p>
+<p>🧩 <code>manage-cms</code></p>
+<p>📎 R6 — taxonomy.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the manage-cms skill, create these vocabularies, each with an ERC,
+upserted so the prompt can run again:
+
+- In the Marketing Space: "FAQ" (categories: the four FAQ categories in
+  context-source/content/faqs.json) and "Articles" (Innovation, Industry,
+  Style), both limited to the structures that use them.
+- In the HR Space: "Region", "Location" and "Job Positions", with the
+  categories in context-source/data/job-taxonomy.csv.
+
+Access expectations: the vocabularies and categories are shown to site
+visitors (in facets and on cards), so Guest has VIEW on them, nothing more.
+
+Read the vocabularies and category counts back.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong> in CMS, open the <strong>HR</strong> Space → <em>Categories</em>: <strong>Location</strong> has 14 categories. Open the <strong>Marketing</strong> Space → <em>Categories</em> → <strong>FAQ</strong>: four categories.</p>
+<h4 id="64-load-claritys-content-and-files">6.4 — Load Clarity's content and files<a aria-hidden="true" class="heading-anchor" href="#64-load-claritys-content-and-files" tabindex="-1">#</a></h4>
+<p>🎯 Every Space holds Clarity's real content, categorized, in folders, with its images.</p>
+<p>🧩 <code>manage-cms</code></p>
+<p>📎 R6.</p>
+<p>💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the manage-cms skill, load Clarity's content into the Spaces from
+context-source (paths in context-source/README.md). Upload each image once
+as a file in the Space that uses it, in a folder named after its kind, and
+link it from the entries:
+
+- Marketing: the articles (folder "Articles", categorized with the
+  Articles vocabulary), the FAQs (folder "FAQ", each categorized with its
+  FAQ category), the announcement (folder "Announcements"), the
+  leadership profiles (folder "Leadership") and the marketing images
+  (Files, folder "Marketing Images").
+- HR: the job listings (folder "Job Listings"), each categorized with its
+  region, location and job position.
+- Events: the event image as an Event Image in a Files folder "Venues
+  Gallery", and the event in a Contents folder "Events", both from
+  context-source/content/events.json. Put the leadership portraits in a
+  Marketing Files folder "Leadership".
+- Branding: every file in context-source/assets/branding/ (Files).
+- Products: every file in context-source/assets/products/ (Files).
+
+Access expectations: these entries and files are for the public website,
+so published entries and their linked files in Marketing, HR, Events,
+Branding and Products must be viewable by Guest (VIEW, and DOWNLOAD_FILE
+for files), including entries and files created later: set it in each
+Space's default permissions too. Nothing else for Guest: no add, update or
+delete.
+
+Write a small, re-runnable script in scripts/ (Python or Node) instead of
+issuing hundreds of calls by hand, upserting by ERC. Run it, and show me a
+count of entries and files per Space and folder. Then prove Guest access
+by fetching one FAQ and one file with no credentials.
+</code></pre></div>
+<p>✅ <strong>Verify:</strong></p>
+<ul>
+<li>In CMS, open <strong>Marketing</strong> → <em>Contents</em> → <em>FAQ</em>: eight FAQs. Open <strong>What is your return policy?</strong>: the answer is there and, in the side panel's <em>Categorization</em>, <strong>Returns and Exchanges</strong> is assigned. Close without saving.</li>
+<li><strong>HR</strong> → <em>Contents</em> → <em>Job Listings</em>: ten listings.</li>
+<li><strong>Events</strong> → <em>Files</em> → <em>Venues Gallery</em>: the event image shows a preview.</li>
+</ul>
+<p><img alt="Liferay CMS → Contents listing Clarity's articles, FAQs, announcement, leadership profiles and job listings." src="../screenshots/6-4-contents.png"/></p>
+<ul>
+<li>Open one FAQ's permissions (its Actions menu → <em>Permissions</em>): <strong>Guest</strong> has <em>View</em> only.</li>
+</ul>
+<h4 id="65-bonus-relate-events-to-their-images">⭐ 6.5 — Bonus: relate events to their images<a aria-hidden="true" class="heading-anchor" href="#65-bonus-relate-events-to-their-images" tabindex="-1">#</a></h4>
+<p>Add a related-content field to <strong>Event Information</strong> that points at <strong>Event Image</strong> and allows several images, publish it again, and relate the showcase event to its image. Success: editing the event offers a picker that lists only Event Image files, and more than one can be chosen.</p>
+    </main>
+  </div>
+</div>
+<button class="back-to-top" type="button" aria-label="Back to top">&#8593;</button>
+<script>
+
+(function () {
+  // Copy-to-clipboard for every prompt frame.
+  document.addEventListener("click", function (event) {
+    var btn = event.target.closest(".copy-btn");
+    if (!btn) return;
+    var frame = btn.closest(".copy-frame");
+    var target = frame.querySelector("pre, blockquote");
+    var text = target ? target.innerText : "";
+
+    function feedback() {
+      btn.classList.add("copied");
+      setTimeout(function () {
+        btn.classList.remove("copied");
+      }, 1500);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(feedback).catch(function () {
+        fallbackCopy(text, feedback);
+      });
+    } else {
+      fallbackCopy(text, feedback);
+    }
+  });
+
+  function fallbackCopy(text, done) {
+    var textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+    try { document.execCommand("copy"); } catch (err) { /* no-op */ }
+    document.body.removeChild(textarea);
+    done();
+  }
+
+  // Mobile sidebar toggle.
+  var menuToggle = document.querySelector(".menu-toggle");
+  if (menuToggle) {
+    menuToggle.addEventListener("click", function () {
+      document.body.classList.toggle("sidebar-open");
+    });
+  }
+  document.querySelectorAll(".toc a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      document.body.classList.remove("sidebar-open");
+    });
+  });
+
+  // Table-of-contents filter (recursively keeps a branch visible if any
+  // descendant entry matches).
+  var filterInput = document.querySelector(".toc-filter");
+  if (filterInput) {
+    filterInput.addEventListener("input", function () {
+      var query = filterInput.value.trim().toLowerCase();
+      document.querySelectorAll(".toc > ul > li").forEach(function (li) {
+        filterItem(li, query);
+      });
+    });
+  }
+
+  function filterItem(li, query) {
+    var link = li.querySelector(":scope > a");
+    var text = link ? link.textContent.toLowerCase() : "";
+    var childList = li.querySelector(":scope > ul");
+    var childMatch = false;
+    if (childList) {
+      childList.querySelectorAll(":scope > li").forEach(function (childLi) {
+        if (filterItem(childLi, query)) childMatch = true;
+      });
+    }
+    var selfMatch = !query || text.indexOf(query) !== -1;
+    var show = selfMatch || childMatch;
+    li.style.display = show ? "" : "none";
+    return show;
+  }
+
+  // Scroll-spy: highlight the current section in the sidebar.
+  var headings = document.querySelectorAll(".doc-content h2[id], .doc-content h3[id], .doc-content h4[id]");
+  var linkMap = {};
+  document.querySelectorAll(".toc a").forEach(function (a) {
+    linkMap[a.getAttribute("href").slice(1)] = a;
+  });
+
+  if ("IntersectionObserver" in window && headings.length) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var link = linkMap[entry.target.id];
+        if (!link || !entry.isIntersecting) return;
+        document.querySelectorAll(".toc a.active").forEach(function (a) { a.classList.remove("active"); });
+        link.classList.add("active");
+      });
+    }, { rootMargin: "0px 0px -72% 0px", threshold: 0 });
+    headings.forEach(function (h) { observer.observe(h); });
+  }
+
+  // Back-to-top button.
+  var backToTop = document.querySelector(".back-to-top");
+  if (backToTop) {
+    window.addEventListener("scroll", function () {
+      backToTop.classList.toggle("visible", window.scrollY > 600);
+    }, { passive: true });
+    backToTop.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+})();
+
+</script>
+</body>
+</html>

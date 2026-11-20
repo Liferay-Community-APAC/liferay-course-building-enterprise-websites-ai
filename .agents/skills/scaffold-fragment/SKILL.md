@@ -453,3 +453,9 @@ For inserting a fragment into a Content Page via the headless API (rather than t
 ## Success Signal
 
 TODO / inferred — verify against a running bundle. The `### Verify` step above (fragment appears in the editor's Fragments panel, editable regions highlight, no console or import errors) is the observable completion check; confirm on a live bundle.
+## Configuration Values Set From a Page Definition (Verified on 2026.q3.10)
+
+- **A `url` configuration field's value is a JSON object**, `{"href": "/web/<site>/<page>"}` (or `{"layout": {…}}` for a page reference). In a page definition write `"fragmentConfig": {"link": {"href": "/web/clarity/search-results"}}`. A bare string is stored, then rendered as `href="#"`: `_getURLValue` parses the value as JSON.
+- **A default inside a macro argument:** `[#if]` can't be used inside `[@clay["icon"] symbol=…]`; use `(configuration.iconName?has_content)?then(configuration.iconName, "search")`.
+- **Booleans to markup:** publish a checkbox as a data attribute, `data-hide-label="${(configuration.hideLabel!true)?c}"`, and style on it.
+- **Checking fragments compiled** without the fragment API (`LPD-39244` off): look for `Invoking addFragmentEntries took N ms` and no FreeMarker exception in the log, and that each fragment renders on a page.

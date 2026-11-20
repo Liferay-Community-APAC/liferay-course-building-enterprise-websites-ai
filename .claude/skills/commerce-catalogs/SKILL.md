@@ -93,3 +93,42 @@ When onboarding accounts and users via `headless-admin-user` APIs, adhere to the
 ## Success Signal
 
 TODO / inferred — verify against a running bundle. Confirm the created catalog, products, and SKUs list via the Commerce headless APIs and appear under Commerce → Catalogs in the Control Panel.
+## Verified on 2026.q3.10 (Clarity course, 2026-11-20)
+
+### Catalog Data
+
+- **Upserts by ERC:** `PUT /o/headless-commerce-admin-catalog/v1.0/catalog/by-externalReferenceCode/{erc}`, `PUT /optionCategories/by-externalReferenceCode/{erc}` (a *specification group* is an option category: `{key, priority, title, description}`), `PUT /specifications/by-external-reference-code/{key}` (`{key, facetable, visible, title, description, optionCategory: {id, key, externalReferenceCode}}`). Note the two path spellings.
+- **Product categories:** `PATCH /products/{id}/categories` with `[{"id": …}]`. **It clears the product's tags:** set categories first, then tags.
+- **Product images:** `POST /products/{id}/images/by-base64` with `{"attachment": "<base64>", "priority": 10, "title": {"en_US": …}, "neverExpire": true}`. Upload only if no image has that title.
+- **A vocabulary for products** lives in the Global site: `PUT /o/headless-admin-taxonomy/v1.0/sites/L_GLOBAL/taxonomy-vocabularies/by-external-reference-code/{erc}`. **A vocabulary created over headless gets Owner-only permissions:** grant Guest VIEW on the vocabulary and each category (their `/permissions` endpoints), or category widgets render empty for visitors.
+
+### Channel
+
+- `PUT /o/headless-commerce-admin-channel/v1.0/channels/by-externalReferenceCode/{erc}` with `{"type": "site", "currencyCode": "USD", "siteGroupId": <site id>}`.
+- **The commerce site type (B2B/B2C) has no REST field.** The site initializer supports `commerce-channel.json` plus `commerce-channel.config.json` (`{"com.liferay.commerce.account": {"commerceSiteType": "1"}}` for B2B, `0` B2C), which upsert the channel of the site and its settings.
+- **Category display page:** `POST /channels/by-externalReferenceCode/{erc}/default-category-display-pages` with `{"pageUuid": …}`; read the page uuid from `headless-admin-site` (`friendlyUrlPath_i18n` keys are `en-US`). No site-initializer file sets it. Category URLs are `/web/<site>/g/<category>`; products resolve at `/web/<site>/p/<slug>`.
+
+### Widgets in a Page Definition
+
+| Widget | `widgetName` | Notes |
+| --- | --- | --- |
+| Commerce Categories Navigation | `com_liferay_commerce_product_asset_categories_navigation_web_internal_portlet_CPAssetCategoriesNavigationPortlet` | `widgetConfig`: `assetVocabularyExternalReferenceCode`, `useRootCategory: "false"`, `displayStyle: "ddmTemplate_<TEMPLATE-KEY>"`, `displayStyleGroupExternalReferenceCode: "<site erc>"` |
+| Category Content | `…CPCategoryContentPortlet` | |
+| Commerce Search Results | `…CPSearchResultsPortlet` | `selectionStyle: "adt"`, `displayStyle: "ddmTemplate_<KEY>"` |
+| Search Bar | `…SearchBarPortlet` | `searchScope: "everything"`, `destination: ""` |
+| Search Options | `…SearchOptionsPortlet` | `allowEmptySearches: "true"`. **Without it, Commerce Search Results shows "No products were found", even for admin.** |
+| Specification facet | `…CPSpecificationOptionFacetsPortlet` | |
+
+Read each widget's exact name from a page built in the editor, or from Liferay's Minium site initializer.
+
+### Widget Templates in the Site Initializer
+
+`ddm-templates/<dir>/ddm-template.json` + `ddm-template.ftl`, with `{"ddmTemplateKey": "<KEY>", "name": "<Name>", "className": "<the widget's portlet class>", "resourceClassName": "com.liferay.portlet.display.template.PortletDisplayTemplate"}`. The handler (`addOrUpdateDDMTemplates`) runs before the layouts.
+
+- In templates, `request.getAttribute` is denied (`org.apache.*` is restricted): use `renderRequest.getAttribute("COMMERCE_CONTEXT")` for the channel.
+- `restClient` reaches `headless-commerce-delivery-catalog` as Guest; `/o/cms` and `headless-delivery` answer `403` (Service Access Policy). Resolve file URLs before deploying (e.g. into widget preferences read with `renderRequest.getPreferences()`), not at render time. `serviceLocator` is restricted.
+- A product's image in a search results template: `cpContentHelper.getDefaultImageFileURL(-1, cpDefinitionId)`.
+
+### Product Display Page Template
+
+`display-page-template.json`: `{"contentType": {"className": "com.liferay.commerce.product.model.CPDefinition"}, "defaultTemplate": true, "name": "Product Details"}`. Map `name`, `sku`, `description` with `contextSource: "DisplayPageItem"`. Specifications and attachments are `Collection` elements of type `CollectionProvider` with className `com.liferay.commerce.product.content.web.internal.info.collection.provider.CPDefinitionSpecificationOptionValuesRelatedInfoItemCollectionProvider` and `…CPAttachmentFileEntriesRelatedInfoItemCollectionProvider`; inside, map `name`/`value` and `title`/`downloadURL` with `CollectionItem`.

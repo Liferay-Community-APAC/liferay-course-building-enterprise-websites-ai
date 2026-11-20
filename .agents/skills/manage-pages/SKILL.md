@@ -282,6 +282,26 @@ Use `getUTCDay()`, `getUTCDate()`, and `getUTCMonth()` for the date parts too, a
 
 Verifying this is browser work, not `curl` work: `curl` executes no JavaScript, so an empty listing and a working one produce identical HTML. See "Success Signal" below.
 
+### Built-in Fragments in `page-definition.json` (Verified on 2026.q3.10)
+
+The page editor's built-in layout fragments are not `Fragment` elements in the tree:
+
+| Editor element | Tree element | Key settings |
+| --- | --- | --- |
+| Container | `Section` | `definition.name` = the name shown in the editor's Browser panel; `definition.layout`: `containerType: "Fixed"` (fixed width) or `"Fluid"`, `contentDisplay: "FlexRow"` / `"FlexColumn"` / `"Block"`, `justify` and `align`: `"Start"`, `"Center"`, `"End"`, padding (below) |
+| Grid | `Row` with `Column` children | `numberOfColumns`, `modulesPerRow`, `gutters: true`, `verticalAlignment: "middle"`; each `Column` has `definition.size` (sizes sum to 12) |
+| Image | `Fragment`, `key: "BASIC_COMPONENT-image"` | editable id `image-square` |
+| Paragraph | `Fragment`, `key: "BASIC_COMPONENT-paragraph"` | editable id `element-text`; literal text in `fragmentFields[].value.text.value_i18n` |
+| Heading | `Fragment`, `key: "BASIC_COMPONENT-heading"` | editable id `element-text` |
+| Menu Display | `Fragment`, `key: "com.liferay.fragment.renderer.menu.display.internal.MenuDisplayFragmentRenderer"` | `fragmentConfig.source` (below) |
+
+- **Padding values in the tree are not spacer numbers.** The stored value maps to the editor's spacer: `0→0, 1→3, 2→4, 4→5, 6→6, 8→7, 10→8`. "Spacer 3 top and bottom, spacer 6 left and right" is `paddingTop: 1`, `paddingBottom: 1`, `paddingHorizontal: 6` (rendered as `var(--spacer-3)` and `var(--spacer-6)`).
+- **Container names are editor metadata only.** They read back over `headless-admin-site`, but a public page's HTML carries only `data-layout-structure-item-id`, no `data-name`.
+- **Disallow whole fragment sets in a drop zone** by listing their fragments in `fragmentSettings.unallowedFragments` as **objects**: `[{"key": "FOOTERS-footer-nav-dark"}, {"key": "FOOTERS-footer-nav-light"}, {"key": "NAVIGATION_BARS-header-dark"}, {"key": "NAVIGATION_BARS-header-light"}]`. **Bare strings silently drop the whole master page** at import (no WARN, `addLayoutPageTemplates` still logs a timing). The editor then shows the Footers and Navigation Bars sets unchecked.
+- **Turn off the Classic theme's own header and footer** in each master's `settings`: `"themeName": "Classic"`, `"themeSettings": {"lfr-theme:regular:show-header": "false", "lfr-theme:regular:show-footer": "false"}`.
+- **Menu Display's `source` doesn't read back** over `page-specifications` (`fragmentConfigurationFieldValues: {}`). Check the rendered page instead, where menu links use single-quoted `href='…'`.
+- **Menus other than the primary one** use `typeSite: 0` in `site-navigation-menus.json`, so they don't compete for the primary slot.
+
 ### Create Pages via the Live API (Fallback)
 
 Use the Headless Admin Site API (`/o/headless-admin-site/v1.0`) only when reprovisioning is undesirable and the change is small. It is unreliable for page **creation** in particular. When the MCP server is available, prefer MCP tool calls over raw curl.
@@ -295,6 +315,58 @@ Everything below has a tree equivalent that is the verified path. Reach for the 
 | Navigation menu | `site-navigation-menus.json` |
 | Display page template | `layout-page-templates/display-page-templates/<name>/` |
 | SEO settings | No tree equivalent is documented — use the live API below |
+
+#### Collections, Images and Display Pages in the Tree (Verified on 2026.q3.10)
+
+**`asset-list-entries.json`** (a list of collections):
+
+```json
+[
+	{
+		"externalReferenceCode": "faq-retail-partners",
+		"title": "FAQ - Retail Partners",
+		"type": "dynamic",
+		"unicodeProperties": {
+			"classNameIds": "[$OBJECT_DEFINITION_CLASS_NAME:FAQ$]",
+			"filterBy": [
+				{"key": "groupIds", "value": "<the Space's group id (siteId)>"},
+				{"key": "queryContains0", "value": "true"},
+				{"key": "queryAndOperator0", "value": "true"},
+				{"key": "queryName0", "value": "assetCategories"},
+				{"key": "queryValues0", "value": "<category id>"}
+			],
+			"orderBy": [
+				{"key": "orderByColumn1", "value": "createDate"},
+				{"key": "orderByType1", "value": "ASC"}
+			]
+		}
+	}
+]
+```
+
+- **Scope a collection of CMS entries to the Space's group id** (`groupIds`). The site's own group returns nothing.
+- **Put the scope and category filter keys in `filterBy`** as `{key, value}` pairs (above). A `query` property is ignored (the handler only reads it inside the tag-names loop), so every item matches. Check the rendered counts.
+- **The handler creates collections but never updates an existing one** beyond its title. To change one: remove it from the pages, redeploy, delete it (deletion fails silently while a page uses it), redeploy again.
+- **A manual collection of CMS entries loses its item type**: the handler writes `anyAssetType=false` with no class, so the type becomes *Asset Entry* and object fields don't map. Prefer a dynamic collection; a manual one is a UI task (there's no headless API for collections).
+- **Bind a Collection element** with `collectionReference: {"className": "com.liferay.asset.list.model.AssetListEntry", "classPK": "[#ASSET_LIST_ENTRY_ID:<ERC>#]"}` and `collectionType: "Collection"`. Add `collectionViewports` (one column on `landscapeMobile`/`portraitMobile`) or items render `col-1` on phones.
+- **Order race:** `addAssetListEntries` and `addLayoutPageTemplates` run in no fixed order, so a master page's `[#ASSET_LIST_ENTRY_ID:…#]` can be unresolved on a run, leaving that collection empty until the next deploy. Check the rendered page after each deploy.
+
+**Mapping a CMS entry's fields in a CollectionItem or a display page:** `ObjectField_<name>`; an attachment's URL is `ObjectField_<numeric field id>#previewURL` (environment-specific). A category: `AssetVocabulary__ERC__<vocabulary ERC>__SERC__<Space ERC>` (portable); the vocabulary's bare name doesn't work. The display page link: `fragmentLink.value.href.mapping.fieldKey: "displayPageURL"`.
+
+**An image mapped to a file:** `fragmentImage.fragmentImageClassPKReference: {"classPKReferences": {"en_US": {"className": "com.liferay.portal.kernel.repository.model.FileEntry", "classPK": <file id>}}, "fragmentImageConfiguration": {"landscapeMobile": "auto", "portraitMobile": "auto", "tablet": "auto"}}`. **Without `fragmentImageConfiguration` the whole initialization fails** (NPE `fragmentImageConfigurationMap is null`) and rolls back. A container's background image: the Section's `definition.backgroundImage: {"url": {"mapping": {"fieldKey": "fileURL", "itemReference": {"className": "…FileEntry", "classPK": <file id>}}}}`. There is no ERC form: these ids are environment-specific, so keep a script that resolves them by title and rewrites the tree before deploying to another instance.
+
+**A display page template for a CMS structure:** `layout-page-templates/display-page-templates/<name>/display-page-template.json` = `{"contentType": {"className": "[$OBJECT_DEFINITION_CLASS_NAME:<Name>$]"}, "defaultTemplate": true, "name": "<Name>"}`, with the master in its `page-definition.json` `settings.masterPage.key`, and mappings with `contextSource: "DisplayPageItem"`. A depot entry's URL is `/web/<site>/c_<name>/asset-library-<depot id>/<slug>`.
+
+**Style tokens from a Theme CSS client extension:** `fragmentStyle.backgroundColor: "colorBrandPrimary"`, `textColor: "colorNeutral0"` (the token name in camel case).
+
+#### More Live API Traps (Verified on 2026.q3.10)
+
+- Nested `pageElements` in a live `POST`/`PUT` are **flattened** unless each child also carries `parentExternalReferenceCode`.
+- A fragment element's type is `BasicFragment` (not `Fragment`) over the live API.
+- A `Collection` element without `listStyleDefinition` answers `500` (NPE).
+- A page experience needs `name_i18n`.
+- A mapped text value: `fragmentLinkTextValue.textFragmentValue: {"type": "Mapped", "fragmentMappedValue": {"mapping": {"fieldKey": "<field>", "itemReference": {"type": "ContextReference", "contextSource": "CollectionItem"}}}}`.
+- A CMS structure as a collection provider: `className` `com.liferay.object.model.ObjectDefinition#XXXX` (read it from the definition; in the tree, use the `[$OBJECT_DEFINITION_CLASS_NAME:<Name>$]` token).
 
 #### Corrections to Any Live API Example
 

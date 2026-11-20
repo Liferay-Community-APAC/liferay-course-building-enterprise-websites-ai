@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 1 slides</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="slides.css">
+</head>
+<body>
+<div class="viewport">
+<main class="deck" data-title="Building Enterprise Websites with Liferay and AI · Day 1">
+
+<!-- ===== Block: Kickoff (slides 1–8) ===== -->
+
+<section class="slide title">
+  <p class="kicker">Liferay enablement · Instructor slides</p>
+  <h1>Building Enterprise Websites with Liferay and AI</h1>
+  <p class="subtitle">Day 1: foundations to content</p>
+  <p class="meta"><span>Liferay DXP 2026.Q3.10</span><span>PostgreSQL in Docker</span><span>Your own AI coding agent</span></p>
+  <aside class="notes">
+    <p>Welcome everyone and introduce yourself. This is the Building Enterprise Websites with Liferay course in two days instead of three, rebuilt so an AI coding agent does the building and each learner does the checking. Share the repository URL now: it isn't on the prerequisites page, and the workbook is also on the repository's GitHub Pages. A common question is whether they need a specific agent: Claude Code, Codex and Copilot in agent mode all work, with their own subscription.</p>
+  </aside>
+</section>
+
+<section class="slide bullets">
+  <p class="kicker">Kickoff</p>
+  <h2>Welcome, and what to expect</h2>
+  <ul class="bullets">
+    <li>You come from many roles: developers, architects, sales and support engineers</li>
+    <li>Some of you are new to Liferay, some have used it for years</li>
+    <li>Everyone leaves with the same solid foundation</li>
+    <li>Two full days, one customer, one website built end to end</li>
+    <li>Ask questions any time: the verify steps are where the learning happens</li>
+  </ul>
+  <aside class="notes">
+    <p>Run a quick round of introductions: name, role, and how much Liferay and AI agent experience each person has. Use the answers to pair less experienced learners with someone who has used an agent before. Set the tone: we move fast because the agent types, so the time we save goes into understanding what was built. Learners often ask if this is a developer course; say it isn't, it's about how Liferay builds enterprise websites, and the agent is the tool.</p>
+  </aside>
+</section>
+
+<section class="slide bullets">
+  <p class="kicker">Kickoff</p>
+  <h2>Course objectives</h2>
+  <ul class="bullets">
+    <li>Plan and implement an enterprise website with Liferay DXP</li>
+    <li>Map website designs and business requirements to Liferay features</li>
+    <li>Use out-of-the-box features that ease maintenance and shorten time to market</li>
+    <li>Choose between feature options, knowing the benefits of each</li>
+    <li>Direct an AI agent to build it, and check every result in Liferay yourself</li>
+  </ul>
+  <aside class="notes">
+    <p>The first four objectives are the same as the original course: the learning goal hasn't changed. The last one is new: learners set the requirement, the agent builds it, and they confirm the result on screen. Stress that out-of-the-box and low-code features are faster, supported and upgrade-safe, which is why every exercise uses them. If someone asks whether they'll learn to code Liferay modules, point them to the Liferay Application Developer learning path.</p>
+  </aside>
+</section>
+
+<section class="slide compare">
+  <p class="kicker">Kickoff</p>
+  <h2>What changed from the original course</h2>
+  <div class="cols">
+    <div class="col alt">
+      <h3>Original BEWL</h3>
+      <ul>
+        <li>Three days, the third a half day</li>
+        <li>GUI steps, one click at a time</li>
+        <li>Seeded Hypersonic database, half-built site</li>
+        <li>Classic Web Content and asset libraries</li>
+        <li>Classroom files supplied (FTL, fragment zips, batch JSON)</li>
+        <li>Publications, DXP segments, Blogs, Custom Fields</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>This course</h3>
+      <ul>
+        <li>Two full days on DXP 2026.Q3.10</li>
+        <li>One prompt per exercise, then a read-only check in the UI</li>
+        <li>PostgreSQL in Docker, empty instance: the agent builds everything</li>
+        <li>Liferay CMS: Spaces, content and file structures</li>
+        <li>The site is code: a site initializer client extension</li>
+        <li>No deprecated or maintenance-mode features</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Walk the two columns side by side. The biggest shift is that nothing is pre-seeded: the agent builds the whole site from the brief and the files in context-source. The site lives in code, as a site initializer client extension the agent edits and redeploys. Someone who took the original course will ask where Classic Web Content went: explain that Liferay CMS replaces it here. The course also avoids features Liferay deprecated or moved to maintenance mode on 2026.Q1 to Q3: workflow instead of Publications, a user-group fragment instead of DXP segments, CMS Blog entries instead of Blogs, and Object fields instead of Custom Fields.</p>
+  </aside>
+</section>
+
+<section class="slide compare clarity">
+  <p class="kicker">The Clarity case</p>
+  <h2>Meet Clarity Vision Solutions</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>Who they are</h3>
+      <ul>
+        <li>A fictional eyewear manufacturer</li>
+        <li>Eyeglasses, sunglasses, contact lenses and prescription lenses</li>
+        <li>Sells mostly through distributors and retail partners</li>
+        <li>Growing pains: fragmented systems, costly specialists, tools only experts can use</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>What the website must do</h3>
+      <ul>
+        <li>Increase brand awareness</li>
+        <li>Showcase products by category</li>
+        <li>Convert visitors: contact form, jobs, distributor promotion</li>
+        <li>Serve English (US) and Spanish (Spain)</li>
+        <li>Be run by a team, with approval before content goes live</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Clarity is the running case: every exercise on both days adds to its public enterprise website. Its success factors decide ours: non-technical staff must be able to contribute, and the site must be simple to maintain. Point learners to context-source/clarity-brief.md, which holds the goals, personas, site map, brand and requirements R1 to R13. A common question is whether the brief is the spec the agent follows; yes, most prompts tell the agent to read a section of it.</p>
+  </aside>
+</section>
+
+<section class="slide bullets clarity" data-instructor>
+  <p class="kicker">The Clarity case · Original challenge 1</p>
+  <h2>Tour of the finished Clarity site</h2>
+  <ul class="bullets">
+    <li>The public site: home, products, FAQ, careers, contact form</li>
+    <li>The header announcement bar, menus, search and sign-in</li>
+    <li>Content that comes from collections, not copies</li>
+    <li>A distributor sees a different Home page</li>
+    <li>By tomorrow afternoon, your own instance looks like this</li>
+  </ul>
+  <aside class="notes">
+    <p>There's no exercise for this: learners build the site instead of touring a half-built one. Demo: open clarityvisionsolutions.com and click through Home, Products, FAQ, Careers and Contact Us, then sign in as a distributor persona to show the personalized Home page if your environment has it. Name the personas as you go (Walter the web developer, Clara the marketing manager, Christian the coordinator) so learners recognize them in Level 1. Learners usually ask how long the full build takes; with the agent, about the two days of this course.</p>
+  </aside>
+</section>
+
+<section class="slide process">
+  <p class="kicker">How this course works</p>
+  <h2>Prompt, build, verify, fix</h2>
+  <div class="flow">
+    <div class="step"><span class="n">1</span><b>You prompt</b>Paste the exercise prompt into your agent. It names the skills to use.</div>
+    <div class="step"><span class="n">2</span><b>The agent builds</b>It reads the brief, writes code, calls Liferay's APIs and deploys.</div>
+    <div class="step"><span class="n">3</span><b>You verify</b>Open the screen the workbook names. Look, don't change.</div>
+    <div class="step"><span class="n">4</span><b>You fix by telling</b>If it's wrong, tell the agent what you saw. Let it fix it.</div>
+  </div>
+  <ul class="bullets">
+    <li>Verification is read-only: open editors to look, then leave without saving</li>
+    <li>One fresh agent session per exercise keeps cost and confusion down</li>
+  </ul>
+  <aside class="notes">
+    <p>This slide is the contract for the whole course. The agent does the typing; learners set the requirement, read what it did, and confirm the result on screen before building on it. Hold this line all day: when a learner says "the agent did it, it works", ask them to show you where in Liferay they checked it. Learners ask what to do when the agent goes off track; start a new session, because solution-context.md and solution-index.yaml carry the context.</p>
+  </aside>
+</section>
+
+<section class="slide bullets">
+  <p class="kicker">How this course works</p>
+  <h2>Reading the workbook</h2>
+  <table class="grid">
+    <thead><tr><th>Mark</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td>Target</td><td>What you're building</td></tr>
+      <tr><td>Skills</td><td>Skills the exercise relies on; name one in the prompt to help a weaker model</td></tr>
+      <tr><td>Concept</td><td>Read before you start</td></tr>
+      <tr><td>Prompt</td><td>Paste into your agent</td></tr>
+      <tr><td>Verify</td><td>Where to check it worked, in Liferay</td></tr>
+      <tr><td>Gotcha</td><td>Worth knowing before you start</td></tr>
+      <tr><td>Bonus</td><td>A challenge if you finish early: you write the prompt</td></tr>
+    </tbody>
+  </table>
+  <p class="callout info">Every prompt that creates something says who may see it. Keep those access lines when you adapt a prompt.</p>
+  <aside class="notes">
+    <p>Open the workbook on the projector and show one exercise with each mark, for example 1.1. Personas all use the password learn, and a private browser window lets learners sign in as a second persona while staying signed in as the admin. Point out the access lines: permission gaps fail silently, so a page answers and only a visitor notices. Learners ask whether bonus exercises matter; they're for fast learners and aren't in the schedule.</p>
+  </aside>
+</section>
+
+<!-- ===== Block: Setup (slides 9–12) ===== -->
+
+<section class="slide bullets">
+  <p class="kicker">Setup</p>
+  <h2>Your workspace</h2>
+  <dl class="paths">
+    <dt><code>.claude/</code></dt><dd>Claude Code's entry point: <code>CLAUDE.md</code>, reference cards in <code>rules/</code>, and the Liferay skills in <code>skills/</code></dd>
+    <dt><code>.agents/</code></dt><dd>The same skills for other agents, such as Codex or Copilot</dd>
+    <dt><code>context-source/</code></dt><dd>The brief, personas, content, images, design references and legacy data the prompts read</dd>
+    <dt><code>client-extensions/</code></dt><dd>Empty today; the agent adds the site initializer and the theme here</dd>
+    <dt><code>configs/</code></dt><dd>Per-environment settings; <code>configs/local/</code> holds portal-ext.properties, your key and credentials</dd>
+    <dt><code>solution-context.md</code></dt><dd>Seeded in S.1, with <code>solution-index.yaml</code>: any new session picks the project up from them</dd>
+  </dl>
+  <aside class="notes">
+    <p>Open the repository in VS Code and expand each folder as you talk. Stress that learners must open the folder, not a file, or the agent won't find its skills. Skills are written instructions that tell the agent how Liferay behaves, including the silent failures; the agent loads them from the prompt's wording. A common question is why the context files must stay short: every new session reads them, so a long file costs tokens on every prompt.</p>
+  </aside>
+</section>
+
+<section class="slide bullets">
+  <p class="kicker">Setup</p>
+  <h2>Running Liferay locally</h2>
+  <ul class="bullets">
+    <li>PostgreSQL runs in Docker: <code>docker compose up -d</code></li>
+    <li>DXP 2026.Q3.10 unpacks from the bundle you downloaded: <code>blade server init</code></li>
+    <li><b>You</b> start and stop Liferay, never the agent</li>
+    <li>Admin credentials live in <code>configs/local/admin.properties</code>, git-ignored</li>
+    <li>Your activation key goes in <code>configs/local/deploy/</code> and never leaves your machine</li>
+  </ul>
+  <aside class="notes">
+    <p>Clarity chose Liferay SaaS, so learners may ask why they work locally. The local setup simulates it: everyone gets their own data they can keep, it works on every operating system, and it doesn't depend on the classroom network. Explain why the agent must not start Liferay: a server started inside an agent session stops when the session ends, and a stopped server drops the MCP connection. Demo the first start with blade server start --tail and show the startup line; it takes a few minutes the first time.</p>
+  </aside>
+</section>
+
+<section class="slide bullets">
+  <p class="kicker">Setup</p>
+  <h2>MCP: how the agent talks to Liferay</h2>
+  <ul class="bullets">
+    <li>The Model Context Protocol is a standard way for an agent to use tools</li>
+    <li>DXP 2026.Q3 ships an MCP server at <code>/o/mcp</code> that exposes the headless APIs as tools</li>
+    <li>The agent discovers the tools, reads each schema, then calls it as the user it signs in as</li>
+    <li>Two switches: feature flag <code>LPD-63311</code> (already set) and the MCP Server instance setting</li>
+    <li>Agents read MCP settings only when a session starts: restart after you connect</li>
+  </ul>
+  <aside class="notes">
+    <p>Without MCP the agent hand-writes curl commands; with it, it calls Liferay's APIs as tools, with the permissions of the user it authenticates as. Exercise S.4 turns on the instance setting with an OSGi config file, live, and registers the server in the agent's own config file (.mcp.json, .vscode/mcp.json or .codex/config.toml), which is git-ignored because it holds a credential. Demo /mcp in Claude Code showing liferay connected. The most common issue: the server shows connected with no tools because Liferay restarted since the session began; reconnect or restart the session.</p>
+  </aside>
+</section>
+
+<section class="slide challenge">
+  <p class="kicker">Challenge time</p>
+  <h2>Setup: workspace, DXP and the MCP server</h2>
+  <p class="source">Workbook: Setup · Original BEWL challenge 2</p>
+  <ol class="exercises">
+    <li><span class="id">S.1</span><span>Open the workspace and seed the context files</span></li>
+    <li><span class="id">S.2</span><span>Start PostgreSQL and Liferay DXP (you run these commands)</span></li>
+    <li><span class="id">S.3</span><span>Save the admin credentials for the agent</span></li>
+    <li><span class="id">S.4</span><span>Turn on Liferay's MCP server, then restart your agent session</span></li>
+    <li><span class="id">S.5</span><span>Read the terrain: the agent confirms the facts, changes nothing</span></li>
+  </ol>
+  <p class="verify"><b>Verify habit:</b> check each answer against the source. <code>clarity-postgres</code> is healthy, Server Administration shows PostgreSQL, the MCP Server setting is enabled, and <code>liferay</code> is listed as connected.</p>
+  <aside class="notes">
+    <p>Demo S.1 on the projector, including opening both files to verify, then let learners run the rest. Walk the room during S.2: the first start is where most problems show up, such as a port already in use or a bundle that downloads again. The first admin sign-in shows a Terms of Use notice about Liferay Enterprise Search; tell them to read it and close it. Learners ask whether they can skip S.5; don't, because it confirms the version, database, port and MCP before anything is built.</p>
+  </aside>
+</section>
+
+<!-- ===== Block: Capabilities, deployment, LDP (slides 13–15) ===== -->
+
+<section class="slide compare">
+  <p class="kicker">Capabilities and deployment options</p>
+  <h2>Three ways to run Liferay</h2>
+  <div class="cols three">
+    <div class="col alt">
+      <h3>Self-Hosted</h3>
+      <ul>
+        <li>You own hardware, platform and updates</li>
+        <li>Fits data residency rules or heavy internal integration</li>
+        <li>Cloud Native Experience can automate it</li>
+      </ul>
+    </div>
+    <div class="col alt">
+      <h3>PaaS</h3>
+      <ul>
+        <li>Liferay provides the services; you manage the app</li>
+        <li>Fits when you must change Liferay, not only extend it</li>
+        <li>You keep control of the infrastructure</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>SaaS</h3>
+      <ul>
+        <li>Liferay runs everything, including upgrades</li>
+        <li>The fastest route to building</li>
+        <li>You extend with client extensions</li>
+      </ul>
+    </div>
+  </div>
+  <p class="vs-note">The model changes who operates the solution, not how you build it. Clarity runs on SaaS.</p>
+  <aside class="notes">
+    <p>The three models differ mainly in who owns each layer of the stack. Clarity chose SaaS because it wants a lower total cost and less specialist maintenance; Liferay handles security, maintenance and continuous updates. All three get the same build, which is why this course works locally on a simulated SaaS setup. A frequent question is what SaaS rules out: anything that alters Liferay itself, such as OSGi modules, so the course sticks to features and client extensions.</p>
+  </aside>
+</section>
+
+<section class="slide bullets">
+  <p class="kicker">Capabilities and deployment options</p>
+  <h2>Build as code with workspace and client extensions</h2>
+  <ul class="bullets">
+    <li>A Liferay Workspace holds a project's code and settings for every environment</li>
+    <li>Client extensions run outside Liferay's core, so they survive upgrades</li>
+    <li>They're supported on Self-Hosted, PaaS and SaaS</li>
+    <li>A site initializer is a client extension that builds a whole site from files</li>
+    <li>That's how your agent builds Clarity: edit the files, deploy, check the result</li>
+  </ul>
+  <aside class="notes">
+    <p>Connect the deployment choice to the way we work: because Clarity is on SaaS, everything we add must be a feature or a client extension. The site initializer in client-extensions/clarity-site, from Level 3 on, makes the site version-controlled and rebuildable on any environment. Demo the configs folder: local, dev, uat and prod, with local as the default for development. Learners ask if editors can still change pages in the UI; yes, but a redeploy rewrites what the initializer owns, which we see on day 2.</p>
+  </aside>
+</section>
+
+<section class="slide bullets" data-instructor>
+  <p class="kicker">Liferay Data Platform</p>
+  <h2>Knowing what visitors actually did</h2>
+  <ul class="bullets">
+    <li>Building the site is half the loop; measuring it is the other half</li>
+    <li>Site, page and content metrics with no tracking code added</li>
+    <li>Known and anonymous visitor profiles, and account profiles</li>
+    <li>A/B tests run in DXP, and Data Platform reports the results</li>
+    <li>Segments built here are the supported path; Level 13 shows a user-group alternative</li>
+  </ul>
+  <aside class="notes">
+    <p>There's no exercise because it needs a Liferay Data Platform workspace. Demo: show the Clarity dashboards for site, page and content performance, then an individual profile and the segment builder. Explain that on 2026.Q1 and later Data Platform is the source of truth for segments; DXP pulls batch segments, and real-time segments don't sync down. Learners ask whether they can try it in class; not here: DXP's own segments and experiences are deprecated on 2026.Q1, so Level 13 builds a user-group alternative and points back to Data Platform segments as the supported path.</p>
+  </aside>
+</section>
+
+<!-- ===== Block: Level 1 (slides 16–19) ===== -->
+
+<section class="slide compare">
+  <p class="kicker">Users and permissions</p>
+  <h2>Authentication is not authorization</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>Authentication</h3>
+      <ul>
+        <li>Confirms who the user is</li>
+        <li>Sign in by email, screen name or user ID</li>
+        <li>Liferay's own sign-in is a quick start</li>
+        <li>OpenID Connect or SAML delegate it to an identity provider</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Authorization</h3>
+      <ul>
+        <li>Decides what the user can do</li>
+        <li>Access to sites and pages</li>
+        <li>Who sees content and documents</li>
+        <li>Which applications they can use</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Clarity wants employees to sign in through its existing identity management and SSO, and each user to get only the access their role needs. Basic authentication works from day one but most real deployments move to OpenID Connect or SAML, which also scale past Liferay's own limits and span several systems. This course uses Liferay's own sign-in for the personas so we can focus on authorization. A common question: does SSO replace roles? No, the identity provider proves who someone is; Liferay's roles still decide what they can do.</p>
+  </aside>
+</section>
+
+<section class="slide bullets">
+  <p class="kicker">Users and permissions</p>
+  <h2>Users, user groups and roles</h2>
+  <ul class="bullets">
+    <li>A role is a set of permissions: actions on resources</li>
+    <li>Scope is half of a role: regular (whole instance), site, organization, space</li>
+    <li>User groups collect people who share a responsibility</li>
+    <li>Assign roles to groups, not people: one change covers every member</li>
+    <li>Least privilege: grant only what the work needs</li>
+  </ul>
+  <aside class="notes">
+    <p>Design the role architecture in this order: list the responsibilities, scope each into a role type, match each to a user group, then factor out shared permissions. There's often more than one right answer. Note one difference learners will see in 1.1: the Control Panel can assign a role to a user group, but the headless API assigns roles to users only, so the agent assigns them one by one. Demo Control Panel, Roles, a role, Assignees, to show both.</p>
+  </aside>
+</section>
+
+<section class="slide bullets clarity">
+  <p class="kicker">The Clarity case</p>
+  <h2>Clarity's team</h2>
+  <table class="grid">
+    <thead><tr><th>Persona</th><th>Job title</th><th>Group</th><th>On the site</th></tr></thead>
+    <tbody>
+      <tr><td>Ian Miller</td><td>IT Manager</td><td>IT</td><td>Sites, catalog, objects</td></tr>
+      <tr><td>Walter Douglas</td><td>Web Developer</td><td>IT</td><td>Pages, fragments, design, search pages</td></tr>
+      <tr><td>Clara Murphy</td><td>Marketing Manager</td><td>Marketing</td><td>Owns marketing content, approves articles</td></tr>
+      <tr><td>Christian Carter</td><td>Marketing Coordinator</td><td>Marketing</td><td>Writes articles, FAQs, announcements</td></tr>
+      <tr><td>Harper Roberts</td><td>HR Specialist</td><td>Human Resources</td><td>Job listings</td></tr>
+      <tr><td>Daniel Raymond</td><td>Distributor Rep.</td><td>Support Agents</td><td>Follows up Contact Us requests</td></tr>
+      <tr><td>Terrence Wheatley</td><td>Distributor</td><td>Distributors</td><td>Signs in to the public site</td></tr>
+    </tbody>
+  </table>
+  <aside class="notes">
+    <p>These seven personas come from context-source/data/personas.csv; all use the password learn. Point out how each later level uses one of them: Christian writes, Clara approves, Daniel follows up contact requests, and Terrence sees the distributor Home page. The Clarity Admin handles instance-level settings only. Learners ask why there are custom roles when Liferay has built-in ones; the built-in ones are too broad for least privilege.</p>
+  </aside>
+</section>
+
+<section class="slide challenge">
+  <p class="kicker">Challenge time</p>
+  <h2>Level 1: users and permissions</h2>
+  <p class="source">Workbook: Level 1 · Original BEWL challenge 3 · Requirement R1</p>
+  <ol class="exercises">
+    <li><span class="id">1.1</span><span>Create Clarity's user groups, roles and personas</span></li>
+    <li class="bonus"><span class="id">1.2</span><span>Bonus: let Clara manage the Marketing group's members, nothing more</span></li>
+  </ol>
+  <p class="verify"><b>Verify habit:</b> in the Control Panel, open Users, User Groups and Roles and compare with the brief. Then sign in as Christian in a private window: no password change prompt.</p>
+  <aside class="notes">
+    <p>Demo 1.1 on the projector, then show the verify steps: Christian's portrait and job title, the Marketing group's members, and the Marketing Coordinator role's assignees. Point out that the prompt asks the agent to report what Liferay returns, not what it intended; that habit catches silent failures. The prompt is idempotent, so rerunning it is safe. Learners ask why the role has no permissions yet; it gets them in Level 2, once the site exists.</p>
+  </aside>
+</section>
+
+<!-- ===== Block: Level 2 (slides 20–22) ===== -->
+
+<section class="slide bullets">
+  <p class="kicker">Sites</p>
+  <h2>Instances and sites</h2>
+  <ul class="bullets">
+    <li>An instance can hold many sites, sharing code, themes and widgets</li>
+    <li>Each site has its own pages, content, members and settings</li>
+    <li>Membership types: open, restricted (request access), private (invitation only)</li>
+    <li>Membership is the first layer of security; site roles apply once people join</li>
+    <li>Some settings belong to the site, others to the whole instance</li>
+  </ul>
+  <aside class="notes">
+    <p>Clarity needs two sites: its public enterprise website and an empty distributor portal for later. On restricted and private sites every page needs sign-in, and unauthenticated users get a 404 by default. Demo Site Settings for one site, then Instance Settings, so learners see where each kind of setting lives. A common question is when to use a second instance instead of a second site; instances separate content, users and configuration entirely, which Clarity doesn't need.</p>
+  </aside>
+</section>
+
+<section class="slide compare">
+  <p class="kicker">Sites</p>
+  <h2>Starting a site: template or initializer</h2>
+  <div class="cols">
+    <div class="col alt">
+      <h3>Site template</h3>
+      <ul>
+        <li>Gives a new site its starting pages and layout</li>
+        <li>Keeps sites consistent with the brand</li>
+        <li>Business users change sites without developers</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Site initializer</h3>
+      <ul>
+        <li>Creates a complete site from files</li>
+        <li>Fits CI/CD and automated deployments</li>
+        <li>You manage the whole site from its source</li>
+      </ul>
+    </div>
+  </div>
+  <p class="vs-note">Clarity's sites start blank today. From Level 3, a site initializer the agent writes updates the existing public site.</p>
+  <aside class="notes">
+    <p>A blank site is the third option, and it's what 2.1 creates, with a stable external reference code so every later prompt can address it. In Level 3 the initializer is bound to that code, so it updates the existing site instead of creating a new one. Review the defaults before launch: a new site starts with default settings. Learners ask why not build everything with the initializer from the start; some settings, like membership and the instance home page, are set over the APIs instead, and the agent tells you which mechanism it used.</p>
+  </aside>
+</section>
+
+<section class="slide challenge">
+  <p class="kicker">Challenge time</p>
+  <h2>Level 2: sites</h2>
+  <p class="source">Workbook: Level 2 · Original BEWL challenge 4 · Requirements R1, R2</p>
+  <ol class="exercises">
+    <li><span class="id">2.1</span><span>Create Clarity's two sites</span></li>
+    <li><span class="id">2.2</span><span>Add members and assign site roles</span></li>
+    <li><span class="id">2.3</span><span>Configure the public site: address, languages, accessibility</span></li>
+    <li><span class="id">2.4</span><span>Give the Marketing Coordinator role its permissions</span></li>
+    <li><span class="id">2.5</span><span>Point the instance at the public site</span></li>
+  </ol>
+  <p class="verify"><b>Verify habit:</b> Site Settings and Memberships for the site; impersonate Christian before and after 2.4 and watch Site Builder → Collections and Categorization → Categories appear. Close dialogs without saving.</p>
+  <aside class="notes">
+    <p>Demo 2.4 on the projector, because it's the clearest least-privilege lesson: impersonate Christian first, show he has no Site Builder or Categorization section, run the prompt, refresh. The prompt asks the agent to list the permissions it will add and why before granting anything; read that list with the class. The virtual host only answers once a hosts entry points to the machine, so learners keep using localhost:8080/web/clarity. If 2.5 has no supported API on this release, the agent stops and lists the screen to set by hand.</p>
+  </aside>
+</section>
+
+<!-- ===== Block: Level 3 (slides 23–27) ===== -->
+
+<section class="slide bullets">
+  <p class="kicker">Pages and navigation</p>
+  <h2>The site lives in code</h2>
+  <ul class="bullets">
+    <li>A site initializer client extension in <code>client-extensions/clarity-site/</code></li>
+    <li>A folder tree of JSON: pages, master pages, menus, fragments, style books</li>
+    <li>Liferay applies it to the site every time it's deployed</li>
+    <li>The agent edits the tree and deploys; you check in Liferay's own editors</li>
+    <li>Version-controlled, and rebuildable on any environment</li>
+  </ul>
+  <aside class="notes">
+    <p>This is the turning point of day 1: from here on the agent never clicks through the page editor. Demo the folder tree after 3.1 so learners see that a page is a folder with a page definition file. Make the verify habit concrete: they open the page editor to look, then leave without publishing. A common question is what happens if someone edits a page in the UI; the next deploy rewrites it from source, so a change that should stay goes in the source tree too.</p>
+  </aside>
+</section>
+
+<section class="slide compare">
+  <p class="kicker">Pages and navigation</p>
+  <h2>Content pages, not widget pages</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>Content pages</h3>
+      <ul>
+        <li>Composed visually, in context, from fragments and widgets</li>
+        <li>Personalized experiences and translations</li>
+        <li>The page type for anything new</li>
+      </ul>
+    </div>
+    <div class="col alt">
+      <h3>Widget pages</h3>
+      <ul>
+        <li>Deprecated as of DXP 2026.Q3</li>
+        <li>Disabled for new installations by default</li>
+        <li>You'll still meet them on upgraded instances</li>
+      </ul>
+    </div>
+  </div>
+  <p class="vs-note">Also: utility pages (sign in, errors, cookie policy) and display pages that show one item each.</p>
+  <aside class="notes">
+    <p>Every page Clarity needs is a content page. Utility pages replace Liferay's fixed system pages with pages you design, such as Sign In and error pages; the Sign In utility page is the Level 3 bonus. Display pages give each content item its own URL; we build them in Level 7. Learners ask whether widget pages are gone; not removed, just deprecated, so don't create new ones.</p>
+  </aside>
+</section>
+
+<section class="slide bullets clarity">
+  <p class="kicker">Pages and navigation</p>
+  <h2>Master pages, page templates, display page templates</h2>
+  <ul class="bullets">
+    <li>A master page holds what every page shares, around a drop zone</li>
+    <li>It can limit which fragments authors drop into its pages</li>
+    <li>A page template starts a page from a master and a layout</li>
+    <li>A display page template renders every item of a type, mapped field by field</li>
+    <li>Clarity: a Primary Master Page for content pages, a lighter Secondary one for sign-in</li>
+  </ul>
+  <aside class="notes">
+    <p>The master page sets the frame and the page template sets the content. Clarity's primary master has an announcement bar, a navigation bar with logo, menu, search and sign-in, and a footer with three menu columns; the secondary drops the announcement bar and the footer branding and navigation. In 3.2 every container gets an exact name, because names become data-name attributes the later levels rely on. Demo the Browser panel in the master editor. Learners ask why wireframe with built-in fragments; Level 4 replaces them with Clarity's own.</p>
+  </aside>
+</section>
+
+<section class="slide bullets">
+  <p class="kicker">Pages and navigation</p>
+  <h2>Menus and navigation</h2>
+  <ul class="bullets">
+    <li>Menus are built independently of the page tree</li>
+    <li>A menu is a tree of items: pages, URLs or labels</li>
+    <li>Items can be hidden from roles that shouldn't see them</li>
+    <li>Building a menu and rendering it are two separate steps</li>
+    <li>The Menu Display fragment renders a menu on a page or master</li>
+  </ul>
+  <aside class="notes">
+    <p>Clarity has four menus: the Header Page Menu and three footer menus, Resources, Company and Legal, where the legal items are external links opening in a new tab. In 3.3 the agent creates the menus and then points the Menu Display fragments of both masters at them. The Menu Display widget with FreeMarker templates covers advanced cases. Learners ask why not render the page tree directly; a separate menu lets marketing reorder and relabel without touching pages.</p>
+  </aside>
+</section>
+
+<section class="slide challenge">
+  <p class="kicker">Challenge time</p>
+  <h2>Level 3: pages, master pages and navigation</h2>
+  <p class="source">Workbook: Level 3 · Original BEWL challenges 5 and 6 · Requirement R3</p>
+  <ol class="exercises">
+    <li><span class="id">3.1</span><span>Scaffold the site initializer and the page hierarchy</span></li>
+    <li><span class="id">3.2</span><span>Build the Primary and Secondary master pages</span></li>
+    <li><span class="id">3.3</span><span>Create the navigation menus and wire them in</span></li>
+    <li class="bonus"><span class="id">3.4</span><span>Bonus: the Sign In utility page on the Secondary master</span></li>
+  </ol>
+  <p class="verify"><b>Verify habit:</b> Site Builder, Pages for the order; the master's Browser panel and allowed fragments; Navigation Menus; then Home as a visitor. Leave editors without publishing.</p>
+  <aside class="notes">
+    <p>Demo 3.1, including the log line that shows the initializer ran for clarity-public. If a deploy "succeeds" but nothing changes, the zip didn't change or the deploy order was wrong; ask the agent to clean deploy and check the Initialized log line. Note that Search uses /search-results because /search is reserved. Learners ask why Product Detail and Calendar are missing; later levels add them.</p>
+  </aside>
+</section>
+
+<!-- ===== Block: Level 4 (slides 28–30) ===== -->
+
+<section class="slide bullets">
+  <p class="kicker">Fragments</p>
+  <h2>Fragments are the building blocks</h2>
+  <ul class="bullets">
+    <li>HTML, CSS and JavaScript with editable areas</li>
+    <li>A configuration defines the options authors set in the editor</li>
+    <li>Each copy on a page holds its own content</li>
+    <li>Clarity keeps its own in a Clarity Components fragment set</li>
+    <li>Editable IDs matter: later levels map content onto them</li>
+  </ul>
+  <aside class="notes">
+    <p>Fragments save developers time and let authors add, remove and move elements in real time. In 4.1 the agent writes five fragments using the old site's fragments as a visual reference, but in clean code with CSS variables. Demo a fragment's Configuration tab and Code preview. Learners ask whether editing a fragment updates every page; Liferay copies fragment code into each page at placement, which is why the agent deploys fragments before pages.</p>
+  </aside>
+</section>
+
+<section class="slide bullets">
+  <p class="kicker">Fragments</p>
+  <h2>Compositions and wireframing in the product</h2>
+  <ul class="bullets">
+    <li>A composition is a saved arrangement of fragments you reuse</li>
+    <li>Wireframe in Page Builder instead of a separate design tool</li>
+    <li>Designers and business users validate the layout together</li>
+    <li>Repeating patterns become compositions early</li>
+    <li>In the initializer, a page's arrangement lives in its page definition</li>
+  </ul>
+  <aside class="notes">
+    <p>The original course imported saved compositions; here the agent reads the Home and FAQ composition zips as a layout reference and writes the page definitions itself. A navigable prototype lets you validate the experience cheaply before content exists. Demo Home in edit mode with the Browser panel showing the named containers. Learners ask whether compositions still exist in the UI; yes, authors save and reuse them as before.</p>
+  </aside>
+</section>
+
+<section class="slide challenge">
+  <p class="kicker">Challenge time</p>
+  <h2>Level 4: fragments and page compositions</h2>
+  <p class="source">Workbook: Level 4 · Original BEWL challenge 7 · Requirement R4</p>
+  <ol class="exercises">
+    <li><span class="id">4.1</span><span>Create the Clarity Components fragments</span></li>
+    <li><span class="id">4.2</span><span>Put the search button and login menu in the master pages</span></li>
+    <li><span class="id">4.3</span><span>Wireframe the Home and FAQ pages</span></li>
+    <li class="bonus"><span class="id">4.4</span><span>Bonus: a configurable sign-in URL</span></li>
+  </ol>
+  <p class="verify"><b>Verify habit:</b> Design, Fragments for the set and its options; Home as a visitor shows the search icon and Sign In; edit mode shows the container names.</p>
+  <aside class="notes">
+    <p>Demo 4.1 and open the Search Button fragment's Configuration tab with the class. In 4.2 the deploy order matters: fragments before pages, as the site-initializer rules describe. Remind learners to check as Guest in a private window, since what the admin sees isn't proof. A common question: why not import the old fragment zips directly? They were built for an older release and theme; the agent rewrites them to work on this one.</p>
+  </aside>
+</section>
+
+<!-- ===== Block: Level 5 (slides 31–33) ===== -->
+
+<section class="slide bullets">
+  <p class="kicker">Design</p>
+  <h2>Liferay's styling layers</h2>
+  <ul class="bullets">
+    <li>Instance styles: point-and-click styling of one fragment</li>
+    <li>Style books: change a theme's design tokens at runtime, no CSS</li>
+    <li>Theme CSS client extension: replaces the theme's CSS and declares its tokens</li>
+    <li>Favicon client extension and site logo complete the brand</li>
+    <li>Traditional themes are still supported, not recommended</li>
+  </ul>
+  <aside class="notes">
+    <p>Liferay separates what's on a page from how it looks. Style books let designers and marketers manage the design through tokens without a redeploy; client extensions carry your code outside Liferay's core, so it stays safe across upgrades. Master pages carry the Theme CSS, so every page that uses them follows. Learners ask which layer to use; style books for token changes, a Theme CSS client extension for a full brand.</p>
+  </aside>
+</section>
+
+<section class="slide compare clarity">
+  <p class="kicker">Design</p>
+  <h2>Style book or Theme CSS</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>Clarity Style Book (5.1)</h3>
+      <ul>
+        <li>For the Classic theme, set as default</li>
+        <li>Only the primary color: <code>#187373</code></li>
+        <li>A quick brand check, no code</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Clarity Theme CSS (5.2)</h3>
+      <ul>
+        <li>Clarity teal and gold, neutrals, Poppins, radii</li>
+        <li>Declares tokens like Color Brand Primary for the editor</li>
+        <li>Clarity's real brand, bound to both masters</li>
+      </ul>
+    </div>
+  </div>
+  <p class="callout">Once a Theme CSS client extension replaces the theme's CSS, the Classic style book no longer applies to those pages.</p>
+  <aside class="notes">
+    <p>The style book is a quick check; the Theme CSS client extension is Clarity's real brand from section 5 of the brief. The Theme CSS lives in its own project, client-extensions/clarity-theme, because a frontend project can't share one with the site initializer. It must be registered before the initializer imports the masters, or the binding is skipped. Demo the color picker offering Color Brand Primary in the master editor; learners ask where those token names come from, and the answer is the token definition file the agent writes.</p>
+  </aside>
+</section>
+
+<section class="slide challenge">
+  <p class="kicker">Challenge time</p>
+  <h2>Level 5: design</h2>
+  <p class="source">Workbook: Level 5 · Original BEWL challenge 8 · Requirement R5</p>
+  <ol class="exercises">
+    <li><span class="id">5.1</span><span>A style book for a quick brand check</span></li>
+    <li><span class="id">5.2</span><span>Clarity's Theme CSS and favicon client extensions</span></li>
+    <li><span class="id">5.3</span><span>Apply the brand to the site and its master pages</span></li>
+  </ol>
+  <p class="verify"><b>Verify habit:</b> Home in a private window shows Poppins, teal buttons and the favicon; Applications, Client Extensions lists both as Ready; the master's design options show Clarity Theme CSS.</p>
+  <aside class="notes">
+    <p>Demo 5.1 and open the style book to show the primary color, then run 5.2 and 5.3. If the brand doesn't appear, the usual cause is deploy order: the Theme CSS wasn't registered when the masters were imported, so redeploy the initializer. Remind learners to leave the style book and master editors without publishing. Someone will ask why the style book's teal is a different shade; #187373 is a shade of the brand primary, used only for the quick check.</p>
+  </aside>
+</section>
+
+<!-- ===== Block: Level 6 (slides 34–38) ===== -->
+
+<section class="slide compare">
+  <p class="kicker">Liferay CMS</p>
+  <h2>Two content management systems</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>Liferay CMS</h3>
+      <ul>
+        <li>Content lives in Spaces, independent of any site</li>
+        <li>One Space can feed many sites and channels</li>
+        <li>Built for non-technical authors and marketing teams</li>
+      </ul>
+    </div>
+    <div class="col alt">
+      <h3>Classic CMS</h3>
+      <ul>
+        <li>Content lives in the site or asset library where it was made</li>
+        <li>Web content structures and templates</li>
+        <li>Built for power users and site administrators</li>
+      </ul>
+    </div>
+  </div>
+  <p class="vs-note">Both ship and run side by side. This course uses Liferay CMS throughout: Spaces replace asset libraries, content structures replace web content structures.</p>
+  <aside class="notes">
+    <p>These are two systems, not one rebranded, and which one you build on is a decision, not a default. Clarity's content team is non-technical, works across more than one property and answers to a review process, which fits Liferay CMS. Liferay moved Web Content, Blogs, Documents and Media and Asset Libraries to maintenance mode on 2026.Q1 in favor of Liferay CMS, so this course builds on Liferay CMS only. If learners ask whether Classic CMS is going away, keep to what ships today: it still runs side by side, but in maintenance mode, so new projects start in Liferay CMS.</p>
+  </aside>
+</section>
+
+<section class="slide bullets clarity">
+  <p class="kicker">Liferay CMS</p>
+  <h2>Spaces</h2>
+  <ul class="bullets">
+    <li>A Space is a content repository that belongs to no site</li>
+    <li>Connect a Space to a site to show its content there</li>
+    <li>Each Space has its own members, folders, structures and categories</li>
+    <li>Space roles add their own permissions on top of site roles</li>
+    <li>Clarity: Marketing, Branding, HR, Events and Products</li>
+  </ul>
+  <aside class="notes">
+    <p>One Space can connect to many sites and one site to many Spaces, so content isn't tied to where it was created. In 6.1 the agent lists the Space roles Liferay provides on this release and tells you which it chose for administrator and member. Demo the Global Menu, CMS, then a Space's settings showing Members and Connected Sites. A common issue later: a page shows content to the admin but not to Guest, because the Space isn't connected to the site or Guest can't view the content.</p>
+  </aside>
+</section>
+
+<section class="slide bullets">
+  <p class="kicker">Liferay CMS</p>
+  <h2>Content and file structures</h2>
+  <ul class="bullets">
+    <li>A structure is the schema for one kind of content</li>
+    <li>Content structures define fields, validation and relationships</li>
+    <li>File structures add a required file and its metadata</li>
+    <li>Limit each structure to the Spaces that use it</li>
+    <li>Publishing a structure generates its REST and GraphQL APIs</li>
+  </ul>
+  <aside class="notes">
+    <p>Clarity needs seven structures: Article, FAQ, Announcement, Leadership Profile, Job Listing, Event Information, and the Event Image file structure. Every field gets an external reference code and the prompt asks for its REST path, so learners see the generated API right away. Demo CMS, Structures, Event Information, showing its fields and that only Events can use it. Learners ask why the structure needs a title field; it's the entry's display title in lists and collections.</p>
+  </aside>
+</section>
+
+<section class="slide compare">
+  <p class="kicker">Liferay CMS</p>
+  <h2>Categories or tags</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>Categories</h3>
+      <ul>
+        <li>Grouped in vocabularies, can nest</li>
+        <li>Defined by administrators, applied by authors</li>
+        <li>Drive navigation, facets and dynamic collections</li>
+      </ul>
+    </div>
+    <div class="col alt">
+      <h3>Tags</h3>
+      <ul>
+        <li>Created on the fly by authors</li>
+        <li>Informal, crowd-sourced labels</li>
+        <li>Help search and discovery</li>
+      </ul>
+    </div>
+  </div>
+  <p class="vs-note">Clarity's vocabularies: FAQ and Articles (Marketing), Region, Location and Job Positions (HR).</p>
+  <aside class="notes">
+    <p>Browsing wants categories and search wants tags; most sites need both. The FAQ vocabulary drives the four FAQ collections on day 2, and the HR vocabularies drive the job search facets. Demo the HR Space's Categories, with the Location vocabulary's 14 categories. Learners ask whether vocabularies live in the site; here they live in the Space that uses them.</p>
+  </aside>
+</section>
+
+<section class="slide challenge">
+  <p class="kicker">Challenge time</p>
+  <h2>Level 6: content in Liferay CMS</h2>
+  <p class="source">Workbook: Level 6 · Original BEWL challenges 9, 10, 11 and 14 · Requirement R6</p>
+  <ol class="exercises">
+    <li><span class="id">6.1</span><span>Create the Spaces and their members</span></li>
+    <li><span class="id">6.2</span><span>Model Clarity's content structures</span></li>
+    <li><span class="id">6.3</span><span>Create the vocabularies</span></li>
+    <li><span class="id">6.4</span><span>Load Clarity's content and files with a re-runnable script</span></li>
+    <li class="bonus"><span class="id">6.5</span><span>Bonus: relate events to their images</span></li>
+  </ol>
+  <p class="verify"><b>Verify habit:</b> in CMS, check each Space's members and connected site, impersonate Christian (Marketing and Events only), then count FAQs, job listings and files against the brief.</p>
+  <aside class="notes">
+    <p>Demo 6.1 and the impersonation check: Christian sees Marketing and Events, not HR. In 6.4 the agent writes a small script in scripts/ instead of issuing hundreds of calls by hand, and it upserts by external reference code so it can run again. This is the last level of day 1, and day 2 depends on it: anyone who doesn't finish can use the day-2 starting point tomorrow morning. Learners ask how to check categorization; open an FAQ entry and read the Categorization side panel, then close without saving.</p>
+  </aside>
+</section>
+
+<!-- ===== Block: Wrap-up (slides 39–40) ===== -->
+
+<section class="slide takeaways">
+  <p class="kicker">Day 1 wrap-up</p>
+  <h2>Key takeaways</h2>
+  <ul class="takeaways">
+    <li><b>You verify, the agent builds</b>Every result is checked where it lives in Liferay</li>
+    <li><b>Roles to groups, least privilege</b>Scope decides where a permission applies</li>
+    <li><b>The site is code</b>A site initializer makes it versioned and rebuildable</li>
+    <li><b>Master, then page</b>The master sets the frame, fragments fill the page</li>
+    <li><b>Design through layers</b>Style books for tokens, Theme CSS for the brand</li>
+    <li><b>Content lives in Spaces</b>A structure is a schema, and publishing it creates APIs</li>
+  </ul>
+  <aside class="notes">
+    <p>Ask two or three learners to name one thing they verified today and where they looked. Recap each takeaway in one sentence and connect it to tomorrow: Spaces and structures feed the displays, collections and search on day 2. Check who hasn't finished Level 6 so you can plan catch-up first thing tomorrow. A common question is whether to leave Liferay running overnight; they can stop it and start it again tomorrow themselves.</p>
+  </aside>
+</section>
+
+<section class="slide divider">
+  <p class="kicker">Day 1 close</p>
+  <h1>Questions?</h1>
+  <p>Tomorrow: displaying content, commerce, headless APIs, workflow and publishing, search, objects and personalization.</p>
+  <aside class="notes">
+    <p>Open the floor for questions for the last few minutes. Remind learners that the levels are chained: Level 7 needs Level 6 done. Anyone behind can start tomorrow from catch-up/day-2-start, which takes about ten minutes. Ask them to restart their agent session tomorrow, since the MCP connection drops when Liferay restarts.</p>
+  </aside>
+</section>
+
+</main>
+</div>
+<script src="slides.js"></script>
+</body>
+</html>

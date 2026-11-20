@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building Enterprise Websites with Liferay and AI</title>
+<meta name="description" content="A two-day hands-on course: build Clarity Vision Solutions' public website on Liferay DXP 2026.Q3 with an AI coding agent. Workbook and instructor materials.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --brand: #0b5fff; --teal: #1d8c8c; --text: #272833; --muted: #6b6c7e; --line: #e7e7ed; --bg: #ffffff; --bg-alt: #f7f8f9; }
+  @media (prefers-color-scheme: dark) { :root { --text: #f1f2f5; --muted: #a7a9bc; --line: #393a4a; --bg: #1c1c24; --bg-alt: #272833; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Source Sans 3", system-ui, sans-serif; color: var(--text); background: var(--bg); line-height: 1.55; }
+  header { background: linear-gradient(135deg, #0b1f4d, #0b5fff 70%, #1d8c8c); color: #fff; padding: 56px 16px 64px; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+  .eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: 13px; font-weight: 700; opacity: .85; margin: 0 0 8px; }
+  h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.1; margin: 0 0 16px; }
+  header p.lead { font-size: 19px; max-width: 720px; margin: 0; opacity: .95; }
+  main { padding: 40px 0 56px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+  .card { display: block; border: 1px solid var(--line); border-radius: 12px; padding: 22px; color: inherit; text-decoration: none; background: var(--bg); transition: border-color .15s, transform .15s; }
+  .card:hover { border-color: var(--brand); transform: translateY(-2px); }
+  .card .tag { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--brand); margin-bottom: 6px; }
+  .card.teal .tag { color: var(--teal); }
+  .card h2 { font-size: 21px; margin: 0 0 6px; }
+  .card p { margin: 0; color: var(--muted); }
+  h3 { margin: 40px 0 12px; font-size: 22px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--bg-alt); }
+  .table-wrap { overflow-x: auto; }
+  footer { border-top: 1px solid var(--line); padding: 20px 0; color: var(--muted); font-size: 14px; }
+  a { color: var(--brand); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <p class="eyebrow">Liferay Community APAC · Two-day course</p>
+    <h1>Building Enterprise Websites with Liferay and AI</h1>
+    <p class="lead">Build Clarity Vision Solutions' public enterprise website on Liferay DXP 2026.Q3. Your AI coding agent does the building; you set the requirement and check every result in Liferay.</p>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <div class="cards">
+      <a class="card" href="workbook/">
+        <span class="tag">Students</span>
+        <h2>Workbook</h2>
+        <p>Setup and 13 levels over two days: a prompt for your agent, then a check in Liferay, for every exercise.</p>
+      </a>
+      <a class="card teal" href="https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/">
+        <span class="tag">Before the course</span>
+        <h2>Prerequisites</h2>
+        <p>Your computer, Docker, the Liferay DXP download and your AI coding agent, as a checklist.</p>
+      </a>
+      <a class="card" href="instructor/">
+        <span class="tag">Instructors</span>
+        <h2>Instructor guide</h2>
+        <p>How to run the course, catching learners up, topics covered in slides only, and troubleshooting.</p>
+      </a>
+      <a class="card" href="instructor/schedule.html">
+        <span class="tag">Instructors</span>
+        <h2>Schedule</h2>
+        <p>Two days, block by block, with the matching workbook level and slides.</p>
+      </a>
+      <a class="card" href="instructor/slides/day-1.html">
+        <span class="tag">Instructors</span>
+        <h2>Day 1 slides</h2>
+        <p>Foundations to content: users, sites, pages, fragments, design and CMS.</p>
+      </a>
+    </div>
+
+    <h3>What you'll build</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Day</th><th>Levels</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Setup (workspace, PostgreSQL, DXP, MCP) · Users and permissions · Sites · Pages and navigation · Fragments · Design · CMS content</td></tr>
+          <tr><td>2</td><td>Displaying content · Commerce · Headless APIs · Workflow and Publications · Search · Objects · Personalization</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+<footer>
+  <div class="wrap">Tutorials, sample code and guides here are unofficial and provided as-is. Use them at your own risk. Source: <a href="https://github.com/Liferay-Community-APAC/liferay-course-building-enterprise-websites-ai">GitHub</a>.</div>
+</footer>
+</body>
+</html>
