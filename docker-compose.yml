@@ -22,8 +22,8 @@
 # At every container start, configs/local/portal-ext.properties, configs/local/osgi/configs
 # and configs/local/deploy (your activation key) are copied into the container.
 #
-# Give Docker at least 8 GB of memory (Docker Desktop → Settings → Resources on macOS;
-# %UserProfile%\.wslconfig on Windows; see the workbook's Setup chapter).
+# Give Docker at least 8 GB of memory (Colima: colima start --memory 8; Docker Desktop on macOS:
+# Settings → Resources; Windows: %UserProfile%\.wslconfig; see the workbook's Setup chapter).
 
 name: clarity
 

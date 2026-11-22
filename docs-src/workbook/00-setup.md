@@ -122,19 +122,29 @@ Don't create or change anything else. Read both files back to me.
 
 📋 **Steps** (there's no prompt in this exercise):
 1. **Copy the activation key** file you received by email into `configs/local/deploy/`: drag it from your email or Downloads folder onto that folder in VS Code's Explorer. It's git-ignored: it never leaves your computer.
-2. **Give Docker at least 8 GB of memory.** Liferay and its search engine need about 6 GB, and PostgreSQL needs some too. Your computer needs 16 GB of RAM or more.
+2. **Check that Docker has at least 8 GB of memory.** Liferay and its search engine need about 6 GB, and PostgreSQL needs some too. You set it in the prerequisites; check it:
+   ```bash
+   docker info --format "{{.MemTotal}}"
+   ```
+   About 8 GB or more (a number like `8307101696`) is right. If it's less, fix it for the Docker you installed in the prerequisites:
 
-   **macOS:** open Docker Desktop → *Settings* (the gear icon) → *Resources* → *Advanced*, set **Memory** to 8 GB or more, then click **Apply & restart**.
+   **macOS, option A (Colima):** restart Colima with 8 GB:
+   ```bash
+   colima stop
+   colima start --cpu 4 --memory 8 --vm-type vz --mount-type virtiofs
+   ```
 
-   **Windows:** Docker Desktop runs its containers in WSL 2, which sets the memory limit. In PowerShell, write the limit to `.wslconfig` in your user folder, then restart WSL:
+   **macOS, option B (Docker Desktop):** *Settings* (the gear icon) → *Resources* → *Advanced*, set **Memory** to 8 GB or more, then click **Apply & restart**.
+
+   **Windows (Rancher Desktop or Docker Desktop):** both run their containers in WSL 2, which sets the limit. In PowerShell, write it to `.wslconfig` in your user folder, then restart WSL:
    ```powershell
    Set-Content -Path "$env:USERPROFILE\.wslconfig" -Value "[wsl2]`nmemory=8GB"
    wsl --shutdown
    ```
-   If you already have a `.wslconfig`, open it in VS Code instead and set `memory=8GB` under `[wsl2]`. Then start Docker Desktop again and wait for *Engine running* at the bottom left of its window.
+   If you already have a `.wslconfig`, open it in VS Code instead and set `memory=8GB` under `[wsl2]`. Then quit and start Rancher Desktop or Docker Desktop again.
 
-   **Linux:** Docker Engine uses your computer's memory directly: nothing to set. Make sure your user can run `docker` without `sudo` (`docker ps` works). If it can't, run `sudo usermod -aG docker $USER`, then log out and back in. If you use Docker Desktop for Linux, set its memory as on macOS.
-3. **Start PostgreSQL and Liferay.** Make sure Docker is running, then in VS Code's terminal, at the workspace root:
+   **Linux (Docker Engine):** Docker uses your computer's memory directly, so this only fails if the computer has less than 8 GB. Make sure your user can run `docker` without `sudo` (`docker ps` works). If it can't, run `sudo usermod -aG docker $USER`, then log out and back in.
+3. **Start PostgreSQL and Liferay.** Make sure Docker is running (Colima: `colima start`; Rancher Desktop or Docker Desktop: the app is open), then in VS Code's terminal, at the workspace root:
    ```bash
    docker compose up -d
    ```
@@ -154,7 +164,7 @@ Don't create or change anything else. Read both files back to me.
 ⚠️ **If it doesn't match:**
 - **Liferay restarts in a loop, or stops with exit code 137:** Docker doesn't have enough memory. Redo step 2.
 - **Port 8080 or 5432 is already in use:** stop the other program first.
-- **Linux only:** Liferay's container runs as user ID 1000 and writes its log files readable by that user only. If `id -u` doesn't print `1000` (it does for the first user on most Linux installs), your agent can't read `bundles/logs`: use Docker Desktop for Linux, or the Tomcat bundle below.
+- **Linux only:** Liferay's container runs as user ID 1000 and writes its log files readable by that user only. If `id -u` doesn't print `1000` (it does for the first user on most Linux installs), your agent can't read `bundles/logs`: use the Tomcat bundle below (download it as the prerequisites page says).
 
 📖 **Why it matters:** both run as Docker containers, defined in `docker-compose.yml`, so the steps are the same on macOS, Windows and Linux. Only Docker's memory setting differs. Liferay's container shares a few folders with your workspace, under `bundles/` (created on the first start): your agent deploys client extensions into `bundles/osgi/client-extensions` and reads the log in `bundles/logs`, as it would with a Liferay bundle installed on your computer. Your data stays in Docker volumes when you stop the containers (`docker compose stop`) or restart your computer; only `docker compose down -v` deletes it.
 

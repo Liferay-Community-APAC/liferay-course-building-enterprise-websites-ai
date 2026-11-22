@@ -369,7 +369,7 @@ git clone https://github.com/Liferay-Community-APAC/liferay-course-building-ente
 <li>
 <p><strong>Run the whole workbook</strong>: Setup S.1 to S.5, then Levels 1 to 13, including the verify steps. It takes most of a day. Note the prompts where your agent needed help: learners' agents will too.</p>
 </li>
-<li><strong>Check the result</strong> with <a href="demos.html#d11-tour-of-the-finished-clarity-site">demo D1.1</a>: Home as Guest and as Terrence. Then stop Liferay and PostgreSQL (<code>docker compose stop</code> at the workspace root): the data stays in Docker volumes for the course.</li>
+<li><strong>Check the result</strong> with <a href="demos-kickoff.html#d11-tour-of-the-finished-clarity-site">demo D1.1</a>: Home as Guest and as Terrence. Then stop Liferay and PostgreSQL (<code>docker compose stop</code> at the workspace root): the data stays in Docker volumes for the course.</li>
 <li><strong>Keep the build.</strong> Don't reset it before the course. Every copy of the course uses the Compose project <code>clarity</code> (containers <code>clarity-postgres</code> and <code>clarity-liferay</code>, and their volumes), so a second clone on the same laptop would share this database: keep one copy.</li>
 <li><strong>Prepare the projector view:</strong> VS Code's zoom (<em>View</em> → <em>Appearance</em> → <em>Zoom In</em>) so the back row can read prompts, the terminal and the agent's chat side by side, and a browser with the workbook, the slides and a private window.</li>
 </ol>
@@ -385,12 +385,13 @@ git clone https://github.com/Liferay-Community-APAC/liferay-course-building-ente
 <li>The clone is inside a OneDrive, iCloud Drive or Dropbox folder: move it to <code>~/courses</code> or <code>C:\courses</code>.</li>
 <li>Windows: <code>Filename too long</code> during the clone. Run <code>git config --global core.longpaths true</code>, delete the half-cloned folder and clone again.</li>
 <li>The agent isn't signed in, or Copilot is in <em>Ask</em> mode instead of <em>Agent</em>.</li>
-<li>Docker Desktop isn't running: start it before S.2.</li>
+<li>Docker isn't running: with Colima, run <code>colima start</code>; with Rancher Desktop or Docker Desktop, open the app. Do it before S.2.</li>
+<li>Two Dockers installed (Docker Desktop and Colima or Rancher Desktop): quit the one the learner doesn't use, and check <code>docker context show</code>.</li>
 <li>Docker has less than 8 GB of memory: Setup S.2 step 2 has the setting for macOS and Windows. Check with <code>docker info --format '{{.MemTotal}}'</code> (about 8000000000 or more).</li>
 </ul>
 </li>
 <li>
-<p><strong>Then demo S.1</strong> (<a href="demos.html#d14-setup-s1-on-the-projector">D1.4</a>) and let learners run S.1 to S.5 at their own pace while you walk the room.</p>
+<p><strong>Then demo S.1</strong> (<a href="demos-setup.html#d14-setup-s1-on-the-projector">D1.4</a>) and let learners run S.1 to S.5 at their own pace while you walk the room.</p>
 </li>
 </ol>
 <h2 id="running-the-hands-on-blocks">Running the hands-on blocks<a aria-hidden="true" class="heading-anchor" href="#running-the-hands-on-blocks" tabindex="-1">#</a></h2>
@@ -473,7 +474,7 @@ git clone https://github.com/Liferay-Community-APAC/liferay-course-building-ente
 <tr>
 <td>Linux: the agent can't read <code>bundles/logs</code></td>
 <td>The learner's user ID isn't 1000 (<code>id -u</code>)</td>
-<td>Use Docker Desktop for Linux, or the Tomcat bundle (Setup S.2, optional section).</td>
+<td>Use the Tomcat bundle (Setup S.2, optional section).</td>
 </tr>
 <tr>
 <td>Liferay won't start: database connection refused</td>

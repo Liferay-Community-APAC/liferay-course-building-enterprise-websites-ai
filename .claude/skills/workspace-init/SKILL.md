@@ -80,8 +80,8 @@ The workspace root's `docker-compose.yml` runs `postgres` and `liferay` (`lifera
 - **Start**: the user runs `docker compose up -d` at the workspace root, then `docker compose logs -f liferay` until `Server startup in`.
 - **Configuration**: `configs/local/portal-ext.properties`, `configs/local/osgi/configs` and `configs/local/deploy` are copied in at every container start; `LIFERAY_*` variables in the compose file override properties (the JDBC URL points at the `postgres` service). Apply a `portal-ext.properties` change with `docker compose restart liferay`, under `CLAUDE.md` → "Server Restarts". No `liferay.env`, no image build, no `-Ddeploy.docker.container.id`.
 - **Deploys and logs**: `bundles/osgi/{client-extensions,configs,modules}`, `bundles/logs` and `bundles/routes` are bind mounts, so `blade gw deploy`, runtime `.config` files and `bundles/logs/liferay.<date>.log` work as with a bundle.
-- **Memory**: Docker needs 8 GB or more (Docker Desktop on macOS: Settings → Resources; Windows: `memory=` in `%UserProfile%\.wslconfig`; Linux: host memory). A container restarting in a loop or exiting with code `137` is out of memory.
-- **Linux user ID**: Liferay runs as UID 1000 and writes logs mode `640`. A host user with another UID cannot read `bundles/logs`: say so, and suggest Docker Desktop for Linux or the Tomcat bundle.
+- **Memory**: Docker needs 8 GB or more (`docker info --format "{{.MemTotal}}"`). The course's free runtimes: Colima on macOS (`colima start --cpu 4 --memory 8 --vm-type vz --mount-type virtiofs`), Rancher Desktop with the dockerd engine on Windows (`memory=` in `%UserProfile%\.wslconfig`), Docker Engine on Linux (host memory). Docker Desktop works too where it's licensed (Settings → Resources). A container restarting in a loop or exiting with code `137` is out of memory.
+- **Linux user ID**: Liferay runs as UID 1000 and writes logs mode `640`. A host user with another UID cannot read `bundles/logs`: say so, and suggest the Tomcat bundle.
 - **Login**: `admin@clarityvisionsolutions.com` / `learn` (from `configs/local/portal-ext.properties`).
 
 #### Docker (Other Workspaces)
