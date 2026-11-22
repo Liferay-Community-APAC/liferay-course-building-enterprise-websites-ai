@@ -20,7 +20,7 @@ Hold that line in class. When a learner says "the agent did it, it works", ask t
 
 ## Before the course
 
-- **Two weeks before:** send learners the [prerequisites page](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/). It covers Git, JDK 21, Blade, Docker, the DXP bundle download, the PostgreSQL image and their AI agent. They bring their own agent subscription.
+- **Two weeks before:** send learners the [prerequisites page](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/). It covers Git, JDK 21, Blade, Docker with 8 GB of memory, the Liferay DXP and PostgreSQL Docker images, VS Code and their AI agent. They bring their own agent subscription.
 - **One week before:** email each learner a **DXP activation key** (training developer key). Never put a key in the repository.
 - **The day before:** run the whole workbook on your own machine from a clean clone, with the agent you'll demo with (see *Set up your own machine* below). Note anything that changed with agent or DXP updates.
 - **On the morning of day 1:** share the repository URL (it's not on the prerequisites page) and walk the room through Setup S.0 (see *The first 30 minutes* below). The workbook is also published on the repository's GitHub Pages.
