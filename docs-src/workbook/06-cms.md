@@ -1,16 +1,25 @@
 # Level 6 — Content in Liferay CMS
 
-📖 **Liferay CMS** keeps content in **Spaces**, independent of the sites that display it. Each Space has its own members, folders, **content structures** (the fields of a kind of content, like *FAQ* or *Job Listing*), **file structures** (files with extra fields) and categories. A Space shows its content on a site once it's **connected** to that site. Publishing a structure also generates REST and GraphQL APIs for its content.
+⏱ **About 55 minutes**, with the talk · **Builds on:** Levels 2 and 5
 
-📖 Clarity used *Classic* web content and asset libraries on earlier releases. This course uses the new CMS throughout: Spaces replace asset libraries, content structures replace web content structures.
+**What you'll build:** Clarity's content in Liferay CMS: five Spaces connected to the public site, the structures that model each kind of content, the vocabularies that categorize it, and Clarity's real entries and files.
+
+**Key terms**
+- **Space:** where Liferay CMS keeps content, independent of the sites that display it. Each Space has its own members, folders, structures and categories.
+- **Connected site:** a site a Space is connected to. A Space shows its content on a site only once it's connected.
+- **Connected Site Member:** the Space role that gives a connected site's members read access to the Space.
+- **Content structure:** the fields of a kind of content, like *FAQ* or *Job Listing*. Publishing one also generates REST and GraphQL APIs for its content.
+- **File structure:** files with extra fields, like *Event Image*.
+- **Vocabulary:** a named set of categories (for example *FAQ*) used to categorize content.
+- **Guest:** the role of visitors who aren't signed in.
+
+ℹ️ **Note:** Clarity used *Classic* web content and asset libraries on earlier releases. This course uses the new CMS throughout: Spaces replace asset libraries, content structures replace web content structures.
 
 ### 6.1 — Create the Spaces and their members
 
-🎯 Five Spaces (Marketing, Branding, HR, Events, Products), each connected to the public site, with the right people as members.
+🎯 **Goal:** five Spaces (Marketing, Branding, HR, Events, Products), each connected to the public site, with the right people as members.
 
-🧩 `manage-cms`, `manage-roles-permissions`
-
-📎 R6 — content shared across sites.
+**Requirement:** R6 · **Skills:** `manage-cms`, `manage-roles-permissions`
 
 💬 **Prompt:**
 ```
@@ -34,22 +43,23 @@ connected sites and members back, then tell me what a member of the site
 clarity-public who isn't a member of a Space can do in it.
 ```
 
-✅ **Verify:**
-- Global Menu → **CMS**: the five Spaces are listed.
+✅ **Verify** (look, don't change anything):
+1. *Global Menu* → *CMS*: the five Spaces are listed.
+2. Open the **Marketing** Space → its settings (the gear icon) → *Members*: the Marketing user group, and Clara Murphy with the administrator role.
+3. In the same settings, *Connected Sites*: Clarity Public Enterprise Website.
+4. Impersonate **Christian Carter** (as in 2.4) and open *Global Menu* → *CMS*: Christian sees every Space connected to the public site, as a member of that site.
+5. Still as Christian, open **HR**: it can be browsed, with no **New** button.
+6. Still as Christian, open **Marketing**: Christian can add content, as a member through the Marketing group. Don't add anything. Close the tab when you're done.
 
 ![Liferay CMS → All Spaces: Marketing, Branding, HR, Events and Products.](screenshots/6-1-spaces.png)
-- Open the **Marketing** Space → its settings (the gear icon) → *Members*: the Marketing user group, and Clara Murphy with the administrator role. *Connected Sites*: Clarity Public Enterprise Website.
-- Impersonate **Christian Carter** (as in 2.4) and open CMS. Christian sees every Space connected to the public site, as a member of that site. **HR** can be browsed, with no **New** button. In **Marketing**, Christian can add content, as a member through the Marketing group. Close the tab when you're done.
 
-📖 Connecting a Space to a site gives the site's members read access to it (the *Connected Site Member* Space role). Authoring takes Space membership and a Space role. Keep that in mind when a Space holds content site members shouldn't read: don't connect it to that site.
+📖 **Why it matters:** connecting a Space to a site gives the site's members read access to it (the *Connected Site Member* Space role). Authoring takes Space membership and a Space role. Keep that in mind when a Space holds content site members shouldn't read: don't connect it to that site.
 
 ### 6.2 — Model Clarity's content structures
 
-🎯 Seven structures: **Article**, **FAQ**, **Announcement**, **Leadership Profile**, **Job Listing**, **Event Information** (content) and **Event Image** (file), each limited to the Space that uses it.
+🎯 **Goal:** seven structures: **Article**, **FAQ**, **Announcement**, **Leadership Profile**, **Job Listing**, **Event Information** (content) and **Event Image** (file), each limited to the Space that uses it.
 
-🧩 `manage-cms`, `manage-objects`
-
-📎 R6.
+**Requirement:** R6 · **Skills:** `manage-cms`, `manage-objects`
 
 💬 **Prompt:**
 ```
@@ -85,17 +95,17 @@ creating and deleting a throwaway FAQ in the Marketing Space: the create
 must succeed and the delete must be refused.
 ```
 
-✅ **Verify:** in CMS, open *Structures* (under the *Admin* section of the left panel): the seven structures are listed. Open **Event Information**: its fields and their types match the prompt, and *Spaces* lists only **Events**. Close it without saving.
+✅ **Verify** (look, don't change anything):
+1. *Global Menu* → *CMS* → *Structures* (under the *Admin* section of the left panel): the seven structures are listed.
+2. Open **Event Information**: its fields and their types match the prompt, and *Spaces* lists only **Events**. Close it without saving.
 
 ![Liferay CMS → Content Structures listing Article, FAQ, Announcement, Leadership Profile, Job Listing, Event Information and Event Image.](screenshots/6-2-structures.png)
 
 ### 6.3 — Create the vocabularies
 
-🎯 The FAQ, Articles and job vocabularies with their categories, in the Spaces that use them.
+🎯 **Goal:** the FAQ, Articles and job vocabularies with their categories, in the Spaces that use them.
 
-🧩 `manage-cms`
-
-📎 R6 — taxonomy.
+**Requirement:** R6 · **Skills:** `manage-cms`
 
 💬 **Prompt:**
 ```
@@ -114,15 +124,15 @@ visitors (in facets and on cards), so Guest has VIEW on them, nothing more.
 Read the vocabularies and category counts back.
 ```
 
-✅ **Verify:** in CMS, open the **HR** Space → *Categories*: **Location** has 14 categories. Open the **Marketing** Space → *Categories* → **FAQ**: four categories.
+✅ **Verify** (look, don't change anything):
+1. *Global Menu* → *CMS* → the **HR** Space → *Categories*: **Location** has 14 categories.
+2. *Global Menu* → *CMS* → the **Marketing** Space → *Categories* → **FAQ**: four categories.
 
 ### 6.4 — Load Clarity's content and files
 
-🎯 Every Space holds Clarity's real content, categorized, in folders, with its images.
+🎯 **Goal:** every Space holds Clarity's real content, categorized, in folders, with its images.
 
-🧩 `manage-cms`
-
-📎 R6.
+**Requirement:** R6 · **Skills:** `manage-cms`
 
 💬 **Prompt:**
 ```
@@ -158,14 +168,23 @@ count of entries and files per Space and folder. Then prove Guest access
 by fetching one FAQ and one file with no credentials.
 ```
 
-✅ **Verify:**
-- In CMS, open **Marketing** → *Contents* → *FAQ*: eight FAQs. Open **What is your return policy?**: the answer is there and, in the side panel's *Categorization*, **Returns and Exchanges** is assigned. Close without saving.
-- **HR** → *Contents* → *Job Listings*: ten listings.
-- **Events** → *Files* → *Venues Gallery*: the event image shows a preview.
+✅ **Verify** (look, don't change anything):
+1. *Global Menu* → *CMS* → **Marketing** → *Contents* → *FAQ*: eight FAQs.
+2. Open **What is your return policy?**: the answer is there and, in the side panel's *Categorization*, **Returns and Exchanges** is assigned. Close without saving.
+3. One FAQ's Actions menu → *Permissions*: **Guest** has *View* only. Close without saving.
+4. *Global Menu* → *CMS* → **HR** → *Contents* → *Job Listings*: ten listings.
+5. *Global Menu* → *CMS* → **Events** → *Files* → *Venues Gallery*: the event image shows a preview.
 
 ![Liferay CMS → Contents listing Clarity's articles, FAQs, announcement, leadership profiles and job listings.](screenshots/6-4-contents.png)
-- Open one FAQ's permissions (its Actions menu → *Permissions*): **Guest** has *View* only.
+
+## ⭐ Extras
+
+Optional, for when you finish early. The next level doesn't depend on them.
 
 ### ⭐ 6.5 — Bonus: relate events to their images
 
-Add a related-content field to **Event Information** that points at **Event Image** and allows several images, publish it again, and relate the showcase event to its image. Success: editing the event offers a picker that lists only Event Image files, and more than one can be chosen.
+🎯 **Goal:** **Event Information** has a related-content field that points at **Event Image** and allows several images, it's published again, and the showcase event is related to its image. Write the prompt yourself.
+
+✅ **Success looks like:**
+1. Editing the event offers a picker that lists only Event Image files.
+2. More than one image can be chosen.

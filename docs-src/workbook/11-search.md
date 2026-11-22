@@ -1,14 +1,21 @@
 # Level 11 — Search: job openings, blueprints and events
 
-📖 Liferay's **search widgets** (Search Bar, Search Results, facets, Search Options, Custom Filter) build pages where visitors find and filter content; all widgets on a page share one search. **Search Blueprints** change how results are filtered and scored without touching the page: a blueprint is a set of *query elements* (filters, boosts…) that a page applies through the *Blueprints Options* widget. A blueprint can also be a **collection provider**, so a Collection Display renders its results.
+⏱ **About 55 minutes**, with the talk · **Builds on:** Levels 6 and 7
+
+**What you'll build:** an Open Positions job search for Clarity's CMS job listings, tuned by a blueprint, and an Events page that lists only upcoming hiring events.
+
+**Key terms**
+- **Search widgets:** Search Bar, Search Results, facets, Search Options and Custom Filter. They build pages where visitors find and filter content, and all widgets on a page share one search.
+- **Search Blueprint:** a set of *query elements* (filters, boosts…) that changes how results are filtered and scored without touching the page.
+- **Search element:** a query element you create yourself and use in a blueprint.
+- **Blueprints Options:** the widget that applies a blueprint to the search on a page.
+- **Collection provider:** a source of items that a Collection Display can render like a collection. A blueprint can be one, so a Collection Display renders its results.
 
 ### 11.1 — The Open Positions job search
 
-🎯 Open Positions is a working job search: a search bar, a category facet grouped by vocabulary, results, and empty searches allowed. The Careers page links to it.
+🎯 **Goal:** Open Positions is a working job search: a search bar, a category facet grouped by vocabulary, results, and empty searches allowed. The Careers page links to it.
 
-🧩 `manage-pages`
-
-📎 R11.
+**Requirement:** R11 · **Skills:** `manage-pages`
 
 💬 **Prompt:**
 ```
@@ -27,17 +34,18 @@ is connected to it). Deploy, then search as Guest for "Developer" and list
 what the results show.
 ```
 
-✅ **Verify:** open **Careers** in a private window, click **Explore Open Positions**. Search for *Developer*: both web developer listings appear. Click *Remote* in the *Location* group of the facet: the results narrow.
+✅ **Verify** (look, don't change anything):
+1. Open **Careers** in a private window and click **Explore Open Positions**: Open Positions opens.
+2. Search for *Developer*: both web developer listings appear.
+3. Click *Remote* in the *Location* group of the facet: the results narrow.
 
 ![Open Positions searching "Developer": facets grouped by Job Positions, Location and Region on the left, job listings with their categories on the right.](screenshots/11-1-open-positions.png)
 
 ### 11.2 — A blueprint that keeps only job listings and boosts associates
 
-🎯 A **Boost Associate Job Listings** blueprint: only Job Listing entries, with *Associate* positions first, applied to Open Positions.
+🎯 **Goal:** a **Boost Associate Job Listings** blueprint: only Job Listing entries, with *Associate* positions first, applied to Open Positions.
 
-🧩 `manage-pages`
-
-📎 R11.
+**Requirement:** R11 · **Skills:** `manage-pages`
 
 💬 **Prompt:**
 ```
@@ -52,15 +60,15 @@ client-extensions/clarity-site, under Search Options, and deploy. Search
 "Engineer" as Guest and show the order of results before and after.
 ```
 
-✅ **Verify:** Global Menu → *Applications* → *Blueprints*: open **Boost Associate Job Listings** → *Preview*, search *Associate*: Associate listings come first, and no FAQ or article appears. Close without saving. On **Open Positions**, an empty search lists only job listings, Associate ones first.
+✅ **Verify** (look, don't change anything):
+1. *Global Menu* → *Applications* → *Blueprints* → open **Boost Associate Job Listings** → *Preview*, and search *Associate*: Associate listings come first, and no FAQ or article appears. Close without saving.
+2. On **Open Positions**, run an empty search: it lists only job listings, Associate ones first.
 
 ### 11.3 — The Events page of upcoming hiring events
 
-🎯 An **Events** page whose *Upcoming Events* list comes from a **Future Events** blueprint used as a collection provider: only events that haven't started, soonest first.
+🎯 **Goal:** an **Events** page whose *Upcoming Events* list comes from a **Future Events** blueprint used as a collection provider: only events that haven't started, soonest first.
 
-🧩 `manage-search` 🆕, `manage-cms`, `manage-pages`
-
-📎 R11.
+**Requirement:** R11 · **Skills:** `manage-search`, `manage-cms`, `manage-pages`
 
 💬 **Prompt:**
 ```
@@ -83,12 +91,26 @@ client-extensions/clarity-site, under Search Options, and deploy. Search
    after Careers. Deploy and check as Guest.
 ```
 
-✅ **Verify:** open **Events** in a private window: *Upcoming Events* lists **Summer Job Fair**, **Campus Recruiting Event** and **Clarity Vision Showcase 2027**, soonest first, and not the past *Spring Job Fair*. *Applications* → *Blueprints* → **Future Events** → *Preview*: the same three, in that order.
+✅ **Verify** (look, don't change anything):
+1. Open **Events** in a private window: *Upcoming Events* lists **Summer Job Fair**, **Campus Recruiting Event** and **Clarity Vision Showcase 2027**, soonest first, and not the past *Spring Job Fair*.
+2. *Global Menu* → *Applications* → *Blueprints* → **Future Events** → *Preview*: the same three, in that order.
 
 ![The Events page: Upcoming Events lists Summer Job Fair, Campus Recruiting Event and Clarity Vision Showcase 2027 with their locations.](screenshots/11-3-events.png)
 
-📖 The original BEWL course used the Calendar widget here. On this release calendar events have no REST API, so the course keeps events in Liferay CMS, where your agent can create them and a blueprint can query them.
+📖 **Why it matters:** the original BEWL course used the Calendar widget here. On this release calendar events have no REST API, so the course keeps events in Liferay CMS, where your agent can create them and a blueprint can query them.
+
+## ⭐ Extras
+
+Optional, for when you finish early. The next level doesn't depend on them.
 
 ### ⭐ 11.4 — Bonus: find a user by an external id through search
 
-Clarity's benefits system knows employees by a registration id. Extend the **User** system object with an Object field **registrationId** (Integer), set it to `555777` on Ian Miller, create a **Registration ID** blueprint that filters users on that field with the search keywords, and have your agent call `POST /o/search/v1.0/search` with the blueprint and the keyword `555777`. Success: the response returns Ian Miller and no one else. (Use an Object field, not a Custom Field: Liferay recommends Objects for extending system entities.)
+🎯 **Goal:** Clarity's benefits system knows employees by a registration id. Make Ian Miller findable by that id through a blueprint. You write the prompt yourself.
+
+⚠️ **Before you start:** use an Object field, not a Custom Field: Liferay recommends Objects for extending system entities.
+
+✅ **Success looks like:**
+1. The **User** system object has an Object field **registrationId** (Integer).
+2. Ian Miller's registrationId is `555777`.
+3. A **Registration ID** blueprint filters users on that field with the search keywords.
+4. Your agent calls `POST /o/search/v1.0/search` with the blueprint and the keyword `555777`: the response returns Ian Miller and no one else.

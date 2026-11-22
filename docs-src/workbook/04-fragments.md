@@ -1,14 +1,22 @@
 # Level 4 — Fragments and page compositions
 
-📖 **Fragments** are the building blocks of content pages: HTML, CSS and JavaScript with editable areas, plus a JSON configuration that defines the options an author sets in the page editor (text, select, checkbox, color, URL…). Clarity keeps its own fragments in a **Clarity Components** fragment set. A **composition** is a saved arrangement of fragments that authors reuse; in the site initializer, a page's arrangement simply lives in its `page-definition.json`.
+⏱ **About 45 minutes**, with the talk · **Builds on:** Level 3
+
+**What you'll build:** Clarity's own fragments in a **Clarity Components** fragment set, placed in the master pages' header, and the Home and FAQ pages laid out like Clarity's previous site.
+
+**Key terms**
+- **Fragment:** a building block of a content page: HTML, CSS and JavaScript with editable areas.
+- **Editable:** an area of a fragment an author can change or map to content, identified by an editable id (for example `card-title`).
+- **Fragment configuration:** a JSON file that defines the options an author sets in the page editor (text, select, checkbox, color, URL…).
+- **Fragment set:** a named group of fragments. Clarity keeps its own in **Clarity Components**.
+- **Composition:** a saved arrangement of fragments that authors reuse. In the site initializer, a page's arrangement lives in its `page-definition.json`.
+- **Edit mode:** the page editor, opened with the pencil icon at the top right of a page.
 
 ### 4.1 — Create the Clarity Components fragments
 
-🎯 Five custom fragments in a *Clarity Components* set: **Search Button**, **Login and User Menu**, **Clarity Button**, **Clarity Card** and **FAQ Question and Answer Pair**.
+🎯 **Goal:** five custom fragments in a *Clarity Components* set: **Search Button**, **Login and User Menu**, **Clarity Button**, **Clarity Card** and **FAQ Question and Answer Pair**.
 
-🧩 `scaffold-fragment`
-
-📎 R4 — reusable components.
+**Requirement:** R4 · **Skills:** `scaffold-fragment`
 
 💬 **Prompt:**
 ```
@@ -38,15 +46,18 @@ Deploy, and check in the log that addFragmentEntries ran and none of the
 fragments failed to compile.
 ```
 
-✅ **Verify:** Site Menu → *Design* → *Fragments*: the **Clarity Components** set lists the five fragments. Click **Search Button**: the *Configuration* tab shows the five options, and the *Code* tab's preview shows a search icon. Close it without publishing.
+✅ **Verify** (look, don't change anything):
+1. *Site Menu* → *Design* → *Fragments*: the **Clarity Components** set lists the five fragments.
+2. Click **Search Button** → *Configuration* tab: the five options from the prompt.
+3. In the same fragment, the *Code* tab's preview: a search icon. Close it without publishing.
 
 ![Design → Fragments: the Clarity Components set with Search Button, Login and User Menu, Clarity Button, Clarity Card and FAQ Question and Answer Pair.](screenshots/4-1-fragments.png)
 
 ### 4.2 — Put the custom fragments in the master pages
 
-🎯 The search button and the login/user menu in the header of both master pages, the search button linking to the Search page.
+🎯 **Goal:** the search button and the login/user menu in the header of both master pages, the search button linking to the Search page.
 
-🧩 `scaffold-fragment`, `manage-pages`
+**Skills:** `scaffold-fragment`, `manage-pages`
 
 💬 **Prompt:**
 ```
@@ -58,15 +69,16 @@ the site-initializer rules describe), and confirm on a rendered page as
 Guest that both appear.
 ```
 
-✅ **Verify:** open `http://localhost:8080/web/clarity/home` in a private window: the header shows a search icon and a **Sign In** button. Click the search icon: you land on the Search page. Sign in as any persona: the **Sign In** button is replaced by the user's avatar menu.
+✅ **Verify** (look, don't change anything):
+1. Open `http://localhost:8080/web/clarity/home` in a private window: the header shows a search icon and a **Sign In** button.
+2. Click the search icon: you land on the Search page.
+3. In the private window, sign in as any persona: the **Sign In** button is replaced by the user's avatar menu.
 
 ### 4.3 — Wireframe the Home and FAQ pages
 
-🎯 The Home and FAQ pages laid out like Clarity's previous site, ready for content in Level 7.
+🎯 **Goal:** the Home and FAQ pages laid out like Clarity's previous site, ready for content in Level 7.
 
-🧩 `manage-pages`, `scaffold-fragment`
-
-📎 R4 — page compositions.
+**Requirement:** R4 · **Skills:** `manage-pages`, `scaffold-fragment`
 
 💬 **Prompt:**
 ```
@@ -96,8 +108,18 @@ Use Clarity Button and built-in fragments only, name every container as
 written, and deploy.
 ```
 
-✅ **Verify:** open **Home** and **FAQ** in edit mode (the pencil icon at the top right). In the *Browser* panel, the containers carry the names from the prompt. Leave without publishing.
+✅ **Verify** (look, don't change anything):
+1. Open **Home** in edit mode (the pencil icon at the top right) → the *Browser* panel: the containers carry the names from the prompt. Leave without publishing.
+2. Open **FAQ** in edit mode → the *Browser* panel: the containers carry the names from the prompt. Leave without publishing.
+
+## ⭐ Extras
+
+Optional, for when you finish early. The next level doesn't depend on them.
 
 ### ⭐ 4.4 — Bonus: a configurable sign-in URL
 
-Change the **Login and User Menu** fragment so authors can set the sign-in button's target URL from the fragment configuration instead of a hard-coded one. Success: in the page editor, selecting the fragment shows a URL option, and changing it changes where *Sign In* goes.
+🎯 **Goal:** authors can set the **Login and User Menu** fragment's sign-in button target URL from the fragment configuration instead of a hard-coded one. Write the prompt yourself.
+
+✅ **Success looks like:**
+1. In the page editor, selecting the fragment shows a URL option.
+2. Changing that option changes where *Sign In* goes.

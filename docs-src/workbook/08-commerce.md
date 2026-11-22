@@ -1,14 +1,21 @@
 # Level 8 — Commerce: catalog, products and product pages
 
-📖 **Liferay Commerce** organizes products in **catalogs**, describes them with **specifications** (grouped in specification groups) and sells them through **channels**. A site shows products once it's linked to a channel. Clarity's site showcases products without taking orders: visitors browse by category and contact sales.
+⏱ **About 50 minutes**, with the talk · **Builds on:** Levels 4 and 6
+
+**What you'll build:** Clarity's products in a Commerce catalog, shown on the public site by category, each with its own product page. Clarity's site showcases products without taking orders: visitors browse by category and contact sales.
+
+**Key terms**
+- **Catalog:** the container Liferay Commerce organizes products in.
+- **Specification:** a described product property (Frame Material, Frame Color…), grouped in a *specification group*.
+- **Channel:** what Liferay Commerce sells products through. A site shows products once it's linked to a channel.
+- **Facet:** a widget that lets visitors narrow a list of results by a value, such as a category or a specification.
+- **Widget template:** a template you add that changes how a widget displays its items.
 
 ### 8.1 — The Clarity Eyewear catalog and its specifications
 
-🎯 A **Clarity Eyewear** catalog, a **Frame Description** specification group, and three specifications (Frame Material, Frame Color, Frame Size).
+🎯 **Goal:** a **Clarity Eyewear** catalog, a **Frame Description** specification group, and three specifications (Frame Material, Frame Color, Frame Size).
 
-🧩 `commerce-catalogs`
-
-📎 R8.
+**Requirement:** R8 · **Skills:** `commerce-catalogs`
 
 💬 **Prompt:**
 ```
@@ -21,15 +28,16 @@ Frame Size (key frame-size), each with a short description. Upsert by key or
 ERC. Read them back.
 ```
 
-✅ **Verify:** Global Menu → *Commerce* → *Catalogs*: **Clarity Eyewear**. *Commerce* → *Specifications* → *Specification Labels*: the three labels, with *Frame Description* as their default group, and Frame Material and Frame Color marked *Use in Faceted Navigation*.
+✅ **Verify** (look, don't change anything):
+1. *Global Menu* → *Commerce* → *Catalogs*: **Clarity Eyewear** is listed.
+2. *Global Menu* → *Commerce* → *Specifications* → *Specification Labels*: the three labels, with *Frame Description* as their default group.
+3. On the same screen, Frame Material and Frame Color are marked *Use in Faceted Navigation*.
 
 ### 8.2 — Create the products
 
-🎯 The three products in `context-source/data/products.csv`, categorized, with specifications, images and an AI-written description.
+🎯 **Goal:** the three products in `context-source/data/products.csv`, categorized, with specifications, images and an AI-written description.
 
-🧩 `commerce-catalogs`
-
-📎 R8.
+**Requirement:** R8 · **Skills:** `commerce-catalogs`
 
 💬 **Prompt:**
 ```
@@ -44,15 +52,19 @@ about 120 words that you write in a friendly tone. Publish them. Read them
 back with their categories, specifications and image count.
 ```
 
-✅ **Verify:** *Commerce* → *Products*: three products (none is in *Eyeglasses* yet: Level 9 imports some). Open **Classic Aviator Sunglasses**: *Details* shows the description and the **Sunglasses** category; *Specifications* lists Metal, Gold and 54-20; *Media* shows the image.
+✅ **Verify** (look, don't change anything):
+1. *Global Menu* → *Commerce* → *Products*: three products. None is in *Eyeglasses* yet: Level 9 imports some.
+2. Open **Classic Aviator Sunglasses**: *Details* shows the description and the **Sunglasses** category.
+3. *Specifications* lists Metal, Gold and 54-20.
+4. *Media* shows the image.
 
-📖 Liferay's AI Creator writes descriptions inside the product editor; here your agent wrote them. Your instructor shows both.
+📖 **Why it matters:** Liferay's AI Creator writes descriptions inside the product editor; here your agent wrote them. Your instructor shows both.
 
 ### 8.3 — A channel for the public site
 
-🎯 A **Clarity Public** channel (site type B2B) linked to the public site.
+🎯 **Goal:** a **Clarity Public** channel (site type B2B) linked to the public site.
 
-🧩 `commerce-catalogs`
+**Skills:** `commerce-catalogs`
 
 💬 **Prompt:**
 ```
@@ -61,15 +73,15 @@ site, currency USD) linked to the site clarity-public, with the Commerce
 site type B2B. Read it back, with the linked site.
 ```
 
-✅ **Verify:** *Commerce* → *Channels* → **Clarity Public**: *Type* tab shows **Clarity Public Enterprise Website**; *General* shows *Commerce Site Type* **B2B**.
+✅ **Verify** (look, don't change anything):
+1. *Global Menu* → *Commerce* → *Channels* → **Clarity Public**: the *Type* tab shows **Clarity Public Enterprise Website**.
+2. The *General* tab shows *Commerce Site Type* **B2B**.
 
 ### 8.4 — Category cards on the Products page
 
-🎯 The Products page shows the four product categories as cards, using a widget template.
+🎯 **Goal:** the Products page shows the four product categories as cards, using a widget template.
 
-🧩 `manage-pages`
-
-📎 R8.
+**Requirement:** R8 · **Skills:** `manage-pages`
 
 💬 **Prompt:**
 ```
@@ -87,17 +99,17 @@ and its categories. Use the site initializer's ddm-templates for the
 widget template. Deploy and check the page as Guest.
 ```
 
-✅ **Verify:** open **Products** in a private window: four category cards in a bento layout. Site Menu → *Design* → *Templates* → *Widget Templates*: **Clarity Category Cards**.
+✅ **Verify** (look, don't change anything):
+1. Open **Products** in a private window: four category cards in a bento layout.
+2. *Site Menu* → *Design* → *Templates* → *Widget Templates*: **Clarity Category Cards** is listed.
 
 ![The Products page: Eyeglasses, Sunglasses, Contacts and Lenses as image cards with Explore buttons, in a bento layout.](screenshots/8-4-products.png)
 
 ### 8.5 — The Product List page and a product display page
 
-🎯 Clicking **Explore** lists the category's products as cards, and each product has a page built from a **Product Details** display page template.
+🎯 **Goal:** clicking **Explore** lists the category's products as cards, and each product has a page built from a **Product Details** display page template.
 
-🧩 `manage-pages`
-
-📎 R8.
+**Requirement:** R8 · **Skills:** `manage-pages`
 
 💬 **Prompt:**
 ```
@@ -119,7 +131,10 @@ In client-extensions/clarity-site:
 Deploy, then check as Guest: open a category from Products, then a product.
 ```
 
-✅ **Verify:** in a private window, **Products** → *Explore* on **Sunglasses**: the category page shows the facets (Category, Frame Color, Frame Material) and **Classic Aviator Sunglasses** as a card. Click it: its page shows the name, SKU, description, the three specifications and a **Contact Sales** button.
+✅ **Verify** (look, don't change anything):
+1. In a private window, open **Products** and click *Explore* on **Sunglasses**: the category page shows the facets (Category, Frame Color, Frame Material).
+2. On the same page, **Classic Aviator Sunglasses** shows as a card.
+3. Click it: its page shows the name, SKU, description, the three specifications and a **Contact Sales** button.
 
 ![The Sunglasses category page: facets on the left and the Classic Aviator Sunglasses card on the right.](screenshots/8-5-category.png)
 
