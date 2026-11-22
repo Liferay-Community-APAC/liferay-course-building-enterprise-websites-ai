@@ -12,7 +12,7 @@
 - **Blade:** Liferay's command-line tool. Your agent uses it to build and deploy client extensions.
 - **MCP server:** Liferay's Model Context Protocol server at `/o/mcp`. It lets your agent call Liferay's APIs as tools instead of hand-writing `curl` commands.
 
-ℹ️ **Note:** before you start, finish the [prerequisites](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/): Git, JDK 21 and Blade (they build your client extensions), Docker running, the Liferay DXP and PostgreSQL images pulled (`docker compose pull` in the course folder), VS Code and your AI agent installed and signed in. Have the activation key file from your email at hand.
+ℹ️ **Note:** before you start, finish the [prerequisites](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/): Git, JDK 21 and Blade (they build your client extensions), Docker running, Docker given 8 GB of memory, the Liferay DXP and PostgreSQL images pulled, VS Code and your AI agent installed and signed in. Have the activation key file from your email at hand.
 
 ### S.0 — Get the course repository and open it in VS Code
 
