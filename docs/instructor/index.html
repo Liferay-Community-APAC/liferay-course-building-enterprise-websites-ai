@@ -369,8 +369,8 @@ git clone https://github.com/Liferay-Community-APAC/liferay-course-building-ente
 <li>
 <p><strong>Run the whole workbook</strong>: Setup S.1 to S.5, then Levels 1 to 13, including the verify steps. It takes most of a day. Note the prompts where your agent needed help: learners' agents will too.</p>
 </li>
-<li><strong>Check the result</strong> with <a href="demos.html#d11-tour-of-the-finished-clarity-site">demo D1.1</a>: Home as Guest and as Terrence. Then stop Liferay (<code>blade server stop</code> at the workspace root) and PostgreSQL (<code>docker compose stop</code>): the data stays for the course.</li>
-<li><strong>Keep the build.</strong> Don't reset it before the course. Every course's PostgreSQL uses the container name <code>clarity-postgres</code>, so a second clone of the course on the same laptop would share this database: keep one copy.</li>
+<li><strong>Check the result</strong> with <a href="demos.html#d11-tour-of-the-finished-clarity-site">demo D1.1</a>: Home as Guest and as Terrence. Then stop Liferay and PostgreSQL (<code>docker compose stop</code> at the workspace root): the data stays in Docker volumes for the course.</li>
+<li><strong>Keep the build.</strong> Don't reset it before the course. Every copy of the course uses the Compose project <code>clarity</code> (containers <code>clarity-postgres</code> and <code>clarity-liferay</code>, and their volumes), so a second clone on the same laptop would share this database: keep one copy.</li>
 <li><strong>Prepare the projector view:</strong> VS Code's zoom (<em>View</em> → <em>Appearance</em> → <em>Zoom In</em>) so the back row can read prompts, the terminal and the agent's chat side by side, and a browser with the workbook, the slides and a private window.</li>
 </ol>
 <h2 id="the-first-30-minutes">The first 30 minutes<a aria-hidden="true" class="heading-anchor" href="#the-first-30-minutes" tabindex="-1">#</a></h2>
@@ -386,6 +386,7 @@ git clone https://github.com/Liferay-Community-APAC/liferay-course-building-ente
 <li>Windows: <code>Filename too long</code> during the clone. Run <code>git config --global core.longpaths true</code>, delete the half-cloned folder and clone again.</li>
 <li>The agent isn't signed in, or Copilot is in <em>Ask</em> mode instead of <em>Agent</em>.</li>
 <li>Docker Desktop isn't running: start it before S.2.</li>
+<li>Docker has less than 8 GB of memory: Setup S.2 step 2 has the setting for macOS and Windows. Check with <code>docker info --format '{{.MemTotal}}'</code> (about 8000000000 or more).</li>
 </ul>
 </li>
 <li>
@@ -460,19 +461,29 @@ git clone https://github.com/Liferay-Community-APAC/liferay-course-building-ente
 </thead>
 <tbody>
 <tr>
-<td><code>blade server init</code> downloads the bundle again</td>
-<td>The pre-downloaded file is missing or truncated in <code>~/.liferay/bundles</code></td>
-<td>Let it download, or copy the file from a USB stick.</td>
+<td><code>docker compose up</code> downloads the images again, slowly</td>
+<td>The images weren't pulled before the course</td>
+<td>Let it download, or load them from a USB stick (<code>docker save</code> on your laptop, <code>docker load</code> on theirs).</td>
+</tr>
+<tr>
+<td><code>clarity-liferay</code> restarts in a loop, or exits with code 137</td>
+<td>Docker doesn't have enough memory</td>
+<td>Raise it to 8 GB or more (Setup S.2 step 2), then <code>docker compose up -d</code>.</td>
+</tr>
+<tr>
+<td>Linux: the agent can't read <code>bundles/logs</code></td>
+<td>The learner's user ID isn't 1000 (<code>id -u</code>)</td>
+<td>Use Docker Desktop for Linux, or the Tomcat bundle (Setup S.2, optional section).</td>
 </tr>
 <tr>
 <td>Liferay won't start: database connection refused</td>
 <td>PostgreSQL isn't running</td>
-<td><code>docker compose up -d</code>, wait for <em>healthy</em>, start Liferay again.</td>
+<td><code>docker compose up -d</code>, wait for <em>healthy</em>. With the Tomcat bundle, start Liferay again.</td>
 </tr>
 <tr>
 <td>Port 8080 or 5432 in use</td>
-<td>Another Liferay or PostgreSQL</td>
-<td>Stop the other one, or change the port in <code>server.xml</code> / <code>docker-compose.yml</code> and <code>portal-ext.properties</code>.</td>
+<td>Another Liferay or PostgreSQL, or a Tomcat bundle and the container both started</td>
+<td>Stop the other one, or change the port in <code>docker-compose.yml</code> and <code>portal-ext.properties</code> (and <code>server.xml</code> for the Tomcat bundle).</td>
 </tr>
 <tr>
 <td>The agent's MCP server shows connected with no tools</td>
@@ -502,12 +513,10 @@ git clone https://github.com/Liferay-Community-APAC/liferay-course-building-ente
 </tbody>
 </table></div>
 <h2 id="resetting-a-learners-environment">Resetting a learner's environment<a aria-hidden="true" class="heading-anchor" href="#resetting-a-learners-environment" tabindex="-1">#</a></h2>
-<p>To start over completely: stop Liferay, then</p>
+<p>To start over completely, at the workspace root:</p>
 <div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code class="language-bash">docker compose down -v
-rm -rf bundles
-blade server init
 </code></pre></div>
-<p>Then start PostgreSQL and Liferay again (Setup S.2) and rerun the prompts, or use the catch-up starting point.</p>
+<p>That deletes the database and Liferay's data. Then delete the <code>bundles</code> folder (in VS Code's Explorer, or <code>rm -rf bundles</code> on macOS and Linux), start again with <code>docker compose up -d</code> (Setup S.2), and rerun the prompts, or use the catch-up starting point. With the Tomcat bundle, stop it first (<code>blade server stop</code>), and run <code>blade server init</code> after deleting <code>bundles</code>.</p>
 
     </main>
   </div>

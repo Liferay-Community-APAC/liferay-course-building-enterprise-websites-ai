@@ -155,15 +155,15 @@ Two verified quirks: `?flatten=true` on the category list returns the **whole hi
 
 ## headless-cmp (CMP — licensed product)
 
-**Base URI:** `/o/headless-cmp/v1.0` — read-only reporting (`/projects/{projectId}/task-statistics`, `/content-coverage`, `/task-assignees`). Projects and Tasks themselves are object entries at custom paths, `/o/cmp/projects` and `/o/cmp/tasks/scopes/{projectScopeId}`, not `/o/c/...`. CMP is gated by a **DXP license, not a feature flag**. Procedure and write shapes: `skills/manage-cmp-campaigns/SKILL.md`.
+**Base URI:** `/o/headless-cmp/v1.0` — read-only reporting (`/projects/{projectId}/task-statistics`, `/content-coverage`, `/task-assignees`). Projects and Tasks themselves are object entries at custom paths, `/o/cmp/projects` and `/o/cmp/tasks/scopes/{projectScopeId}`, not `/o/c/...`. CMP is gated by a **DXP license, not a feature flag**. This course's skill library has no CMP skill.
 
 ## headless-dsr and DSR rooms (Digital Sales Room — licensed product)
 
-**Base URIs:** rooms are entries of the system object `DSRRoom`, at **`/o/digital-sales-room/rooms`** (create = `POST` there; `headless-dsr` has no create). `/o/headless-dsr/v1.0/rooms/{roomId}` holds `duplicate`, `user-accounts` and `invited-members`. A room's `siteTemplateKey` is a Site Template **UUID** (default `L_DSR_LAYOUT_SET_PROTOTYPE`); an empty string answers a bare `404` (verified 2026.q3.6). Gated by a **license, not a flag**. Procedure: `skills/manage-dsr/SKILL.md`.
+**Base URIs:** rooms are entries of the system object `DSRRoom`, at **`/o/digital-sales-room/rooms`** (create = `POST` there; `headless-dsr` has no create). `/o/headless-dsr/v1.0/rooms/{roomId}` holds `duplicate`, `user-accounts` and `invited-members`. A room's `siteTemplateKey` is a Site Template **UUID** (default `L_DSR_LAYOUT_SET_PROTOTYPE`); an empty string answers a bare `404` (verified 2026.q3.6). Gated by a **license, not a flag**. This course's skill library has no DSR skill.
 
 ## ai-hub-cell and AI Hub (AI Hub — separate cloud service)
 
-**DXP side:** `/o/ai-hub-cell/v1.0` has one operation, `POST /authorization-tokens`, returning `{accessToken, scope, serviceURL, userToken}` for the calling user. Calls to AI Hub then go to `serviceURL` with `Authorization: Bearer <accessToken>` and `Liferay-AI-Hub-Cell-On-Behalf-Of: <userToken>`. **AI Hub side:** `/o/ai-hub/v1.0` (agent instances, chats, chatbots) and the object endpoint `/o/ai-hub/agent-definitions`, the only one that reads an agent by ERC or filters beyond `active`. Agents are edited in Agent Builder only. Flag `LPD-62272`. Procedure: `skills/manage-ai-hub/SKILL.md`.
+**DXP side:** `/o/ai-hub-cell/v1.0` has one operation, `POST /authorization-tokens`, returning `{accessToken, scope, serviceURL, userToken}` for the calling user. Calls to AI Hub then go to `serviceURL` with `Authorization: Bearer <accessToken>` and `Liferay-AI-Hub-Cell-On-Behalf-Of: <userToken>`. **AI Hub side:** `/o/ai-hub/v1.0` (agent instances, chats, chatbots) and the object endpoint `/o/ai-hub/agent-definitions`, the only one that reads an agent by ERC or filters beyond `active`. Agents are edited in Agent Builder only. Flag `LPD-62272`. This course's skill library has no AI Hub skill.
 
 ## headless-admin-workflow
 

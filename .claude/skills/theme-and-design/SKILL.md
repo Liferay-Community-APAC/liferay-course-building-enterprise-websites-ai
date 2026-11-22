@@ -176,6 +176,10 @@ Read it from the **deployed theme in the bundle**, not from portal source. A Lif
 ```bash
 unzip -p bundles/osgi/portal-war/classic-theme.war WEB-INF/frontend-token-definition.json > /tmp/tokens.json
 
+# This course's Docker container doesn't mount osgi/portal-war: copy the WAR out first
+docker compose cp liferay:/opt/liferay/osgi/portal-war/classic-theme.war /tmp/classic-theme.war
+unzip -p /tmp/classic-theme.war WEB-INF/frontend-token-definition.json > /tmp/tokens.json
+
 python3 -c "
 import json
 d = json.load(open('/tmp/tokens.json'))

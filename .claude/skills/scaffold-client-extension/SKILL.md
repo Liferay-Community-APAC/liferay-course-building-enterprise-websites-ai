@@ -103,7 +103,7 @@ Verified on 2026.q1.12-lts (2026-08-27), not re-run on 2026.q3:
 
 - **`<script src>` and `<link rel="stylesheet">` in a fragment's `html` are stored, then stripped at render.** The element's tag stays inert, with no error. Keep only the bare tag in `html` and inject the assets from the fragment's `js`, guarded by a `data-*` marker so a second placement does not load them twice. The paths are the yaml's `urls`/`cssURLs` (see "Asset URLs").
 - **A CET referenced as a fragment by its key** (`"fragment": {"key": "<cet-key>"}`) vanishes from the tree and the render, silently.
-- **`jsImportMapsEntry` variant**, when the configuration varies per placement or `htmlAttributes` does not reach the tag (`manage-ai-hub`): the fragment's `js` runs `import('<bareSpecifier>')`, the module calls `customElements.define` with `observedAttributes`, and the fragment `html` sets those attributes from its configuration with `?has_content`, not `!`, because a never-configured value is `""`. A Vite library build also needs the `NODE_ENV` define (`react-custom-elements`).
+- **`jsImportMapsEntry` variant**, when the configuration varies per placement or `htmlAttributes` does not reach the tag: the fragment's `js` runs `import('<bareSpecifier>')`, the module calls `customElements.define` with `observedAttributes`, and the fragment `html` sets those attributes from its configuration with `?has_content`, not `!`, because a never-configured value is `""`. A Vite library build also needs the `NODE_ENV` define.
 
 ```javascript
 if (!document.head.querySelector('[data-<name>-assets]')) {
@@ -255,7 +255,7 @@ Call `deploy-and-verify`. For microservice CETs, also start the microservice pro
 | Custom element not in Fragments panel | `htmlElementName` must be a valid custom element name (contains a hyphen) |
 | 401 from microservice CET | OAuth companion not deployed or scopes insufficient |
 | Site initializer not in template list | CET not `ACTIVE`; redeploy and recheck log |
-| CET `STARTED` but its CSS/JS returns 404 | `assemble` missing or not copying the build output into `static` (see `react-custom-elements`) |
+| CET `STARTED` but its CSS/JS returns 404 | `assemble` missing or not copying the build output into `static` |
 | `createClientExtensionConfig FAILED — Required file "Dockerfile"` / `"LCP.json"` | Microservice CET without its own Dockerfile or LCP.json (see `objectAction` above) |
 | `type: batch` CET deploys, but `batch/` is absent from the zip | `assemble` nested under the CET's key reports `NO-SOURCE` silently; make it a **top level** key (see `manage-objects`) |
 

@@ -573,16 +573,16 @@ em { color: inherit; }
 <h3 id="d12-the-first-start-of-liferay">D1.2 — The first start of Liferay<a aria-hidden="true" class="heading-anchor" href="#d12-the-first-start-of-liferay" tabindex="-1">#</a></h3>
 <p class="wb wb-meta">🕒 <strong>5 minutes</strong> · Day 1, slide 10 · with <em>Running Liferay locally</em></p>
 <p class="wb wb-goal">🎯 <strong>Show:</strong> what a healthy first start looks like, so learners recognize it in S.2.</p>
-<p class="wb wb-say">💡 <strong>Say:</strong> you start Liferay in your own terminal, not through the agent. A server started inside an agent session stops when the session ends.</p>
+<p class="wb wb-say">💡 <strong>Say:</strong> you start Liferay in your own terminal, not through the agent: restarting Liferay drops the agent's MCP connection. And <code>bundles/</code> on your laptop is shared with the container: the agent deploys into <code>bundles/osgi/client-extensions</code> and reads <code>bundles/logs</code>.</p>
 <p class="wb wb-do-label">🧰 <strong>Prepare</strong> (in the break before):</p>
 <ol class="wb-list wb-do">
-<li>Stop your demo build (<code>blade server stop</code>, then <code>docker compose stop</code>) so you can show a start from the beginning. Its data stays; the start just isn't the first one.</li>
-<li>If you'd rather not restart, show the log of your dry run instead (<code>bundles/tomcat/logs/catalina.out</code>).</li>
+<li>Stop your demo build (<code>docker compose stop</code>) so you can show a start from the beginning. Its data stays; the start just isn't the first one.</li>
+<li>If you'd rather not restart, show the log of your dry run instead (<code>docker compose logs liferay</code>).</li>
 </ol>
 <p class="wb wb-do-label">📋 <strong>Steps:</strong></p>
 <ol class="wb-list wb-do">
-<li>In VS Code's terminal: <code>docker compose up -d</code>, then <code>docker compose ps</code> → <strong>expect:</strong> <code>clarity-postgres</code> is <em>running (healthy)</em>.</li>
-<li><code>blade server start --tail</code> → <strong>expect:</strong> <code>Server startup in [...] milliseconds</code>. Tell learners their first start also creates the database, so it takes a few minutes longer.</li>
+<li>In VS Code's terminal: <code>docker compose up -d</code> → <strong>expect:</strong> three containers: the database, a one-off <code>clarity-liferay-init</code> that prepares <code>bundles/</code>, and Liferay.</li>
+<li><code>docker compose logs -f liferay</code> → <strong>expect:</strong> <code>Server startup in [...] milliseconds</code>. Press <code>Ctrl+C</code> (it stops following, not Liferay). <code>docker compose ps</code> now shows both as <em>healthy</em>. Tell learners their first start also creates the database, so it takes a few minutes longer, and that the commands are the same on macOS, Windows and Linux.</li>
 <li>Open <code>http://localhost:8080</code> and sign in as <code>admin@clarityvisionsolutions.com</code> → <strong>expect:</strong> you're signed in. Tell learners that on their first sign-in they see a <em>Terms of Use</em> notice: they read it and close it with <em>Done</em>.</li>
 </ol>
 <h3 id="d13-the-agent-connected-to-liferays-mcp-server">D1.3 — The agent connected to Liferay's MCP server<a aria-hidden="true" class="heading-anchor" href="#d13-the-agent-connected-to-liferays-mcp-server" tabindex="-1">#</a></h3>

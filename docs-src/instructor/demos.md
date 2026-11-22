@@ -107,15 +107,15 @@ Every demo in course order. **Demo** jumps to its steps below, **Slides** opens 
 
 🎯 **Show:** what a healthy first start looks like, so learners recognize it in S.2.
 
-💡 **Say:** you start Liferay in your own terminal, not through the agent. A server started inside an agent session stops when the session ends.
+💡 **Say:** you start Liferay in your own terminal, not through the agent: restarting Liferay drops the agent's MCP connection. And `bundles/` on your laptop is shared with the container: the agent deploys into `bundles/osgi/client-extensions` and reads `bundles/logs`.
 
 🧰 **Prepare** (in the break before):
-1. Stop your demo build (`blade server stop`, then `docker compose stop`) so you can show a start from the beginning. Its data stays; the start just isn't the first one.
-2. If you'd rather not restart, show the log of your dry run instead (`bundles/tomcat/logs/catalina.out`).
+1. Stop your demo build (`docker compose stop`) so you can show a start from the beginning. Its data stays; the start just isn't the first one.
+2. If you'd rather not restart, show the log of your dry run instead (`docker compose logs liferay`).
 
 📋 **Steps:**
-1. In VS Code's terminal: `docker compose up -d`, then `docker compose ps` → **expect:** `clarity-postgres` is *running (healthy)*.
-2. `blade server start --tail` → **expect:** `Server startup in [...] milliseconds`. Tell learners their first start also creates the database, so it takes a few minutes longer.
+1. In VS Code's terminal: `docker compose up -d` → **expect:** three containers: the database, a one-off `clarity-liferay-init` that prepares `bundles/`, and Liferay.
+2. `docker compose logs -f liferay` → **expect:** `Server startup in [...] milliseconds`. Press `Ctrl+C` (it stops following, not Liferay). `docker compose ps` now shows both as *healthy*. Tell learners their first start also creates the database, so it takes a few minutes longer, and that the commands are the same on macOS, Windows and Linux.
 3. Open `http://localhost:8080` and sign in as `admin@clarityvisionsolutions.com` → **expect:** you're signed in. Tell learners that on their first sign-in they see a *Terms of Use* notice: they read it and close it with *Done*.
 
 ### D1.3 — The agent connected to Liferay's MCP server

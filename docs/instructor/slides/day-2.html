@@ -28,7 +28,7 @@
 <section id="2" class="slide takeaways">
   <p class="kicker">Recap</p>
   <h2>Where Clarity stands after day 1</h2>
-  <ul class="takeaways">
+  <ul class="tiles">
     <li><b>People</b>Seven personas, five user groups, six roles</li>
     <li><b>Sites</b>The public site, configured, and an empty distributor portal</li>
     <li><b>Structure in code</b>Pages, two masters and four menus in the site initializer</li>
@@ -44,18 +44,31 @@
 <section id="3" class="slide bullets">
   <p class="kicker">Recap</p>
   <h2>Catching up, and today's plan</h2>
-  <div class="split">
+  <div class="split even">
     <ul class="bullets">
       <li>Levels are chained: Level 7 needs Level 6 done</li>
       <li>Prompts are idempotent: rerunning one is safe</li>
       <li>Behind? <code>catch-up/day-2-start/</code> takes about ten minutes</li>
-      <li>Morning: displaying content, commerce, headless APIs</li>
-      <li>Afternoon: workflow, search, objects, personalization</li>
+      <li>Ready for Level 7: Liferay CMS shows the five Spaces and Clarity's structures</li>
     </ul>
-    <figure class="shot"><div class="frame"><img src="assets/shots/cms-home.png" alt="Liferay CMS home with Quick Actions for each content structure and the Marketing, Branding, HR, Events and Products Spaces"></div><figcaption>Ready for Level 7: Liferay CMS with the five Spaces and Clarity's structures</figcaption></figure>
+    <ol class="agenda">
+      <li><span class="time">9:00</span><span class="what"><b>Recap</b> <span>· catching up</span></span><span class="tag talk">Talk</span></li>
+      <li><span class="time">9:15</span><span class="what"><b>Level 7</b> <span>· displaying content</span></span><span class="tag">Hands-on</span></li>
+      <li class="pause"><span class="time">10:15</span><span class="what">Break</span><span></span></li>
+      <li><span class="time">10:30</span><span class="what"><b>Level 8</b> <span>· commerce</span></span><span class="tag">Hands-on</span></li>
+      <li><span class="time">11:20</span><span class="what"><b>Level 9</b> <span>· headless APIs</span></span><span class="tag">Hands-on</span></li>
+      <li class="pause"><span class="time">12:00</span><span class="what">Lunch</span><span></span></li>
+      <li><span class="time">13:00</span><span class="what"><b>Level 10</b> <span>· workflow and publishing</span></span><span class="tag">Hands-on</span></li>
+      <li><span class="time">13:45</span><span class="what"><b>Level 11</b> <span>· search</span></span><span class="tag">Hands-on</span></li>
+      <li class="pause"><span class="time">14:40</span><span class="what">Break</span><span></span></li>
+      <li><span class="time">14:55</span><span class="what"><b>Level 12</b> <span>· objects</span></span><span class="tag">Hands-on</span></li>
+      <li><span class="time">15:55</span><span class="what"><b>Level 13</b> <span>· personalization</span></span><span class="tag">Hands-on</span></li>
+      <li><span class="time">16:25</span><span class="what"><b>Performance</b> <span>· tuning and maintenance</span></span><span class="tag talk">Talk</span></li>
+      <li><span class="time">16:45</span><span class="what"><b>Conclusion</b> <span>· certification, feedback</span></span><span class="tag talk">Talk</span></li>
+    </ol>
   </div>
   <aside class="notes">
-    <p>The screenshot is the Liferay CMS home a learner should see before Level 7: the five Spaces in the sidebar and a Quick Action per structure. The catch-up folder holds the solution up to the end of Level 6: the site initializer, the theme project, and a script that creates users, Spaces, structures and content. Give learners who need it the steps in its README and check on them in ten minutes. Learners ask whether using the catch-up loses anything; they skip building those levels, not the concepts, and the verify steps still work on the result.</p>
+    <p>The plan on the right is the schedule's Day 2. Before Level 7, a learner's Liferay CMS home shows the five Spaces in the sidebar and a Quick Action per structure. The catch-up folder holds the solution up to the end of Level 6: the site initializer, the theme project, and a script that creates users, Spaces, structures and content. Give learners who need it the steps in its README and check on them in ten minutes. Learners ask whether using the catch-up loses anything; they skip building those levels, not the concepts, and the verify steps still work on the result.</p>
   </aside>
 </section>
 
@@ -66,6 +79,7 @@
   <h2>Pages that update themselves</h2>
   <div class="cols">
     <div class="col">
+      <div class="banner"><img src="assets/photos/l7-update.jpg" alt="Blue-lit eyeglasses on a laptop keyboard"></div>
       <h3>What Clarity needs</h3>
       <ul>
         <li>Home shows the latest helpful articles; the FAQ groups questions by topic</li>
@@ -177,7 +191,7 @@
   </aside>
 </section>
 
-<section id="8" class="slide bullets" data-instructor>
+<section id="8" class="slide bullets photo" data-instructor>
   <p class="kicker">AI in Liferay DXP · Original challenge 13</p>
   <h2>Generative AI built into DXP</h2>
   <ul class="bullets">
@@ -187,6 +201,7 @@
     <li>Auto-tagging: OpenNLP or Google Cloud for text, several image providers</li>
     <li>Semantic search evaluates intent, not only keywords</li>
   </ul>
+  <figure class="photo-panel"><img src="assets/photos/panel-ai.jpg" alt="Illustration of smart glasses beside a phone showing health data"></figure>
   <aside class="notes">
     <p>There's no exercise: in this course the agent writes content, for example the product descriptions in Level 8. Demo AI Creator in the product editor and the AI actions in CKEditor, if your instance has a provider configured. The generative tools integrate with the OpenAI API, and connecting the key is instance-wide configuration the admin performs. Learners ask how this differs from their coding agent; DXP's AI helps authors inside the product, while the agent builds the site from outside it.</p>
   </aside>
@@ -202,6 +217,36 @@
     <li>Liferay's own agents are read-only: duplicate one, then change the copy</li>
     <li>An AI Assistant in Liferay CMS routes each request to the right agent</li>
   </ul>
+  <div class="diagram">
+    <svg viewBox="0 0 900 190" role="img" aria-label="Two paths. Content in Liferay CMS goes through auto-tagging and comes out with suggested tags. A request to the AI Assistant in Liferay CMS goes to an AI Hub agent built in Agent Builder, whose logic is a Liferay workflow.">
+      <defs><marker id="ah2-9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B5FFF"/></marker></defs>
+      <text class="lbl" x="10" y="16">IN DXP</text>
+      <rect class="box soft" x="10" y="24" width="250" height="58" rx="10"/>
+      <text class="t" x="135" y="49" text-anchor="middle">Content in Liferay CMS</text>
+      <text class="s" x="135" y="69" text-anchor="middle">created or changed</text>
+      <path class="edge" d="M260,53 L318,53" marker-end="url(#ah2-9)"/>
+      <rect class="box" x="320" y="24" width="250" height="58" rx="10"/>
+      <text class="t" x="445" y="49" text-anchor="middle">Auto-tagging</text>
+      <text class="s" x="445" y="69" text-anchor="middle">OpenNLP, Google Cloud, image providers</text>
+      <path class="edge" d="M570,53 L628,53" marker-end="url(#ah2-9)"/>
+      <rect class="box cyan" x="630" y="24" width="250" height="58" rx="10"/>
+      <text class="t" x="755" y="49" text-anchor="middle">Suggested tags</text>
+      <text class="s" x="755" y="69" text-anchor="middle">the author keeps or drops each one</text>
+      <text class="lbl" x="10" y="118">WITH AI HUB</text>
+      <rect class="box soft" x="10" y="126" width="250" height="58" rx="10"/>
+      <text class="t" x="135" y="151" text-anchor="middle">AI Assistant</text>
+      <text class="s" x="135" y="171" text-anchor="middle">in Liferay CMS</text>
+      <path class="edge" d="M260,155 L318,155" marker-end="url(#ah2-9)"/>
+      <text class="lbl" x="289" y="146" text-anchor="middle">routes</text>
+      <rect class="box dark" x="320" y="126" width="250" height="58" rx="10"/>
+      <text class="t w" x="445" y="151" text-anchor="middle">AI Hub agent</text>
+      <text class="s w" x="445" y="171" text-anchor="middle">built in Agent Builder</text>
+      <path class="edge" d="M570,155 L628,155" marker-end="url(#ah2-9)"/>
+      <rect class="box" x="630" y="126" width="250" height="58" rx="10"/>
+      <text class="t" x="755" y="151" text-anchor="middle">Liferay workflow</text>
+      <text class="s" x="755" y="171" text-anchor="middle">the agent's logic</text>
+    </svg>
+  </div>
   <aside class="notes">
     <p>The original bonus enabled auto-tagging for web content with OpenNLP; demo the auto-tagging configuration if you have time. AI Hub runs in its own SaaS environment, bought through Marketplace, and it must reach your environment from the internet because it calls back into it. Data sources let agents answer from crawled websites, and instructions add tone and policy. Learners ask whether AI Hub needs a separate license; yes, it's its own product.</p>
   </aside>
@@ -234,6 +279,7 @@
   <h2>Show the catalog, send buyers to sales</h2>
   <div class="cols">
     <div class="col">
+      <div class="banner"><img src="assets/photos/l8-catalog.jpg" alt="A wall display of eyeglass frames"></div>
       <h3>What Clarity needs</h3>
       <ul>
         <li>A browsable catalog: eyeglasses, sunglasses, contacts and lenses</li>
@@ -369,6 +415,7 @@
   <h2>Bring the old content across, safely</h2>
   <div class="cols">
     <div class="col">
+      <div class="banner"><img src="assets/photos/l9-legacy.jpg" alt="Sunglasses lined up on shelves"></div>
       <h3>What Clarity needs</h3>
       <ul>
         <li>Blog posts, products and office locations already exist in older systems</li>
@@ -479,6 +526,7 @@
   <h2>Nothing goes live without approval</h2>
   <div class="cols">
     <div class="col">
+      <div class="banner"><img src="assets/photos/l10-approval.jpg" alt="Round sunglasses with colored lenses on marble"></div>
       <h3>What Clarity needs</h3>
       <ul>
         <li>Coordinators write; the marketing manager approves</li>
@@ -591,6 +639,7 @@
   <h2>Help candidates find the right job</h2>
   <div class="cols">
     <div class="col">
+      <div class="banner"><img src="assets/photos/l11-careers.jpg" alt="A smiling professional holding a tablet"></div>
       <h3>What Clarity needs</h3>
       <ul>
         <li>Job seekers search open positions by keyword, location and position</li>
@@ -717,6 +766,7 @@
   <h2>Turn visitors into conversations</h2>
   <div class="cols">
     <div class="col">
+      <div class="banner"><img src="assets/photos/l12-contact.jpg" alt="Two smiling people in glasses"></div>
       <h3>What Clarity needs</h3>
       <ul>
         <li>A Contact Us form for sales, support, partnership and general requests</li>
@@ -746,12 +796,13 @@
 <section id="30" class="slide bullets">
   <p class="kicker">Objects</p>
   <h2>Extend in the right order</h2>
-  <ol class="exercises">
-    <li><span class="id">1</span><span><b>Out of the box:</b> check what Liferay does today</span></li>
-    <li><span class="id">2</span><span><b>Low-code:</b> Objects and workflow</span></li>
-    <li><span class="id">3</span><span><b>Client extensions:</b> outside Liferay, upgrade-safe</span></li>
-    <li><span class="id">4</span><span><b>OSGi plugins:</b> last resort, not on SaaS</span></li>
+  <ol class="stairs">
+    <li><span class="n">1</span><b>Out of the box</b><span class="d">Check what Liferay does today</span></li>
+    <li><span class="n">2</span><b>Low-code</b><span class="d">Objects and workflow</span></li>
+    <li><span class="n">3</span><b>Client extensions</b><span class="d">Outside Liferay, upgrade-safe</span></li>
+    <li><span class="n">4</span><b>OSGi plugins</b><span class="d">Last resort, not on SaaS</span></li>
   </ol>
+  <div class="stairs-axis"><span>Less to build and maintain</span><span>More code, more to upgrade</span></div>
   <p class="vs-note">Stop at the first option that solves the problem.</p>
   <aside class="notes">
     <p>Liferay is built to be adapted without being altered, so what you extend today still upgrades tomorrow. Clarity's Contact Us form is a low-code case: an object, a form, a workflow and a data set, with no deployment for the object itself. Learners ask where client extensions fit in this course; the site initializer and Theme CSS are client extensions, step three. The Liferay Application Developer learning path covers the development side properly.</p>
@@ -842,6 +893,7 @@
   <h2>Distributors see what's meant for them</h2>
   <div class="cols">
     <div class="col">
+      <div class="banner"><img src="assets/photos/l13-retail.jpg" alt="A retail display of sunglasses"></div>
       <h3>What Clarity needs</h3>
       <ul>
         <li>Signed-in distributors get a welcome back, not a sales pitch</li>
@@ -938,12 +990,12 @@
 <section id="37" class="slide bullets" data-instructor>
   <p class="kicker">Performance tuning and maintenance</p>
   <h2>Tune from data, not defaults</h2>
-  <ul class="bullets">
-    <li>Review settings for production: enable only the servlet filters you need</li>
-    <li>Use Liferay's cache levels deliberately</li>
-    <li>Adaptive Media resizes images for each device</li>
-    <li>Tune JVM heap and thread pools from monitoring numbers</li>
-    <li>Use the deployment checklist before go-live</li>
+  <ul class="tiles five">
+    <li><b>Production settings</b>Review them for production: enable only the servlet filters you need</li>
+    <li><b>Cache levels</b>Use Liferay's cache levels deliberately</li>
+    <li><b>Adaptive Media</b>Resizes images for each device</li>
+    <li><b>JVM and thread pools</b>Tune heap and thread pools from monitoring numbers</li>
+    <li><b>Deployment checklist</b>Use it before go-live</li>
   </ul>
   <aside class="notes">
     <p>Talk only, as in the original course. A copied setting is only a guess about how your site behaves; tuning brings many small gains, not one big one. Adaptive Media is free performance: smaller images on slow networks and better search ranking. A common question is what to tune on SaaS; Liferay runs the infrastructure there, so focus on content, images and page design.</p>
@@ -953,12 +1005,12 @@
 <section id="38" class="slide bullets" data-instructor>
   <p class="kicker">Performance tuning and maintenance</p>
   <h2>Test, audit, monitor, upgrade</h2>
-  <ul class="bullets">
-    <li>Performance testing: goals, a production-like environment, edge cases, analysis, repeat</li>
-    <li>Page auditing finds performance, SEO and accessibility issues</li>
-    <li>Glowroot and APM tools show where time goes; audit records show who did what</li>
-    <li>Treat an upgrade as a project: plan, test in lower environments, promote</li>
-    <li>With Support: be proactive, explicit and timely</li>
+  <ul class="tiles five">
+    <li><b>Performance testing</b>Goals, a production-like environment, edge cases, analysis, repeat</li>
+    <li><b>Page audits</b>Find performance, SEO and accessibility issues</li>
+    <li><b>Monitoring</b>Glowroot and APM tools show where time goes; audit records show who did what</li>
+    <li><b>Upgrades</b>Treat an upgrade as a project: plan, test in lower environments, promote</li>
+    <li><b>Working with Support</b>Be proactive, explicit and timely</li>
   </ul>
   <aside class="notes">
     <p>Performance testing is ongoing: build it into the development lifecycle and retest after code or infrastructure changes. Demo Page Audit on Clarity's Home page if it's configured, and mention APM options such as Glowroot, Elastic APM, Dynatrace on PaaS, AppDynamics, Datadog and New Relic. Avoid upgrading in the middle of an implementation; on SaaS, Liferay applies the upgrade and you test it. Learners ask how the site in code helps upgrades; it can be rebuilt and tested on a lower environment.</p>
@@ -970,7 +1022,7 @@
 <section id="39" class="slide takeaways">
   <p class="kicker">Conclusion</p>
   <h2>Key takeaways</h2>
-  <ul class="takeaways">
+  <ul class="tiles">
     <li><b>Map, don't copy</b>Collections and display pages keep content in one place</li>
     <li><b>Products are content</b>The catalog holds them, the channel sells them</li>
     <li><b>APIs are the front door</b>Everything the agent did, you can find in /o/api</li>
@@ -998,7 +1050,12 @@
       <p><a href="https://learn.liferay.com/course/introduction-19">learn.liferay.com/course/introduction-19</a></p>
     </div>
   </div>
-  <p class="callout info" style="margin-top: 1.2em; font-size: 1em;"><b>Tip: it's an open-book exam.</b> Keep the Liferay Learn course, your workbook and your own Clarity site open, and go back to check an answer before you submit it.</p>
+  <div class="flow three">
+    <div class="step"><span class="n">1</span><b>Learn</b>The Liferay Learn course, chapter by chapter</div>
+    <div class="step"><span class="n">2</span><b>Practice</b>Your own Clarity build, level by level</div>
+    <div class="step"><span class="n">3</span><b>Certify</b>The open-book exam, on what you built</div>
+  </div>
+  <p class="callout info" style="margin-top: 0; font-size: .92em;"><b>Tip: it's an open-book exam.</b> Keep the Liferay Learn course, your workbook and your own Clarity site open, and go back to check an answer before you submit it.</p>
   <aside class="notes">
     <p>Close with the certification: it's the natural next step and proves what learners built. Open both links on the projector. The exam follows the original BEWL course, so the Liferay Learn course at introduction-19 has most of the answers, and the workbook's verify steps sent them to the same screens. Stress that it's open book: they can look back at the course, the workbook and their own Clarity site while answering, so a question about where a setting lives is one they can check in their running instance. Learners ask whether the exam covers the AI agent; no, it tests Liferay itself, which is what every verify step taught.</p>
   </aside>

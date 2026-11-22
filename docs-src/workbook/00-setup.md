@@ -8,10 +8,11 @@
 - **Workspace root:** the `bewl-ai` folder you open in VS Code. Its terminal opens there, and every command runs there unless a step says otherwise.
 - **Context files:** `solution-context.md` (what Clarity is building) and `solution-index.yaml` (what's done and what's left). A new agent session picks the project up from them.
 - **Requirements R1 to R13:** Clarity's requirements, listed in section 8 of `context-source/clarity-brief.md`.
-- **Blade:** Liferay's command-line tool. You use it to unpack and start Liferay DXP.
+- **Docker Compose:** runs PostgreSQL and Liferay DXP as containers, from `docker-compose.yml`. You start and stop them yourself.
+- **Blade:** Liferay's command-line tool. Your agent uses it to build and deploy client extensions.
 - **MCP server:** Liferay's Model Context Protocol server at `/o/mcp`. It lets your agent call Liferay's APIs as tools instead of hand-writing `curl` commands.
 
-ℹ️ **Note:** before you start, finish the [prerequisites](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/): Git, JDK 21, Blade, Docker running, the DXP bundle and PostgreSQL image downloaded, VS Code and your AI agent installed and signed in. Have the activation key file from your email at hand.
+ℹ️ **Note:** before you start, finish the [prerequisites](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/): Git, JDK 21 and Blade (they build your client extensions), Docker running, the Liferay DXP and PostgreSQL images pulled (`docker compose pull` in the course folder), VS Code and your AI agent installed and signed in. Have the activation key file from your email at hand.
 
 ### S.0 — Get the course repository and open it in VS Code
 
@@ -113,35 +114,59 @@ Don't create or change anything else. Read both files back to me.
 
 ### S.2 — Start PostgreSQL and Liferay DXP
 
-🎯 **Goal:** PostgreSQL running in Docker, and Liferay DXP 2026.Q3.10 running on it at `http://localhost:8080`.
+🎯 **Goal:** PostgreSQL and Liferay DXP 2026.Q3.10 running in Docker, with Liferay at `http://localhost:8080`.
 
 **Skills:** none, you do this yourself
 
-⚠️ **Before you start:** you start and stop Liferay, not the agent. Never ask the agent to run `blade server start`, `stop` or any Tomcat script: a server started inside an agent session stops when that session ends, and a stopped server drops the MCP connection.
+⚠️ **Before you start:** you start and stop Liferay, not the agent. Never ask the agent to run `docker compose up`, `stop`, `restart` or `down`: restarting Liferay drops the agent's MCP connection and interrupts your work.
 
 📋 **Steps** (there's no prompt in this exercise):
-1. Copy the activation key file you received by email into `configs/local/deploy/` (create the `deploy` folder if it doesn't exist: right-click `configs/local` in VS Code's Explorer → *New Folder…*, then drag the key file from your email or Downloads folder onto it). It's git-ignored: it never leaves your computer.
-2. Make sure Docker Desktop (or the Docker engine on Linux) is running. Then in VS Code's terminal, at the workspace root, start the database:
+1. **Copy the activation key** file you received by email into `configs/local/deploy/`: drag it from your email or Downloads folder onto that folder in VS Code's Explorer. It's git-ignored: it never leaves your computer.
+2. **Give Docker at least 8 GB of memory.** Liferay and its search engine need about 6 GB, and PostgreSQL needs some too. Your computer needs 16 GB of RAM or more.
+
+   **macOS:** open Docker Desktop → *Settings* (the gear icon) → *Resources* → *Advanced*, set **Memory** to 8 GB or more, then click **Apply & restart**.
+
+   **Windows:** Docker Desktop runs its containers in WSL 2, which sets the memory limit. In PowerShell, write the limit to `.wslconfig` in your user folder, then restart WSL:
+   ```powershell
+   Set-Content -Path "$env:USERPROFILE\.wslconfig" -Value "[wsl2]`nmemory=8GB"
+   wsl --shutdown
+   ```
+   If you already have a `.wslconfig`, open it in VS Code instead and set `memory=8GB` under `[wsl2]`. Then start Docker Desktop again and wait for *Engine running* at the bottom left of its window.
+
+   **Linux:** Docker Engine uses your computer's memory directly: nothing to set. Make sure your user can run `docker` without `sudo` (`docker ps` works). If it can't, run `sudo usermod -aG docker $USER`, then log out and back in. If you use Docker Desktop for Linux, set its memory as on macOS.
+3. **Start PostgreSQL and Liferay.** Make sure Docker is running, then in VS Code's terminal, at the workspace root:
    ```bash
    docker compose up -d
    ```
-3. Unpack the DXP bundle. It uses the copy you downloaded before the course, in `~/.liferay/bundles`:
+   It creates three containers: `clarity-postgres`, `clarity-liferay-init` (it prepares the `bundles/` folders, then exits) and `clarity-liferay`. If you didn't pull the images before the course, the first run downloads them (a few GB).
+4. **Watch Liferay start:**
    ```bash
-   blade server init
+   docker compose logs -f liferay
    ```
-4. Start Liferay and watch the log:
-   ```bash
-   blade server start --tail
-   ```
-   The first start creates the database and takes a few minutes. Wait for `Server startup in [...] milliseconds`.
+   The first start creates the database and takes several minutes. Wait for `Server startup in [...] milliseconds`, then press `Ctrl+C`: that stops following the log, not Liferay.
 
 ✅ **Verify** (look, don't change anything):
-1. Run `docker compose ps` in the terminal: `clarity-postgres` is `running (healthy)`.
+1. Run `docker compose ps` in the terminal: `clarity-postgres` and `clarity-liferay` are `running (healthy)`. Liferay reads `health: starting` until it answers.
 2. Open `http://localhost:8080`: the Liferay home page shows.
 3. Sign in as `admin@clarityvisionsolutions.com` with password `learn`. The first sign-in shows a *Terms of Use* notice about Liferay Enterprise Search: read it and close it with **Done**.
 4. *Global Menu* → *Control Panel* → *Server Administration* → *Properties* → *Portal Properties*: `jdbc.default.url` contains `postgresql`.
 
-⚠️ **If it doesn't match:** if port 8080 or 5432 is already in use, stop the other program first.
+⚠️ **If it doesn't match:**
+- **Liferay restarts in a loop, or stops with exit code 137:** Docker doesn't have enough memory. Redo step 2.
+- **Port 8080 or 5432 is already in use:** stop the other program first.
+- **Linux only:** Liferay's container runs as user ID 1000 and writes its log files readable by that user only. If `id -u` doesn't print `1000` (it does for the first user on most Linux installs), your agent can't read `bundles/logs`: use Docker Desktop for Linux, or the Tomcat bundle below.
+
+📖 **Why it matters:** both run as Docker containers, defined in `docker-compose.yml`, so the steps are the same on macOS, Windows and Linux. Only Docker's memory setting differs. Liferay's container shares a few folders with your workspace, under `bundles/` (created on the first start): your agent deploys client extensions into `bundles/osgi/client-extensions` and reads the log in `bundles/logs`, as it would with a Liferay bundle installed on your computer. Your data stays in Docker volumes when you stop the containers (`docker compose stop`) or restart your computer; only `docker compose down -v` deletes it.
+
+ℹ️ **Note: optional Tomcat bundle instead of a container.** Use this only if your instructor asks you to, or Docker can't give Liferay enough memory. You need the DXP bundle downloaded to `~/.liferay/bundles` before the course. Start PostgreSQL alone, then unpack and start the bundle:
+
+```bash
+docker compose up -d postgres
+blade server init
+blade server start --tail
+```
+
+Wait for `Server startup in [...] milliseconds`. Stop it with `blade server stop`. Never run the bundle and the `clarity-liferay` container at the same time: both use port 8080 and the same database. Never ask the agent to run `blade server start` or `stop`: a server started inside an agent session stops when that session ends.
 
 ### S.3 — Save the admin credentials for the agent
 
@@ -161,8 +186,7 @@ Don't create or change anything else. Read both files back to me.
 Confirm configs/local/admin.properties exists and is listed in .gitignore.
 Read the admin email and password from it, never printing the password, and
 check they work: call GET /o/headless-admin-user/v1.0/my-user-account with
-Basic auth on the port Tomcat listens on (read it from
-bundles/tomcat/conf/server.xml). Show me the name and emailAddress from the
+Basic auth on Liferay's HTTP port (CLAUDE.md says how to find it). Show me the name and emailAddress from the
 response.
 ```
 
@@ -183,8 +207,8 @@ of this workspace's running DXP.
 
 1. Enable the MCP Server instance setting with its OSGi configuration file,
    in both bundles/osgi/configs (applies live) and configs/local/osgi/configs
-   (survives the next blade server init). Don't restart Liferay.
-2. Probe it: send a JSON-RPC initialize request to /o/mcp on the Tomcat port,
+   (copied in again at every Liferay start). Don't restart Liferay.
+2. Probe it: send a JSON-RPC initialize request to /o/mcp on Liferay's port,
    with Basic auth from configs/local/admin.properties. Show me the
    serverInfo it returns.
 3. Register it as an HTTP (Streamable HTTP, not SSE) MCP server named
@@ -219,7 +243,8 @@ of this workspace's running DXP.
 ```
 Read .claude/CLAUDE.md (or .agents/ if that's what you use) and tell me,
 without changing anything: the workspace root, the DXP version from
-gradle.properties, the database Liferay is using, the Tomcat port, how you
+gradle.properties, the database Liferay is using, whether Liferay runs in Docker or as a
+Tomcat bundle and on which port, how you
 authenticate, whether the liferay MCP server is available to you, and which
 sites already exist in the instance.
 ```

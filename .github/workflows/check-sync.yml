@@ -1,0 +1,52 @@
+# Fails when a generated or mirrored copy is out of date:
+#   - docs/ doesn't match a fresh build of docs-src/ (run scripts/build_docs.py)
+#   - .agents/skills, .agents/rules or AGENTS.md don't match .claude/
+#     (see "Maintaining the course" in README.md)
+name: Check generated files
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Rebuild docs/ from docs-src/
+        run: |
+          pip install markdown beautifulsoup4
+          python scripts/build_docs.py
+
+      - name: Mirror .claude/ to .agents/ and AGENTS.md
+        run: |
+          rsync -a --delete .claude/skills/ .agents/skills/
+          rsync -a --delete .claude/rules/ .agents/rules/
+          python - <<'PY'
+          from pathlib import Path
+          agents = Path("AGENTS.md").read_text(encoding="utf-8")
+          claude = Path(".claude/CLAUDE.md").read_text(encoding="utf-8")
+          Path("AGENTS.md").write_text(agents[: agents.index("---\n")] + claude, encoding="utf-8")
+          PY
+
+      - name: Fail if anything changed
+        run: |
+          if ! git diff --exit-code --stat -- docs .agents AGENTS.md; then
+            echo "::error::Generated files are out of date. Rebuild docs/ and re-sync .agents/ and AGENTS.md (README.md → Maintaining the course), then commit."
+            exit 1
+          fi
+          untracked=$(git ls-files --others --exclude-standard -- docs .agents)
+          if [ -n "$untracked" ]; then
+            echo "::error::New generated files are not committed:"
+            echo "$untracked"
+            exit 1
+          fi

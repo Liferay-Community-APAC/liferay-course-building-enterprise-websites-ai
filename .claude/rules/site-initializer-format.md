@@ -2,7 +2,7 @@
 
 > **Before authoring:** Load the skill for whatever you are about to author into this tree — `manage-objects`, `manage-pages`, `scaffold-fragment`, `theme-and-design`, or `manage-roles-permissions`. This card is the file format; the skills hold the failure modes.
 
-Reference for the `manage-environments` and `scaffold-client-extension` skills when capturing or building a `siteInitializer` CET.
+Reference for the `scaffold-client-extension` skill when capturing or building a `siteInitializer` CET.
 
 A site initializer is a client extension of type `siteInitializer`. When deployed and triggered, it creates a fully configured site from the directory tree below.
 

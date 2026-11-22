@@ -121,4 +121,3 @@ Assert on real values, and confirm placeholder strings are **absent** — placeh
 - The `/c/portal/login` field comes prefilled with `@<domain>`: replace its value, never append to it.
 - Over `localhost` with `web.server.host` set, scripts load from `<public-host>:<port>` and never finish, so navigation times out. Use the public URL.
 
-For analytics assertions see `manage-analytics` → "Without a Human at the Browser".

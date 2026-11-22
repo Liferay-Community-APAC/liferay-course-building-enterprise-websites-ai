@@ -392,7 +392,7 @@ curl \
 
 ### Groovy Output Binding
 
-Object Action Groovy scripts have no `out` binding. Use bare `println` to write to `catalina.out`. Using `out.println` throws `No such property: out`.
+Object Action Groovy scripts have no `out` binding. Use bare `println` to write to Tomcat's output (`docker compose logs liferay` for this course's container, `catalina.out` for a bundle). Using `out.println` throws `No such property: out`.
 
 ### Diagnostic Action Hygiene
 

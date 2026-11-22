@@ -180,7 +180,7 @@ console.log({marcus, sophie});
 await browser.close();
 ```
 
-The selectors above are placeholders: read the real ones from the fragment or custom element source first. For a chatbot, the end of a turn is the stream's terminal event (`manage-ai-hub`); `page.waitForResponse` on the chat endpoint is the stricter alternative to watching the text settle.
+The selectors above are placeholders: read the real ones from the fragment or custom element source first. For a chatbot, the end of a turn is the stream's terminal event; `page.waitForResponse` on the chat endpoint is the stricter alternative to watching the text settle.
 
 ## Asserting Correctly
 
@@ -189,7 +189,7 @@ The selectors above are placeholders: read the real ones from the fragment or cu
 - **Placeholders still present mean the data did not resolve** (`rules/guest-access.md`). Assert they are absent.
 - **Empty is not proof.** An API that the visitor may not read returns `200` with an empty list, so "no Gold card" on an empty page proves nothing. Expect at least one item the persona should see.
 - **Watch the API too** when the DOM is ambiguous: `page.waitForResponse(r => r.url().includes('/o/c/'))` and read `totalCount`. A bare `403` with an empty body is a Service Access Policy or OAuth scope, not a permission (`rules/guest-access.md`, `rules/oauth-scopes.md`).
-- **Analytics** (`Analytics.track`): wrap the SDK with `page.addInitScript` before it loads, and assert on the `POST`s to the Analytics Cloud host. Procedure: `manage-analytics` → "Without a Human at the Browser".
+- **Analytics** (`Analytics.track`): wrap the SDK with `page.addInitScript` before it loads, and assert on the `POST`s to the Analytics Cloud host.
 
 ## Not Used: Impersonation
 
@@ -210,8 +210,6 @@ Still unverified: a journey with fragments that fetch object data, a chatbot str
 
 - `rules/guest-access.md` — what Guest can read, Service Access Policies, `curl` as Guest.
 - `skills/manage-roles-permissions/SKILL.md` — creating test users, account membership, roles.
-- `skills/manage-analytics/SKILL.md` — asserting tracked events from a headless browser.
-- `skills/manage-ai-hub/SKILL.md` — chatbot stream events.
 - Playwright: `https://playwright.dev/docs/auth` (storage state), `https://playwright.dev/docs/browsers#google-chrome--microsoft-edge` (channel).
 
 ## Port
