@@ -1,25 +1,52 @@
 # Building Enterprise Websites with Liferay and AI — Workbook
 
-Over two days you build **Clarity Vision Solutions' public enterprise website** on Liferay DXP 2026.Q3. Every exercise is a **prompt** you give your AI coding agent, followed by a **check** you do yourself in Liferay. The agent does the typing; you set the requirement, read what it did, and confirm the result on screen before you build on it.
+Over two days you build **Clarity Vision Solutions' public enterprise website** on Liferay DXP 2026.Q3. Every exercise is a **prompt** you give your AI coding agent, followed by a **check** you do yourself in Liferay: the agent does the typing, and you confirm the result on screen before you build on it.
 
-## How to use this workbook
+## How the workbook works
 
-- **Your agent works, you verify.** Each ✅ **Verify** step tells you where to look in Liferay. Verification is read-only: open the screen, look, don't change anything. If what you see doesn't match, tell the agent what's wrong and let it fix it.
-- **Short sessions.** Start a fresh agent session for each exercise, or each small group of related ones. The agent picks the project up from `solution-context.md` and `solution-index.yaml` (Exercise S.1), and the skills in `.claude/skills/` (or `.agents/skills/`) tell it how Liferay behaves.
-- **Prompts name their skill.** The 🧩 line lists the skills the exercise relies on. You don't have to type them: the agent loads them from the prompt's wording. Naming one in the prompt helps a less capable agent.
-- **Every prompt that creates something says who may see it.** Permission gaps fail silently: a page answers, a form saves, and only a visitor notices. Keep the access lines when you adapt a prompt.
-- **Personas.** Some checks ask you to sign in as a persona (all passwords are `learn`). Use a private browser window for a second persona, so you stay signed in as the admin in the other.
+Each level opens with a short intro, then its exercises. Every exercise uses the same blocks, always in this order. A block is left out when the exercise doesn't need it.
 
-| Mark | Meaning |
+| Block | Meaning |
 | --- | --- |
-| 🎯 | What you're building |
-| 🧩 | Skills the exercise relies on (🆕 = written for this course) |
-| 📖 | Concept to read before you start |
-| 📋 | Steps you do yourself |
-| 💬 | Prompt to paste into your agent |
-| ✅ | How to check it worked, in Liferay |
-| ⚠️ | A gotcha worth knowing before you start |
-| ⭐ | Bonus challenge, if you finish early |
+| 🎯 **Goal** | What exists when you're done. |
+| **Requirement** and **Skills** | The requirement the exercise builds (R1 to R13) and the skills your agent relies on. |
+| 📋 **Before the prompt** | Steps you do yourself before you send the prompt. |
+| 💬 **Prompt** | The text to paste into your agent. |
+| 📋 **After the prompt** | Steps you do yourself after the agent answers. |
+| ✅ **Verify** | Where to look in Liferay, and what you should see. Look, don't change anything. |
+| ⚠️ **If it doesn't match** | Likely causes, and what to tell the agent. |
+| 📖 **Why it matters** | The concept behind the exercise, in a few sentences. |
+| ⭐ **Extras** | Optional bonus exercises at the end of a level, for when you finish early. |
+
+Level intros also have:
+
+| Block | Meaning |
+| --- | --- |
+| ⏱ | How long the level takes, including the talk, and which levels it builds on. |
+| **Key terms** | The terms the level's exercises use, defined before you need them. |
+
+## Working rules
+
+- **Your agent builds, you verify.** ✅ **Verify** steps are read-only: open the screen, look, don't change anything. If what you see doesn't match, tell the agent what's wrong and let it fix it.
+- **One fresh agent session per exercise**, or per small group of related ones. A fresh session costs fewer tokens and stays focused. It picks the project up from `solution-context.md` and `solution-index.yaml` (Exercise S.1).
+- **Personas sign in with the password `learn`.** Use a private window for a persona, so you stay signed in as the admin in the other window.
+- **You start and stop Liferay yourself, never the agent.** A server started inside an agent session stops when that session ends (Exercise S.2).
+- **Keep the access lines.** Prompts that create something public say who may see it. Permission gaps fail silently: a page answers, a form saves, and only a visitor notices. Keep those lines when you adapt a prompt.
+
+## Glossary
+
+- **Global Menu:** the grid icon, top right. It opens the *Control Panel*, *CMS*, *Applications* and *Commerce*.
+- **Site Menu:** the panel on the left of a site, opened with the icon at the top left. It holds the site's *Site Builder*, *Design*, *People* and *Configuration* sections.
+- **Control Panel:** *Global Menu* → *Control Panel*. Settings for the whole instance: users, user groups, roles, sites and instance settings.
+- **CMS:** *Global Menu* → *CMS*. Liferay CMS, where Spaces, content structures, content and files live (Level 6).
+- **Applications menu:** *Global Menu* → *Applications*. Instance-wide applications, such as *Client Extensions*.
+- **Private window:** your browser's private (incognito) window. Use it to look at the site as a visitor, or to sign in as a persona while you stay signed in as the admin.
+- **Persona:** one of Clarity's test users, such as Christian Carter (Marketing Coordinator). Level 1 creates them from `context-source/data/personas.csv`. Their password is `learn`.
+- **External reference code (ERC):** an ID you choose, such as `clarity-public`, that prompts use to address an item. It stays the same when the agent runs a prompt again or on another environment.
+- **Requirement IDs (R1 to R13):** Clarity's requirements, from section 8 of `context-source/clarity-brief.md`. `solution-index.yaml` tracks which are done.
+- **Skills:** instructions in `.claude/skills/` (or `.agents/skills/`) that tell your agent how Liferay behaves. You don't have to name them: the agent loads them from the prompt's wording. Naming one helps a less capable agent.
+- **Workspace root:** the `bewl-ai` folder you open in VS Code (Exercise S.0). VS Code's terminal opens there.
+- **MCP:** the Model Context Protocol, a standard way for an AI agent to use tools. Liferay's MCP server exposes Liferay's headless APIs as tools for your agent (Exercise S.4).
 
 ## Roadmap
 

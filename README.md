@@ -21,7 +21,7 @@ A two-day, hands-on course in which you build **Clarity Vision Solutions' public
 
 ## Quick start
 
-You need Git, JDK 21 and Blade CLI 7+ (to build client extensions), Docker Desktop (macOS, Windows) or Docker Engine (Linux) with at least 8 GB of memory for Docker, VS Code and an AI coding agent: see the prerequisites. Then (step by step in the workbook's [Setup S.0](https://liferay-community-apac.github.io/liferay-course-building-enterprise-websites-ai/workbook/#s0-get-the-course-repository-and-open-it-in-vs-code)):
+You need Git, JDK 21 and Blade CLI 7+ (to build client extensions), Docker Desktop (macOS, Windows) or Docker Engine (Linux) with at least 8 GB of memory for Docker, VS Code and an AI coding agent: see the prerequisites. Then (step by step in the workbook's [Setup S.0](https://liferay-community-apac.github.io/liferay-course-building-enterprise-websites-ai/workbook/setup.html#s0-get-the-course-repository-and-open-it-in-vs-code)):
 
 1. Clone the repository into a short path outside any synced folder, and open the folder in VS Code:
    ```bash

@@ -107,6 +107,39 @@ body {
 .doc-content h2:first-of-type { border-top: 0; margin-top: 1.75rem; }
 .doc-content h3 { font-size: 1.2rem; margin: 2rem 0 .75rem; color: var(--lf-neutral-10); font-weight: 600; scroll-margin-top: 78px; }
 .doc-content h4 { font-size: 1rem; margin: 1.5rem 0 .6rem; color: var(--lf-neutral-10); font-weight: 600; scroll-margin-top: 78px; }
+/* Workbook blocks */
+.doc-content p.wb { margin: 1rem 0 .5rem; }
+.doc-content p.wb-meta { display: inline-block; background: var(--lf-neutral-1); border: 1px solid var(--lf-neutral-2); border-radius: 999px; padding: .2rem .8rem; font-size: .9rem; color: var(--lf-neutral-8); margin: 0 0 1rem; }
+.doc-content p.wb-goal { font-size: 1.05rem; color: var(--lf-neutral-10); margin-top: .25rem; }
+.doc-content p.wb-tags { font-size: .85rem; color: var(--lf-neutral-6); margin-top: -.25rem; }
+.doc-content p.wb-say { background: #fff8e6; border-left: 4px solid #d79839; padding: .6rem .9rem; border-radius: 0 var(--lf-radius) var(--lf-radius) 0; }
+.doc-content p.wb-why { background: var(--lf-info-bg); color: var(--lf-info-text); padding: .65rem .95rem; border-radius: var(--lf-radius); margin-top: 1.25rem; }
+.doc-content p.wb-note { background: var(--lf-info-bg); color: var(--lf-info-text); padding: .65rem .95rem; border-radius: var(--lf-radius); }
+.doc-content p.wb-verify-label { margin-top: 1.5rem; }
+.doc-content ol.wb-verify { background: var(--lf-success-bg); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
+.doc-content ol.wb-verify li { margin: .35rem 0; }
+.doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
+.doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+
+/* Workbook navigation */
+.wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
+.wb-levels summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; padding: .35rem .5rem; border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); margin-bottom: .4rem; }
+.wb-levels summary::-webkit-details-marker { display: none; }
+.wb-levels summary::after { content: "▾"; color: var(--lf-neutral-6); }
+.wb-levels[open] summary::after { content: "▴"; }
+.wb-levels .wb-levels-title { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--lf-neutral-6); }
+.wb-levels .wb-pos { font-size: .85rem; font-weight: 700; color: var(--lf-brand-active); margin-left: auto; margin-right: .4rem; }
+.wb-levels a { display: block; padding: .2rem .5rem; border-radius: 4px; font-size: .86rem; color: var(--lf-neutral-8); text-decoration: none; }
+.wb-levels a:hover { background: var(--lf-hover-bg); color: var(--lf-neutral-10); }
+.wb-levels a.current { background: var(--lf-active-bg); color: var(--lf-brand-active); font-weight: 700; }
+.wb-levels .day { font-size: .72rem; font-weight: 700; color: var(--lf-neutral-6); margin: .5rem .5rem .1rem; text-transform: uppercase; letter-spacing: .05em; }
+.wb-crumb { font-size: .85rem; color: var(--lf-neutral-6); margin-bottom: .5rem; }
+.wb-crumb a { color: var(--lf-neutral-6); }
+.wb-pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem; padding-top: 1.25rem; border-top: 1px solid var(--lf-neutral-2); }
+.wb-pager a { display: block; flex: 1; max-width: 48%; border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .7rem 1rem; text-decoration: none; color: var(--lf-neutral-10); }
+.wb-pager a:hover { border-color: var(--lf-brand); }
+.wb-pager a span { display: block; font-size: .78rem; color: var(--lf-neutral-6); text-transform: uppercase; letter-spacing: .05em; }
+.wb-pager a.next { text-align: right; margin-left: auto; }
 .heading-anchor { margin-left: .45rem; opacity: 0; text-decoration: none; color: var(--lf-brand); font-weight: 400; font-size: .8em; }
 h2:hover .heading-anchor, h3:hover .heading-anchor, h4:hover .heading-anchor { opacity: 1; }
 
@@ -264,11 +297,13 @@ em { color: inherit; }
 </header>
 <div class="layout">
   <nav class="sidebar" aria-label="Table of contents">
+    
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
     <div class="toc"><ul><li class="toc-level-2"><a href="#what-the-course-is-and-isnt">What the course is, and isn&#x27;t</a></li><li class="toc-level-2"><a href="#before-the-course">Before the course</a></li><li class="toc-level-2"><a href="#set-up-your-own-machine">Set up your own machine</a></li><li class="toc-level-2"><a href="#the-first-30-minutes">The first 30 minutes</a></li><li class="toc-level-2"><a href="#running-the-hands-on-blocks">Running the hands-on blocks</a></li><li class="toc-level-2"><a href="#catching-up">Catching up</a></li><li class="toc-level-2"><a href="#topics-covered-in-slides-only">Topics covered in slides only</a></li><li class="toc-level-2"><a href="#when-something-goes-wrong">When something goes wrong</a></li><li class="toc-level-2"><a href="#resetting-a-learners-environment">Resetting a learner&#x27;s environment</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
+
 <h1 id="instructor-guide">Instructor guide</h1>
 <p>This guide is for the person running <em>Building Enterprise Websites with Liferay and AI</em>. Read it with the <a href="schedule.html">schedule</a>, the <a href="demos.html">instructor demo workbook</a> and the day slides open.</p>
 <h2 id="what-the-course-is-and-isnt">What the course is, and isn't<a aria-hidden="true" class="heading-anchor" href="#what-the-course-is-and-isnt" tabindex="-1">#</a></h2>
@@ -325,7 +360,7 @@ em { color: inherit; }
 <li><strong>Install the prerequisites</strong> from the <a href="https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/">prerequisites page</a>, and run its agent check prompt until every line passes. Use the agent you'll demo with; if you can, install a second one, so you can answer questions about both.</li>
 <li><strong>Get a DXP activation key</strong> for yourself (a training developer key), the same kind you send learners.</li>
 <li>
-<p><strong>Clone the course</strong> and open it in VS Code, exactly as learners do in <a href="../workbook/#s0-get-the-course-repository-and-open-it-in-vs-code">Setup S.0</a>:</p>
+<p><strong>Clone the course</strong> and open it in VS Code, exactly as learners do in <a href="../workbook/setup.html#s0-get-the-course-repository-and-open-it-in-vs-code">Setup S.0</a>:</p>
 <div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>mkdir -p ~/courses &amp;&amp; cd ~/courses
 git clone https://github.com/Liferay-Community-APAC/liferay-course-building-enterprise-websites-ai.git bewl-ai
 </code></pre></div>
@@ -341,7 +376,7 @@ git clone https://github.com/Liferay-Community-APAC/liferay-course-building-ente
 <h2 id="the-first-30-minutes">The first 30 minutes<a aria-hidden="true" class="heading-anchor" href="#the-first-30-minutes" tabindex="-1">#</a></h2>
 <p>Most setup problems show up in the first half hour. Before the first slide, put the repository URL on the screen; then, after the kickoff slides:</p>
 <ol>
-<li><strong>Walk the room through <a href="../workbook/#s0-get-the-course-repository-and-open-it-in-vs-code">S.0</a> together, step by step, on the projector.</strong> Don't let people run ahead: clone, open the <strong>folder</strong> in VS Code, trust it, open the terminal, open the agent's chat, send the S.0 prompt.</li>
+<li><strong>Walk the room through <a href="../workbook/setup.html#s0-get-the-course-repository-and-open-it-in-vs-code">S.0</a> together, step by step, on the projector.</strong> Don't let people run ahead: clone, open the <strong>folder</strong> in VS Code, trust it, open the terminal, open the agent's chat, send the S.0 prompt.</li>
 <li>
 <p><strong>Check every laptop before moving on.</strong> Each learner's agent should name <code>dxp-2026.q3.10</code> and the <code>bewl-ai</code> folder. The usual problems:</p>
 <ul>
@@ -482,6 +517,7 @@ git clone https://github.com/Liferay-Community-APAC/liferay-course-building-ente
 <div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code class="language-bash">docker compose down -v
 </code></pre></div>
 <p>That deletes the database and Liferay's data. Then delete the <code>bundles</code> folder (in VS Code's Explorer, or <code>rm -rf bundles</code> on macOS and Linux), start again with <code>docker compose up -d</code> (Setup S.2), and rerun the prompts, or use the catch-up starting point. With the Tomcat bundle, stop it first (<code>blade server stop</code>), and run <code>blade server init</code> after deleting <code>bundles</code>.</p>
+
     </main>
   </div>
 </div>

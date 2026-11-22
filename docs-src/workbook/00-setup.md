@@ -1,17 +1,26 @@
 # Setup — Your workspace, Liferay DXP and the MCP server
 
-Do this chapter once, on the first morning. It gets the course repository onto your computer and open in VS Code, gets Liferay DXP running on PostgreSQL, connects your AI agent to Liferay's MCP server, and seeds the two files every later session reads.
+⏱ **About 45 minutes**, with the talk · **Builds on:** the prerequisites
 
-**Before you start**, finish the [prerequisites](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/): Git, JDK 21 and Blade (they build your client extensions), Docker running, the Liferay DXP and PostgreSQL images pulled (`docker compose pull` in the course folder), VS Code and your AI agent installed and signed in. Have the activation key file from your email at hand.
+**What you'll build:** the course repository open in VS Code, Liferay DXP running on PostgreSQL, your AI agent connected to Liferay's MCP server, and the two context files every later session reads. Do this once, on the first morning.
+
+**Key terms**
+- **Workspace root:** the `bewl-ai` folder you open in VS Code. Its terminal opens there, and every command runs there unless a step says otherwise.
+- **Context files:** `solution-context.md` (what Clarity is building) and `solution-index.yaml` (what's done and what's left). A new agent session picks the project up from them.
+- **Requirements R1 to R13:** Clarity's requirements, listed in section 8 of `context-source/clarity-brief.md`.
+- **Docker Compose:** runs PostgreSQL and Liferay DXP as containers, from `docker-compose.yml`. You start and stop them yourself.
+- **Blade:** Liferay's command-line tool. Your agent uses it to build and deploy client extensions.
+- **MCP server:** Liferay's Model Context Protocol server at `/o/mcp`. It lets your agent call Liferay's APIs as tools instead of hand-writing `curl` commands.
+
+ℹ️ **Note:** before you start, finish the [prerequisites](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/): Git, JDK 21 and Blade (they build your client extensions), Docker running, the Liferay DXP and PostgreSQL images pulled (`docker compose pull` in the course folder), VS Code and your AI agent installed and signed in. Have the activation key file from your email at hand.
 
 ### S.0 — Get the course repository and open it in VS Code
 
-🎯 The course repository on your computer, open as a folder in VS Code, with a terminal and your agent's chat ready, and your agent reading the course's instructions.
+🎯 **Goal:** the course repository on your computer, open as a folder in VS Code, with a terminal and your agent's chat ready, and your agent reading the course's instructions.
 
-🧩 None — you do this yourself, step by step.
+**Skills:** none, you do this yourself
 
-📋 **Steps:**
-
+📋 **Before the prompt:**
 1. **Pick a short folder for your courses.** Use a path with no spaces, outside any folder synced by OneDrive, iCloud Drive or Dropbox: sync tools lock the files the build writes. We use `~/courses` on macOS and Linux, and `C:\courses` on Windows.
 2. **Open a terminal**: the *Terminal* app on macOS or Linux, *PowerShell* on Windows. Create the folder and go into it.
 
@@ -60,19 +69,20 @@ gradle.properties, the folder your skills come from, and the absolute path
 of the workspace root.
 ```
 
-✅ **Verify:**
-- The answer names a Liferay Workspace for Clarity Vision Solutions, `dxp-2026.q3.10`, and `.claude/skills` (Claude Code) or `.agents/skills` (other agents).
-- The workspace root it reports is the `bewl-ai` folder you opened, and VS Code's status bar (bottom left) shows the branch **main**.
+✅ **Verify** (look, don't change anything):
+1. The agent's answer: it names a Liferay Workspace for Clarity Vision Solutions, `dxp-2026.q3.10`, and `.claude/skills` (Claude Code) or `.agents/skills` (other agents).
+2. The workspace root in the answer: it's the `bewl-ai` folder you opened.
+3. VS Code's status bar (bottom left): it shows the branch **main**.
 
-⚠️ If the agent says it can't find these files, VS Code has a file open instead of the folder, or a different folder: repeat step 4. If your agent offers to start Liferay or install something at this point, say no: you do that yourself in S.2.
+⚠️ **If it doesn't match:**
+- The agent says it can't find these files: VS Code has a file open instead of the folder, or a different folder. Repeat step 4.
+- The agent offers to start Liferay or install something at this point: say no. You do that yourself in S.2.
 
 ### S.1 — Seed the context files
 
-🎯 Two files at the workspace root that let any new agent session pick up the project: `solution-context.md` (what Clarity is building) and `solution-index.yaml` (what's done and what's left).
+🎯 **Goal:** two files at the workspace root that let any new agent session pick up the project: `solution-context.md` (what Clarity is building) and `solution-index.yaml` (what's done and what's left).
 
-🧩 None — the prompt below is self-contained.
-
-📋 **Steps:** in your agent's chat (from S.0), send the prompt.
+**Skills:** none, the prompt is self-contained
 
 💬 **Prompt:**
 ```
@@ -96,19 +106,21 @@ artifacts list.
 Don't create or change anything else. Read both files back to me.
 ```
 
-✅ **Verify:** open both files in VS Code. `solution-context.md` fits on a screen or two and names the personas; `solution-index.yaml` has 13 entries, all `status: todo`.
+✅ **Verify** (look, don't change anything):
+1. `solution-context.md` in VS Code: it fits on a screen or two and names the personas.
+2. `solution-index.yaml` in VS Code: 13 entries, all `status: todo`.
 
-⚠️ Keep `solution-context.md` short. Every new session reads it, so a long file costs tokens on every prompt for the rest of the course.
+⚠️ **If it doesn't match:** if `solution-context.md` is much longer than a screen or two, ask the agent to shorten it. Every new session reads it, so a long file costs tokens on every prompt for the rest of the course.
 
 ### S.2 — Start PostgreSQL and Liferay DXP
 
-🎯 PostgreSQL and Liferay DXP 2026.Q3.10 running in Docker, with Liferay at `http://localhost:8080`.
+🎯 **Goal:** PostgreSQL and Liferay DXP 2026.Q3.10 running in Docker, with Liferay at `http://localhost:8080`.
 
-🧩 None — you run these commands yourself, in your own terminal.
+**Skills:** none, you do this yourself
 
-📖 Both run as Docker containers, defined in `docker-compose.yml`, so the steps are the same on macOS, Windows and Linux. Only Docker's memory setting (step 2) differs. Liferay's container shares a few folders with your workspace, under `bundles/` (created on the first start): your agent deploys client extensions into `bundles/osgi/client-extensions` and reads the log in `bundles/logs`, as it would with a Liferay bundle installed on your computer.
+⚠️ **Before you start:** you start and stop Liferay, not the agent. Never ask the agent to run `docker compose up`, `stop`, `restart` or `down`: restarting Liferay drops the agent's MCP connection and interrupts your work.
 
-📋 **Steps:**
+📋 **Steps** (there's no prompt in this exercise):
 1. **Copy the activation key** file you received by email into `configs/local/deploy/`: drag it from your email or Downloads folder onto that folder in VS Code's Explorer. It's git-ignored: it never leaves your computer.
 2. **Give Docker at least 8 GB of memory.** Liferay and its search engine need about 6 GB, and PostgreSQL needs some too. Your computer needs 16 GB of RAM or more.
 
@@ -133,18 +145,20 @@ Don't create or change anything else. Read both files back to me.
    ```
    The first start creates the database and takes several minutes. Wait for `Server startup in [...] milliseconds`, then press `Ctrl+C`: that stops following the log, not Liferay.
 
-✅ **Verify:**
-- `docker compose ps` shows `clarity-postgres` and `clarity-liferay` as `running (healthy)`. Liferay reads `health: starting` until it answers.
-- `http://localhost:8080` shows the Liferay home page. Sign in as `admin@clarityvisionsolutions.com` with password `learn`. The first sign-in shows a *Terms of Use* notice about Liferay Enterprise Search: read it and close it with **Done**.
-- In the Global Menu (the grid icon, top right) → *Control Panel* → *Server Administration*, the *Properties* → *Portal Properties* tab lists `jdbc.default.url` with `postgresql`.
+✅ **Verify** (look, don't change anything):
+1. Run `docker compose ps` in the terminal: `clarity-postgres` and `clarity-liferay` are `running (healthy)`. Liferay reads `health: starting` until it answers.
+2. Open `http://localhost:8080`: the Liferay home page shows.
+3. Sign in as `admin@clarityvisionsolutions.com` with password `learn`. The first sign-in shows a *Terms of Use* notice about Liferay Enterprise Search: read it and close it with **Done**.
+4. *Global Menu* → *Control Panel* → *Server Administration* → *Properties* → *Portal Properties*: `jdbc.default.url` contains `postgresql`.
 
-⚠️ **You start and stop Liferay, not the agent.** Never ask the agent to run `docker compose up`, `stop`, `restart` or `down`: restarting Liferay drops the agent's MCP connection and interrupts your work. Your data stays in Docker volumes when you stop the containers (`docker compose stop`) or restart your computer; only `docker compose down -v` deletes it. If port 8080 or 5432 is already in use, stop the other program first.
+⚠️ **If it doesn't match:**
+- **Liferay restarts in a loop, or stops with exit code 137:** Docker doesn't have enough memory. Redo step 2.
+- **Port 8080 or 5432 is already in use:** stop the other program first.
+- **Linux only:** Liferay's container runs as user ID 1000 and writes its log files readable by that user only. If `id -u` doesn't print `1000` (it does for the first user on most Linux installs), your agent can't read `bundles/logs`: use Docker Desktop for Linux, or the Tomcat bundle below.
 
-⚠️ **If Liferay restarts in a loop or stops with exit code 137**, Docker doesn't have enough memory: redo step 2.
+📖 **Why it matters:** both run as Docker containers, defined in `docker-compose.yml`, so the steps are the same on macOS, Windows and Linux. Only Docker's memory setting differs. Liferay's container shares a few folders with your workspace, under `bundles/` (created on the first start): your agent deploys client extensions into `bundles/osgi/client-extensions` and reads the log in `bundles/logs`, as it would with a Liferay bundle installed on your computer. Your data stays in Docker volumes when you stop the containers (`docker compose stop`) or restart your computer; only `docker compose down -v` deletes it.
 
-⚠️ **Linux only:** Liferay's container runs as user ID 1000 and writes its log files readable by that user only. If `id -u` doesn't print `1000` (it does for the first user on most Linux installs), your agent can't read `bundles/logs`: use Docker Desktop for Linux, or the Tomcat bundle below.
-
-🔁 **Optional: run Liferay as a Tomcat bundle instead of a container.** Use this only if your instructor asks you to, or Docker can't give Liferay enough memory. You need the DXP bundle downloaded to `~/.liferay/bundles` before the course. Start PostgreSQL alone, then unpack and start the bundle:
+ℹ️ **Note: optional Tomcat bundle instead of a container.** Use this only if your instructor asks you to, or Docker can't give Liferay enough memory. You need the DXP bundle downloaded to `~/.liferay/bundles` before the course. Start PostgreSQL alone, then unpack and start the bundle:
 
 ```bash
 docker compose up -d postgres
@@ -156,17 +170,16 @@ Wait for `Server startup in [...] milliseconds`. Stop it with `blade server stop
 
 ### S.3 — Save the admin credentials for the agent
 
-🎯 A credentials file every agent session finds on its own, so you never type a password into a chat.
+🎯 **Goal:** a credentials file every agent session finds on its own, so you never type a password into a chat.
 
-🧩 None.
+**Skills:** none
 
-📋 **Steps:**
+📋 **Before the prompt:**
 1. Create `configs/local/admin.properties` yourself in VS Code (right-click `configs/local` in the Explorer → *New File…*, type `admin.properties`, press Enter), with these two lines, then save it (*File* → *Save*):
    ```properties
    ADMIN_EMAIL=admin@clarityvisionsolutions.com
    ADMIN_PASSWORD=learn
    ```
-2. Send the prompt.
 
 💬 **Prompt:**
 ```
@@ -177,21 +190,15 @@ Basic auth on Liferay's HTTP port (CLAUDE.md says how to find it). Show me the n
 response.
 ```
 
-✅ **Verify:** the agent shows *Clarity Admin* and `admin@clarityvisionsolutions.com`, and its messages never contain the password.
+✅ **Verify** (look, don't change anything):
+1. The agent's answer: it shows *Clarity Admin* and `admin@clarityvisionsolutions.com`.
+2. The agent's messages: none of them contains the password.
 
 ### S.4 — Turn on Liferay's MCP server
 
-🎯 Your agent connected to Liferay's MCP server at `http://localhost:8080/o/mcp`, so it can call Liferay's APIs as a tool instead of hand-writing `curl` commands.
+🎯 **Goal:** your agent connected to Liferay's MCP server at `http://localhost:8080/o/mcp`, so it can call Liferay's APIs as a tool instead of hand-writing `curl` commands.
 
-🧩 `mcp-server`
-
-📖 **What is MCP?** The Model Context Protocol is a standard way for an AI agent to use tools. Liferay DXP 2026.Q3 ships an MCP server that exposes every headless API (sites, pages, CMS, objects, commerce, users…) as tools. The agent discovers them at runtime, reads each operation's schema, then calls it, all with the permissions of the user it authenticates as.
-
-On 2026.Q3 the MCP server has two switches. The workspace already turns on the first one, the feature flag `LPD-63311`, in `configs/local/portal-ext.properties`. The second is the *MCP Server* instance setting. It's an ordinary OSGi configuration, so your agent can switch it on with a configuration file, live, without a restart.
-
-📋 **Steps:**
-1. Send the prompt below. It turns the MCP server on and registers it in your agent's own configuration file.
-2. **Restart your agent session** (close and reopen the chat, or reload the VS Code window). Agents read their MCP configuration only when a session starts.
+**Skills:** `mcp-server`
 
 💬 **Prompt:**
 ```
@@ -213,16 +220,24 @@ of this workspace's running DXP.
 5. Tell me exactly how to restart my session so the server loads.
 ```
 
-✅ **Verify:**
-- In Liferay, open the Global Menu → *Control Panel* → *Instance Settings* → *Platform* → *MCP Server*: **Enabled** is checked. Don't change it.
-- After the restart, approve the project's `liferay` server if your agent asks (Claude Code does, for servers in `.mcp.json`), then open your agent's MCP server list (Claude Code: type `/mcp`; Copilot: *MCP: List Servers* in the Command Palette; Codex: its MCP settings). `liferay` is listed as connected.
-- Ask the agent *"Using the liferay MCP server, list the tool sets it offers"*, and check it answers from the server, not from memory.
+📋 **After the prompt:**
+1. **Restart your agent session** (close and reopen the chat, or reload the VS Code window). Agents read their MCP configuration only when a session starts.
+2. Approve the project's `liferay` server if your agent asks (Claude Code does, for servers in `.mcp.json`).
 
-⚠️ If the server shows as connected but lists no tools, Liferay was restarted since your session started: reconnect or restart the session.
+✅ **Verify** (look, don't change anything):
+1. *Global Menu* → *Control Panel* → *Instance Settings* → *Platform* → *MCP Server*: **Enabled** is checked. Don't change it.
+2. Your agent's MCP server list (Claude Code: type `/mcp`; Copilot: *MCP: List Servers* in the Command Palette; Codex: its MCP settings): `liferay` is listed as connected.
+3. Ask the agent *"Using the liferay MCP server, list the tool sets it offers"*: it answers from the server, not from memory.
+
+⚠️ **If it doesn't match:** if the server shows as connected but lists no tools, Liferay was restarted since your session started. Reconnect or restart the session.
+
+📖 **Why it matters:** Liferay DXP 2026.Q3's MCP server exposes every headless API (sites, pages, CMS, objects, commerce, users…) as tools, which the agent discovers at runtime and calls with the permissions of the user it authenticates as. On 2026.Q3 it has two switches: the feature flag `LPD-63311`, which the workspace already turns on in `configs/local/portal-ext.properties`, and the *MCP Server* instance setting. That setting is an ordinary OSGi configuration, so your agent can switch it on with a configuration file, live, without a restart.
 
 ### S.5 — Read the terrain
 
-🎯 The agent confirms the facts every later prompt depends on, before anything is built.
+🎯 **Goal:** the agent confirms the facts every later prompt depends on, before anything is built.
+
+**Skills:** none
 
 💬 **Prompt:**
 ```
@@ -234,6 +249,8 @@ authenticate, whether the liferay MCP server is available to you, and which
 sites already exist in the instance.
 ```
 
-✅ **Verify:** compare the answer with `gradle.properties`, `configs/local/portal-ext.properties` and *Control Panel* → *Sites*. The only sites are Liferay's defaults: the Clarity sites don't exist yet.
+✅ **Verify** (look, don't change anything):
+1. `gradle.properties` and `configs/local/portal-ext.properties` in VS Code: they match what the agent reported.
+2. *Global Menu* → *Control Panel* → *Sites*: the only sites are Liferay's defaults. The Clarity sites don't exist yet.
 
-**From here on, work in short agent sessions.** Start a new session (or `/clear`) when you move to an exercise that doesn't build directly on the previous one. A fresh session costs fewer tokens and stays focused, and nothing is lost: it picks the project up from `solution-context.md` and `solution-index.yaml`.
+ℹ️ **Note:** from here on, start a new agent session (or `/clear`) when you move to an exercise that doesn't build directly on the previous one, as the workbook's *Working rules* describe.

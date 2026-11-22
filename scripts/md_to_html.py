@@ -397,6 +397,39 @@ def classify_label_paragraph(paragraph: Tag) -> str | None:
     return None
 
 
+# Workbook block labels: a paragraph that opens with one of these icons gets
+# a class, and a list right after a "do" or "verify" label gets one too.
+BLOCK_ICONS = {
+    "⏱": "wb-meta", "🕒": "wb-meta",
+    "🎯": "wb-goal",
+    "💡": "wb-say",
+    "🧰": "wb-do-label", "📋": "wb-do-label",
+    "💬": "wb-prompt-label",
+    "✅": "wb-verify-label",
+    "📖": "wb-why",
+    "🧹": "wb-clean",
+    "ℹ": "wb-note",
+}
+LIST_AFTER = {"wb-do-label": "wb-do", "wb-verify-label": "wb-verify", "wb-clean": "wb-do"}
+
+
+def style_workbook_blocks(soup: BeautifulSoup) -> None:
+    for paragraph in soup.find_all("p"):
+        text = paragraph.get_text(" ", strip=True)
+        if not text:
+            continue
+        css = next((c for icon, c in BLOCK_ICONS.items() if text.startswith(icon)), None)
+        if css is None and re.match(r"^(Requirement|Skills):", text):
+            css = "wb-tags"
+        if css is None:
+            continue
+        paragraph["class"] = [c for c in paragraph.get("class", []) if c not in ("adm-block", "adm-important")] + ["wb", css]
+        if css in LIST_AFTER:
+            nxt = paragraph.find_next_sibling()
+            if nxt is not None and nxt.name in ("ol", "ul"):
+                nxt["class"] = nxt.get("class", []) + ["wb-list", LIST_AFTER[css]]
+
+
 def apply_callouts(soup: BeautifulSoup) -> None:
     for paragraph in soup.find_all("p"):
         css_class = classify_label_paragraph(paragraph)
@@ -431,12 +464,15 @@ PAGE_TEMPLATE = """<!doctype html>
 </header>
 <div class="layout">
   <nav class="sidebar" aria-label="Table of contents">
+    {sidebar_nav}
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
     <div class="toc">{toc}</div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
+{before}
 {content}
+{after}
     </main>
   </div>
 </div>
@@ -547,6 +583,39 @@ body {
 .doc-content h2:first-of-type { border-top: 0; margin-top: 1.75rem; }
 .doc-content h3 { font-size: 1.2rem; margin: 2rem 0 .75rem; color: var(--lf-neutral-10); font-weight: 600; scroll-margin-top: 78px; }
 .doc-content h4 { font-size: 1rem; margin: 1.5rem 0 .6rem; color: var(--lf-neutral-10); font-weight: 600; scroll-margin-top: 78px; }
+/* Workbook blocks */
+.doc-content p.wb { margin: 1rem 0 .5rem; }
+.doc-content p.wb-meta { display: inline-block; background: var(--lf-neutral-1); border: 1px solid var(--lf-neutral-2); border-radius: 999px; padding: .2rem .8rem; font-size: .9rem; color: var(--lf-neutral-8); margin: 0 0 1rem; }
+.doc-content p.wb-goal { font-size: 1.05rem; color: var(--lf-neutral-10); margin-top: .25rem; }
+.doc-content p.wb-tags { font-size: .85rem; color: var(--lf-neutral-6); margin-top: -.25rem; }
+.doc-content p.wb-say { background: #fff8e6; border-left: 4px solid #d79839; padding: .6rem .9rem; border-radius: 0 var(--lf-radius) var(--lf-radius) 0; }
+.doc-content p.wb-why { background: var(--lf-info-bg); color: var(--lf-info-text); padding: .65rem .95rem; border-radius: var(--lf-radius); margin-top: 1.25rem; }
+.doc-content p.wb-note { background: var(--lf-info-bg); color: var(--lf-info-text); padding: .65rem .95rem; border-radius: var(--lf-radius); }
+.doc-content p.wb-verify-label { margin-top: 1.5rem; }
+.doc-content ol.wb-verify { background: var(--lf-success-bg); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
+.doc-content ol.wb-verify li { margin: .35rem 0; }
+.doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
+.doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+
+/* Workbook navigation */
+.wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
+.wb-levels summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; padding: .35rem .5rem; border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); margin-bottom: .4rem; }
+.wb-levels summary::-webkit-details-marker { display: none; }
+.wb-levels summary::after { content: "▾"; color: var(--lf-neutral-6); }
+.wb-levels[open] summary::after { content: "▴"; }
+.wb-levels .wb-levels-title { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--lf-neutral-6); }
+.wb-levels .wb-pos { font-size: .85rem; font-weight: 700; color: var(--lf-brand-active); margin-left: auto; margin-right: .4rem; }
+.wb-levels a { display: block; padding: .2rem .5rem; border-radius: 4px; font-size: .86rem; color: var(--lf-neutral-8); text-decoration: none; }
+.wb-levels a:hover { background: var(--lf-hover-bg); color: var(--lf-neutral-10); }
+.wb-levels a.current { background: var(--lf-active-bg); color: var(--lf-brand-active); font-weight: 700; }
+.wb-levels .day { font-size: .72rem; font-weight: 700; color: var(--lf-neutral-6); margin: .5rem .5rem .1rem; text-transform: uppercase; letter-spacing: .05em; }
+.wb-crumb { font-size: .85rem; color: var(--lf-neutral-6); margin-bottom: .5rem; }
+.wb-crumb a { color: var(--lf-neutral-6); }
+.wb-pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem; padding-top: 1.25rem; border-top: 1px solid var(--lf-neutral-2); }
+.wb-pager a { display: block; flex: 1; max-width: 48%; border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .7rem 1rem; text-decoration: none; color: var(--lf-neutral-10); }
+.wb-pager a:hover { border-color: var(--lf-brand); }
+.wb-pager a span { display: block; font-size: .78rem; color: var(--lf-neutral-6); text-transform: uppercase; letter-spacing: .05em; }
+.wb-pager a.next { text-align: right; margin-left: auto; }
 .heading-anchor { margin-left: .45rem; opacity: 0; text-decoration: none; color: var(--lf-brand); font-weight: 400; font-size: .8em; }
 h2:hover .heading-anchor, h3:hover .heading-anchor, h4:hover .heading-anchor { opacity: 1; }
 
@@ -806,7 +875,7 @@ JS = """
 """
 
 
-def build_page(md_text: str, home: str = "../") -> str:
+def build_page(md_text: str, home: str = "../", sidebar_nav: str = "", before: str = "", after: str = "") -> str:
     soup, title = convert_markdown(md_text)
 
     toc_tree = build_toc_tree(soup)
@@ -816,6 +885,7 @@ def build_page(md_text: str, home: str = "../") -> str:
     mark_schedule_tables(soup)
     wrap_tables(soup)
     apply_callouts(soup)
+    style_workbook_blocks(soup)
     wrap_copyable_blocks(soup)
 
     content_html = str(soup)
@@ -825,6 +895,9 @@ def build_page(md_text: str, home: str = "../") -> str:
         home=home,
         toc=toc_html,
         content=content_html,
+        sidebar_nav=sidebar_nav,
+        before=before,
+        after=after,
         css=CSS,
         js=JS,
     )

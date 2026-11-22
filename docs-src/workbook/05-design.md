@@ -1,14 +1,22 @@
 # Level 5 — Design: style book, Theme CSS, favicon and logo
 
-📖 Liferay separates **what's on a page** from **how it looks**. A **style book** changes a theme's design tokens (colors, fonts, spacing) without CSS; each style book belongs to the theme it was made for. A **Theme CSS client extension** replaces the theme's CSS entirely and declares its own tokens, which then appear in the page editor's style options (for example *Color Brand Primary*). A **favicon** client extension and a site **logo** complete the brand. Master pages carry the Theme CSS, so every page using them follows.
+⏱ **About 40 minutes**, with the talk · **Builds on:** Levels 3 and 4
+
+**What you'll build:** Clarity's brand on every page: first a quick style book check, then Clarity's own Theme CSS and favicon client extensions, bound to the master pages, and the site logo.
+
+**Key terms**
+- **Design tokens:** a theme's named design values (colors, fonts, spacing), such as *Color Brand Primary*.
+- **Style book:** a set of changes to a theme's design tokens, made without CSS. Each style book belongs to the theme it was made for.
+- **Theme CSS client extension:** a client extension that replaces the theme's CSS entirely and declares its own tokens, which then appear in the page editor's style options.
+- **Favicon:** the small icon in the browser tab. Clarity serves it from its own client extension.
+
+ℹ️ **Note:** Liferay separates **what's on a page** from **how it looks**. Master pages carry the Theme CSS, so every page using them follows.
 
 ### 5.1 — A style book for a quick brand check
 
-🎯 A **Clarity Style Book** for the Classic theme with Clarity's primary color, marked as the default.
+🎯 **Goal:** a **Clarity Style Book** for the Classic theme with Clarity's primary color, marked as the default.
 
-🧩 `theme-and-design`
-
-📎 R5 — brand without editing each page.
+**Requirement:** R5 · **Skills:** `theme-and-design`
 
 💬 **Prompt:**
 ```
@@ -18,17 +26,18 @@ the Primary theme color to #187373, and make it the site's default style
 book. Deploy and confirm the style book exists and is the default.
 ```
 
-✅ **Verify:** Site Menu → *Design* → *Style Books*: **Clarity Style Book** is marked *Default*. Open it: under *Color System* → *Theme Colors*, *Primary* is `#187373`, and the preview's buttons are teal. Open **Home**: the *Explore Products* button is teal. Leave the style book editor without publishing.
+✅ **Verify** (look, don't change anything):
+1. *Site Menu* → *Design* → *Style Books*: **Clarity Style Book** is marked *Default*.
+2. Open it → *Color System* → *Theme Colors*: *Primary* is `#187373`, and the preview's buttons are teal. Leave the style book editor without publishing.
+3. Open **Home**: the *Explore Products* button is teal.
 
 ![Design → Style Books: Clarity Style Book marked as the default.](screenshots/5-1-style-books.png)
 
 ### 5.2 — Clarity's Theme CSS and favicon client extensions
 
-🎯 Two frontend client extensions: **Clarity Theme CSS**, carrying Clarity's full brand from section 5 of the brief and declaring its color tokens for the page editor, and **Clarity Favicon**.
+🎯 **Goal:** two frontend client extensions: **Clarity Theme CSS**, carrying Clarity's full brand from section 5 of the brief and declaring its color tokens for the page editor, and **Clarity Favicon**.
 
-🧩 `theme-and-design`, `scaffold-client-extension`, `deploy-and-verify`
-
-📎 R5.
+**Requirement:** R5 · **Skills:** `theme-and-design`, `scaffold-client-extension`, `deploy-and-verify`
 
 💬 **Prompt:**
 ```
@@ -51,15 +60,16 @@ the site initializer. Deploy it and confirm both client extensions are
 registered and the CSS URL answers 200.
 ```
 
-✅ **Verify:** Global Menu → *Applications* → *Client Extensions*: **Clarity Theme CSS** and **Clarity Favicon** are listed and *Ready* (don't change them).
+✅ **Verify** (look, don't change anything):
+1. *Global Menu* → *Applications* → *Client Extensions*: **Clarity Theme CSS** and **Clarity Favicon** are listed and *Ready*.
 
 ![Applications → Client Extensions listing Clarity Theme CSS and Clarity Favicon.](screenshots/5-2-client-extensions.png)
 
 ### 5.3 — Apply the brand to the site and its master pages
 
-🎯 Both master pages use Clarity Theme CSS; the site has Clarity's favicon and logo.
+🎯 **Goal:** both master pages use Clarity Theme CSS; the site has Clarity's favicon and logo.
 
-🧩 `theme-and-design`, `manage-pages`
+**Skills:** `theme-and-design`, `manage-pages`
 
 💬 **Prompt:**
 ```
@@ -74,11 +84,11 @@ imports the masters), then fetch the Home page as Guest and show me the
 stylesheet link of Clarity Theme CSS and the favicon link in its HTML.
 ```
 
-✅ **Verify:**
-- Open **Home** in a private window: Poppins text, teal buttons, the Clarity favicon in the browser tab.
+✅ **Verify** (look, don't change anything):
+1. Open **Home** in a private window: Poppins text, teal buttons, the Clarity favicon in the browser tab.
+2. *Site Menu* → *Design* → *Page Templates* → *Masters* → **Primary Master Page** → the *Page Design Options* panel (the brush icon) → *More Page Design Options*: *Theme CSS Client Extension* shows **Clarity Theme CSS**. Leave without saving.
+3. In the master's editor, select the *Header Announcement Bar* container → *Styles* → *Background*: the color picker offers **Color Brand Primary**. Leave without publishing.
 
 ![Home at the end of Day 1, as a visitor sees it: Clarity's header and menu, Poppins headings and teal pill buttons. The grey boxes are image placeholders you map to real images in Level 7.](screenshots/5-3-home.png)
-- Site Menu → *Design* → *Page Templates* → *Masters* → **Primary Master Page** → the *Page Design Options* panel (the brush icon) → *More Page Design Options*: *Theme CSS Client Extension* shows **Clarity Theme CSS**. Leave without saving.
-- In the master's editor, select the *Header Announcement Bar* container → *Styles* → *Background*: the color picker offers **Color Brand Primary**. Leave without publishing.
 
-⚠️ Once a Theme CSS client extension replaces the theme's CSS, the Classic theme's style book no longer applies to those pages: 5.1 is a quick check, 5.2 is Clarity's real brand.
+📖 **Why it matters:** once a Theme CSS client extension replaces the theme's CSS, the Classic theme's style book no longer applies to those pages. 5.1 is a quick check; 5.2 is Clarity's real brand.

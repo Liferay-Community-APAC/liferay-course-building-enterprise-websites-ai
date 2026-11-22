@@ -11,7 +11,7 @@ The last three columns say who uses them:
 
 | Time | Block | Type | Workbook | Slides | Demos |
 | --- | --- | --- | --- | --- | --- |
-| 9:00–9:30 | Kickoff, introductions, the Clarity case, how the course works | Talk | [Introduction](../workbook/#how-to-use-this-workbook) | [1–8](slides/day-1.html#1) | [D1.1](demos.html#d11-tour-of-the-finished-clarity-site) |
+| 9:00–9:30 | Kickoff, introductions, the Clarity case, how the course works | Talk | [Start here](../workbook/) | [1–8](slides/day-1.html#1) | [D1.1](demos.html#d11-tour-of-the-finished-clarity-site) |
 | 9:30–10:15 | Setup: workspace, PostgreSQL, DXP, MCP, context files | Hands-on | [Setup](../workbook/#setup-your-workspace-liferay-dxp-and-the-mcp-server) | [9–12](slides/day-1.html#9) | [D1.2](demos.html#d12-the-first-start-of-liferay), [D1.3](demos.html#d13-the-agent-connected-to-liferays-mcp-server), [D1.4](demos.html#d14-setup-s1-on-the-projector) |
 | 10:15–10:30 | Capabilities and deployment options; Liferay Data Platform overview (no exercise) | Talk | — | [13–15](slides/day-1.html#13) | [D1.5](demos.html#d15-liferay-data-platform) |
 | 10:30–10:45 | Break | | | | |

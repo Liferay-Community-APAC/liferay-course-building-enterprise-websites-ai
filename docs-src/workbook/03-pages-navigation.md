@@ -1,16 +1,25 @@
 # Level 3 — Pages, master pages and navigation
 
-📖 From here on, the site's structure lives in **code**: a *site initializer* client extension in `client-extensions/clarity-site/`. It's a folder tree of JSON files (pages, master pages, menus, fragments, style books) that Liferay applies to the site every time you deploy it. Your agent edits the tree and deploys it; you check the result in Liferay's own editors. Working this way, the site is version-controlled and can be rebuilt on any environment, and the agent never has to click through the page editor.
+⏱ **About 60 minutes**, with the talk · **Builds on:** Level 2
 
-📖 A **content page** is built from fragments. A **master page** holds what every page shares (header, footer) around a *drop zone* where each page's own content goes. Clarity uses two: a **Primary Master Page** for content pages, and a lighter **Secondary Master Page** for the sign-in and utility pages. Each master page can limit which fragments authors may drop into pages that use it.
+**What you'll build:** Clarity's page hierarchy, the two master pages that frame every page, and the four navigation menus, all in a site initializer your agent deploys.
+
+**Key terms**
+- **Site initializer:** a client extension (code you deploy to Liferay without changing Liferay itself), here in `client-extensions/clarity-site/`, holding a folder tree of JSON files (pages, master pages, menus, fragments, style books) that Liferay applies to the site every time you deploy it.
+- **Content page:** a page built from fragments.
+- **Fragment:** a building block of a content page, such as a container, a grid, an image or a menu.
+- **Master page:** what every page shares (header, footer) around a drop zone. Clarity uses a **Primary Master Page** for content pages and a lighter **Secondary Master Page** for the sign-in and utility pages.
+- **Drop zone:** the area of a master page where each page's own content goes. A master page can limit which fragments authors may drop there.
+- **Classic theme:** the theme Liferay uses by default. Clarity's master pages turn off its own header and footer.
+- **Navigation menu:** a list of links to pages or URLs, shown on a page by a Menu Display fragment.
+
+ℹ️ **Note:** from here on, the site's structure lives in code. Your agent edits the site initializer's tree and deploys it; you check the result in Liferay's own editors. The site is version-controlled and can be rebuilt on any environment, and the agent never has to click through the page editor.
 
 ### 3.1 — Scaffold the site initializer and the page hierarchy
 
-🎯 A `clarity-site` site initializer, bound to the existing site `clarity-public`, that creates Clarity's page hierarchy as empty content pages.
+🎯 **Goal:** a `clarity-site` site initializer, bound to the existing site `clarity-public`, that creates Clarity's page hierarchy as empty content pages.
 
-🧩 `scaffold-client-extension`, `manage-pages`, `deploy-and-verify`
-
-📎 R3 — page hierarchy.
+**Requirement:** R3 · **Skills:** `scaffold-client-extension`, `manage-pages`, `deploy-and-verify`
 
 💬 **Prompt:**
 ```
@@ -41,17 +50,18 @@ site still has Open membership and only English and Spanish. Update
 solution-index.yaml (R3).
 ```
 
-✅ **Verify:** in the public site, Site Menu → *Configuration* → *Site Settings* → *Localization*: still only English and Spanish. Then Site Menu → *Site Builder* → *Pages*: the pages are listed in this order, with **Product List** under **Products** and **Open Positions** under **Careers**. Open `http://localhost:8080/web/clarity/home`: an empty page with Liferay's default header.
+✅ **Verify** (look, don't change anything):
+1. In the public site, *Site Menu* → *Configuration* → *Site Settings* → *Localization*: still only English and Spanish.
+2. *Site Menu* → *Site Builder* → *Pages*: the pages are listed in the prompt's order, with **Product List** under **Products** and **Open Positions** under **Careers**.
+3. Open `http://localhost:8080/web/clarity/home`: an empty page with Liferay's default header.
 
 ![Site Builder → Pages: Home, Products with Product List, About Us, Blog, FAQ, Careers with Open Positions, Contact Us and Search.](screenshots/3-1-pages.png)
 
 ### 3.2 — Build the Primary and Secondary master pages
 
-🎯 Two master pages wireframed as in section 4 of the brief, applied to the pages, with the allowed fragments limited on the primary one.
+🎯 **Goal:** two master pages wireframed as in section 4 of the brief, applied to the pages, with the allowed fragments limited on the primary one.
 
-🧩 `theme-and-design`, `manage-pages`
-
-📎 R3 — master pages.
+**Requirement:** R3 · **Skills:** `theme-and-design`, `manage-pages`
 
 💬 **Prompt:**
 ```
@@ -87,19 +97,19 @@ the log and from the pages' data that both masters exist and each page
 uses the primary one.
 ```
 
-✅ **Verify:**
-- Site Menu → *Design* → *Page Templates* → *Masters*: **Primary Master Page** and **Secondary Master Page**. Open the primary one (click its name): the *Browser* panel (the tree icon on the left) shows *Page Header* → *Header Announcement Bar* and *Header Navigation Bar* → grid → *Header Branding*, *Header Navigation*, *Header User Actions*, then the drop zone and *Page Footer*. Select the drop zone and click *Configure Allowed Fragments*: **Footers** and **Navigation Bars** are unchecked. Leave the editor without publishing.
-- Open the **Home** page: the header and footer wireframe surround an empty body.
+✅ **Verify** (look, don't change anything):
+1. *Site Menu* → *Design* → *Page Templates* → *Masters*: **Primary Master Page** and **Secondary Master Page** are listed.
+2. Open the primary one (click its name). The *Browser* panel (the tree icon on the left) shows *Page Header* → *Header Announcement Bar* and *Header Navigation Bar* → grid → *Header Branding*, *Header Navigation*, *Header User Actions*, then the drop zone and *Page Footer*.
+3. In the same editor, select the drop zone and click *Configure Allowed Fragments*: **Footers** and **Navigation Bars** are unchecked. Leave the editor without publishing.
+4. Open the **Home** page: the header and footer wireframe surround an empty body.
 
 ![Design → Page Templates → Masters: Primary Master Page and Secondary Master Page.](screenshots/3-2-masters.png)
 
 ### 3.3 — Create the navigation menus and wire them in
 
-🎯 The four menus from section 4 of the brief, with the header and footer Menu Display fragments pointing at them.
+🎯 **Goal:** the four menus from section 4 of the brief, with the header and footer Menu Display fragments pointing at them.
 
-🧩 `manage-pages`
-
-📎 R3 — navigation.
+**Requirement:** R3 · **Skills:** `manage-pages`
 
 💬 **Prompt:**
 ```
@@ -116,12 +126,21 @@ order. Deploy, then count each menu's items over the API and compare with
 the brief.
 ```
 
-✅ **Verify:**
-- Site Menu → *Site Builder* → *Navigation Menus*: four menus. Open **Header Page Menu**: Products, About Us, Blog, FAQ, Careers, Contact Us, in that order.
-- Open the **Home** page: the header shows those six links, and the footer shows the three footer menus. Click **FAQ**: you're on the FAQ page.
+✅ **Verify** (look, don't change anything):
+1. *Site Menu* → *Site Builder* → *Navigation Menus*: four menus.
+2. Open **Header Page Menu**: Products, About Us, Blog, FAQ, Careers, Contact Us, in that order.
+3. Open the **Home** page: the header shows those six links, and the footer shows the three footer menus.
+4. Click **FAQ** in the header: you're on the FAQ page.
 
 ![Site Builder → Navigation Menus: Header Page Menu, Footer Resources Menu, Footer Company Menu and Footer Legal Menu.](screenshots/3-3-menus.png)
 
+## ⭐ Extras
+
+Optional, for when you finish early. The next level doesn't depend on them.
+
 ### ⭐ 3.4 — Bonus: the Sign In utility page
 
-Add a **Sign In** utility page that uses the **Secondary Master Page** and holds Liferay's Sign In widget, and make it the site's default sign-in page. Success: signing out and clicking *Sign In* shows Clarity's lighter header and footer around the sign-in form.
+🎯 **Goal:** a **Sign In** utility page that uses the **Secondary Master Page** and holds Liferay's Sign In widget, set as the site's default sign-in page. Write the prompt yourself.
+
+✅ **Success looks like:**
+1. Sign out and click *Sign In*: Clarity's lighter header and footer surround the sign-in form.

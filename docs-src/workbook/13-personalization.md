@@ -1,16 +1,23 @@
 # Level 13 — Personalization: a Home page for distributors
 
-📖 Distributors who sign in should be welcomed back and shouldn't be asked to become distributors. Liferay's classic way to do this, **DXP segments and experiences**, is deprecated on 2026.Q1 and later: segmentation moves to **Liferay Data Platform**, which needs a Data Platform workspace connected to your instance. Your instructor shows that in the slides.
+⏱ **About 30 minutes**, with the talk · **Builds on:** Levels 1 and 4
 
-📖 Without a Data Platform connection, you can still tailor a page by **who the visitor is**: a fragment can read the signed-in user's user groups and decide whether to render what's dropped inside it. That's what you'll build: a reusable **Clarity Audience Container** fragment, using only non-deprecated features.
+**What you'll build:** a reusable **Clarity Audience Container** fragment, and a Home page that welcomes signed-in distributors back instead of asking them to become distributors. It tailors the page by **who the visitor is**, using only non-deprecated features.
+
+**Key terms**
+- **Audience Container:** the fragment you build here. It reads the signed-in user's user groups and decides whether to render what's dropped inside it.
+- **FreeMarker:** the template language a fragment's HTML can use. It runs on the server, before the page reaches the browser.
+- **Fragment configuration:** the settings a fragment exposes in the page editor's *Configuration* tab, such as *userGroup* and *mode* here.
+- **DXP segments and experiences:** Liferay's classic way to show a page differently to groups of visitors. Deprecated on 2026.Q1 and later.
+- **Liferay Data Platform:** where segmentation moves after DXP segments. It needs a Data Platform workspace connected to your instance.
+
+ℹ️ **Note:** this level doesn't use DXP segments, because they're deprecated. Your instructor shows Liferay Data Platform segmentation in the slides.
 
 ### 13.1 — The Clarity Audience Container fragment
 
-🎯 A fragment with a drop zone that renders its content only for members of a chosen user group, or only for everyone else.
+🎯 **Goal:** a fragment with a drop zone that renders its content only for members of a chosen user group, or only for everyone else.
 
-🧩 `scaffold-fragment`
-
-📎 R13.
+**Requirement:** R13 · **Skills:** `scaffold-fragment`
 
 💬 **Prompt:**
 ```
@@ -26,15 +33,15 @@ the content, with a small label saying who it's for. Deploy, then check the
 fragment compiled.
 ```
 
-✅ **Verify:** Site Menu → *Design* → *Fragments* → **Clarity Components**: **Clarity Audience Container** is listed. Open it: the *Configuration* tab shows *userGroup* and *mode*. Close without publishing.
+✅ **Verify** (look, don't change anything):
+1. *Site Menu* → *Design* → *Fragments* → **Clarity Components**: **Clarity Audience Container** is listed.
+2. Open it: the *Configuration* tab shows *userGroup* and *mode*. Close without publishing.
 
 ### 13.2 — A distributor variant of Home
 
-🎯 Signed-in distributors see *Welcome Back! Elevate Your Inventory with Premium Eyewear.* and no distributor promotion; everyone else sees the usual Home.
+🎯 **Goal:** signed-in distributors see *Welcome Back! Elevate Your Inventory with Premium Eyewear.* and no distributor promotion; everyone else sees the usual Home.
 
-🧩 `manage-pages`, `scaffold-fragment`
-
-📎 R13.
+**Requirement:** R13 · **Skills:** `manage-pages`, `scaffold-fragment`
 
 💬 **Prompt:**
 ```
@@ -52,10 +59,12 @@ show me the banner heading and whether the Distributor Promo is present
 for each.
 ```
 
-✅ **Verify:**
-- In a private window, sign in as **Terrence Wheatley**: Home says *Welcome Back!…* and has no *Become a Clarity Distributor* section. Sign out: the default Home is back, with the promotion.
-- Open **Home** in edit mode: both banners show, each labeled with its audience. Leave without publishing.
+✅ **Verify** (look, don't change anything):
+1. In a private window, sign in as **Terrence Wheatley**: Home says *Welcome Back!…*.
+2. On the same page, there's no *Become a Clarity Distributor* section.
+3. Sign out: the default Home is back, with the promotion.
+4. As the admin, open **Home** in edit mode: both banners show, each labeled with its audience. Leave without publishing.
 
 ![Home as Terrence Wheatley, a distributor: the banner reads "Welcome Back! Elevate Your Inventory with Premium Eyewear." and Terrence's avatar replaces the Sign In button.](screenshots/13-2-terrence-home.png)
 
-📖 This works for signed-in users and user groups. For anonymous visitors (by behavior, location or campaign), you need Liferay Data Platform segments, which is the supported path for that kind of personalization.
+📖 **Why it matters:** this works for signed-in users and user groups. For anonymous visitors (by behavior, location or campaign), you need Liferay Data Platform segments, which is the supported path for that kind of personalization.

@@ -1,14 +1,22 @@
 # Level 2 — Sites
 
-📖 In Liferay DXP, each **site** has its own pages, members and settings. Clarity needs its public enterprise website, configured for launch, and an empty site for a future distributor portal. Visitors who aren't signed in can see a public site's public pages; members get more through **site roles**. Some settings belong to the site (its address, languages, accessibility), others to the whole **instance** (where `http://localhost:8080/` takes you).
+⏱ **About 45 minutes**, with the talk · **Builds on:** Level 1
+
+**What you'll build:** Clarity's public enterprise website, configured for launch, and an empty site for a future distributor portal. You also give the Marketing Coordinator role its permissions and point the instance at the public site.
+
+**Key terms**
+- **Site:** a set of pages with its own members and settings. Visitors who aren't signed in can see a public site's public pages.
+- **Site Menu:** the panel on the left of a site, opened with the icon at the top left. It holds the site's *People*, *Site Builder*, *Design* and *Configuration* sections.
+- **Site member:** a user who belongs to a site. Members get more than visitors through **site roles**.
+- **Instance:** the whole Liferay installation. Some settings belong to a site (its address, languages, accessibility), others to the instance (such as where `http://localhost:8080/` takes you).
+- **Virtual host:** a domain name, such as `www.clarityvisionsolutions.com`, that opens a site directly.
+- **Permission:** an action (VIEW, ADD, UPDATE…) on a resource (an application, a kind of item), granted to a role.
 
 ### 2.1 — Create Clarity's two sites
 
-🎯 **Clarity Public Enterprise Website** and **Clarity Distributor Portal**, both blank sites, with stable external reference codes so every later prompt can address them.
+🎯 **Goal:** **Clarity Public Enterprise Website** and **Clarity Distributor Portal**, both blank sites, with stable external reference codes so every later prompt can address them.
 
-🧩 `manage-sites` 🆕
-
-📎 R2 — the public site.
+**Requirement:** R2 · **Skills:** `manage-sites`
 
 💬 **Prompt:**
 ```
@@ -25,17 +33,17 @@ is and tell me. Read both back and show me their id, external reference
 code, name and friendly URL. Add both to solution-index.yaml under R2.
 ```
 
-✅ **Verify:** Global Menu → *Control Panel* → *Sites*: both sites are listed. Open **Clarity Public Enterprise Website**: it has no pages yet.
+✅ **Verify** (look, don't change anything):
+1. *Global Menu* → *Control Panel* → *Sites*: both sites are listed.
+2. Open **Clarity Public Enterprise Website**: it has no pages yet.
 
 ![Control Panel → Sites listing Clarity Public Enterprise Website and Clarity Distributor Portal.](screenshots/2-1-sites.png)
 
 ### 2.2 — Add members and assign site roles
 
-🎯 The people who build and contribute to the public site are its members, with the right site roles.
+🎯 **Goal:** the people who build and contribute to the public site are its members, with the right site roles.
 
-🧩 `manage-sites` 🆕, `manage-roles-permissions`
-
-📎 R1, R2 — least privilege inside the site.
+**Requirement:** R1, R2 · **Skills:** `manage-sites`, `manage-roles-permissions`
 
 💬 **Prompt:**
 ```
@@ -53,21 +61,19 @@ whole user group as a site member, and whether you can do that through
 the API on this release.
 ```
 
-✅ **Verify:** in the public site, open the Site Menu (the panel on the left; open it with the icon at the top left) → *People* → *Memberships*:
-- the *Users* tab lists Walter Douglas, Christian Carter, Harper Roberts, Ian Miller and Clara Murphy (and you, the site's creator);
-- the Actions menu (⋮) → *Assign Site Roles* for Christian Carter shows **Site Content Contributor** selected. Close it without saving.
+✅ **Verify** (look, don't change anything):
+1. In the public site, *Site Menu* → *People* → *Memberships* → *Users* tab: Walter Douglas, Christian Carter, Harper Roberts, Ian Miller and Clara Murphy are listed (and you, the site's creator).
+2. The Actions menu (⋮) next to Christian Carter → *Assign Site Roles*: **Site Content Contributor** is selected. Close it without saving.
 
 ![The public site's Memberships screen showing Clarity Admin, Christian Carter, Walter Douglas, Ian Miller, Clara Murphy and Harper Roberts.](screenshots/2-2-memberships.png)
 
-📖 Adding a **user group** as a site member makes every current and future member of the department a site member. Liferay's headless API can't do that on this release, so your agent told you the screen instead. You'll meet a few settings like this: part of working with an agent is knowing when the UI is the right tool.
+📖 **Why it matters:** adding a **user group** as a site member makes every current and future member of the department a site member. Liferay's headless API can't do that on this release, so your agent told you the screen instead. You'll meet a few settings like this: part of working with an agent is knowing when the UI is the right tool.
 
 ### 2.3 — Configure the public site
 
-🎯 The public site is ready for its audience: a description, open membership, English and Spanish only, Liferay's accessibility menu, and a virtual host.
+🎯 **Goal:** the public site is ready for its audience: a description, open membership, English and Spanish only, Liferay's accessibility menu, and a virtual host.
 
-🧩 `manage-sites` 🆕
-
-📎 R2 — address, languages and accessibility.
+**Requirement:** R2 · **Skills:** `manage-sites`
 
 💬 **Prompt:**
 ```
@@ -91,29 +97,26 @@ Tell me which mechanism you used for each setting, read each one back, and
 check the accessibility menu is NOT on for the Clarity Distributor Portal.
 ```
 
-📋 **Steps:** set the virtual host yourself on the screen the agent named (*Site Settings* → *Site Configuration* → *Site URL* → *Public Pages* → *Virtual Host*), and save.
+📋 **After the prompt:**
+1. Set the virtual host yourself on the screen the agent named (*Site Menu* → *Configuration* → *Site Settings* → *Site Configuration* → *Site URL* → *Public Pages* → *Virtual Host*), and save.
 
-✅ **Verify:** in the public site, Site Menu → *Configuration* → *Site Settings*:
-- *Site Configuration* → *Details*: the description, and *Membership Type* **Open**;
-- *Site URL*: friendly URL `/clarity`, and the virtual host `www.clarityvisionsolutions.com`;
-- *Localization*: only English (United States) and Spanish (Spain) are *In Use*;
-- *Accessibility*: the accessibility menu is enabled.
+✅ **Verify** (look, don't change anything). All in the public site, under *Site Menu* → *Configuration* → *Site Settings*:
+1. *Site Configuration* → *Details*: the description, and *Membership Type* **Open**.
+2. *Site Configuration* → *Site URL*: friendly URL `/clarity`, and the virtual host `www.clarityvisionsolutions.com`.
+3. *Localization*: only English (United States) and Spanish (Spain) are *In Use*.
+4. *Accessibility*: the accessibility menu is enabled.
 
-⚠️ The virtual host only answers once `www.clarityvisionsolutions.com` resolves to your computer (a `hosts` file entry). You don't need it during the course: keep using `http://localhost:8080/web/clarity`.
+⚠️ **If it doesn't match:** `www.clarityvisionsolutions.com` doesn't open in your browser: that's expected. The virtual host only answers once that name resolves to your computer (a `hosts` file entry). You don't need it during the course: keep using `http://localhost:8080/web/clarity`.
 
 ### 2.4 — Give the Marketing Coordinator role its permissions
 
-🎯 The **Marketing Coordinator** role can manage collections and categories in the sites its holders work in, and nothing more. You'll see the effect by impersonating Christian Carter before and after.
+🎯 **Goal:** the **Marketing Coordinator** role can manage collections and categories in the sites its holders work in, and nothing more. You'll see the effect by impersonating Christian Carter before and after.
 
-🧩 `manage-roles-permissions`
+**Requirement:** R1 · **Skills:** `manage-roles-permissions`
 
-📎 R1 — least-privilege permissions.
-
-📖 Permissions are actions (VIEW, ADD, UPDATE…) on resources (an application, a kind of item). A **regular** role's permissions apply at company scope: in every site its holder can work in. A **site** role's permissions apply only in the site where it's assigned, which is why Site Content Contributor exists. In Level 6, Liferay CMS Spaces add their own membership and roles on top: that's where Christian gets content-authoring rights.
-
-📋 **Steps:**
-1. As the Clarity Admin, go to *Control Panel* → *Users and Organizations*, click the Actions menu (⋮) next to **Christian Carter**, and choose **Impersonate User**. In the tab that opens, go to `http://localhost:8080/web/clarity` and open the Site Menu: Christian has no *Site Builder* or *Categorization* section. Keep the tab open.
-2. Send the prompt.
+📋 **Before the prompt:**
+1. As the Clarity Admin, go to *Global Menu* → *Control Panel* → *Users and Organizations*, click the Actions menu (⋮) next to **Christian Carter**, and choose **Impersonate User**.
+2. In the tab that opens, go to `http://localhost:8080/web/clarity` and open the *Site Menu*: Christian has no *Site Builder* or *Categorization* section. Keep the tab open.
 
 💬 **Prompt:**
 ```
@@ -135,17 +138,17 @@ other role. Afterwards, read the role's permissions back and show me the
 difference.
 ```
 
-✅ **Verify:**
-- *Control Panel* → *Roles* → **Marketing Coordinator** → *Define Permissions* → *Summary*: the permissions the agent listed, and nothing else.
-- Refresh the tab where you're impersonating Christian Carter: the Site Menu now has *Site Builder* → **Collections** and *Categorization* → **Categories**, with a **New** button in each. Don't save anything. Close the tab when you're done (*Be Yourself Again* in the user menu).
+✅ **Verify** (look, don't change anything):
+1. *Global Menu* → *Control Panel* → *Roles* → **Marketing Coordinator** → *Define Permissions* → *Summary*: the permissions the agent listed, and nothing else.
+2. Refresh the tab where you're impersonating Christian Carter: the *Site Menu* now has *Site Builder* → **Collections** and *Categorization* → **Categories**, with a **New** button in each. Don't save anything. Close the tab when you're done (*Be Yourself Again* in the user menu).
 
-📖 Liferay DXP 2026.Q1 moved Blogs, Documents and Media, Web Content and Asset Libraries to maintenance mode in favor of Liferay CMS, so this course doesn't build on them.
+📖 **Why it matters:** a **regular** role's permissions apply at company scope: in every site its holder can work in. A **site** role's permissions apply only in the site where it's assigned, which is why Site Content Contributor exists. In Level 6, Liferay CMS Spaces add their own membership and roles on top: that's where Christian gets content-authoring rights.
 
 ### 2.5 — Point the instance at the public site
 
-🎯 `http://localhost:8080/` opens Clarity's public site, and users land there after signing in or out.
+🎯 **Goal:** `http://localhost:8080/` opens Clarity's public site, and users land there after signing in or out.
 
-🧩 `manage-sites` 🆕
+**Skills:** `manage-sites`
 
 💬 **Prompt:**
 ```
@@ -156,6 +159,9 @@ back. If it hasn't, don't use an unsupported API and don't restart
 Liferay: give me the exact screen and fields to set them myself.
 ```
 
-📋 **Steps:** if the agent gave you a screen, set the three fields there and save.
+📋 **After the prompt:**
+1. If the agent gave you a screen, set the three fields there and save.
 
-✅ **Verify:** Global Menu → *Control Panel* → *Instance Settings* → *Platform* → *Instance Configuration* → *General*: the three fields read `/web/clarity`. Open `http://localhost:8080/` in a private window: it redirects to the Clarity site (still empty until Level 3).
+✅ **Verify** (look, don't change anything):
+1. *Global Menu* → *Control Panel* → *Instance Settings* → *Platform* → *Instance Configuration* → *General*: the three fields read `/web/clarity`.
+2. Open `http://localhost:8080/` in a private window: it redirects to the Clarity site (still empty until Level 3).
