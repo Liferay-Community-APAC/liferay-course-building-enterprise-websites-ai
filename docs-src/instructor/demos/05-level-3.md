@@ -1,6 +1,6 @@
 # Level 3 — Pages, master pages and navigation
 
-⏱ **60-minute block** · **Slides:** [Day 1, 25–30](slides/day-1.html#25) · **Learners:** [Level 3](../workbook/level-3.html)
+⏱ **70-minute block** · **Slides:** [Day 1, 25–30](slides/day-1.html#25) · **Learners:** [Level 3](../workbook/level-3.html)
 
 **In this block:** Learners build the site initializer: the page hierarchy, the master pages and the menus.
 
@@ -43,7 +43,7 @@ how you know it's from the latest deploy.
 
 ### Knowledge check answers
 
-🕒 **5 minutes** · at the end of the block · learners answer on their own first ([Level 3, Knowledge check](../workbook/level-3.html#knowledge-check))
+🕒 **5 minutes** · at the end of the block, included in its time · learners answer on their own first, while their last prompt runs ([Level 3, Knowledge check](../workbook/level-3.html#knowledge-check))
 
 💡 **Say:** ask for a show of hands on each option before you give the answer. A split room is the moment to explain.
 

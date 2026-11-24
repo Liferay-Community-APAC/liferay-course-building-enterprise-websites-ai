@@ -1,6 +1,6 @@
 # Level 5 — Design: style book, Theme CSS, favicon and logo
 
-⏱ **40-minute block** · **Slides:** [Day 1, 35–38](slides/day-1.html#35) · **Learners:** [Level 5](../workbook/level-5.html)
+⏱ **45-minute block** · **Slides:** [Day 1, 35–38](slides/day-1.html#35) · **Learners:** [Level 5](../workbook/level-5.html)
 
 **In this block:** Learners apply Clarity's brand with a style book, a Theme CSS client extension, a favicon and the logo.
 
@@ -21,7 +21,7 @@
 
 ### Knowledge check answers
 
-🕒 **5 minutes** · at the end of the block · learners answer on their own first ([Level 5, Knowledge check](../workbook/level-5.html#knowledge-check))
+🕒 **5 minutes** · at the end of the block, included in its time · learners answer on their own first, while their last prompt runs ([Level 5, Knowledge check](../workbook/level-5.html#knowledge-check))
 
 💡 **Say:** ask for a show of hands on each option before you give the answer. A split room is the moment to explain.
 

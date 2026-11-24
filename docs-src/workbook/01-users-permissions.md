@@ -1,6 +1,6 @@
 # Level 1 — Users and permissions
 
-⏱ **About 45 minutes**, with the talk · **Builds on:** Setup
+⏱ **About 35 minutes**, with the talk and the knowledge check · **Builds on:** Setup
 
 **What you'll build:** the accounts of the team that builds Clarity's website, grouped by department, each with a role that grants only what their work requires.
 
@@ -61,7 +61,7 @@ groups and roles as Liferay returns them, not as you intended them.
 
 ## 🧠 Knowledge check
 
-⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+⏱ **About 3 minutes, on your own**, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.
 
 **Question 1.** Clarity hires a second Marketing Coordinator. In the Control Panel you can give a role to the **Marketing** user group, so every member gets it. Why did your agent assign each persona's role to the user directly in 1.1?
 

@@ -1,6 +1,6 @@
 # Level 9 — Headless APIs: importing legacy data
 
-⏱ **About 40 minutes**, with the talk · **Builds on:** Levels 6, 7 and 8
+⏱ **About 55 minutes**, with the talk and the knowledge check · **Builds on:** Levels 6, 7 and 8
 
 **What you'll build:** Clarity's legacy blog post, articles, products and office locations, brought across from the old portal through the same APIs your agent uses. You'll also look at those APIs yourself.
 
@@ -114,7 +114,7 @@ Casablanca" to the job listing "Retail Associate" as an example.
 
 ## 🧠 Knowledge check
 
-⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+⏱ **About 3 minutes, on your own**, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.
 
 **Question 1.** Your agent sends a batch request and gets a response right away. What does that response prove?
 

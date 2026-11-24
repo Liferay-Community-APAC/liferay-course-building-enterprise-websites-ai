@@ -1,6 +1,6 @@
 # Performance tuning and maintenance
 
-⏱ **20-minute block** · **Slides:** [Day 2, 37–38](slides/day-2.html#37) · **Learners:** no exercise
+⏱ **15-minute block** · **Slides:** [Day 2, 37–38](slides/day-2.html#37) · **Learners:** no exercise
 
 **In this block:** A talk with no exercise: testing, auditing, monitoring and upgrading.
 

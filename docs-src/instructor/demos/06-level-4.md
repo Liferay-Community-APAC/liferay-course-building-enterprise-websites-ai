@@ -1,6 +1,6 @@
 # Level 4 — Fragments and page compositions
 
-⏱ **45-minute block** · **Slides:** [Day 1, 31–34](slides/day-1.html#31) · **Learners:** [Level 4](../workbook/level-4.html)
+⏱ **50-minute block** · **Slides:** [Day 1, 31–34](slides/day-1.html#31) · **Learners:** [Level 4](../workbook/level-4.html)
 
 **In this block:** Learners create the Clarity Components fragments and wireframe Home and FAQ.
 
@@ -22,7 +22,7 @@
 
 ### Knowledge check answers
 
-🕒 **5 minutes** · at the end of the block · learners answer on their own first ([Level 4, Knowledge check](../workbook/level-4.html#knowledge-check))
+🕒 **5 minutes** · at the end of the block, included in its time · learners answer on their own first, while their last prompt runs ([Level 4, Knowledge check](../workbook/level-4.html#knowledge-check))
 
 💡 **Say:** ask for a show of hands on each option before you give the answer. A split room is the moment to explain.
 

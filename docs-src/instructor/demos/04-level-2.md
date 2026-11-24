@@ -1,6 +1,6 @@
 # Level 2 — Sites
 
-⏱ **45-minute block** · **Slides:** [Day 1, 21–24](slides/day-1.html#21) · **Learners:** [Level 2](../workbook/level-2.html)
+⏱ **65-minute block** · **Slides:** [Day 1, 21–24](slides/day-1.html#21) · **Learners:** [Level 2](../workbook/level-2.html)
 
 **In this block:** Learners create the two sites, set membership and site settings, and give the Marketing Coordinator role its permissions.
 
@@ -41,7 +41,7 @@
 
 ### Knowledge check answers
 
-🕒 **5 minutes** · at the end of the block · learners answer on their own first ([Level 2, Knowledge check](../workbook/level-2.html#knowledge-check))
+🕒 **5 minutes** · at the end of the block, included in its time · learners answer on their own first, while their last prompt runs ([Level 2, Knowledge check](../workbook/level-2.html#knowledge-check))
 
 💡 **Say:** ask for a show of hands on each option before you give the answer. A split room is the moment to explain.
 

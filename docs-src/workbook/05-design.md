@@ -1,6 +1,6 @@
 # Level 5 — Design: style book, Theme CSS, favicon and logo
 
-⏱ **About 40 minutes**, with the talk · **Builds on:** Levels 3 and 4
+⏱ **About 45 minutes**, with the talk and the knowledge check · **Builds on:** Levels 3 and 4
 
 **What you'll build:** Clarity's brand on every page: first a quick style book check, then Clarity's own Theme CSS and favicon client extensions, bound to the master pages, and the site logo.
 
@@ -95,7 +95,7 @@ stylesheet link of Clarity Theme CSS and the favicon link in its HTML.
 
 ## 🧠 Knowledge check
 
-⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+⏱ **About 3 minutes, on your own**, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.
 
 **Question 1.** After 5.3, someone changes the Primary color in **Clarity Style Book** to red. What changes on pages that use the Primary Master Page?
 

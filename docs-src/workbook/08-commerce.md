@@ -1,6 +1,6 @@
 # Level 8 — Commerce: catalog, products and product pages
 
-⏱ **About 50 minutes**, with the talk · **Builds on:** Levels 4 and 6
+⏱ **About 60 minutes**, with the talk and the knowledge check · **Builds on:** Levels 4 and 6
 
 **What you'll build:** Clarity's products in a Commerce catalog, shown on the public site by category, each with its own product page. Clarity's site showcases products without taking orders: visitors browse by category and contact sales.
 
@@ -142,7 +142,7 @@ Deploy, then check as Guest: open a category from Products, then a product.
 
 ## 🧠 Knowledge check
 
-⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+⏱ **About 3 minutes, on your own**, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.
 
 **Question 1.** You create a second site and add a Commerce Search Results widget to a page. It shows no products, though the catalog has eleven. What's most likely missing?
 

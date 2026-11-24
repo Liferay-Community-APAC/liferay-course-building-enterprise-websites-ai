@@ -1,6 +1,6 @@
 # Level 13 — Personalization: a Home page for distributors
 
-⏱ **30-minute block** · **Slides:** [Day 2, 34–36](slides/day-2.html#34) · **Learners:** [Level 13](../workbook/level-13.html)
+⏱ **35-minute block** · **Slides:** [Day 2, 34–36](slides/day-2.html#34) · **Learners:** [Level 13](../workbook/level-13.html)
 
 **In this block:** Learners build the audience container fragment and the distributor variant of Home.
 
@@ -21,7 +21,7 @@
 
 ### Knowledge check answers
 
-🕒 **5 minutes** · at the end of the block · learners answer on their own first ([Level 13, Knowledge check](../workbook/level-13.html#knowledge-check))
+🕒 **5 minutes** · at the end of the block, included in its time · learners answer on their own first, while their last prompt runs ([Level 13, Knowledge check](../workbook/level-13.html#knowledge-check))
 
 💡 **Say:** ask for a show of hands on each option before you give the answer. A split room is the moment to explain.
 

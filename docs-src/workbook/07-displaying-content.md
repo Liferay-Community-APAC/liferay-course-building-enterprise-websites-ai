@@ -1,6 +1,6 @@
 # Level 7 — Displaying content: mapping, display pages and collections
 
-⏱ **About 60 minutes**, with the talk · **Builds on:** Levels 3, 4 and 6
+⏱ **About 90 minutes**, with the talk and the knowledge check · **Builds on:** Levels 3, 4 and 6
 
 **What you'll build:** Clarity's pages show CMS content instead of copies of it. Home, FAQ and the announcement bar read from the Marketing Space, and every article and leadership profile gets its own page.
 
@@ -166,7 +166,7 @@ and check every page using the primary master shows it.
 
 ## 🧠 Knowledge check
 
-⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+⏱ **About 3 minutes, on your own**, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.
 
 **Question 1.** Marketing replaces the `gradient-overlay` file in the Marketing Space with a new version. What happens to the Home page?
 

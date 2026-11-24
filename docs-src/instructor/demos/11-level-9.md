@@ -1,6 +1,6 @@
 # Level 9 — Headless APIs: importing legacy data
 
-⏱ **40-minute block** · **Slides:** [Day 2, 16–19](slides/day-2.html#16) · **Learners:** [Level 9](../workbook/level-9.html)
+⏱ **55-minute block** · **Slides:** [Day 2, 16–19](slides/day-2.html#16) · **Learners:** [Level 9](../workbook/level-9.html)
 
 **In this block:** Learners use the API Explorer and import legacy content and products in batches.
 
@@ -47,7 +47,7 @@ className, executeStatus and processedItemsCount. Read only.
 
 ### Knowledge check answers
 
-🕒 **5 minutes** · at the end of the block · learners answer on their own first ([Level 9, Knowledge check](../workbook/level-9.html#knowledge-check))
+🕒 **5 minutes** · at the end of the block, included in its time · learners answer on their own first, while their last prompt runs ([Level 9, Knowledge check](../workbook/level-9.html#knowledge-check))
 
 💡 **Say:** ask for a show of hands on each option before you give the answer. A split room is the moment to explain.
 

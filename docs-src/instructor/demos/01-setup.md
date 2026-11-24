@@ -1,6 +1,6 @@
 # Setup — Your workspace, Liferay DXP and the MCP server
 
-⏱ **45-minute block** · **Slides:** [Day 1, 9–12](slides/day-1.html#9) · **Learners:** [Setup](../workbook/setup.html)
+⏱ **60-minute block** · **Slides:** [Day 1, 9–12](slides/day-1.html#9) · **Learners:** [Setup](../workbook/setup.html)
 
 **In this block:** Learners clone the course, start Liferay in Docker, save the admin credentials and connect their agent to the MCP server.
 
