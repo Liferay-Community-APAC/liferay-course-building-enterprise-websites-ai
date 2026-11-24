@@ -57,7 +57,7 @@ clarity-public who isn't a member of a Space can do in it.
 
 - **AC 6.1-1** · *API, as the admin:* the Spaces `space-marketing`, `space-branding`, `space-hr`, `space-events` and `space-products` exist, each connected to `clarity-public`.
 - **AC 6.1-2** · *API, as the admin:* each Space's members and administrator are those in the prompt (for example, the Marketing user group in Marketing, with Clara Murphy as its administrator).
-- **AC 6.1-3** · *Browser, as Christian Carter:* *CMS* lists the five Spaces, and HR has no **New** button.
+- **AC 6.1-3** · *Browser, as Christian Carter:* *CMS* lists the five Spaces, and HR's *View All Content* page has no **New** button.
 
 📖 **Why it matters:** connecting a Space to a site gives the site's members read access to it (the *Connected Site Member* Space role). Authoring takes Space membership and a Space role. Keep that in mind when a Space holds content site members shouldn't read: don't connect it to that site.
 

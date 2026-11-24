@@ -71,7 +71,7 @@ registered and the CSS URL answers 200.
 
 🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
 
-- **AC 5.2-1** · *Browser, as the admin:* *Applications* → *Client Extensions* lists Clarity Theme CSS and Clarity Favicon, both ready.
+- **AC 5.2-1** · *Browser, as the admin:* *Applications* → *Client Extensions* lists Clarity Theme CSS and Clarity Favicon, both with the status Approved.
 - **AC 5.2-2** · *Browser, as Guest:* the Clarity Theme CSS stylesheet that Home links to answers 200 with CSS.
 
 ### 5.3 — Apply the brand to the site and its master pages

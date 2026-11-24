@@ -360,7 +360,7 @@ Read the object back with its fields and REST path.
 <ul class="wb-list wb-ac">
 <li><strong>AC 12.1-1</strong> · <em>API, as the admin:</em> the picklist <code>INQUIRY_TYPES</code> has the keys <code>sales</code>, <code>support</code>, <code>partnership</code> and <code>general</code>, named <em>Ventas</em>, <em>Soporte</em>, <em>Asociación</em> and <em>General</em> in Spanish.</li>
 <li><strong>AC 12.1-2</strong> · <em>API, as the admin:</em> the object <code>ContactUs</code> (<code>CONTACT_US</code>) is published, site-scoped, with the seven fields of the prompt, their types and which are required.</li>
-<li><strong>AC 12.1-3</strong> · <em>API, as Guest:</em> listing Contact Us entries returns none, even when entries exist. (The test can create one first as the admin, then delete it.)</li>
+<li><strong>AC 12.1-3</strong> · <em>API, as Guest:</em> listing Contact Us entries is refused or returns none, even when entries exist. (The test can create one first as the admin, then delete it.)</li>
 </ul>
 <h2 id="122-the-contact-us-form">12.2 — The Contact Us form<a aria-hidden="true" class="heading-anchor" href="#122-the-contact-us-form" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> a styled form on the Contact Us page that creates Contact Us entries, for visitors who aren't signed in.</p>
@@ -413,7 +413,7 @@ object on the site clarity-public. Read the link back.
 <p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
 <ul class="wb-list wb-ac">
 <li><strong>AC 12.3-1</strong> · <em>API, as the admin:</em> the workflow <em>Contact Us Follow Up</em> is published, its <em>Follow Up</em> task is assigned to the Distributor Representative role, and it's linked to Contact Us in <code>clarity-public</code>.</li>
-<li><strong>AC 12.3-2</strong> · <em>API, as the admin:</em> a new Contact Us entry is pending, with a <em>Follow Up</em> task for the Distributor Representative role. (The test deletes the entry afterwards.)</li>
+<li><strong>AC 12.3-2</strong> · <em>API, as the admin:</em> a new Contact Us entry is pending, with a <code>followUp</code> (Follow Up) task for the Distributor Representative role. (The test deletes the entry afterwards.)</li>
 </ul>
 <h2 id="124-the-contact-us-responses-dashboard">12.4 — The Contact Us Responses dashboard<a aria-hidden="true" class="heading-anchor" href="#124-the-contact-us-responses-dashboard" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> a <strong>Contact Us Responses</strong> data set of pending requests (list view, filters, sorting, view and delete actions) on a hidden <strong>Contact Us Responses</strong> page.</p>

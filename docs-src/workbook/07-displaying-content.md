@@ -182,7 +182,7 @@ and check every page using the primary master shows it.
 
 🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
 
-- **AC 7.5-1** · *Browser, as Guest:* Home and FAQ both show the announcement bar with the newest published Announcement's message and its link.
+- **AC 7.5-1** · *Browser, as Guest:* Home and FAQ both show the announcement bar with the newest published Announcement's message and its link (after Level 10, *Spring into Style with Clarity…*).
 
 ⚠️ **If it doesn't match:** if the bar is empty after a deploy, redeploy once: the initializer sometimes imports the master page before the collection it points to exists.
 

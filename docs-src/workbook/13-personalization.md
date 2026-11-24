@@ -39,7 +39,7 @@ fragment compiled.
 
 🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
 
-- **AC 13.1-1** · *API, as the admin:* Clarity Components has the fragment Clarity Audience Container, with the configuration fields `userGroup` and `mode` (`members`, `others`).
+- **AC 13.1-1** · *Browser, as the admin:* *Design* → *Fragments* → **Clarity Components** lists Clarity Audience Container; *API, as the admin:* Home's page definition places it with `userGroup` and `mode` set.
 
 ### 13.2 — A distributor variant of Home
 

@@ -89,7 +89,7 @@ site type B2B. Read it back, with the linked site.
 
 🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
 
-- **AC 8.3-1** · *API, as the admin:* the channel Clarity Public (USD) is linked to `clarity-public`, with the Commerce site type B2B.
+- **AC 8.3-1** · *API, as the admin:* the channel Clarity Public (USD) is linked to `clarity-public`; *Browser, as the admin:* its *General* tab shows the Commerce site type B2B (no API returns it).
 
 ### 8.4 — Category cards on the Products page
 

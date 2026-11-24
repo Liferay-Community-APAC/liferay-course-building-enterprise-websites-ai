@@ -49,7 +49,7 @@ Read the object back with its fields and REST path.
 
 - **AC 12.1-1** · *API, as the admin:* the picklist `INQUIRY_TYPES` has the keys `sales`, `support`, `partnership` and `general`, named *Ventas*, *Soporte*, *Asociación* and *General* in Spanish.
 - **AC 12.1-2** · *API, as the admin:* the object `ContactUs` (`CONTACT_US`) is published, site-scoped, with the seven fields of the prompt, their types and which are required.
-- **AC 12.1-3** · *API, as Guest:* listing Contact Us entries returns none, even when entries exist. (The test can create one first as the admin, then delete it.)
+- **AC 12.1-3** · *API, as Guest:* listing Contact Us entries is refused or returns none, even when entries exist. (The test can create one first as the admin, then delete it.)
 
 ### 12.2 — The Contact Us form
 
@@ -110,7 +110,7 @@ object on the site clarity-public. Read the link back.
 🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
 
 - **AC 12.3-1** · *API, as the admin:* the workflow *Contact Us Follow Up* is published, its *Follow Up* task is assigned to the Distributor Representative role, and it's linked to Contact Us in `clarity-public`.
-- **AC 12.3-2** · *API, as the admin:* a new Contact Us entry is pending, with a *Follow Up* task for the Distributor Representative role. (The test deletes the entry afterwards.)
+- **AC 12.3-2** · *API, as the admin:* a new Contact Us entry is pending, with a `followUp` (Follow Up) task for the Distributor Representative role. (The test deletes the entry afterwards.)
 
 ### 12.4 — The Contact Us Responses dashboard
 
