@@ -37,6 +37,10 @@ fragment compiled.
 1. *Site Menu* → *Design* → *Fragments* → **Clarity Components**: **Clarity Audience Container** is listed.
 2. Open it: the *Configuration* tab shows *userGroup* and *mode*. Close without publishing.
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 13.1-1** · *API, as the admin:* Clarity Components has the fragment Clarity Audience Container, with the configuration fields `userGroup` and `mode` (`members`, `others`).
+
 ### 13.2 — A distributor variant of Home
 
 🎯 **Goal:** signed-in distributors see *Welcome Back! Elevate Your Inventory with Premium Eyewear.* and no distributor promotion; everyone else sees the usual Home.
@@ -67,6 +71,12 @@ for each.
 
 ![Home as Terrence Wheatley, a distributor: the banner reads "Welcome Back! Elevate Your Inventory with Premium Eyewear." and Terrence's avatar replaces the Sign In button.](screenshots/13-2-terrence-home.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 13.2-1** · *Browser, as Guest:* Home has the banner *Elevate Your Brand with Premium Eyewear* and the *Become a Clarity Distributor* section, and the page's HTML doesn't contain *Welcome Back!*.
+- **AC 13.2-2** · *Browser, as Terrence Wheatley:* Home has *Welcome Back! Elevate Your Inventory with Premium Eyewear.*, and the page's HTML doesn't contain *Become a Clarity Distributor*.
+- **AC 13.2-3** · *Browser, as Christian Carter* (not a distributor): Home has the default banner and the *Become a Clarity Distributor* section.
+
 📖 **Why it matters:** this works for signed-in users and user groups. For anonymous visitors (by behavior, location or campaign), you need Liferay Data Platform segments, which is the supported path for that kind of personalization.
 
 ## 🧠 Knowledge check
@@ -93,3 +103,19 @@ for each.
 - **B.** No: the editor shows both so both can be edited.
 - **C.** Yes: one banner failed to compile, so both show.
 - **D.** No: admins see every audience on the live site too.
+
+## ⭐ Extras
+
+Optional, for when you finish early. The next level doesn't depend on them.
+
+### ⭐ 13.3 — Bonus: check Level 13 with Playwright
+
+🎯 **Goal:** `tests/e2e/level-13.spec.ts`, with one test per acceptance criterion (🧪) of Level 13, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.
+
+📋 **Before the prompt:**
+1. If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.
+
+✅ **Success looks like:**
+1. In `tests/e2e`, `npx playwright test level-13` runs one test per acceptance criterion of Level 13, each named by its id, and all pass.
+2. Add Christian Carter to the Distributors user group, and run the tests again: **AC 13.2-3** fails. To undo it, remove Christian again, and run them again: all pass.
+3. `npx playwright test` still passes for every level you've added.

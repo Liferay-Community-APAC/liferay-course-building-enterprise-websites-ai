@@ -39,6 +39,11 @@ code, name and friendly URL. Add both to solution-index.yaml under R2.
 
 ![Control Panel → Sites listing Clarity Public Enterprise Website and Clarity Distributor Portal.](screenshots/2-1-sites.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 2.1-1** · *API, as the admin:* the site `clarity-public` is named *Clarity Public Enterprise Website*, with the friendly URL `/clarity`.
+- **AC 2.1-2** · *API, as the admin:* the site `clarity-distributor-portal` is named *Clarity Distributor Portal*, with the friendly URL `/distributor-portal`.
+
 ### 2.2 — Add members and assign site roles
 
 🎯 **Goal:** the people who build and contribute to the public site are its members, with the right site roles.
@@ -66,6 +71,11 @@ the API on this release.
 2. The Actions menu (⋮) next to Christian Carter → *Assign Site Roles*: **Site Content Contributor** is selected. Close it without saving.
 
 ![The public site's Memberships screen showing Clarity Admin, Christian Carter, Walter Douglas, Ian Miller, Clara Murphy and Harper Roberts.](screenshots/2-2-memberships.png)
+
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 2.2-1** · *API, as the admin:* the members of `clarity-public` are Walter Douglas, Christian Carter, Harper Roberts, Ian Miller, Clara Murphy and the admin, and no one else.
+- **AC 2.2-2** · *API, as the admin:* in `clarity-public`, Walter Douglas has the site role Site Administrator, and Christian Carter and Harper Roberts have Site Content Contributor.
 
 📖 **Why it matters:** adding a **user group** as a site member makes every current and future member of the department a site member. Liferay's headless API can't do that on this release, so your agent told you the screen instead. You'll meet a few settings like this: part of working with an agent is knowing when the UI is the right tool.
 
@@ -106,6 +116,13 @@ check the accessibility menu is NOT on for the Clarity Distributor Portal.
 3. *Localization*: only English (United States) and Spanish (Spain) are *In Use*.
 4. *Accessibility*: the accessibility menu is enabled.
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 2.3-1** · *API, as the admin:* `clarity-public` has the membership type Open and the description from the brief.
+- **AC 2.3-2** · *API, as the admin:* `clarity-public`'s languages are exactly English (United States), the default, and Spanish (Spain).
+- **AC 2.3-3** · *Browser, as the admin:* `clarity-public`'s public pages have the virtual host `www.clarityvisionsolutions.com`.
+- **AC 2.3-4** · *Browser, as the admin:* the accessibility menu is enabled in `clarity-public`'s site settings, and not in `clarity-distributor-portal`'s.
+
 ⚠️ **If it doesn't match:** `www.clarityvisionsolutions.com` doesn't open in your browser: that's expected. The virtual host only answers once that name resolves to your computer (a `hosts` file entry). You don't need it during the course: keep using `http://localhost:8080/web/clarity`.
 
 ### 2.4 — Give the Marketing Coordinator role its permissions
@@ -142,6 +159,11 @@ difference.
 1. *Global Menu* → *Control Panel* → *Roles* → **Marketing Coordinator** → *Define Permissions* → *Summary*: the permissions the agent listed, and nothing else.
 2. Refresh the tab where you're impersonating Christian Carter: the *Site Menu* now has *Site Builder* → **Collections** and *Categorization* → **Categories**, with a **New** button in each. Don't save anything. Close the tab when you're done (*Be Yourself Again* in the user menu).
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 2.4-1** · *API, as the admin:* the Marketing Coordinator role has the collection and category permissions from the prompt, and no PERMISSIONS or DELETE action.
+- **AC 2.4-2** · *Browser, as Christian Carter:* the public site's *Collections* and *Categories* applications open, each with a **New** button.
+
 📖 **Why it matters:** a **regular** role's permissions apply at company scope: in every site its holder can work in. A **site** role's permissions apply only in the site where it's assigned, which is why Site Content Contributor exists. In Level 6, Liferay CMS Spaces add their own membership and roles on top: that's where Christian gets content-authoring rights.
 
 ### 2.5 — Point the instance at the public site
@@ -165,6 +187,11 @@ Liferay: give me the exact screen and fields to set them myself.
 ✅ **Verify** (look, don't change anything):
 1. *Global Menu* → *Control Panel* → *Instance Settings* → *Platform* → *Instance Configuration* → *General*: the three fields read `/web/clarity`.
 2. Open `http://localhost:8080/` in a private window: it redirects to the Clarity site (still empty until Level 3).
+
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 2.5-1** · *Browser, as Guest:* opening `/` ends on `/web/clarity`.
+- **AC 2.5-2** · *Browser, as Christian Carter:* signing in through `/c/portal/login` ends on `/web/clarity`.
 
 ## 🧠 Knowledge check
 
@@ -190,3 +217,19 @@ Liferay: give me the exact screen and fields to set them myself.
 - **B.** Liferay forgets site settings each time the server restarts.
 - **C.** The headless API can't store them, so a script holds them instead.
 - **D.** Settings expire overnight and must be re-applied each morning.
+
+## ⭐ Extras
+
+Optional, for when you finish early. The next level doesn't depend on them.
+
+### ⭐ 2.6 — Bonus: check Level 2 with Playwright
+
+🎯 **Goal:** `tests/e2e/level-2.spec.ts`, with one test per acceptance criterion (🧪) of Level 2, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.
+
+📋 **Before the prompt:**
+1. If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.
+
+✅ **Success looks like:**
+1. In `tests/e2e`, `npx playwright test level-2` runs one test per acceptance criterion of Level 2, each named by its id, and all pass.
+2. In the public site, set *Site Settings* → *Site Configuration* → *Details* → *Membership Type* to **Restricted**, and run the tests again: **AC 2.3-1** fails. To undo it, set it back to **Open**, and run them again: all pass.
+3. `npx playwright test` still passes for every level you've added.

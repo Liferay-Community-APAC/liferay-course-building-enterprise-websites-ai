@@ -45,6 +45,12 @@ Read the object back with its fields and REST path.
 2. Switch the language to Spanish: *Ventas, Soporte, Asociación, General*.
 3. *Global Menu* → *Control Panel* → *Objects* → **Contact Us**: published, scope *Site*, seven fields.
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 12.1-1** · *API, as the admin:* the picklist `INQUIRY_TYPES` has the keys `sales`, `support`, `partnership` and `general`, named *Ventas*, *Soporte*, *Asociación* and *General* in Spanish.
+- **AC 12.1-2** · *API, as the admin:* the object `ContactUs` (`CONTACT_US`) is published, site-scoped, with the seven fields of the prompt, their types and which are required.
+- **AC 12.1-3** · *API, as Guest:* listing Contact Us entries returns none, even when entries exist. (The test can create one first as the admin, then delete it.)
+
 ### 12.2 — The Contact Us form
 
 🎯 **Goal:** a styled form on the Contact Us page that creates Contact Us entries, for visitors who aren't signed in.
@@ -72,6 +78,11 @@ endpoint and show me it was created.
 
 ![The Contact Us form as a visitor sees it, with the language selector and the seven fields.](screenshots/12-2-contact-us.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 12.2-1** · *Browser, as Guest:* Contact Us shows a form with Full Name, Email Address, Phone, Inquiry Type, State or Province, City and Comment, in that order, and a submit button.
+- **AC 12.2-2** · *Browser, as Guest:* submitting the form creates a Contact Us entry with the values entered. (The test then deletes it as the admin.)
+
 ### 12.3 — A follow-up workflow for new requests
 
 🎯 **Goal:** each new Contact Us entry creates a **Follow Up** task for the Distributor Representative role, which is notified; approving it approves the entry.
@@ -95,6 +106,11 @@ object on the site clarity-public. Read the link back.
 1. *Global Menu* → *Applications* → *Process Builder*: **Contact Us Follow Up** is published.
 2. Open it: the *Follow Up* task is assigned to *Distributor Representative*. Close without saving.
 3. *Site Menu* → *Configuration* → *Workflow*: **Contact Us** uses it.
+
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 12.3-1** · *API, as the admin:* the workflow *Contact Us Follow Up* is published, its *Follow Up* task is assigned to the Distributor Representative role, and it's linked to Contact Us in `clarity-public`.
+- **AC 12.3-2** · *API, as the admin:* a new Contact Us entry is pending, with a *Follow Up* task for the Distributor Representative role. (The test deletes the entry afterwards.)
 
 ### 12.4 — The Contact Us Responses dashboard
 
@@ -133,6 +149,12 @@ this data set. Deploy.
 3. Sort the list by Name and filter it by Inquiry Type: the list follows.
 
 ![Contact Us Responses as Daniel Raymond: one pending request from Priya Sharma, with filter, sort and row actions.](screenshots/12-4-responses.png)
+
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 12.4-1** · *API, as the admin:* the data set `CONTACT_US_RESPONSES` exists, with the Name, Create Date and City sorts and the date and Inquiry Type filters.
+- **AC 12.4-2** · *Browser, as Guest:* `/web/clarity/contact-us-responses` isn't viewable.
+- **AC 12.4-3** · *Browser, as Daniel Raymond:* `/web/clarity/contact-us-responses` lists pending entries, and an entry approved through its *Follow Up* task leaves the list. (The test creates and deletes its own entry.)
 
 📖 **Why it matters:** approving the task as Daniel is how you'd accept the workflow in a real project. The data set shows only entries pending review, so an approved request leaves the dashboard.
 
@@ -176,3 +198,15 @@ Optional, for when you finish early. The next level doesn't depend on them.
 2. The form has two steps: contact details, then the request.
 3. Step one has *Next*; step two has *Previous* and *Submit*.
 4. A visitor completes both steps and one entry is created.
+
+### ⭐ 12.6 — Bonus: check Level 12 with Playwright
+
+🎯 **Goal:** `tests/e2e/level-12.spec.ts`, with one test per acceptance criterion (🧪) of Level 12, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.
+
+📋 **Before the prompt:**
+1. If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.
+
+✅ **Success looks like:**
+1. In `tests/e2e`, `npx playwright test level-12` runs one test per acceptance criterion of Level 12, each named by its id, and all pass.
+2. Remove Guest's *Add Object Entry* permission on Contact Us, and run the tests again: **AC 12.2-1** fails. To undo it, grant it again. The form disappeared for visitors without any error: that's why the check exists, and run them again: all pass.
+3. `npx playwright test` still passes for every level you've added.

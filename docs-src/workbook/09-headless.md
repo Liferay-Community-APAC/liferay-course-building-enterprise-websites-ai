@@ -42,6 +42,10 @@ I'd find the operation in the API Explorer. Don't call any of them yet.
 1. In the API Explorer, find each of the four operations the agent named, under the REST application it named.
 2. Read each one's request body schema: the fields match what the agent told you.
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 9.1-1** · *Browser, as the admin:* the API Explorer at `/o/api` lists the REST applications `headless-admin-user/v1.0` and `headless-batch-engine/v1.0`.
+
 ### 9.2 — Import the legacy blog post and articles
 
 🎯 **Goal:** the legacy blog post as a **Blog** entry in the Marketing Space, shown on the Blog page, and three legacy articles in the Marketing Space, imported through the API.
@@ -82,6 +86,12 @@ created, and fetch the Blog page and the post's display page as Guest.
 
 ![The Blog page as a visitor sees it: the legacy post as a Clarity Card with its cover image and the Fashion category.](screenshots/9-2-blog.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 9.2-1** · *API, as the admin:* the Marketing Space's *Blog* folder has *Things I Find Interesting in Eyewear*, with a cover image and a Blog Topics category.
+- **AC 9.2-2** · *API, as the admin:* the Marketing Space's *Articles* folder has at least six articles.
+- **AC 9.2-3** · *Browser, as Guest:* Blog shows the post as a card, and its link opens the Blog Post display page with the post's title and image.
+
 📖 **Why it matters:** a CMS structure has no batch endpoint of its own: the agent used the generic batch engine with the structure's delegate name (`C_Article`) and the Space as scope.
 
 ### 9.3 — Import legacy products and office locations
@@ -112,6 +122,12 @@ Casablanca" to the job listing "Retail Associate" as an example.
 3. *Global Menu* → *CMS* → **HR** → *Categories* → **Location**: 26 categories.
 4. Open the job listing **Retail Associate**: *Morocco, Casablanca* is among its categories.
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 9.3-1** · *API, as the admin:* Clarity Eyewear has at least 11 products, including the eight from `legacy-products.json`.
+- **AC 9.3-2** · *Browser, as Guest:* the Eyeglasses category page lists at least one product.
+- **AC 9.3-3** · *API, as the admin:* the HR Space's Location vocabulary has at least 26 categories, and the job listing *Retail Associate* has *Morocco, Casablanca*.
+
 ## 🧠 Knowledge check
 
 ⏱ **About 3 minutes, on your own**, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.
@@ -136,3 +152,19 @@ Casablanca" to the job listing "Retail Associate" as an example.
 - **B.** Blog structure entries load faster on the Blog page.
 - **C.** Blogs posts can't be shown on a public site.
 - **D.** Blogs is in maintenance mode on this release.
+
+## ⭐ Extras
+
+Optional, for when you finish early. The next level doesn't depend on them.
+
+### ⭐ 9.4 — Bonus: check Level 9 with Playwright
+
+🎯 **Goal:** `tests/e2e/level-9.spec.ts`, with one test per acceptance criterion (🧪) of Level 9, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.
+
+📋 **Before the prompt:**
+1. If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.
+
+✅ **Success looks like:**
+1. In `tests/e2e`, `npx playwright test level-9` runs one test per acceptance criterion of Level 9, each named by its id, and all pass.
+2. Remove the category *Morocco, Casablanca* from the job listing *Retail Associate*, and run the tests again: **AC 9.3-3** fails. To undo it, add it back, and run them again: all pass.
+3. `npx playwright test` still passes for every level you've added.

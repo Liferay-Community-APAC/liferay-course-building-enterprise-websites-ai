@@ -14,10 +14,11 @@ Each level opens with a short intro, then its exercises. Every exercise uses the
 | 💬 **Prompt** | The text to paste into your agent. |
 | 📋 **After the prompt** | Steps you do yourself after the agent answers. |
 | ✅ **Verify** | Where to look in Liferay, and what you should see. Look, don't change anything. |
+| 🧪 **Acceptance criteria** | What must be true when the exercise is done, as checks a test can run: who checks (Guest, a persona, the admin over the API, or the files) and what they find. Each has an id, such as AC 2.3-1. |
 | ⚠️ **If it doesn't match** | Likely causes, and what to tell the agent. |
 | 📖 **Why it matters** | The concept behind the exercise, in a few sentences. |
 | 🧠 **Knowledge check** | Three questions at the end of each level, after its exercises. Answer them on your own while your last prompt runs (about 3 minutes); your instructor then goes over the answers with the class. They're for you, not graded. |
-| ⭐ **Extras** | Optional bonus exercises at the end of a level, for when you finish early. |
+| ⭐ **Extras** | Optional bonus exercises at the end of a level, for when you finish early. Every level's last bonus has your agent write a Playwright test of that level's acceptance criteria, so you can check your whole build again in a minute. |
 
 Level intros also have:
 

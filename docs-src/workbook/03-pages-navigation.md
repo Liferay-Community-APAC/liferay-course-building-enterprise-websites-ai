@@ -57,6 +57,12 @@ solution-index.yaml (R3).
 
 ![Site Builder → Pages: Home, Products with Product List, About Us, Blog, FAQ, Careers with Open Positions, Contact Us and Search.](screenshots/3-1-pages.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 3.1-1** · *API, as the admin:* `clarity-public` has the public content pages Home, Products (with Product List under it), About Us, Blog, FAQ, Careers (with Open Positions under it), Contact Us and Search, in that order, at the friendly URLs from the prompt.
+- **AC 3.1-2** · *API, as the admin:* `clarity-public` still has the membership type Open, and only English and Spanish.
+- **AC 3.1-3** · *Browser, as Guest:* `/web/clarity/home` answers with a page.
+
 ### 3.2 — Build the Primary and Secondary master pages
 
 🎯 **Goal:** two master pages wireframed as in section 4 of the brief, applied to the pages, with the allowed fragments limited on the primary one.
@@ -105,6 +111,12 @@ uses the primary one.
 
 ![Design → Page Templates → Masters: Primary Master Page and Secondary Master Page.](screenshots/3-2-masters.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 3.2-1** · *API, as the admin:* the master pages Primary Master Page and Secondary Master Page exist, and every page from 3.1 uses the Primary Master Page.
+- **AC 3.2-2** · *API, as the admin:* the Primary Master Page's drop zone disallows the Footers and Navigation Bars fragment sets.
+- **AC 3.2-3** · *Browser, as Guest:* Home shows the footer text *© Clarity Vision Solutions*, and none of the Classic theme's own header or footer.
+
 ### 3.3 — Create the navigation menus and wire them in
 
 🎯 **Goal:** the four menus from section 4 of the brief, with the header and footer Menu Display fragments pointing at them.
@@ -134,7 +146,12 @@ the brief.
 
 ![Site Builder → Navigation Menus: Header Page Menu, Footer Resources Menu, Footer Company Menu and Footer Legal Menu.](screenshots/3-3-menus.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
 
+- **AC 3.3-1** · *API, as the admin:* the four menus Header Page Menu, Footer Resources Menu, Footer Company Menu and Footer Legal Menu exist, each with the items in the brief (Level 11 later adds Events to the Footer Resources Menu).
+- **AC 3.3-2** · *Browser, as Guest:* Home's header has the links Products, About Us, Blog, FAQ, Careers and Contact Us, in that order.
+- **AC 3.3-3** · *Browser, as Guest:* clicking **FAQ** in the header opens `/web/clarity/faq`.
+- **AC 3.3-4** · *Browser, as Guest:* the footer's legal links go to `https://www.clarityvisionsolutions.com/privacy` and `/terms`, and open in a new tab.
 
 ## 🧠 Knowledge check
 
@@ -171,3 +188,15 @@ Optional, for when you finish early. The next level doesn't depend on them.
 
 ✅ **Success looks like:**
 1. Sign out and click *Sign In*: Clarity's lighter header and footer surround the sign-in form.
+
+### ⭐ 3.5 — Bonus: check Level 3 with Playwright
+
+🎯 **Goal:** `tests/e2e/level-3.spec.ts`, with one test per acceptance criterion (🧪) of Level 3, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.
+
+📋 **Before the prompt:**
+1. If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.
+
+✅ **Success looks like:**
+1. In `tests/e2e`, `npx playwright test level-3` runs one test per acceptance criterion of Level 3, each named by its id, and all pass.
+2. In *Site Builder* → *Navigation Menus* → **Header Page Menu**, move FAQ below Careers, and run the tests again: **AC 3.3-2** fails. To undo it, redeploy the site with `scripts/deploy_site.sh`, which puts the menu back as the code says, and run them again: all pass.
+3. `npx playwright test` still passes for every level you've added.

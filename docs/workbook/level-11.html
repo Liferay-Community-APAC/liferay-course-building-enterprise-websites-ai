@@ -120,6 +120,10 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Acceptance criteria: what the Playwright bonus tests */
+.doc-content p.wb-ac-label { margin-top: 1.25rem; font-size: .95rem; }
+.doc-content ul.wb-ac { border-left: 3px solid var(--lf-neutral-3, #cdced9); padding: .25rem .5rem .25rem 1.9rem; margin-top: .25rem; font-size: .92rem; color: var(--lf-neutral-8); }
+.doc-content ul.wb-ac li { margin: .3rem 0; }
 /* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
 .doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
 .doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
@@ -306,7 +310,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 11 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html" class="current">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#111-the-open-positions-job-search">11.1 — The Open Positions job search</a></li><li class="toc-level-2"><a href="#112-a-blueprint-that-keeps-only-job-listings-and-boosts-associates">11.2 — A blueprint that keeps only job listings and boosts associates</a></li><li class="toc-level-2"><a href="#113-the-events-page-of-upcoming-hiring-events">11.3 — The Events page of upcoming hiring events</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#114-bonus-find-a-user-by-an-external-id-through-search">⭐ 11.4 — Bonus: find a user by an external id through search</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#111-the-open-positions-job-search">11.1 — The Open Positions job search</a></li><li class="toc-level-2"><a href="#112-a-blueprint-that-keeps-only-job-listings-and-boosts-associates">11.2 — A blueprint that keeps only job listings and boosts associates</a></li><li class="toc-level-2"><a href="#113-the-events-page-of-upcoming-hiring-events">11.3 — The Events page of upcoming hiring events</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#114-bonus-find-a-user-by-an-external-id-through-search">⭐ 11.4 — Bonus: find a user by an external id through search</a></li><li class="toc-level-2"><a href="#115-bonus-check-level-11-with-playwright">⭐ 11.5 — Bonus: check Level 11 with Playwright</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -347,6 +351,12 @@ what the results show.
 <li>Click <em>Remote</em> in the <em>Location</em> group of the facet: the results narrow.</li>
 </ol>
 <p><img alt='Open Positions searching "Developer": facets grouped by Job Positions, Location and Region on the left, job listings with their categories on the right.' src="../screenshots/11-1-open-positions.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 11.1-1</strong> · <em>Browser, as Guest:</em> Careers has an <strong>Explore Open Positions</strong> link to Open Positions.</li>
+<li><strong>AC 11.1-2</strong> · <em>Browser, as Guest:</em> searching <em>Developer</em> on Open Positions lists both web developer job listings.</li>
+<li><strong>AC 11.1-3</strong> · <em>Browser, as Guest:</em> the facet groups its categories by Job Positions, Location and Region, and selecting <em>Remote</em> narrows the results.</li>
+</ul>
 <h2 id="112-a-blueprint-that-keeps-only-job-listings-and-boosts-associates">11.2 — A blueprint that keeps only job listings and boosts associates<a aria-hidden="true" class="heading-anchor" href="#112-a-blueprint-that-keeps-only-job-listings-and-boosts-associates" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> a <strong>Boost Associate Job Listings</strong> blueprint: only Job Listing entries, with <em>Associate</em> positions first, applied to Open Positions.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R11 · <strong>Skills:</strong> <code>manage-pages</code></p>
@@ -366,6 +376,11 @@ client-extensions/clarity-site, under Search Options, and deploy. Search
 <li><em>Global Menu</em> → <em>Applications</em> → <em>Blueprints</em> → open <strong>Boost Associate Job Listings</strong> → <em>Preview</em>, and search <em>Associate</em>: Associate listings come first, and no FAQ or article appears. Close without saving.</li>
 <li>On <strong>Open Positions</strong>, run an empty search: it lists only job listings, Associate ones first.</li>
 </ol>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 11.2-1</strong> · <em>API, as the admin:</em> the blueprint <em>Boost Associate Job Listings</em> exists.</li>
+<li><strong>AC 11.2-2</strong> · <em>Browser, as Guest:</em> an empty search on Open Positions lists only job listings, Associate ones first.</li>
+</ul>
 <h2 id="113-the-events-page-of-upcoming-hiring-events">11.3 — The Events page of upcoming hiring events<a aria-hidden="true" class="heading-anchor" href="#113-the-events-page-of-upcoming-hiring-events" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> an <strong>Events</strong> page whose <em>Upcoming Events</em> list comes from a <strong>Future Events</strong> blueprint used as a collection provider: only events that haven't started, soonest first.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R11 · <strong>Skills:</strong> <code>manage-search</code>, <code>manage-cms</code>, <code>manage-pages</code></p>
@@ -394,6 +409,11 @@ client-extensions/clarity-site, under Search Options, and deploy. Search
 <li><em>Global Menu</em> → <em>Applications</em> → <em>Blueprints</em> → <strong>Future Events</strong> → <em>Preview</em>: the same three, in that order.</li>
 </ol>
 <p><img alt="The Events page: Upcoming Events lists Summer Job Fair, Campus Recruiting Event and Clarity Vision Showcase 2027 with their locations." src="../screenshots/11-3-events.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 11.3-1</strong> · <em>Browser, as Guest:</em> Events lists <em>Summer Job Fair</em>, <em>Campus Recruiting Event</em> and <em>Clarity Vision Showcase 2027</em>, in that order, and not <em>Spring Job Fair</em>.</li>
+<li><strong>AC 11.3-2</strong> · <em>API, as the admin:</em> the Footer Resources Menu has Events right after Careers.</li>
+</ul>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> the original BEWL course used the Calendar widget here. On this release calendar events have no REST API, so the course keeps events in Liferay CMS, where your agent can create them and a blueprint can query them.</p>
 <h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
 <p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own</strong>, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
@@ -429,6 +449,18 @@ client-extensions/clarity-site, under Search Options, and deploy. Search
 <li>Ian Miller's registrationId is <code>555777</code>.</li>
 <li>A <strong>Registration ID</strong> blueprint filters users on that field with the search keywords.</li>
 <li>Your agent calls <code>POST /o/search/v1.0/search</code> with the blueprint and the keyword <code>555777</code>: the response returns Ian Miller and no one else.</li>
+</ol>
+<h2 id="115-bonus-check-level-11-with-playwright">⭐ 11.5 — Bonus: check Level 11 with Playwright<a aria-hidden="true" class="heading-anchor" href="#115-bonus-check-level-11-with-playwright" tabindex="-1">#</a></h2>
+<p class="wb wb-goal">🎯 <strong>Goal:</strong> <code>tests/e2e/level-11.spec.ts</code>, with one test per acceptance criterion (🧪) of Level 11, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.</p>
+<p class="wb wb-do-label">📋 <strong>Before the prompt:</strong></p>
+<ol class="wb-list wb-do">
+<li>If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.</li>
+</ol>
+<p class="wb wb-verify-label">✅ <strong>Success looks like:</strong></p>
+<ol class="wb-list wb-verify">
+<li>In <code>tests/e2e</code>, <code>npx playwright test level-11</code> runs one test per acceptance criterion of Level 11, each named by its id, and all pass.</li>
+<li>In <em>Applications</em> → <em>Blueprints</em> → <strong>Boost Associate Job Listings</strong>, turn off the boost element and save, and run the tests again: <strong>AC 11.2-2</strong> fails. To undo it, turn it on again, and run them again: all pass.</li>
+<li><code>npx playwright test</code> still passes for every level you've added.</li>
 </ol>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="level-10.html"><span>← Previous</span>Level 10 — Workflow and publishing</a><a class="next" href="level-12.html"><span>Next →</span>Level 12 — Objects: the Contact Us form and its follow-up</a></nav>
     </main>

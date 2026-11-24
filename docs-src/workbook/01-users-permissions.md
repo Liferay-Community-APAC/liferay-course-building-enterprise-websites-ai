@@ -55,6 +55,13 @@ groups and roles as Liferay returns them, not as you intended them.
 
 ![Control Panel → Roles: the Regular Roles tab lists Content Manager, Distributor Representative, IT Manager, Marketing Coordinator and Web Developer next to Liferay's own roles.](screenshots/1-1-roles.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 1.1-1** · *API, as the admin:* the five user groups in `context-source/data/user-groups.csv` exist.
+- **AC 1.1-2** · *API, as the admin:* the roles in `context-source/data/roles.csv` exist, each as the type its row says (regular or site).
+- **AC 1.1-3** · *API, as the admin:* the seven personas exist with the external reference codes `PERSONA-<SCREENNAME>`, active, each with the job title, user group and regular role in `personas.csv`.
+- **AC 1.1-4** · *Browser, as Christian Carter:* signing in with `learn` lands in the portal, not on a password change screen.
+
 📖 **Why it matters:** in the Control Panel you can also assign a role to a **user group**, so every member gets it. Liferay's headless API assigns roles to users only, so the agent assigns them one by one here. You can see both kinds of assignee in *Global Menu* → *Control Panel* → *Roles* → a role → *Assignees*.
 
 
@@ -95,3 +102,51 @@ Optional, for when you finish early. The next level doesn't depend on them.
 ✅ **Success looks like:**
 1. Impersonating Clara, you can open *Global Menu* → *Control Panel* → *User Groups* → *Marketing* and add a member.
 2. Another user group shows no *Assign Members* action.
+
+### ⭐ 1.3 — Bonus: check Setup and Level 1 with Playwright
+
+🎯 **Goal:** an automated check of what you've built: a Playwright test suite in `tests/e2e/` with one test per acceptance criterion (🧪) of Setup and Level 1. At the end of every later level, you add that level's tests to it.
+
+**Skills:** `browser-verify`
+
+📋 **Before the prompt:**
+1. Check that Node.js 20 or later is installed: `node --version`. If it isn't, install the LTS version from [nodejs.org](https://nodejs.org/).
+
+💬 **Prompt:**
+```
+Using the browser-verify skill as a reference for signing in and asserting,
+set up a Playwright Test suite in tests/e2e/ (its own package.json with
+@playwright/test; nothing at the workspace root), then write
+tests/e2e/setup.spec.ts and tests/e2e/level-1.spec.ts from the acceptance
+criteria (🧪) in docs-src/workbook/00-setup.md and
+docs-src/workbook/01-users-permissions.md:
+
+- One test per acceptance criterion, titled with its id ("AC 1.1-3 ..."),
+  so a failure names the criterion.
+- Run headless in the installed Google Chrome (channel "chrome"); if it
+  isn't installed, install Playwright's Chromium instead. Use Liferay's
+  HTTP port (CLAUDE.md says how to find it).
+- Shared helpers in tests/e2e/support/: an API client with Basic auth read
+  from configs/local/admin.properties (never printed, logged or copied);
+  sign-in for a persona (password "learn") through /c/portal/login, with
+  one saved session per persona in tests/e2e/.auth/; Guest as a fresh
+  context with no session.
+- Check what Liferay returns, not what the prompts intended: read data
+  over the headless APIs, and what a visitor or persona sees in the
+  browser. Where a criterion says "only", "no" or "not", assert the
+  absence too.
+- Tests only read, unless a criterion says the test creates something;
+  then it deletes it afterwards, even if the test fails.
+- Add tests/e2e/.auth/, node_modules/, test-results/ and
+  playwright-report/ to .gitignore.
+
+Run the suite and show me the result of each test. If a test fails, tell
+me whether the test or my build is wrong before changing either.
+```
+
+✅ **Success looks like:**
+1. In `tests/e2e`, `npx playwright test` runs one test per acceptance criterion of Setup and Level 1, each named by its id, and all pass.
+2. In the Control Panel, remove Christian Carter from the **Marketing** user group, and run the tests again: **AC 1.1-3** fails, and the others pass. Add Christian back: all pass.
+3. No file under `tests/e2e` contains the admin password.
+
+📖 **Why it matters:** the ✅ Verify steps are you checking once, by eye. A test suite checks the same criteria again in a minute, after every deploy and on every environment, and its failures name the criterion that broke. Writing it from acceptance criteria, rather than from what the agent built, is what makes it catch the agent's mistakes.

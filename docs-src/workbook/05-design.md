@@ -33,6 +33,10 @@ book. Deploy and confirm the style book exists and is the default.
 
 ![Design → Style Books: Clarity Style Book marked as the default.](screenshots/5-1-style-books.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 5.1-1** · *Browser, as the admin:* *Design* → *Style Books* lists Clarity Style Book, marked as the default.
+
 ### 5.2 — Clarity's Theme CSS and favicon client extensions
 
 🎯 **Goal:** two frontend client extensions: **Clarity Theme CSS**, carrying Clarity's full brand from section 5 of the brief and declaring its color tokens for the page editor, and **Clarity Favicon**.
@@ -65,6 +69,11 @@ registered and the CSS URL answers 200.
 
 ![Applications → Client Extensions listing Clarity Theme CSS and Clarity Favicon.](screenshots/5-2-client-extensions.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 5.2-1** · *Browser, as the admin:* *Applications* → *Client Extensions* lists Clarity Theme CSS and Clarity Favicon, both ready.
+- **AC 5.2-2** · *Browser, as Guest:* the Clarity Theme CSS stylesheet that Home links to answers 200 with CSS.
+
 ### 5.3 — Apply the brand to the site and its master pages
 
 🎯 **Goal:** both master pages use Clarity Theme CSS; the site has Clarity's favicon and logo.
@@ -90,6 +99,12 @@ stylesheet link of Clarity Theme CSS and the favicon link in its HTML.
 3. In the master's editor, select the *Header Announcement Bar* container → *Styles* → *Background*: the color picker offers **Color Brand Primary**. Leave without publishing.
 
 ![Home at the end of Day 1, as a visitor sees it: Clarity's header and menu, Poppins headings and teal pill buttons. The grey boxes are image placeholders you map to real images in Level 7.](screenshots/5-3-home.png)
+
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 5.3-1** · *Browser, as Guest:* Home links the Clarity Theme CSS stylesheet and Clarity's favicon.
+- **AC 5.3-2** · *Browser, as Guest:* Home's text is set in Poppins, and the **Explore Products** button has the brand primary color from section 5 of the brief.
+- **AC 5.3-3** · *API, as the admin:* both master pages use Clarity Theme CSS.
 
 📖 **Why it matters:** once a Theme CSS client extension replaces the theme's CSS, the Classic theme's style book no longer applies to those pages. 5.1 is a quick check; 5.2 is Clarity's real brand.
 
@@ -117,3 +132,19 @@ stylesheet link of Clarity Theme CSS and the favicon link in its HTML.
 - **B.** Liferay caches CSS. Restart it to load the new stylesheet.
 - **C.** The binding was skipped. Deploy the theme, then the site again.
 - **D.** The Theme CSS belongs in metadata.json. Add it there and redeploy.
+
+## ⭐ Extras
+
+Optional, for when you finish early. The next level doesn't depend on them.
+
+### ⭐ 5.4 — Bonus: check Level 5 with Playwright
+
+🎯 **Goal:** `tests/e2e/level-5.spec.ts`, with one test per acceptance criterion (🧪) of Level 5, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.
+
+📋 **Before the prompt:**
+1. If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.
+
+✅ **Success looks like:**
+1. In `tests/e2e`, `npx playwright test level-5` runs one test per acceptance criterion of Level 5, each named by its id, and all pass.
+2. In the Primary Master Page's *Page Design Options*, set the Theme CSS client extension to none and publish, and run the tests again: **AC 5.3-3** fails. To undo it, redeploy the site with `scripts/deploy_site.sh`, and run them again: all pass.
+3. `npx playwright test` still passes for every level you've added.

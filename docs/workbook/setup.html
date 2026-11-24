@@ -120,6 +120,10 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Acceptance criteria: what the Playwright bonus tests */
+.doc-content p.wb-ac-label { margin-top: 1.25rem; font-size: .95rem; }
+.doc-content ul.wb-ac { border-left: 3px solid var(--lf-neutral-3, #cdced9); padding: .25rem .5rem .25rem 1.9rem; margin-top: .25rem; font-size: .92rem; color: var(--lf-neutral-8); }
+.doc-content ul.wb-ac li { margin: .3rem 0; }
 /* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
 .doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
 .doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
@@ -422,6 +426,11 @@ Don't create or change anything else. Read both files back to me.
 <li><code>solution-context.md</code> in VS Code: it fits on a screen or two and names the personas.</li>
 <li><code>solution-index.yaml</code> in VS Code: 13 entries, all <code>status: todo</code>.</li>
 </ol>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (Level 1's Playwright bonus, 1.3, tests these):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC S.1-1</strong> · <em>Files:</em> <code>solution-context.md</code> and <code>solution-index.yaml</code> exist at the workspace root.</li>
+<li><strong>AC S.1-2</strong> · <em>Files:</em> <code>solution-index.yaml</code> has a <code>requirements</code> list of 13 entries, R1 to R13, each with an <code>id</code>, <code>title</code>, <code>level</code> and <code>status</code>.</li>
+</ul>
 <p class="adm-block adm-warning">⚠️ <strong>If it doesn't match:</strong> if <code>solution-context.md</code> is much longer than a screen or two, ask the agent to shorten it. Every new session reads it, so a long file costs tokens on every prompt for the rest of the course.</p>
 <h2 id="s2-start-postgresql-and-liferay-dxp">S.2 — Start PostgreSQL and Liferay DXP<a aria-hidden="true" class="heading-anchor" href="#s2-start-postgresql-and-liferay-dxp" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> PostgreSQL and Liferay DXP 2026.Q3.10 running in Docker, with Liferay at <code>http://localhost:8080</code>.</p>
@@ -467,6 +476,11 @@ wsl --shutdown
 <li>Sign in as <code>admin@clarityvisionsolutions.com</code> with password <code>learn</code>. The first sign-in shows a <em>Terms of Use</em> notice about Liferay Enterprise Search: read it and close it with <strong>Done</strong>.</li>
 <li><em>Global Menu</em> → <em>Control Panel</em> → <em>Server Administration</em> → <em>Properties</em> → <em>Portal Properties</em>: <code>jdbc.default.url</code> contains <code>postgresql</code>.</li>
 </ol>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (Level 1's Playwright bonus, 1.3, tests these):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC S.2-1</strong> · <em>Browser, as Guest:</em> <code>http://localhost:8080/</code> answers with a Liferay page, not an error.</li>
+<li><strong>AC S.2-2</strong> · <em>Browser, as the admin:</em> signing in through <code>/c/portal/login</code> with the credentials in <code>configs/local/admin.properties</code> succeeds.</li>
+</ul>
 <p class="adm-block adm-warning">⚠️ <strong>If it doesn't match:</strong></p>
 <ul>
 <li><strong>Liferay restarts in a loop, or stops with exit code 137:</strong> Docker doesn't have enough memory. Redo step 2.</li>
@@ -502,6 +516,11 @@ response.
 <li>The agent's answer: it shows <em>Clarity Admin</em> and <code>admin@clarityvisionsolutions.com</code>.</li>
 <li>The agent's messages: none of them contains the password.</li>
 </ol>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (Level 1's Playwright bonus, 1.3, tests these):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC S.3-1</strong> · <em>Files:</em> <code>configs/local/admin.properties</code> exists, and git ignores it (<code>git check-ignore</code> matches it).</li>
+<li><strong>AC S.3-2</strong> · <em>API, as the admin:</em> <code>my-user-account</code> returns the email address <code>admin@clarityvisionsolutions.com</code>.</li>
+</ul>
 <h2 id="s4-turn-on-liferays-mcp-server">S.4 — Turn on Liferay's MCP server<a aria-hidden="true" class="heading-anchor" href="#s4-turn-on-liferays-mcp-server" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> your agent connected to Liferay's MCP server at <code>http://localhost:8080/o/mcp</code>, so it can call Liferay's APIs as a tool instead of hand-writing <code>curl</code> commands.</p>
 <p class="wb wb-tags"><strong>Skills:</strong> <code>mcp-server</code></p>
@@ -534,6 +553,11 @@ of this workspace's running DXP.
 <li>Your agent's MCP server list (Claude Code: type <code>/mcp</code>; Copilot: <em>MCP: List Servers</em> in the Command Palette; Codex: its MCP settings): <code>liferay</code> is listed as connected.</li>
 <li>Ask the agent <em>"Using the liferay MCP server, list the tool sets it offers"</em>: it answers from the server, not from memory.</li>
 </ol>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (Level 1's Playwright bonus, 1.3, tests these):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC S.4-1</strong> · <em>API, as the admin:</em> a JSON-RPC <code>initialize</code> request to <code>/o/mcp</code> answers with a <code>serverInfo</code>.</li>
+<li><strong>AC S.4-2</strong> · <em>Files:</em> the agent's MCP configuration file (<code>.mcp.json</code>, <code>.vscode/mcp.json</code> or <code>.codex/config.toml</code>) exists, and git ignores it.</li>
+</ul>
 <p class="adm-block adm-warning">⚠️ <strong>If it doesn't match:</strong> if the server shows as connected but lists no tools, Liferay was restarted since your session started. Reconnect or restart the session.</p>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> Liferay DXP 2026.Q3's MCP server exposes every headless API (sites, pages, CMS, objects, commerce, users…) as tools, which the agent discovers at runtime and calls with the permissions of the user it authenticates as. On 2026.Q3 it has two switches: the feature flag <code>LPD-63311</code>, which the workspace already turns on in <code>configs/local/portal-ext.properties</code>, and the <em>MCP Server</em> instance setting. That setting is an ordinary OSGi configuration, so your agent can switch it on with a configuration file, live, without a restart.</p>
 <h2 id="s5-read-the-terrain">S.5 — Read the terrain<a aria-hidden="true" class="heading-anchor" href="#s5-read-the-terrain" tabindex="-1">#</a></h2>

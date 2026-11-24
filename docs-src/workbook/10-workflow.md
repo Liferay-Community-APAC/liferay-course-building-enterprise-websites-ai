@@ -34,6 +34,10 @@ now linked to Article in the Marketing Space.
 1. *Global Menu* → *CMS* → **Marketing** → its settings → *Workflow*: **Article** uses the workflow the agent named.
 2. *Global Menu* → *Applications* → *Process Builder* → open that workflow: the review task is assigned to **Content Manager**. Close without saving.
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 10.1-1** · *API, as the admin:* in the Marketing Space, Article is linked to a workflow whose review task is assigned to the Content Manager role.
+
 ### 10.2 — Christian submits an article, Clara approves it
 
 🎯 **Goal:** an article goes from Christian's draft to Clara's approval to the live site.
@@ -70,6 +74,11 @@ completed each with which transition and comment, and the entry's status.
 ✅ **Verify** (look, don't change anything):
 1. As Clara, *My Workflow Tasks* → *Completed*: the task, approved, with the comment.
 2. *Global Menu* → *CMS* → **Marketing** → *Articles*: the article is **Approved**, and it's published.
+
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 10.2-1** · *API, as the admin:* the article *Clarity x Almanac Optics* is approved, and its creator is Christian Carter.
+- **AC 10.2-2** · *API, as the admin:* its workflow's review task was completed by Clara Murphy, with the comment *Approved for the summer campaign.*
 
 📖 **Why it matters:** your agent can act **as** a persona by authenticating with that persona's credentials. Liferay then applies that user's permissions and records them as the author or reviewer. That's how you test a workflow end to end without switching browser sessions.
 
@@ -123,6 +132,12 @@ announcement bar's text on each.
 
 ![After Clara's approval, the announcement bar on every page reads "Spring into Style with Clarity: new frames have arrived!" with a Shop the collection link.](screenshots/10-3-announcement.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 10.3-1** · *API, as the admin:* in the Marketing Space, Announcement is linked to the same workflow as Article.
+- **AC 10.3-2** · *API, as the admin:* the announcement *Spring Campaign* is approved, and its creator is Christian Carter.
+- **AC 10.3-3** · *Browser, as Guest:* Home and FAQ show *Spring into Style with Clarity: new frames have arrived!* with a **Shop the collection** link to Products.
+
 ⚠️ **If it doesn't match:** if the bar still shows the old text, the page may be cached for Guest: wait a minute and reload.
 
 📖 **Why it matters:** the announcement bar (Level 7.5) shows the newest Announcement entry of the Marketing Space. Putting the Announcement structure under the same approval workflow means a site-wide message can't go live without review.
@@ -167,3 +182,15 @@ Optional, for when you finish early. The next level doesn't depend on them.
 2. After approval, the announcement bar keeps its current text until the display date.
 
 📖 **Why it matters:** CMS structures can **schedule** an entry with a display date in the future: approve today, live on Monday.
+
+### ⭐ 10.4 — Bonus: check Level 10 with Playwright
+
+🎯 **Goal:** `tests/e2e/level-10.spec.ts`, with one test per acceptance criterion (🧪) of Level 10, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.
+
+📋 **Before the prompt:**
+1. If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.
+
+✅ **Success looks like:**
+1. In `tests/e2e`, `npx playwright test level-10` runs one test per acceptance criterion of Level 10, each named by its id, and all pass.
+2. In the Marketing Space's settings → *Workflow*, set Announcement to no workflow, and run the tests again: **AC 10.3-1** fails. To undo it, link it to the same workflow as Article again, and run them again: all pass.
+3. `npx playwright test` still passes for every level you've added.

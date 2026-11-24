@@ -120,6 +120,10 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Acceptance criteria: what the Playwright bonus tests */
+.doc-content p.wb-ac-label { margin-top: 1.25rem; font-size: .95rem; }
+.doc-content ul.wb-ac { border-left: 3px solid var(--lf-neutral-3, #cdced9); padding: .25rem .5rem .25rem 1.9rem; margin-top: .25rem; font-size: .92rem; color: var(--lf-neutral-8); }
+.doc-content ul.wb-ac li { margin: .3rem 0; }
 /* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
 .doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
 .doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
@@ -306,7 +310,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 1 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html" class="current">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#11-create-claritys-user-groups-roles-and-personas">1.1 — Create Clarity&#x27;s user groups, roles and personas</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#12-bonus-a-manager-for-the-marketing-team">⭐ 1.2 — Bonus: a manager for the Marketing team</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#11-create-claritys-user-groups-roles-and-personas">1.1 — Create Clarity&#x27;s user groups, roles and personas</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#12-bonus-a-manager-for-the-marketing-team">⭐ 1.2 — Bonus: a manager for the Marketing team</a></li><li class="toc-level-2"><a href="#13-bonus-check-setup-and-level-1-with-playwright">⭐ 1.3 — Bonus: check Setup and Level 1 with Playwright</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -359,6 +363,13 @@ groups and roles as Liferay returns them, not as you intended them.
 </ol>
 <p><img alt="Control Panel → Users and Organizations listing the seven Clarity personas with their screen names, job titles and user groups." src="../screenshots/1-1-users.png"/></p>
 <p><img alt="Control Panel → Roles: the Regular Roles tab lists Content Manager, Distributor Representative, IT Manager, Marketing Coordinator and Web Developer next to Liferay's own roles." src="../screenshots/1-1-roles.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 1.1-1</strong> · <em>API, as the admin:</em> the five user groups in <code>context-source/data/user-groups.csv</code> exist.</li>
+<li><strong>AC 1.1-2</strong> · <em>API, as the admin:</em> the roles in <code>context-source/data/roles.csv</code> exist, each as the type its row says (regular or site).</li>
+<li><strong>AC 1.1-3</strong> · <em>API, as the admin:</em> the seven personas exist with the external reference codes <code>PERSONA-&lt;SCREENNAME&gt;</code>, active, each with the job title, user group and regular role in <code>personas.csv</code>.</li>
+<li><strong>AC 1.1-4</strong> · <em>Browser, as Christian Carter:</em> signing in with <code>learn</code> lands in the portal, not on a password change screen.</li>
+</ul>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> in the Control Panel you can also assign a role to a <strong>user group</strong>, so every member gets it. Liferay's headless API assigns roles to users only, so the agent assigns them one by one here. You can see both kinds of assignee in <em>Global Menu</em> → <em>Control Panel</em> → <em>Roles</em> → a role → <em>Assignees</em>.</p>
 <h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
 <p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own</strong>, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
@@ -392,6 +403,50 @@ groups and roles as Liferay returns them, not as you intended them.
 <li>Impersonating Clara, you can open <em>Global Menu</em> → <em>Control Panel</em> → <em>User Groups</em> → <em>Marketing</em> and add a member.</li>
 <li>Another user group shows no <em>Assign Members</em> action.</li>
 </ol>
+<h2 id="13-bonus-check-setup-and-level-1-with-playwright">⭐ 1.3 — Bonus: check Setup and Level 1 with Playwright<a aria-hidden="true" class="heading-anchor" href="#13-bonus-check-setup-and-level-1-with-playwright" tabindex="-1">#</a></h2>
+<p class="wb wb-goal">🎯 <strong>Goal:</strong> an automated check of what you've built: a Playwright test suite in <code>tests/e2e/</code> with one test per acceptance criterion (🧪) of Setup and Level 1. At the end of every later level, you add that level's tests to it.</p>
+<p class="wb wb-tags"><strong>Skills:</strong> <code>browser-verify</code></p>
+<p class="wb wb-do-label">📋 <strong>Before the prompt:</strong></p>
+<ol class="wb-list wb-do">
+<li>Check that Node.js 20 or later is installed: <code>node --version</code>. If it isn't, install the LTS version from <a href="https://nodejs.org/">nodejs.org</a>.</li>
+</ol>
+<p class="wb wb-prompt-label">💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the browser-verify skill as a reference for signing in and asserting,
+set up a Playwright Test suite in tests/e2e/ (its own package.json with
+@playwright/test; nothing at the workspace root), then write
+tests/e2e/setup.spec.ts and tests/e2e/level-1.spec.ts from the acceptance
+criteria (🧪) in docs-src/workbook/00-setup.md and
+docs-src/workbook/01-users-permissions.md:
+
+- One test per acceptance criterion, titled with its id ("AC 1.1-3 ..."),
+  so a failure names the criterion.
+- Run headless in the installed Google Chrome (channel "chrome"); if it
+  isn't installed, install Playwright's Chromium instead. Use Liferay's
+  HTTP port (CLAUDE.md says how to find it).
+- Shared helpers in tests/e2e/support/: an API client with Basic auth read
+  from configs/local/admin.properties (never printed, logged or copied);
+  sign-in for a persona (password "learn") through /c/portal/login, with
+  one saved session per persona in tests/e2e/.auth/; Guest as a fresh
+  context with no session.
+- Check what Liferay returns, not what the prompts intended: read data
+  over the headless APIs, and what a visitor or persona sees in the
+  browser. Where a criterion says "only", "no" or "not", assert the
+  absence too.
+- Tests only read, unless a criterion says the test creates something;
+  then it deletes it afterwards, even if the test fails.
+- Add tests/e2e/.auth/, node_modules/, test-results/ and
+  playwright-report/ to .gitignore.
+
+Run the suite and show me the result of each test. If a test fails, tell
+me whether the test or my build is wrong before changing either.
+</code></pre></div>
+<p class="wb wb-verify-label">✅ <strong>Success looks like:</strong></p>
+<ol class="wb-list wb-verify">
+<li>In <code>tests/e2e</code>, <code>npx playwright test</code> runs one test per acceptance criterion of Setup and Level 1, each named by its id, and all pass.</li>
+<li>In the Control Panel, remove Christian Carter from the <strong>Marketing</strong> user group, and run the tests again: <strong>AC 1.1-3</strong> fails, and the others pass. Add Christian back: all pass.</li>
+<li>No file under <code>tests/e2e</code> contains the admin password.</li>
+</ol>
+<p class="wb wb-why">📖 <strong>Why it matters:</strong> the ✅ Verify steps are you checking once, by eye. A test suite checks the same criteria again in a minute, after every deploy and on every environment, and its failures name the criterion that broke. Writing it from acceptance criteria, rather than from what the agent built, is what makes it catch the agent's mistakes.</p>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="setup.html"><span>← Previous</span>Setup — Your workspace, Liferay DXP and the MCP server</a><a class="next" href="level-2.html"><span>Next →</span>Level 2 — Sites</a></nav>
     </main>
   </div>

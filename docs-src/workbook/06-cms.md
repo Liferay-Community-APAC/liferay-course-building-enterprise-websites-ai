@@ -53,6 +53,12 @@ clarity-public who isn't a member of a Space can do in it.
 
 ![Liferay CMS → All Spaces: Marketing, Branding, HR, Events and Products.](screenshots/6-1-spaces.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 6.1-1** · *API, as the admin:* the Spaces `space-marketing`, `space-branding`, `space-hr`, `space-events` and `space-products` exist, each connected to `clarity-public`.
+- **AC 6.1-2** · *API, as the admin:* each Space's members and administrator are those in the prompt (for example, the Marketing user group in Marketing, with Clara Murphy as its administrator).
+- **AC 6.1-3** · *Browser, as Christian Carter:* *CMS* lists the five Spaces, and HR has no **New** button.
+
 📖 **Why it matters:** connecting a Space to a site gives the site's members read access to it (the *Connected Site Member* Space role). Authoring takes Space membership and a Space role. Keep that in mind when a Space holds content site members shouldn't read: don't connect it to that site.
 
 ### 6.2 — Model Clarity's content structures
@@ -101,6 +107,12 @@ must succeed and the delete must be refused.
 
 ![Liferay CMS → Content Structures listing Article, FAQ, Announcement, Leadership Profile, Job Listing, Event Information and Event Image.](screenshots/6-2-structures.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 6.2-1** · *API, as the admin:* the seven structures exist with the external reference codes `ARTICLE_STRUCTURE`, `FAQ_STRUCTURE`, `ANNOUNCEMENT_STRUCTURE`, `LEADERSHIP_PROFILE_STRUCTURE`, `JOB_LISTING_STRUCTURE`, `EVENT_INFORMATION_STRUCTURE` and `EVENT_IMAGE_STRUCTURE`, each accepted only in its Space.
+- **AC 6.2-2** · *API, as the admin:* Event Information has `startDateTime` and `endDateTime` as date and time fields.
+- **AC 6.2-3** · *API, as Christian Carter:* creating an FAQ in the Marketing Space succeeds, and deleting it is refused. (The test then deletes it as the admin.)
+
 ### 6.3 — Create the vocabularies
 
 🎯 **Goal:** the FAQ, Articles and job vocabularies with their categories, in the Spaces that use them.
@@ -127,6 +139,11 @@ Read the vocabularies and category counts back.
 ✅ **Verify** (look, don't change anything):
 1. *Global Menu* → *CMS* → the **HR** Space → *Categories*: **Location** has 14 categories.
 2. *Global Menu* → *CMS* → the **Marketing** Space → *Categories* → **FAQ**: four categories.
+
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 6.3-1** · *API, as the admin:* the Marketing Space has the vocabularies FAQ, with the four FAQ categories, and Articles, with Innovation, Industry and Style.
+- **AC 6.3-2** · *API, as the admin:* the HR Space has the vocabularies Region, Location (at least 14 categories) and Job Positions.
 
 ### 6.4 — Load Clarity's content and files
 
@@ -177,7 +194,12 @@ by fetching one FAQ and one file with no credentials.
 
 ![Liferay CMS → Contents listing Clarity's articles, FAQs, announcement, leadership profiles and job listings.](screenshots/6-4-contents.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
 
+- **AC 6.4-1** · *API, as the admin:* the Marketing Space's *FAQ* folder has eight FAQs, each with one FAQ category; *What is your return policy?* has *Returns and Exchanges*.
+- **AC 6.4-2** · *API, as the admin:* the HR Space's *Job Listings* folder has ten job listings, each with a region, a location and a job position.
+- **AC 6.4-3** · *API, as Guest* (no credentials): one FAQ and one file of the Marketing Space can be read.
+- **AC 6.4-4** · *API, as the admin:* the Events Space's *Venues Gallery* folder has the event image, and its *Events* folder has the event.
 
 ## 🧠 Knowledge check
 
@@ -215,3 +237,15 @@ Optional, for when you finish early. The next level doesn't depend on them.
 ✅ **Success looks like:**
 1. Editing the event offers a picker that lists only Event Image files.
 2. More than one image can be chosen.
+
+### ⭐ 6.6 — Bonus: check Level 6 with Playwright
+
+🎯 **Goal:** `tests/e2e/level-6.spec.ts`, with one test per acceptance criterion (🧪) of Level 6, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.
+
+📋 **Before the prompt:**
+1. If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.
+
+✅ **Success looks like:**
+1. In `tests/e2e`, `npx playwright test level-6` runs one test per acceptance criterion of Level 6, each named by its id, and all pass.
+2. In the HR Space's settings → *Connected Sites*, disconnect the public site, and run the tests again: **AC 6.1-1** fails. To undo it, connect it again, searchable, and run them again: all pass.
+3. `npx playwright test` still passes for every level you've added.

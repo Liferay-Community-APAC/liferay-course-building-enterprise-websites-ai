@@ -120,6 +120,10 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Acceptance criteria: what the Playwright bonus tests */
+.doc-content p.wb-ac-label { margin-top: 1.25rem; font-size: .95rem; }
+.doc-content ul.wb-ac { border-left: 3px solid var(--lf-neutral-3, #cdced9); padding: .25rem .5rem .25rem 1.9rem; margin-top: .25rem; font-size: .92rem; color: var(--lf-neutral-8); }
+.doc-content ul.wb-ac li { margin: .3rem 0; }
 /* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
 .doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
 .doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
@@ -306,7 +310,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 2 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html" class="current">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#21-create-claritys-two-sites">2.1 — Create Clarity&#x27;s two sites</a></li><li class="toc-level-2"><a href="#22-add-members-and-assign-site-roles">2.2 — Add members and assign site roles</a></li><li class="toc-level-2"><a href="#23-configure-the-public-site">2.3 — Configure the public site</a></li><li class="toc-level-2"><a href="#24-give-the-marketing-coordinator-role-its-permissions">2.4 — Give the Marketing Coordinator role its permissions</a></li><li class="toc-level-2"><a href="#25-point-the-instance-at-the-public-site">2.5 — Point the instance at the public site</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#21-create-claritys-two-sites">2.1 — Create Clarity&#x27;s two sites</a></li><li class="toc-level-2"><a href="#22-add-members-and-assign-site-roles">2.2 — Add members and assign site roles</a></li><li class="toc-level-2"><a href="#23-configure-the-public-site">2.3 — Configure the public site</a></li><li class="toc-level-2"><a href="#24-give-the-marketing-coordinator-role-its-permissions">2.4 — Give the Marketing Coordinator role its permissions</a></li><li class="toc-level-2"><a href="#25-point-the-instance-at-the-public-site">2.5 — Point the instance at the public site</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#26-bonus-check-level-2-with-playwright">⭐ 2.6 — Bonus: check Level 2 with Playwright</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -345,6 +349,11 @@ code, name and friendly URL. Add both to solution-index.yaml under R2.
 <li>Open <strong>Clarity Public Enterprise Website</strong>: it has no pages yet.</li>
 </ol>
 <p><img alt="Control Panel → Sites listing Clarity Public Enterprise Website and Clarity Distributor Portal." src="../screenshots/2-1-sites.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 2.1-1</strong> · <em>API, as the admin:</em> the site <code>clarity-public</code> is named <em>Clarity Public Enterprise Website</em>, with the friendly URL <code>/clarity</code>.</li>
+<li><strong>AC 2.1-2</strong> · <em>API, as the admin:</em> the site <code>clarity-distributor-portal</code> is named <em>Clarity Distributor Portal</em>, with the friendly URL <code>/distributor-portal</code>.</li>
+</ul>
 <h2 id="22-add-members-and-assign-site-roles">2.2 — Add members and assign site roles<a aria-hidden="true" class="heading-anchor" href="#22-add-members-and-assign-site-roles" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> the people who build and contribute to the public site are its members, with the right site roles.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R1, R2 · <strong>Skills:</strong> <code>manage-sites</code>, <code>manage-roles-permissions</code></p>
@@ -368,6 +377,11 @@ the API on this release.
 <li>The Actions menu (⋮) next to Christian Carter → <em>Assign Site Roles</em>: <strong>Site Content Contributor</strong> is selected. Close it without saving.</li>
 </ol>
 <p><img alt="The public site's Memberships screen showing Clarity Admin, Christian Carter, Walter Douglas, Ian Miller, Clara Murphy and Harper Roberts." src="../screenshots/2-2-memberships.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 2.2-1</strong> · <em>API, as the admin:</em> the members of <code>clarity-public</code> are Walter Douglas, Christian Carter, Harper Roberts, Ian Miller, Clara Murphy and the admin, and no one else.</li>
+<li><strong>AC 2.2-2</strong> · <em>API, as the admin:</em> in <code>clarity-public</code>, Walter Douglas has the site role Site Administrator, and Christian Carter and Harper Roberts have Site Content Contributor.</li>
+</ul>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> adding a <strong>user group</strong> as a site member makes every current and future member of the department a site member. Liferay's headless API can't do that on this release, so your agent told you the screen instead. You'll meet a few settings like this: part of working with an agent is knowing when the UI is the right tool.</p>
 <h2 id="23-configure-the-public-site">2.3 — Configure the public site<a aria-hidden="true" class="heading-anchor" href="#23-configure-the-public-site" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> the public site is ready for its audience: a description, open membership, English and Spanish only, Liferay's accessibility menu, and a virtual host.</p>
@@ -403,6 +417,13 @@ check the accessibility menu is NOT on for the Clarity Distributor Portal.
 <li><em>Localization</em>: only English (United States) and Spanish (Spain) are <em>In Use</em>.</li>
 <li><em>Accessibility</em>: the accessibility menu is enabled.</li>
 </ol>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 2.3-1</strong> · <em>API, as the admin:</em> <code>clarity-public</code> has the membership type Open and the description from the brief.</li>
+<li><strong>AC 2.3-2</strong> · <em>API, as the admin:</em> <code>clarity-public</code>'s languages are exactly English (United States), the default, and Spanish (Spain).</li>
+<li><strong>AC 2.3-3</strong> · <em>Browser, as the admin:</em> <code>clarity-public</code>'s public pages have the virtual host <code>www.clarityvisionsolutions.com</code>.</li>
+<li><strong>AC 2.3-4</strong> · <em>Browser, as the admin:</em> the accessibility menu is enabled in <code>clarity-public</code>'s site settings, and not in <code>clarity-distributor-portal</code>'s.</li>
+</ul>
 <p class="adm-block adm-warning">⚠️ <strong>If it doesn't match:</strong> <code>www.clarityvisionsolutions.com</code> doesn't open in your browser: that's expected. The virtual host only answers once that name resolves to your computer (a <code>hosts</code> file entry). You don't need it during the course: keep using <code>http://localhost:8080/web/clarity</code>.</p>
 <h2 id="24-give-the-marketing-coordinator-role-its-permissions">2.4 — Give the Marketing Coordinator role its permissions<a aria-hidden="true" class="heading-anchor" href="#24-give-the-marketing-coordinator-role-its-permissions" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> the <strong>Marketing Coordinator</strong> role can manage collections and categories in the sites its holders work in, and nothing more. You'll see the effect by impersonating Christian Carter before and after.</p>
@@ -435,6 +456,11 @@ difference.
 <li><em>Global Menu</em> → <em>Control Panel</em> → <em>Roles</em> → <strong>Marketing Coordinator</strong> → <em>Define Permissions</em> → <em>Summary</em>: the permissions the agent listed, and nothing else.</li>
 <li>Refresh the tab where you're impersonating Christian Carter: the <em>Site Menu</em> now has <em>Site Builder</em> → <strong>Collections</strong> and <em>Categorization</em> → <strong>Categories</strong>, with a <strong>New</strong> button in each. Don't save anything. Close the tab when you're done (<em>Be Yourself Again</em> in the user menu).</li>
 </ol>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 2.4-1</strong> · <em>API, as the admin:</em> the Marketing Coordinator role has the collection and category permissions from the prompt, and no PERMISSIONS or DELETE action.</li>
+<li><strong>AC 2.4-2</strong> · <em>Browser, as Christian Carter:</em> the public site's <em>Collections</em> and <em>Categories</em> applications open, each with a <strong>New</strong> button.</li>
+</ul>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> a <strong>regular</strong> role's permissions apply at company scope: in every site its holder can work in. A <strong>site</strong> role's permissions apply only in the site where it's assigned, which is why Site Content Contributor exists. In Level 6, Liferay CMS Spaces add their own membership and roles on top: that's where Christian gets content-authoring rights.</p>
 <h2 id="25-point-the-instance-at-the-public-site">2.5 — Point the instance at the public site<a aria-hidden="true" class="heading-anchor" href="#25-point-the-instance-at-the-public-site" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> <code>http://localhost:8080/</code> opens Clarity's public site, and users land there after signing in or out.</p>
@@ -455,6 +481,11 @@ Liferay: give me the exact screen and fields to set them myself.
 <li><em>Global Menu</em> → <em>Control Panel</em> → <em>Instance Settings</em> → <em>Platform</em> → <em>Instance Configuration</em> → <em>General</em>: the three fields read <code>/web/clarity</code>.</li>
 <li>Open <code>http://localhost:8080/</code> in a private window: it redirects to the Clarity site (still empty until Level 3).</li>
 </ol>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 2.5-1</strong> · <em>Browser, as Guest:</em> opening <code>/</code> ends on <code>/web/clarity</code>.</li>
+<li><strong>AC 2.5-2</strong> · <em>Browser, as Christian Carter:</em> signing in through <code>/c/portal/login</code> ends on <code>/web/clarity</code>.</li>
+</ul>
 <h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
 <p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own</strong>, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
 <p class="wb wb-quiz-q"><strong>Question 1.</strong> In 2.4 you grant the <strong>regular</strong> role Marketing Coordinator permission to manage Collections, at company scope. Christian holds that role. In which sites can Christian now manage collections?</p>
@@ -478,6 +509,20 @@ Liferay: give me the exact screen and fields to set them myself.
 <li><strong>C.</strong> The headless API can't store them, so a script holds them instead.</li>
 <li><strong>D.</strong> Settings expire overnight and must be re-applied each morning.</li>
 </ul>
+<h2 id="extras">⭐ Extras<a aria-hidden="true" class="heading-anchor" href="#extras" tabindex="-1">#</a></h2>
+<p>Optional, for when you finish early. The next level doesn't depend on them.</p>
+<h2 id="26-bonus-check-level-2-with-playwright">⭐ 2.6 — Bonus: check Level 2 with Playwright<a aria-hidden="true" class="heading-anchor" href="#26-bonus-check-level-2-with-playwright" tabindex="-1">#</a></h2>
+<p class="wb wb-goal">🎯 <strong>Goal:</strong> <code>tests/e2e/level-2.spec.ts</code>, with one test per acceptance criterion (🧪) of Level 2, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.</p>
+<p class="wb wb-do-label">📋 <strong>Before the prompt:</strong></p>
+<ol class="wb-list wb-do">
+<li>If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.</li>
+</ol>
+<p class="wb wb-verify-label">✅ <strong>Success looks like:</strong></p>
+<ol class="wb-list wb-verify">
+<li>In <code>tests/e2e</code>, <code>npx playwright test level-2</code> runs one test per acceptance criterion of Level 2, each named by its id, and all pass.</li>
+<li>In the public site, set <em>Site Settings</em> → <em>Site Configuration</em> → <em>Details</em> → <em>Membership Type</em> to <strong>Restricted</strong>, and run the tests again: <strong>AC 2.3-1</strong> fails. To undo it, set it back to <strong>Open</strong>, and run them again: all pass.</li>
+<li><code>npx playwright test</code> still passes for every level you've added.</li>
+</ol>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="level-1.html"><span>← Previous</span>Level 1 — Users and permissions</a><a class="next" href="level-3.html"><span>Next →</span>Level 3 — Pages, master pages and navigation</a></nav>
     </main>
   </div>

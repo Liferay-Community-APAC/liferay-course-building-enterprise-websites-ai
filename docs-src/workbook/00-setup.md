@@ -110,6 +110,11 @@ Don't create or change anything else. Read both files back to me.
 1. `solution-context.md` in VS Code: it fits on a screen or two and names the personas.
 2. `solution-index.yaml` in VS Code: 13 entries, all `status: todo`.
 
+🧪 **Acceptance criteria** (Level 1's Playwright bonus, 1.3, tests these):
+
+- **AC S.1-1** · *Files:* `solution-context.md` and `solution-index.yaml` exist at the workspace root.
+- **AC S.1-2** · *Files:* `solution-index.yaml` has a `requirements` list of 13 entries, R1 to R13, each with an `id`, `title`, `level` and `status`.
+
 ⚠️ **If it doesn't match:** if `solution-context.md` is much longer than a screen or two, ask the agent to shorten it. Every new session reads it, so a long file costs tokens on every prompt for the rest of the course.
 
 ### S.2 — Start PostgreSQL and Liferay DXP
@@ -161,6 +166,11 @@ Don't create or change anything else. Read both files back to me.
 3. Sign in as `admin@clarityvisionsolutions.com` with password `learn`. The first sign-in shows a *Terms of Use* notice about Liferay Enterprise Search: read it and close it with **Done**.
 4. *Global Menu* → *Control Panel* → *Server Administration* → *Properties* → *Portal Properties*: `jdbc.default.url` contains `postgresql`.
 
+🧪 **Acceptance criteria** (Level 1's Playwright bonus, 1.3, tests these):
+
+- **AC S.2-1** · *Browser, as Guest:* `http://localhost:8080/` answers with a Liferay page, not an error.
+- **AC S.2-2** · *Browser, as the admin:* signing in through `/c/portal/login` with the credentials in `configs/local/admin.properties` succeeds.
+
 ⚠️ **If it doesn't match:**
 - **Liferay restarts in a loop, or stops with exit code 137:** Docker doesn't have enough memory. Redo step 2.
 - **Port 8080 or 5432 is already in use:** stop the other program first.
@@ -204,6 +214,11 @@ response.
 1. The agent's answer: it shows *Clarity Admin* and `admin@clarityvisionsolutions.com`.
 2. The agent's messages: none of them contains the password.
 
+🧪 **Acceptance criteria** (Level 1's Playwright bonus, 1.3, tests these):
+
+- **AC S.3-1** · *Files:* `configs/local/admin.properties` exists, and git ignores it (`git check-ignore` matches it).
+- **AC S.3-2** · *API, as the admin:* `my-user-account` returns the email address `admin@clarityvisionsolutions.com`.
+
 ### S.4 — Turn on Liferay's MCP server
 
 🎯 **Goal:** your agent connected to Liferay's MCP server at `http://localhost:8080/o/mcp`, so it can call Liferay's APIs as a tool instead of hand-writing `curl` commands.
@@ -238,6 +253,11 @@ of this workspace's running DXP.
 1. *Global Menu* → *Control Panel* → *Instance Settings* → *Platform* → *MCP Server*: **Enabled** is checked. Don't change it.
 2. Your agent's MCP server list (Claude Code: type `/mcp`; Copilot: *MCP: List Servers* in the Command Palette; Codex: its MCP settings): `liferay` is listed as connected.
 3. Ask the agent *"Using the liferay MCP server, list the tool sets it offers"*: it answers from the server, not from memory.
+
+🧪 **Acceptance criteria** (Level 1's Playwright bonus, 1.3, tests these):
+
+- **AC S.4-1** · *API, as the admin:* a JSON-RPC `initialize` request to `/o/mcp` answers with a `serverInfo`.
+- **AC S.4-2** · *Files:* the agent's MCP configuration file (`.mcp.json`, `.vscode/mcp.json` or `.codex/config.toml`) exists, and git ignores it.
 
 ⚠️ **If it doesn't match:** if the server shows as connected but lists no tools, Liferay was restarted since your session started. Reconnect or restart the session.
 

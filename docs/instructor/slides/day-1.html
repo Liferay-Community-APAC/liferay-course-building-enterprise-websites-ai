@@ -212,14 +212,15 @@
       <tr><td>📋 Before / after</td><td>Steps you do yourself, around the prompt</td></tr>
       <tr><td>💬 Prompt</td><td>Paste into your agent</td></tr>
       <tr><td>✅ Verify</td><td>Where to check it worked, in Liferay. Look, don't change anything</td></tr>
+      <tr><td>🧪 Acceptance criteria</td><td>The same checks, written for a test to run: who checks, and what they find</td></tr>
       <tr><td>⚠️ If it doesn't match</td><td>Likely causes, and what to tell the agent</td></tr>
       <tr><td>🧠 Knowledge check</td><td>Three questions at the end of each level: answer on your own, then we go over them</td></tr>
-      <tr><td>⭐ Extras</td><td>Bonus challenges if you finish early: you write the prompt</td></tr>
+      <tr><td>⭐ Extras</td><td>Bonus challenges if you finish early: you write the prompt. The last one tests the level with Playwright</td></tr>
     </tbody>
   </table>
   <p class="callout info">Every prompt that creates something says who may see it. Keep those access lines when you adapt a prompt.</p>
   <aside class="notes">
-    <p>Open the workbook on the projector and show one exercise with each block, for example 2.4, which has a Before the prompt step. Personas all use the password learn, and a private browser window lets learners sign in as a second persona while staying signed in as the admin. Point out the access lines: permission gaps fail silently, so a page answers and only a visitor notices. Each level ends with a knowledge check: learners answer the three questions while their last prompt runs, and you take about five minutes on the answers; they aren't graded. Learners ask whether bonus exercises matter; they're for fast learners and aren't in the schedule.</p>
+    <p>Open the workbook on the projector and show one exercise with each block, for example 2.4, which has a Before the prompt step. Personas all use the password learn, and a private browser window lets learners sign in as a second persona while staying signed in as the admin. Point out the access lines: permission gaps fail silently, so a page answers and only a visitor notices. Each level ends with a knowledge check: learners answer the three questions while their last prompt runs, and you take about five minutes on the answers; they aren't graded. Learners ask whether bonus exercises matter; they're for fast learners and aren't in the schedule. Point fast learners to each level's Playwright bonus first: exercise 1.3 sets up a test suite from the acceptance criteria, and each later level adds its tests, so a learner can re-check their whole build in a minute. It needs Node.js 20 or later.</p>
   </aside>
 </section>
 
