@@ -1,0 +1,87 @@
+.clarity-button {
+	--clarity-btn-accent: var(--color-brand-primary, var(--primary));
+	--clarity-btn-accent-dark: var(--color-brand-primary-darken-1, var(--primary-d1, var(--primary)));
+	--clarity-btn-contrast: var(--color-neutral-0, var(--white));
+
+	display: inline-block;
+}
+
+.clarity-button[data-style='secondary'] {
+	--clarity-btn-accent: var(--color-brand-secondary, var(--secondary));
+	--clarity-btn-accent-dark: var(--color-brand-secondary-darken-1, var(--secondary-d1, var(--secondary)));
+}
+
+/* Inverted: for dark backgrounds, swap accent and contrast */
+.clarity-button[data-inverted='true'] {
+	--clarity-btn-accent: var(--color-neutral-0, var(--white));
+	--clarity-btn-accent-dark: var(--color-neutral-1, var(--light));
+	--clarity-btn-contrast: var(--color-brand-primary, var(--primary));
+}
+
+.clarity-button[data-inverted='true'][data-style='secondary'] {
+	--clarity-btn-contrast: var(--color-brand-secondary, var(--secondary));
+}
+
+.clarity-button__link {
+	align-items: center;
+	background-color: var(--clarity-btn-accent);
+	border: 2px solid var(--clarity-btn-accent);
+	border-radius: var(--btn-border-radius, 50rem);
+	color: var(--clarity-btn-contrast);
+	display: inline-flex;
+	font-size: 1rem;
+	font-weight: 600;
+	justify-content: center;
+	line-height: 1.5;
+	padding: var(--spacer-2, 0.5rem) var(--spacer-4, 1.5rem);
+	text-decoration: none;
+	transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.clarity-button__link:hover,
+.clarity-button__link:focus {
+	background-color: var(--clarity-btn-accent-dark);
+	border-color: var(--clarity-btn-accent-dark);
+	color: var(--clarity-btn-contrast);
+	text-decoration: none;
+}
+
+.clarity-button__link:focus-visible {
+	outline: 2px solid var(--clarity-btn-accent-dark);
+	outline-offset: 2px;
+}
+
+.clarity-button[data-type='outline'] .clarity-button__link {
+	background-color: transparent;
+	color: var(--clarity-btn-accent);
+}
+
+.clarity-button[data-type='outline'] .clarity-button__link:hover,
+.clarity-button[data-type='outline'] .clarity-button__link:focus {
+	background-color: var(--clarity-btn-accent);
+	color: var(--clarity-btn-contrast);
+}
+
+.clarity-button[data-type='borderless'] .clarity-button__link {
+	background-color: transparent;
+	border-color: transparent;
+	color: var(--clarity-btn-accent);
+}
+
+.clarity-button[data-type='borderless'] .clarity-button__link:hover,
+.clarity-button[data-type='borderless'] .clarity-button__link:focus {
+	background-color: transparent;
+	border-color: transparent;
+	color: var(--clarity-btn-accent-dark);
+	text-decoration: underline;
+}
+
+.clarity-button[data-size='small'] .clarity-button__link {
+	font-size: 0.875rem;
+	padding: var(--spacer-1, 0.25rem) var(--spacer-3, 1rem);
+}
+
+.clarity-button[data-size='large'] .clarity-button__link {
+	font-size: 1.125rem;
+	padding: var(--spacer-3, 1rem) var(--spacer-5, 2rem);
+}

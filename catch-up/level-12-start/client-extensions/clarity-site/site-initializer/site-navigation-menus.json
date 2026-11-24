@@ -1,0 +1,124 @@
+[
+	{
+		"auto": false,
+		"externalReferenceCode": "clarity-header-page-menu",
+		"name": "Header Page Menu",
+		"typeSite": 1,
+		"menuItems": [
+			{
+				"externalReferenceCode": "clarity-header-page-menu-item-products",
+				"friendlyURL": "/products",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"externalReferenceCode": "clarity-header-page-menu-item-about-us",
+				"friendlyURL": "/about-us",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"externalReferenceCode": "clarity-header-page-menu-item-blog",
+				"friendlyURL": "/blog",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"externalReferenceCode": "clarity-header-page-menu-item-faq",
+				"friendlyURL": "/faq",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"externalReferenceCode": "clarity-header-page-menu-item-careers",
+				"friendlyURL": "/careers",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"externalReferenceCode": "clarity-header-page-menu-item-contact-us",
+				"friendlyURL": "/contact-us",
+				"privateLayout": false,
+				"type": "layout"
+			}
+		]
+	},
+	{
+		"auto": false,
+		"externalReferenceCode": "clarity-footer-resources-menu",
+		"name": "Footer Resources Menu",
+		"typeSite": 0,
+		"menuItems": [
+			{
+				"externalReferenceCode": "clarity-footer-resources-menu-item-blog",
+				"friendlyURL": "/blog",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"externalReferenceCode": "clarity-footer-resources-menu-item-faq",
+				"friendlyURL": "/faq",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"externalReferenceCode": "clarity-footer-resources-menu-item-careers",
+				"friendlyURL": "/careers",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"externalReferenceCode": "clarity-footer-resources-menu-item-events",
+				"friendlyURL": "/events",
+				"privateLayout": false,
+				"type": "layout"
+			}
+		]
+	},
+	{
+		"auto": false,
+		"externalReferenceCode": "clarity-footer-company-menu",
+		"name": "Footer Company Menu",
+		"typeSite": 0,
+		"menuItems": [
+			{
+				"externalReferenceCode": "clarity-footer-company-menu-item-about-us",
+				"friendlyURL": "/about-us",
+				"privateLayout": false,
+				"type": "layout"
+			},
+			{
+				"externalReferenceCode": "clarity-footer-company-menu-item-contact-us",
+				"friendlyURL": "/contact-us",
+				"privateLayout": false,
+				"type": "layout"
+			}
+		]
+	},
+	{
+		"auto": false,
+		"externalReferenceCode": "clarity-footer-legal-menu",
+		"name": "Footer Legal Menu",
+		"typeSite": 0,
+		"menuItems": [
+			{
+				"externalReferenceCode": "clarity-footer-legal-menu-item-privacy",
+				"name_i18n": {
+					"en_US": "Privacy Policy"
+				},
+				"type": "url",
+				"url": "https://www.clarityvisionsolutions.com/privacy",
+				"useNewTab": true
+			},
+			{
+				"externalReferenceCode": "clarity-footer-legal-menu-item-terms",
+				"name_i18n": {
+					"en_US": "Terms of Use"
+				},
+				"type": "url",
+				"url": "https://www.clarityvisionsolutions.com/terms",
+				"useNewTab": true
+			}
+		]
+	}
+]

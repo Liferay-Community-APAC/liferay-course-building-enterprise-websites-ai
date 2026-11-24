@@ -1,0 +1,123 @@
+{
+	"pageElement": {
+		"pageElements": [
+			{
+				"definition": {
+					"layout": {
+						"containerType": "Fixed",
+						"paddingBottom": 6,
+						"paddingTop": 6
+					},
+					"name": "Upcoming Events"
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"fragment": {
+								"key": "BASIC_COMPONENT-heading"
+							},
+							"fragmentConfig": {
+								"headingLevel": "h2"
+							},
+							"fragmentFields": [
+								{
+									"id": "element-text",
+									"value": {
+										"fragmentLink": {},
+										"text": {
+											"value_i18n": {
+												"en_US": "Upcoming Events"
+											}
+										}
+									}
+								}
+							]
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"collectionConfig": {
+								"collectionReference": {
+									"className": "com.liferay.search.experiences.model.SXPBlueprint_[$COMPANY_ID$]_FUTURE_EVENTS"
+								},
+								"collectionType": "CollectionProvider"
+							},
+							"listStyle": "flex-column",
+							"name": "Upcoming Events Collection",
+							"numberOfColumns": 1,
+							"numberOfItems": 20,
+							"paginationType": "None"
+						},
+						"pageElements": [
+							{
+								"definition": {},
+								"pageElements": [
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-heading"
+											},
+											"fragmentConfig": {
+												"headingLevel": "h4"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"text": {
+															"mapping": {
+																"fieldKey": "ObjectField_title",
+																"itemReference": {
+																	"contextSource": "CollectionItem"
+																}
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									},
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-paragraph"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"text": {
+															"mapping": {
+																"fieldKey": "ObjectField_location",
+																"itemReference": {
+																	"contextSource": "CollectionItem"
+																}
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									}
+								],
+								"type": "CollectionItem"
+							}
+						],
+						"type": "Collection"
+					}
+				],
+				"type": "Section"
+			}
+		],
+		"type": "Root"
+	},
+	"settings": {
+		"masterPage": {
+			"key": "primary-master-page"
+		}
+	},
+	"version": 1.1
+}

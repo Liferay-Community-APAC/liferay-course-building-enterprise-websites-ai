@@ -18,6 +18,8 @@ Hold that line in class. When a learner says "the agent did it, it works", ask t
 | DXP 2026.Q1 LTS | DXP 2026.Q3.10 |
 | Publications, DXP segments and experiences, Blogs, Documents and Media, Custom Fields | Workflow, a user-group audience fragment, CMS Blog entries and Space files, Object fields: no deprecated or maintenance-mode features |
 
+For a one-page summary to share with colleagues who know the original course, see [What's new](whats-new.html).
+
 ## Before the course
 
 - **Two weeks before:** send learners the [prerequisites page](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/). It covers Git, JDK 21, Blade, Docker with 8 GB of memory, the Liferay DXP and PostgreSQL Docker images, VS Code and their AI agent. They bring their own agent subscription.
@@ -62,16 +64,26 @@ Most setup problems show up in the first half hour. Before the first slide, put 
 
 - **Demo the first prompt of each level** on the projector, including the verify step. Then let learners run the rest. The [instructor demo workbook](demos.html) has the step-by-step for every other demo, with optional prompts.
 - **One agent session per exercise** keeps costs and confusion down. If a learner's agent goes off track, have them start a new session: `solution-context.md` and `solution-index.yaml` carry the context.
-- **Agents differ.** Prompts are written to work with Claude Code, Codex and Copilot in agent mode. A weaker model may need the skill named explicitly (the 🧩 line) or a follow-up ("read the X skill and try again").
+- **Agents differ.** Prompts are written to work with Claude Code, Codex and Copilot in agent mode. A weaker model may need the skill named explicitly (the exercise's **Skills** line) or a follow-up ("read the X skill and try again").
 - **Learners never start or stop Liferay through the agent.** If an agent offers to, they say no and do it themselves.
 - **Verification is read-only.** Encourage learners to open the editors to look, then leave without saving or publishing. The places where they act (approving a workflow task as Daniel in 12.4, and the few settings with no API) are marked 📋.
 
 ## Catching up
 
-The levels are chained: a learner who can't finish Level 6 can't do Level 7. Two safety nets:
+The levels are chained: a learner who can't finish Level 6 can't do Level 7. Three safety nets:
 
 1. **Rerun the prompts.** Every prompt is written to be idempotent (upsert by external reference code), so rerunning an earlier one is safe.
-2. **The Day 2 starting point.** `catch-up/day-2-start/` holds the solution for everything up to the end of Level 6: the site initializer, the theme project and a script that creates users, Spaces, structures and content. Give a learner the steps in its README: it takes about ten minutes and leaves them ready for Level 7.
+2. **A catch-up kit.** Each one holds the solution up to a level: the site initializer (and, from Day 2, the theme), re-runnable scripts that create the data, and a README with a prompt for the learner's agent. Each was proven on an empty database with the reference tests below.
+
+   | Kit | Leaves the learner ready for | Use it | Takes about |
+   | --- | --- | --- | --- |
+   | `catch-up/level-4-start/` | Level 4 | Day 1 at 14:20, for anyone still stuck in Level 3 | 5 minutes |
+   | `catch-up/day-2-start/` | Level 7 | Start of Day 2 | 10 minutes |
+   | `catch-up/level-10-start/` | Level 10 | Day 2, after lunch | 15 minutes |
+   | `catch-up/level-12-start/` | Level 12 | Day 2, after the afternoon break | 15 minutes |
+
+   Applying a kit replaces the learner's own work for the levels it covers, so offer it when they are more than one level behind, not to fix one exercise. Each README lists what the learner still does by hand: the 📋 steps of Levels 2.3 and 2.5 (virtual host, and the instance's home, landing and logout pages), which have no API. The kits come from a clean run on DXP 2026.Q3.10: re-prove them when you move the course to a new release.
+3. **Check where a learner stands.** The [reference tests](https://github.com/Liferay-Community-APAC/liferay-course-building-enterprise-websites-ai/tree/main/instructor/tests/e2e) have one test per acceptance criterion. Run them against a learner's workspace up to their level (`npx playwright test specs/level-6.spec.ts`) to see exactly which criteria fail, or against your own demo build before the course.
 
 ## Topics covered in slides only
 
@@ -86,6 +98,19 @@ These original BEWL topics have no exercise. Present them with the slides marked
 | Publications | Challenge 18 | Maintenance mode on 2026.Q1 with no replacement; 10.3 publishes through workflow instead. Mention it for existing customers. |
 | DXP segments and experiences | Challenge 22 | Deprecated on 2026.Q1 in favor of Liferay Data Platform segmentation, which needs an LDP workspace connected to each instance. Show it in the slides; Level 13 uses a user-group audience fragment instead. |
 
+## Course feedback
+
+Collect feedback before learners leave, on the last slide of Day 2. Set up a form in your organization's form tool (Microsoft Forms, Google Forms or your LMS) with the questions below, and share its link in the class chat or as a QR code on the closing slide. The first three are the ones that improve the next run of the course; keep them even if you drop the rest.
+
+1. **Which level was hardest, and why?** (Level 1 to 13, plus a comment)
+2. **Where did your AI agent get stuck or go wrong?** Which agent and model did you use? (comment)
+3. **Did the ✅ Verify steps help you learn where each feature lives in Liferay?** (1 = not at all, 5 = a lot, plus a comment)
+4. **How was the pace?** Day 1 and Day 2 each: too slow, about right, too fast.
+5. **Did you finish the prerequisites before Day 1?** (yes, partly, no) What got in the way?
+6. **How likely are you to recommend this course to a colleague?** (0 to 10)
+
+After the course, read the answers to questions 1 and 2 against your own notes on where the class stalled: they show which prompts, skills or verify steps to fix first.
+
 ## When something goes wrong
 
 | Symptom | Likely cause | Fix |
@@ -99,7 +124,7 @@ These original BEWL topics have no exercise. Present them with the slides marked
 | `/o/mcp` answers 404 | The MCP Server instance setting is off | Rerun prompt S.4. |
 | A deploy "succeeds" but nothing changes | Unchanged zip, or the wrong deploy order | Ask the agent to `blade gw clean deploy` and check the `Initialized` log line, per the site-initializer rules. |
 | A page shows content for the admin, not for Guest | Permissions, or the Space isn't connected to the site | Ask the agent to check Guest access (`rules/guest-access.md`) and the Space's connected sites. |
-| The first sign-in shows a *Terms of Use* notice | Liferay Enterprise Search notice on first admin sign-in | Read and close it. |
+| The first sign-in shows a *Terms of Use* notice | Liferay Enterprise Search notice on first admin sign-in | Read and close it with **Done**. Until then it covers the admin screens, and the reference tests that read them fail. |
 
 ## Resetting a learner's environment
 

@@ -1,0 +1,198 @@
+{
+	"pageElement": {
+		"pageElements": [
+			{
+				"definition": {
+					"name": "Leadership Info",
+					"layout": {
+						"containerType": "Fixed",
+						"paddingTop": 4,
+						"paddingBottom": 4,
+						"paddingLeft": 4,
+						"paddingRight": 1
+					}
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"gutters": true,
+							"modulesPerRow": 2,
+							"numberOfColumns": 2,
+							"verticalAlignment": "top",
+							"rowViewports": [
+								{
+									"id": "landscapeMobile",
+									"rowViewportDefinition": {
+										"modulesPerRow": 1
+									}
+								}
+							]
+						},
+						"pageElements": [
+							{
+								"definition": {
+									"size": 6,
+									"columnViewports": [
+										{
+											"columnViewportDefinition": {
+												"size": 12
+											},
+											"id": "landscapeMobile"
+										}
+									]
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"name": "Leader Image",
+											"fragmentStyle": {
+												"borderRadius": "15px",
+												"overflow": "hidden"
+											}
+										},
+										"pageElements": [
+											{
+												"definition": {
+													"fragment": {
+														"key": "BASIC_COMPONENT-image"
+													},
+													"fragmentConfig": {
+														"imageSize": "w-100"
+													},
+													"fragmentFields": [
+														{
+															"id": "image-square",
+															"value": {
+																"fragmentImage": {
+																	"url": {
+																		"mapping": {
+																			"fieldKey": "ObjectField_0#previewURL",
+																			"itemReference": {
+																				"contextSource": "DisplayPageItem"
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													]
+												},
+												"type": "Fragment"
+											}
+										],
+										"type": "Section"
+									}
+								],
+								"type": "Column"
+							},
+							{
+								"definition": {
+									"size": 6,
+									"columnViewports": [
+										{
+											"columnViewportDefinition": {
+												"size": 12
+											},
+											"id": "landscapeMobile"
+										}
+									]
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-heading"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"text": {
+															"mapping": {
+																"fieldKey": "ObjectField_title",
+																"itemReference": {
+																	"contextSource": "DisplayPageItem"
+																}
+															}
+														}
+													}
+												}
+											],
+											"fragmentConfig": {
+												"headingLevel": "h1"
+											}
+										},
+										"type": "Fragment"
+									},
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-heading"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"text": {
+															"mapping": {
+																"fieldKey": "ObjectField_jobTitle",
+																"itemReference": {
+																	"contextSource": "DisplayPageItem"
+																}
+															}
+														}
+													}
+												}
+											],
+											"fragmentConfig": {
+												"headingLevel": "h5"
+											},
+											"fragmentStyle": {
+												"marginTop": "2",
+												"marginBottom": "4"
+											}
+										},
+										"type": "Fragment"
+									},
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-paragraph"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"text": {
+															"mapping": {
+																"fieldKey": "ObjectField_bio",
+																"itemReference": {
+																	"contextSource": "DisplayPageItem"
+																}
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									}
+								],
+								"type": "Column"
+							}
+						],
+						"type": "Row"
+					}
+				],
+				"type": "Section"
+			}
+		],
+		"type": "Root"
+	},
+	"settings": {
+		"masterPage": {
+			"key": "secondary-master-page"
+		}
+	},
+	"version": 1.1
+}

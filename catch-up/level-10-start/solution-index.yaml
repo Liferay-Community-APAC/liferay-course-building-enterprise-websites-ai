@@ -1,0 +1,99 @@
+requirements:
+  - id: R1
+    title: "Personas, user groups, roles and least-privilege permissions"
+    level: 1
+    status: done
+    artifacts:
+      - "user groups and roles from context-source/data/user-groups.csv and roles.csv (scripts/setup_people.py)"
+      - "seven personas, ERC PERSONA-<SCREENNAME>, password learn, with group, regular role and portrait (scripts/setup_people.py)"
+      - "Marketing Coordinator: company-scope Collections and Categories permissions (scripts/setup_sites.py, Level 2.4)"
+  - id: R2
+    title: "Public site with its own address, languages and accessibility"
+    level: 2
+    status: done
+    artifacts:
+      - "site clarity-public, Clarity Public Enterprise Website, /clarity (scripts/setup_sites.py)"
+      - "site clarity-distributor-portal, Clarity Distributor Portal, /distributor-portal (scripts/setup_sites.py)"
+      - "members and site roles of clarity-public (scripts/setup_sites.py)"
+      - "description, Open membership, English + Spanish, accessibility menu (scripts/site_settings.py, re-run by scripts/deploy_site.sh)"
+      - "virtual host www.clarityvisionsolutions.com and the instance's home, landing and logout pages /web/clarity (set by hand in the UI)"
+  - id: R3
+    title: "Page hierarchy, master pages, display pages and navigation"
+    level: 3
+    status: done
+    artifacts:
+      - "site initializer client-extensions/clarity-site (clarity-site-init), bound to clarity-public, deployed with scripts/deploy_site.sh"
+      - "pages Home, Products > Product List, About Us, Blog, FAQ, Careers > Open Positions, Contact Us, Search (/search-results)"
+      - "Primary Master Page and Secondary Master Page; site-configuration.json keeps Open membership"
+      - "menus Header Page Menu, Footer Resources Menu, Footer Company Menu, Footer Legal Menu"
+  - id: R4
+    title: "Reusable Clarity fragments and page compositions"
+    level: 4
+    status: done
+    artifacts:
+      - "fragment set Clarity Components: Search Button, Login and User Menu, Clarity Button, Clarity Card, FAQ Question and Answer Pair"
+      - "Search Button and Login and User Menu in both masters' Header User Actions"
+      - "Home and FAQ layouts (layouts/01-home, layouts/05-faq)"
+  - id: R5
+    title: "Clarity's brand applied without editing each page"
+    level: 5
+    status: done
+    artifacts:
+      - "Clarity Style Book (Classic, primary #187373, default)"
+      - "client-extensions/clarity-theme: Clarity Theme CSS and Clarity Favicon, bound to both masters"
+      - "site logo layout-set/public/logo.png"
+  - id: R6
+    title: "Editorial content in CMS Spaces, shared across sites"
+    level: 6
+    status: done
+    artifacts:
+      - "Spaces space-marketing, space-branding, space-hr, space-events, space-products, connected to clarity-public (scripts/setup_spaces.py)"
+      - "structures ARTICLE, FAQ, ANNOUNCEMENT, LEADERSHIP_PROFILE, JOB_LISTING, EVENT_INFORMATION, EVENT_IMAGE (scripts/setup_structures.py)"
+      - "vocabularies FAQ, Articles (Marketing); Region, Location, Job Positions (HR) (scripts/setup_vocabularies.py)"
+      - "content, files and Guest access (scripts/load_cms_content.py)"
+  - id: R7
+    title: "Pages that show content from collections, not hard-coded copies"
+    level: 7
+    status: done
+    artifacts:
+      - "Home and master images mapped to Space files (scripts/map_cms_images.py, run before each deploy to a new instance)"
+      - "display page templates Article and Leadership Profile (scripts/map_attachment_fields.py)"
+      - "collections Helpful Articles, FAQ - <category> x4, Announcements (scripts/build_collections.py); announcement bar on the Primary Master Page"
+  - id: R8
+    title: "Product catalog browsable by category"
+    level: 8
+    status: done
+    artifacts:
+      - "catalog Clarity Eyewear, specification group frame-description (scripts/setup_catalog.py)"
+      - "products of context-source/data/products.csv, vocabulary Clarity Products (scripts/load_products.py)"
+      - "channel Clarity Public, B2B, linked to clarity-public (scripts/setup_channel.py, commerce-channel.json)"
+      - "Products category cards, widget template Clarity Category Cards (scripts/setup_category_cards.py)"
+      - "Product List search page, Clarity Search Results Cards, display page template Product Details (scripts/set_category_display_page.py)"
+  - id: R9
+    title: "Legacy content and data imported through APIs"
+    level: 9
+    status: done
+    artifacts:
+      - "legacy blog post (Blog structure, Blog Topics) and articles (one batch) (scripts/import_legacy_content.py)"
+      - "Blog Posts collection, Blog page cards, display page template Blog Post"
+      - "legacy products and locations (one batch each); Retail Associate has Morocco, Casablanca (scripts/import_legacy_data.py)"
+  - id: R10
+    title: "New content approved before it goes live; page changes released in batches"
+    level: 10
+    status: todo
+    artifacts: []
+  - id: R11
+    title: "Job search and event listings driven by search"
+    level: 11
+    status: todo
+    artifacts: []
+  - id: R12
+    title: "Contact Us form, follow-up workflow and an internal dashboard"
+    level: 12
+    status: todo
+    artifacts: []
+  - id: R13
+    title: "A personalized Home page for distributors"
+    level: 13
+    status: todo
+    artifacts: []

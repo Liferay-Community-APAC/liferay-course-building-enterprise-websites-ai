@@ -10,6 +10,7 @@ Writes:
     docs/workbook/setup.html, level-1.html … level-13.html  one page per level
     docs/instructor/index.html    the instructor guide
     docs/instructor/schedule.html the two-day schedule
+    docs/instructor/whats-new.html what's new compared to the original course
     docs/instructor/demos.html    the instructor demo workbook's start page
     docs/instructor/demos-kickoff.html … demos-operations.html  one page per teaching block
     docs/screenshots/             copied from docs-src/workbook/screenshots/
@@ -225,7 +226,7 @@ def main() -> None:
         old.unlink()
     for file, page_html in demos.items():
         write(OUT / "instructor" / file, rewrite_links(page_html, "../workbook/", student_target))
-    for name, source in (("index.html", "guide.md"), ("schedule.html", "schedule.md")):
+    for name, source in (("index.html", "guide.md"), ("schedule.html", "schedule.md"), ("whats-new.html", "whats-new.md")):
         page_html = build_page((SRC / "instructor" / source).read_text(encoding="utf-8"), home="../")
         page_html = rewrite_links(page_html, "../workbook/", student_target)
         write(OUT / "instructor" / name, rewrite_links(page_html, "demos.html", demos_target))

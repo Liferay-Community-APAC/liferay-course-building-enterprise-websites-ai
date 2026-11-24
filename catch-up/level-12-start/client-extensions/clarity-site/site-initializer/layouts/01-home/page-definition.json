@@ -1,0 +1,789 @@
+{
+	"pageElement": {
+		"pageElements": [
+			{
+				"definition": {
+					"name": "Banner",
+					"layout": {
+						"paddingTop": 6,
+						"paddingBottom": 6
+					}
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"name": "Banner Content",
+							"layout": {
+								"containerType": "Fixed"
+							}
+						},
+						"pageElements": [
+							{
+								"definition": {
+									"gutters": true,
+									"modulesPerRow": 2,
+									"numberOfColumns": 2,
+									"verticalAlignment": "middle"
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"size": 6
+										},
+										"pageElements": [
+											{
+												"definition": {
+													"fragment": {
+														"key": "BASIC_COMPONENT-heading"
+													},
+													"fragmentConfig": {
+														"headingLevel": "h1"
+													},
+													"fragmentFields": [
+														{
+															"id": "element-text",
+															"value": {
+																"fragmentLink": {},
+																"text": {
+																	"value_i18n": {
+																		"en_US": "Elevate Your Brand with Premium Eyewear"
+																	}
+																}
+															}
+														}
+													]
+												},
+												"type": "Fragment"
+											},
+											{
+												"definition": {
+													"fragment": {
+														"key": "BASIC_COMPONENT-paragraph"
+													},
+													"fragmentFields": [
+														{
+															"id": "element-text",
+															"value": {
+																"fragmentLink": {},
+																"text": {
+																	"value_i18n": {
+																		"en_US": "Discover premium craftsmanship, innovative lenses, and designs that help your brand stand out."
+																	}
+																}
+															}
+														}
+													]
+												},
+												"type": "Fragment"
+											},
+											{
+												"definition": {
+													"fragment": {
+														"key": "clarity-button",
+														"siteKey": "[$GROUP_KEY$]"
+													},
+													"fragmentConfig": {
+														"inverted": false,
+														"size": "large",
+														"style": "primary",
+														"type": "solid"
+													},
+													"fragmentFields": [
+														{
+															"id": "link",
+															"value": {
+																"fragmentLink": {
+																	"value": {
+																		"href": {
+																			"value": "/web/clarity/products"
+																		}
+																	}
+																},
+																"text": {
+																	"value_i18n": {
+																		"en_US": "Explore Products"
+																	}
+																}
+															}
+														}
+													]
+												},
+												"type": "Fragment"
+											}
+										],
+										"type": "Column"
+									},
+									{
+										"definition": {
+											"size": 6
+										},
+										"pageElements": [
+											{
+												"definition": {
+													"fragment": {
+														"key": "BASIC_COMPONENT-image"
+													},
+													"fragmentFields": [
+														{
+															"id": "image-square",
+															"value": {
+																"fragmentImage": {
+																	"description": {
+																		"value_i18n": {
+																			"en_US": "Home banner narrow no background"
+																		}
+																	},
+																	"fragmentImageClassPKReference": {
+																		"classPKReferences": {
+																			"en_US": {
+																				"className": "com.liferay.portal.kernel.repository.model.FileEntry",
+																				"classPK": 0
+																			}
+																		},
+																		"fragmentImageConfiguration": {
+																			"landscapeMobile": "auto",
+																			"portraitMobile": "auto",
+																			"tablet": "auto"
+																		}
+																	}
+																}
+															}
+														}
+													]
+												},
+												"type": "Fragment"
+											}
+										],
+										"type": "Column"
+									}
+								],
+								"type": "Row"
+							}
+						],
+						"type": "Section"
+					}
+				],
+				"type": "Section"
+			},
+			{
+				"definition": {
+					"name": "Clarity Solutions Promo",
+					"layout": {
+						"paddingTop": 6,
+						"paddingBottom": 6,
+						"containerType": "Fixed"
+					}
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"name": "Content Wrapper",
+							"layout": {
+								"containerType": "Fixed",
+								"paddingTop": 4,
+								"paddingBottom": 4
+							},
+							"backgroundImage": {
+								"url": {
+									"mapping": {
+										"fieldKey": "fileURL",
+										"itemReference": {
+											"className": "com.liferay.portal.kernel.repository.model.FileEntry",
+											"classPK": 0
+										}
+									}
+								}
+							}
+						},
+						"pageElements": [
+							{
+								"definition": {
+									"gutters": true,
+									"modulesPerRow": 2,
+									"numberOfColumns": 2,
+									"verticalAlignment": "middle"
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"size": 6
+										},
+										"pageElements": [
+											{
+												"definition": {
+													"fragment": {
+														"key": "BASIC_COMPONENT-heading"
+													},
+													"fragmentConfig": {
+														"headingLevel": "h2"
+													},
+													"fragmentFields": [
+														{
+															"id": "element-text",
+															"value": {
+																"fragmentLink": {},
+																"text": {
+																	"value_i18n": {
+																		"en_US": "See Further with Clarity Vision Solutions"
+																	}
+																}
+															}
+														}
+													]
+												},
+												"type": "Fragment"
+											},
+											{
+												"definition": {
+													"fragment": {
+														"key": "BASIC_COMPONENT-paragraph"
+													},
+													"fragmentFields": [
+														{
+															"id": "element-text",
+															"value": {
+																"fragmentLink": {},
+																"text": {
+																	"value_i18n": {
+																		"en_US": "Take advantage of exclusive offers on the latest products to deliver exceptional value for your business and your customers."
+																	}
+																}
+															}
+														}
+													]
+												},
+												"type": "Fragment"
+											}
+										],
+										"type": "Column"
+									},
+									{
+										"definition": {
+											"size": 6
+										},
+										"pageElements": [
+											{
+												"definition": {
+													"fragment": {
+														"key": "BASIC_COMPONENT-image"
+													},
+													"fragmentFields": [
+														{
+															"id": "image-square",
+															"value": {
+																"fragmentImage": {
+																	"description": {
+																		"value_i18n": {
+																			"en_US": "Sunglasses on shelves"
+																		}
+																	},
+																	"fragmentImageClassPKReference": {
+																		"classPKReferences": {
+																			"en_US": {
+																				"className": "com.liferay.portal.kernel.repository.model.FileEntry",
+																				"classPK": 0
+																			}
+																		},
+																		"fragmentImageConfiguration": {
+																			"landscapeMobile": "auto",
+																			"portraitMobile": "auto",
+																			"tablet": "auto"
+																		}
+																	}
+																}
+															}
+														}
+													]
+												},
+												"type": "Fragment"
+											}
+										],
+										"type": "Column"
+									}
+								],
+								"type": "Row"
+							}
+						],
+						"type": "Section"
+					}
+				],
+				"type": "Section"
+			},
+			{
+				"definition": {
+					"name": "See the Difference",
+					"layout": {
+						"containerType": "Fixed",
+						"paddingTop": 6,
+						"paddingBottom": 6
+					}
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"fragment": {
+								"key": "BASIC_COMPONENT-heading"
+							},
+							"fragmentConfig": {
+								"headingLevel": "h2"
+							},
+							"fragmentFields": [
+								{
+									"id": "element-text",
+									"value": {
+										"fragmentLink": {},
+										"text": {
+											"value_i18n": {
+												"en_US": "See the Difference"
+											}
+										}
+									}
+								}
+							]
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"gutters": true,
+							"modulesPerRow": 3,
+							"numberOfColumns": 3,
+							"verticalAlignment": "top"
+						},
+						"pageElements": [
+							{
+								"definition": {
+									"size": 4
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-heading"
+											},
+											"fragmentConfig": {
+												"headingLevel": "h3"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"fragmentLink": {},
+														"text": {
+															"value_i18n": {
+																"en_US": "Innovation"
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									},
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-paragraph"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"fragmentLink": {},
+														"text": {
+															"value_i18n": {
+																"en_US": "Advanced lens technology and materials, refined in our own labs."
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									}
+								],
+								"type": "Column"
+							},
+							{
+								"definition": {
+									"size": 4
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-heading"
+											},
+											"fragmentConfig": {
+												"headingLevel": "h3"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"fragmentLink": {},
+														"text": {
+															"value_i18n": {
+																"en_US": "Craftsmanship"
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									},
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-paragraph"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"fragmentLink": {},
+														"text": {
+															"value_i18n": {
+																"en_US": "Precision-crafted frames, built to look good and last."
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									}
+								],
+								"type": "Column"
+							},
+							{
+								"definition": {
+									"size": 4
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-heading"
+											},
+											"fragmentConfig": {
+												"headingLevel": "h3"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"fragmentLink": {},
+														"text": {
+															"value_i18n": {
+																"en_US": "Partnership"
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									},
+									{
+										"definition": {
+											"fragment": {
+												"key": "BASIC_COMPONENT-paragraph"
+											},
+											"fragmentFields": [
+												{
+													"id": "element-text",
+													"value": {
+														"fragmentLink": {},
+														"text": {
+															"value_i18n": {
+																"en_US": "Dedicated support that helps our distributors and retail partners grow."
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									}
+								],
+								"type": "Column"
+							}
+						],
+						"type": "Row"
+					}
+				],
+				"type": "Section"
+			},
+			{
+				"definition": {
+					"name": "Helpful Articles",
+					"layout": {
+						"containerType": "Fixed",
+						"paddingTop": 6,
+						"paddingBottom": 6
+					}
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"fragment": {
+								"key": "BASIC_COMPONENT-heading"
+							},
+							"fragmentConfig": {
+								"headingLevel": "h2"
+							},
+							"fragmentFields": [
+								{
+									"id": "element-text",
+									"value": {
+										"fragmentLink": {},
+										"text": {
+											"value_i18n": {
+												"en_US": "Helpful Articles from Our Team"
+											}
+										}
+									}
+								}
+							]
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"collectionConfig": {
+								"collectionReference": {
+									"className": "com.liferay.asset.list.model.AssetListEntry",
+									"classPK": "[#ASSET_LIST_ENTRY_ID:HELPFUL-ARTICLES#]"
+								},
+								"collectionType": "Collection"
+							},
+							"collectionViewports": [
+								{
+									"collectionViewportDefinition": {
+										"numberOfColumns": 1
+									},
+									"id": "landscapeMobile"
+								},
+								{
+									"collectionViewportDefinition": {
+										"numberOfColumns": 1
+									},
+									"id": "portraitMobile"
+								}
+							],
+							"displayAllItems": false,
+							"numberOfColumns": 3,
+							"numberOfItems": 3,
+							"paginationType": "None",
+							"name": "Helpful Articles Collection"
+						},
+						"pageElements": [
+							{
+								"definition": {},
+								"pageElements": [
+									{
+										"definition": {
+											"fragment": {
+												"key": "clarity-card",
+												"siteKey": "[$GROUP_KEY$]"
+											},
+											"fragmentFields": [
+												{
+													"id": "card-image",
+													"value": {
+														"fragmentImage": {
+															"url": {
+																"mapping": {
+																	"fieldKey": "ObjectField_0#previewURL",
+																	"itemReference": {
+																		"contextSource": "CollectionItem"
+																	}
+																}
+															}
+														}
+													}
+												},
+												{
+													"id": "category",
+													"value": {
+														"text": {
+															"mapping": {
+																"fieldKey": "AssetVocabulary__ERC__VOCABULARY_ARTICLES__SERC__space-marketing",
+																"itemReference": {
+																	"contextSource": "CollectionItem"
+																}
+															}
+														}
+													}
+												},
+												{
+													"id": "card-title",
+													"value": {
+														"text": {
+															"mapping": {
+																"fieldKey": "ObjectField_title",
+																"itemReference": {
+																	"contextSource": "CollectionItem"
+																}
+															}
+														}
+													}
+												},
+												{
+													"id": "summary",
+													"value": {
+														"text": {
+															"mapping": {
+																"fieldKey": "ObjectField_headline",
+																"itemReference": {
+																	"contextSource": "CollectionItem"
+																}
+															}
+														}
+													}
+												},
+												{
+													"id": "card-link",
+													"value": {
+														"fragmentLink": {
+															"value": {
+																"href": {
+																	"mapping": {
+																		"fieldKey": "displayPageURL",
+																		"itemReference": {
+																			"contextSource": "CollectionItem"
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											]
+										},
+										"type": "Fragment"
+									}
+								],
+								"type": "CollectionItem"
+							}
+						],
+						"type": "Collection"
+					}
+				],
+				"type": "Section"
+			},
+			{
+				"definition": {
+					"name": "Distributor Promo",
+					"layout": {
+						"containerType": "Fixed",
+						"paddingTop": 6,
+						"paddingBottom": 6
+					},
+					"backgroundImage": {
+						"url": {
+							"mapping": {
+								"fieldKey": "fileURL",
+								"itemReference": {
+									"className": "com.liferay.portal.kernel.repository.model.FileEntry",
+									"classPK": 0
+								}
+							}
+						}
+					}
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"fragment": {
+								"key": "BASIC_COMPONENT-heading"
+							},
+							"fragmentConfig": {
+								"headingLevel": "h2"
+							},
+							"fragmentFields": [
+								{
+									"id": "element-text",
+									"value": {
+										"fragmentLink": {},
+										"text": {
+											"value_i18n": {
+												"en_US": "Become a Clarity Distributor"
+											}
+										}
+									}
+								}
+							]
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"key": "BASIC_COMPONENT-paragraph"
+							},
+							"fragmentFields": [
+								{
+									"id": "element-text",
+									"value": {
+										"fragmentLink": {},
+										"text": {
+											"value_i18n": {
+												"en_US": "Partner with Clarity to bring premium eyewear to your customers, with dedicated support, training and marketing resources."
+											}
+										}
+									}
+								}
+							]
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"key": "clarity-button",
+								"siteKey": "[$GROUP_KEY$]"
+							},
+							"fragmentConfig": {
+								"inverted": false,
+								"size": "regular",
+								"style": "primary",
+								"type": "solid"
+							},
+							"fragmentFields": [
+								{
+									"id": "link",
+									"value": {
+										"fragmentLink": {
+											"value": {
+												"href": {
+													"value": "/web/clarity/contact-us"
+												}
+											}
+										},
+										"text": {
+											"value_i18n": {
+												"en_US": "Contact Us"
+											}
+										}
+									}
+								}
+							]
+						},
+						"type": "Fragment"
+					}
+				],
+				"type": "Section"
+			}
+		],
+		"type": "Root"
+	},
+	"settings": {
+		"masterPage": {
+			"key": "primary-master-page"
+		}
+	},
+	"version": 1.1
+}

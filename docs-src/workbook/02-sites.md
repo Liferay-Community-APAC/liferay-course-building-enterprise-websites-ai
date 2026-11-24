@@ -108,7 +108,7 @@ check the accessibility menu is NOT on for the Clarity Distributor Portal.
 ```
 
 📋 **After the prompt:**
-1. Set the virtual host yourself on the screen the agent named (*Site Menu* → *Configuration* → *Site Settings* → *Site Configuration* → *Site URL* → *Public Pages* → *Virtual Host*), and save.
+1. Set the virtual host yourself on the screen the agent named (*Site Menu* → *Configuration* → *Site Settings* → *Site Configuration* → *Site URL* → *Pages* → *Virtual Host*), and save.
 
 ✅ **Verify** (look, don't change anything). All in the public site, under *Site Menu* → *Configuration* → *Site Settings*:
 1. *Site Configuration* → *Details*: the description, and *Membership Type* **Open**.
@@ -162,7 +162,7 @@ difference.
 🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
 
 - **AC 2.4-1** · *API, as the admin:* the Marketing Coordinator role has the collection and category permissions from the prompt, and no PERMISSIONS or DELETE action.
-- **AC 2.4-2** · *Browser, as Christian Carter:* the public site's *Collections* and *Categories* applications open, each with a **New** button.
+- **AC 2.4-2** · *Browser, as Christian Carter:* the public site's *Collections* application has a **New** button, and *Categories* has **Add New Vocabulary**.
 
 📖 **Why it matters:** a **regular** role's permissions apply at company scope: in every site its holder can work in. A **site** role's permissions apply only in the site where it's assigned, which is why Site Content Contributor exists. In Level 6, Liferay CMS Spaces add their own membership and roles on top: that's where Christian gets content-authoring rights.
 
@@ -186,11 +186,11 @@ Liferay: give me the exact screen and fields to set them myself.
 
 ✅ **Verify** (look, don't change anything):
 1. *Global Menu* → *Control Panel* → *Instance Settings* → *Platform* → *Instance Configuration* → *General*: the three fields read `/web/clarity`.
-2. Open `http://localhost:8080/` in a private window: it redirects to the Clarity site (still empty until Level 3).
+2. Open `http://localhost:8080/` in a private window: it shows the Clarity site (still empty until Level 3), with the address still `/`.
 
 🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
 
-- **AC 2.5-1** · *Browser, as Guest:* opening `/` ends on `/web/clarity`.
+- **AC 2.5-1** · *Browser, as Guest:* `/` shows the Clarity public site (Liferay serves it at `/`, without a redirect).
 - **AC 2.5-2** · *Browser, as Christian Carter:* signing in through `/c/portal/login` ends on `/web/clarity`.
 
 ## 🧠 Knowledge check

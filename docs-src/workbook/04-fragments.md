@@ -55,9 +55,9 @@ fragments failed to compile.
 
 🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
 
-- **AC 4.1-1** · *API, as the admin:* `clarity-public` has a fragment set Clarity Components with Search Button, Login and User Menu, Clarity Button, Clarity Card and FAQ Question and Answer Pair, all approved, none in draft.
-- **AC 4.1-2** · *API, as the admin:* Search Button's configuration has `iconName`, `iconSize`, `link`, `hideLabel` and `buttonLabel`, with the defaults from the prompt.
-- **AC 4.1-3** · *API, as the admin:* Clarity Card's HTML has the editables `card-image`, `category`, `card-title`, `summary` and `card-link`.
+- **AC 4.1-1** · *Browser, as the admin:* *Design* → *Fragments* → **Clarity Components** lists Search Button, Login and User Menu, Clarity Button, Clarity Card and FAQ Question and Answer Pair, all approved, none in draft.
+- **AC 4.1-2** · *Browser, as the admin:* in the Clarity Components set's export, Search Button's configuration has `iconName`, `iconSize`, `link`, `hideLabel` and `buttonLabel`, with the defaults from the prompt.
+- **AC 4.1-3** · *Browser, as the admin:* in the same export, Clarity Card's HTML has the editables `card-image`, `category`, `card-title`, `summary` and `card-link`.
 
 ### 4.2 — Put the custom fragments in the master pages
 

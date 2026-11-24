@@ -1,0 +1,187 @@
+{
+	"pageElement": {
+		"pageElements": [
+			{
+				"definition": {
+					"name": "Page Header"
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"name": "Header Navigation Bar",
+							"layout": {
+								"containerType": "Fixed",
+								"paddingTop": 1,
+								"paddingBottom": 1,
+								"paddingHorizontal": 6
+							}
+						},
+						"pageElements": [
+							{
+								"definition": {
+									"gutters": true,
+									"modulesPerRow": 3,
+									"numberOfColumns": 3,
+									"verticalAlignment": "middle"
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"size": 3
+										},
+										"pageElements": [
+											{
+												"definition": {
+													"name": "Header Branding",
+													"layout": {
+														"contentDisplay": "FlexRow",
+														"justify": "Start"
+													}
+												},
+												"pageElements": [
+													{
+														"definition": {
+															"fragment": {
+																"key": "BASIC_COMPONENT-image"
+															},
+															"fragmentStyle": {
+																"maxWidth": "200px"
+															}
+														},
+														"type": "Fragment"
+													}
+												],
+												"type": "Section"
+											}
+										],
+										"type": "Column"
+									},
+									{
+										"definition": {
+											"size": 6
+										},
+										"pageElements": [
+											{
+												"definition": {
+													"name": "Header Navigation",
+													"layout": {
+														"contentDisplay": "FlexRow",
+														"justify": "Center"
+													}
+												},
+												"pageElements": [
+													{
+														"definition": {
+															"fragment": {
+																"key": "com.liferay.fragment.renderer.menu.display.internal.MenuDisplayFragmentRenderer"
+															},
+															"fragmentConfig": {
+																"source": "{\"siteNavigationMenuExternalReferenceCode\": \"clarity-header-page-menu\"}"
+															}
+														},
+														"type": "Fragment"
+													}
+												],
+												"type": "Section"
+											}
+										],
+										"type": "Column"
+									},
+									{
+										"definition": {
+											"size": 3
+										},
+										"pageElements": [
+											{
+												"definition": {
+													"name": "Header User Actions",
+													"layout": {
+														"contentDisplay": "FlexRow",
+														"justify": "End"
+													}
+												},
+												"pageElements": [],
+												"type": "Section"
+											}
+										],
+										"type": "Column"
+									}
+								],
+								"type": "Row"
+							}
+						],
+						"type": "Section"
+					}
+				],
+				"type": "Section"
+			},
+			{
+				"definition": {
+					"fragmentSettings": {
+						"unallowedFragments": [
+							{
+								"key": "FOOTERS-footer-nav-dark"
+							},
+							{
+								"key": "FOOTERS-footer-nav-light"
+							},
+							{
+								"key": "NAVIGATION_BARS-header-dark"
+							},
+							{
+								"key": "NAVIGATION_BARS-header-light"
+							}
+						]
+					}
+				},
+				"type": "DropZone"
+			},
+			{
+				"definition": {
+					"name": "Page Footer"
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"name": "Footer Copyright"
+						},
+						"pageElements": [
+							{
+								"definition": {
+									"fragment": {
+										"key": "BASIC_COMPONENT-paragraph"
+									},
+									"fragmentFields": [
+										{
+											"id": "element-text",
+											"value": {
+												"fragmentLink": {},
+												"text": {
+													"value_i18n": {
+														"en_US": "© Clarity Vision Solutions"
+													}
+												}
+											}
+										}
+									]
+								},
+								"type": "Fragment"
+							}
+						],
+						"type": "Section"
+					}
+				],
+				"type": "Section"
+			}
+		],
+		"type": "Root"
+	},
+	"settings": {
+		"themeName": "Classic",
+		"themeSettings": {
+			"lfr-theme:regular:show-footer": "false",
+			"lfr-theme:regular:show-header": "false"
+		}
+	},
+	"version": 1.1
+}

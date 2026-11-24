@@ -408,7 +408,7 @@ check the accessibility menu is NOT on for the Clarity Distributor Portal.
 </code></pre></div>
 <p class="wb wb-do-label">📋 <strong>After the prompt:</strong></p>
 <ol class="wb-list wb-do">
-<li>Set the virtual host yourself on the screen the agent named (<em>Site Menu</em> → <em>Configuration</em> → <em>Site Settings</em> → <em>Site Configuration</em> → <em>Site URL</em> → <em>Public Pages</em> → <em>Virtual Host</em>), and save.</li>
+<li>Set the virtual host yourself on the screen the agent named (<em>Site Menu</em> → <em>Configuration</em> → <em>Site Settings</em> → <em>Site Configuration</em> → <em>Site URL</em> → <em>Pages</em> → <em>Virtual Host</em>), and save.</li>
 </ol>
 <p class="wb wb-verify-label">✅ <strong>Verify</strong> (look, don't change anything). All in the public site, under <em>Site Menu</em> → <em>Configuration</em> → <em>Site Settings</em>:</p>
 <ol class="wb-list wb-verify">
@@ -459,7 +459,7 @@ difference.
 <p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
 <ul class="wb-list wb-ac">
 <li><strong>AC 2.4-1</strong> · <em>API, as the admin:</em> the Marketing Coordinator role has the collection and category permissions from the prompt, and no PERMISSIONS or DELETE action.</li>
-<li><strong>AC 2.4-2</strong> · <em>Browser, as Christian Carter:</em> the public site's <em>Collections</em> and <em>Categories</em> applications open, each with a <strong>New</strong> button.</li>
+<li><strong>AC 2.4-2</strong> · <em>Browser, as Christian Carter:</em> the public site's <em>Collections</em> application has a <strong>New</strong> button, and <em>Categories</em> has <strong>Add New Vocabulary</strong>.</li>
 </ul>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> a <strong>regular</strong> role's permissions apply at company scope: in every site its holder can work in. A <strong>site</strong> role's permissions apply only in the site where it's assigned, which is why Site Content Contributor exists. In Level 6, Liferay CMS Spaces add their own membership and roles on top: that's where Christian gets content-authoring rights.</p>
 <h2 id="25-point-the-instance-at-the-public-site">2.5 — Point the instance at the public site<a aria-hidden="true" class="heading-anchor" href="#25-point-the-instance-at-the-public-site" tabindex="-1">#</a></h2>
@@ -479,11 +479,11 @@ Liferay: give me the exact screen and fields to set them myself.
 <p class="wb wb-verify-label">✅ <strong>Verify</strong> (look, don't change anything):</p>
 <ol class="wb-list wb-verify">
 <li><em>Global Menu</em> → <em>Control Panel</em> → <em>Instance Settings</em> → <em>Platform</em> → <em>Instance Configuration</em> → <em>General</em>: the three fields read <code>/web/clarity</code>.</li>
-<li>Open <code>http://localhost:8080/</code> in a private window: it redirects to the Clarity site (still empty until Level 3).</li>
+<li>Open <code>http://localhost:8080/</code> in a private window: it shows the Clarity site (still empty until Level 3), with the address still <code>/</code>.</li>
 </ol>
 <p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
 <ul class="wb-list wb-ac">
-<li><strong>AC 2.5-1</strong> · <em>Browser, as Guest:</em> opening <code>/</code> ends on <code>/web/clarity</code>.</li>
+<li><strong>AC 2.5-1</strong> · <em>Browser, as Guest:</em> <code>/</code> shows the Clarity public site (Liferay serves it at <code>/</code>, without a redirect).</li>
 <li><strong>AC 2.5-2</strong> · <em>Browser, as Christian Carter:</em> signing in through <code>/c/portal/login</code> ends on <code>/web/clarity</code>.</li>
 </ul>
 <h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>

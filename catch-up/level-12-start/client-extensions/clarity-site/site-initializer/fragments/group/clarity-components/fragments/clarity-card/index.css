@@ -1,0 +1,61 @@
+.clarity-card {
+	background-color: var(--color-neutral-1, var(--light));
+	border-radius: var(--card-border-radius, 0.5rem);
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+	padding: var(--spacer-3, 1rem);
+}
+
+.clarity-card__image {
+	border-radius: var(--card-border-radius, 0.5rem);
+	height: 200px;
+	object-fit: cover;
+	width: 100%;
+}
+
+.clarity-card__body {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	padding: var(--spacer-3, 1rem) 0 0;
+}
+
+.clarity-card__category {
+	color: var(--color-brand-primary, var(--primary));
+	font-size: 0.875rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	margin-bottom: var(--spacer-2, 0.5rem);
+	text-transform: uppercase;
+}
+
+.clarity-card__title {
+	color: var(--color-neutral-10, var(--dark));
+	font-size: 1.25rem;
+	margin-bottom: var(--spacer-3, 1rem);
+}
+
+.clarity-card__summary {
+	color: var(--color-neutral-8, var(--body-color));
+	flex: 1;
+}
+
+.clarity-card__link {
+	color: var(--color-brand-primary, var(--primary));
+	font-weight: 600;
+	margin-top: var(--spacer-3, 1rem);
+	text-decoration: none;
+}
+
+.clarity-card__link::after {
+	content: '\2192';
+	padding-left: 5px;
+}
+
+.clarity-card__link:hover,
+.clarity-card__link:focus {
+	color: var(--color-brand-primary-darken-1, var(--primary-d1, var(--primary)));
+	text-decoration: underline;
+}

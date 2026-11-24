@@ -8,10 +8,10 @@ It's the solution from a clean run of the workbook on DXP 2026.Q3.10. Your instr
 
 | Path | Copy it to | What it is |
 | --- | --- | --- |
-| `client-extensions/clarity-site/` | `client-extensions/clarity-site/` | The site initializer at the end of Level 5 (pages, master pages, menus, fragments, Home and FAQ layouts, style book, logo) |
+| `client-extensions/clarity-site/` | `client-extensions/clarity-site/` | The site initializer at the end of Level 5 (pages, master pages, menus, fragments, Home and FAQ layouts, style book, logo, `site-configuration.json` with Open membership) |
 | `client-extensions/clarity-theme/` | `client-extensions/clarity-theme/` | The Clarity Theme CSS and favicon client extensions |
-| `scripts/` | `scripts/` | Re-runnable scripts that create the personas, sites, permissions, Spaces, structures, vocabularies and content |
-| `solution-context.md`, `solution-index.yaml` | the workspace root | The context files from Setup S.1 |
+| `scripts/` | `scripts/` | Re-runnable scripts that create the personas, sites, permissions, Spaces, structures, vocabularies and content, and the deploy script |
+| `solution-context.md`, `solution-index.yaml` | the workspace root | The context files from Setup S.1, with R1 to R6 done |
 
 ## Steps
 
@@ -35,12 +35,13 @@ just copied. In order:
    Spaces with their entry and file counts, and Home's rendering as Guest.
 ```
 
-4. Check the result as in the Level 6 verify steps: CMS shows five Spaces; **Home** shows Clarity's header, menus and brand.
+4. Do the steps in "What you still do by hand" below.
+5. Check the result as in the Level 6 verify steps: CMS shows five Spaces; **Home** shows Clarity's header, menus and brand.
 
 ## Script order
 
 1. `setup_people.py`: user groups, roles, personas with their groups, regular roles and portraits (Level 1.1)
-2. `setup_sites.py`: sites, members and site roles, site settings, accessibility menu, Marketing Coordinator permissions (Levels 2.1 to 2.4)
+2. `setup_sites.py`: sites, members and site roles, site settings, accessibility menu, Marketing Coordinator permissions (Levels 2.1 to 2.4). It calls `site_settings.py` for the 2.3 settings.
 3. `setup_spaces.py`: Spaces, members, connected site (Level 6.1)
 4. `setup_structures.py`: content and file structures with Space-role authoring rights (Level 6.2)
 5. `setup_vocabularies.py`: vocabularies and categories, Guest VIEW (Level 6.3; needs the structures from step 4)
@@ -48,10 +49,15 @@ just copied. In order:
 
 Run each from the workspace root with no arguments, for example `python3 -I scripts/setup_people.py`. Each one needs the ones before it, and stops with a non-zero exit at the first error.
 
-Deploy `clarity-site` with `scripts/deploy_site.sh`, now and later in the course: every deploy of the site initializer resets the site's languages, and the script puts them back.
+Deploy `clarity-site` with `scripts/deploy_site.sh`, now and later in the course: every deploy of the site initializer resets the site's languages, and the script puts them back by running `scripts/site_settings.py` (description, Open membership, English and Spanish, accessibility menu). You can run `site_settings.py` on its own at any time.
 
 Every script reads `configs/local/admin.properties` and Liferay's port (8080 unless a Tomcat bundle's `server.xml` says otherwise), and upserts by external reference code, so running it twice is safe.
 
 ## What you still do by hand
 
-The steps the workbook marks 📋 have no API on this release. If you need them later, set them in the UI: the site's virtual host (Level 2.3) and the instance's home, landing and logout pages (Level 2.5).
+The steps the workbook marks 📋 have no API on this release. Set them in the UI, as the workbook describes:
+
+- The site's virtual host `www.clarityvisionsolutions.com` (Level 2.3): *Site Menu* → *Configuration* → *Site Settings* → *Site Configuration* → *Site URL* → *Pages* → *Virtual Host*.
+- The instance's Home URL, Default Landing Page and Default Logout Page, all `/web/clarity` (Level 2.5): *Global Menu* → *Control Panel* → *Instance Settings* → *Platform* → *Instance Configuration* → *General*.
+
+The ⭐ bonus exercises of Levels 1–6 aren't in the kit.

@@ -49,3 +49,7 @@ Editorial content lives in Liferay CMS Spaces, not Classic Web Content: Marketin
 ## Requirements
 
 R1-R13 (brief section 8) are tracked in `solution-index.yaml`.
+
+## Where the build stands
+
+Setup and Levels 1–6 (Day 1) are done (from the `catch-up/day-2-start` kit): R1–R6 are `done` in `solution-index.yaml`, and the next exercise is Level 7. The site's structure lives in `client-extensions/clarity-site`; deploy it with `scripts/deploy_site.sh`. Data that isn't in the tree is created by the re-runnable scripts in `scripts/`, listed in the kit's README.

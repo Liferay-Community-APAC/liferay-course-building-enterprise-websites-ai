@@ -1,0 +1,6 @@
+{
+	"className": "com.liferay.commerce.product.asset.categories.navigation.web.internal.portlet.CPAssetCategoriesNavigationPortlet",
+	"ddmTemplateKey": "CLARITY-CATEGORY-CARDS",
+	"name": "Clarity Category Cards",
+	"resourceClassName": "com.liferay.portlet.display.template.PortletDisplayTemplate"
+}

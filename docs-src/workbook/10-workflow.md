@@ -51,8 +51,9 @@ training password "learn"), not as the admin, create an Article in the
 Marketing Space's "Articles" folder: title "Clarity x Almanac Optics",
 headline "Summer 2027 Collaboration", content "Eyewear enthusiasts rejoice!
 Fan favorites Clarity and Almanac Optics have joined forces for a
-collaborative collection.", image: the Space file revolutionizing_industry.
-Submit it for workflow rather than saving it as a draft. Show me its status
+collaborative collection.", image: the Space file revolutionizing_industry,
+category: Industry from the Articles vocabulary. Submit it for workflow
+rather than saving it as a draft. Show me its status
 as Liferay returns it, and its workflow instance.
 ```
 

@@ -310,7 +310,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#what-the-course-is-and-isnt">What the course is, and isn&#x27;t</a></li><li class="toc-level-2"><a href="#before-the-course">Before the course</a></li><li class="toc-level-2"><a href="#set-up-your-own-machine">Set up your own machine</a></li><li class="toc-level-2"><a href="#the-first-30-minutes">The first 30 minutes</a></li><li class="toc-level-2"><a href="#running-the-hands-on-blocks">Running the hands-on blocks</a></li><li class="toc-level-2"><a href="#catching-up">Catching up</a></li><li class="toc-level-2"><a href="#topics-covered-in-slides-only">Topics covered in slides only</a></li><li class="toc-level-2"><a href="#when-something-goes-wrong">When something goes wrong</a></li><li class="toc-level-2"><a href="#resetting-a-learners-environment">Resetting a learner&#x27;s environment</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#what-the-course-is-and-isnt">What the course is, and isn&#x27;t</a></li><li class="toc-level-2"><a href="#before-the-course">Before the course</a></li><li class="toc-level-2"><a href="#set-up-your-own-machine">Set up your own machine</a></li><li class="toc-level-2"><a href="#the-first-30-minutes">The first 30 minutes</a></li><li class="toc-level-2"><a href="#running-the-hands-on-blocks">Running the hands-on blocks</a></li><li class="toc-level-2"><a href="#catching-up">Catching up</a></li><li class="toc-level-2"><a href="#topics-covered-in-slides-only">Topics covered in slides only</a></li><li class="toc-level-2"><a href="#course-feedback">Course feedback</a></li><li class="toc-level-2"><a href="#when-something-goes-wrong">When something goes wrong</a></li><li class="toc-level-2"><a href="#resetting-a-learners-environment">Resetting a learner&#x27;s environment</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -358,6 +358,7 @@ em { color: inherit; }
 </tr>
 </tbody>
 </table></div>
+<p>For a one-page summary to share with colleagues who know the original course, see <a href="whats-new.html">What's new</a>.</p>
 <h2 id="before-the-course">Before the course<a aria-hidden="true" class="heading-anchor" href="#before-the-course" tabindex="-1">#</a></h2>
 <ul>
 <li><strong>Two weeks before:</strong> send learners the <a href="https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/">prerequisites page</a>. It covers Git, JDK 21, Blade, Docker with 8 GB of memory, the Liferay DXP and PostgreSQL Docker images, VS Code and their AI agent. They bring their own agent subscription.</li>
@@ -409,15 +410,57 @@ git clone https://github.com/Liferay-Community-APAC/liferay-course-building-ente
 <ul>
 <li><strong>Demo the first prompt of each level</strong> on the projector, including the verify step. Then let learners run the rest. The <a href="demos.html">instructor demo workbook</a> has the step-by-step for every other demo, with optional prompts.</li>
 <li><strong>One agent session per exercise</strong> keeps costs and confusion down. If a learner's agent goes off track, have them start a new session: <code>solution-context.md</code> and <code>solution-index.yaml</code> carry the context.</li>
-<li><strong>Agents differ.</strong> Prompts are written to work with Claude Code, Codex and Copilot in agent mode. A weaker model may need the skill named explicitly (the 🧩 line) or a follow-up ("read the X skill and try again").</li>
+<li><strong>Agents differ.</strong> Prompts are written to work with Claude Code, Codex and Copilot in agent mode. A weaker model may need the skill named explicitly (the exercise's <strong>Skills</strong> line) or a follow-up ("read the X skill and try again").</li>
 <li><strong>Learners never start or stop Liferay through the agent.</strong> If an agent offers to, they say no and do it themselves.</li>
 <li><strong>Verification is read-only.</strong> Encourage learners to open the editors to look, then leave without saving or publishing. The places where they act (approving a workflow task as Daniel in 12.4, and the few settings with no API) are marked 📋.</li>
 </ul>
 <h2 id="catching-up">Catching up<a aria-hidden="true" class="heading-anchor" href="#catching-up" tabindex="-1">#</a></h2>
-<p>The levels are chained: a learner who can't finish Level 6 can't do Level 7. Two safety nets:</p>
+<p>The levels are chained: a learner who can't finish Level 6 can't do Level 7. Three safety nets:</p>
 <ol>
 <li><strong>Rerun the prompts.</strong> Every prompt is written to be idempotent (upsert by external reference code), so rerunning an earlier one is safe.</li>
-<li><strong>The Day 2 starting point.</strong> <code>catch-up/day-2-start/</code> holds the solution for everything up to the end of Level 6: the site initializer, the theme project and a script that creates users, Spaces, structures and content. Give a learner the steps in its README: it takes about ten minutes and leaves them ready for Level 7.</li>
+<li>
+<p><strong>A catch-up kit.</strong> Each one holds the solution up to a level: the site initializer (and, from Day 2, the theme), re-runnable scripts that create the data, and a README with a prompt for the learner's agent. Each was proven on an empty database with the reference tests below.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Kit</th>
+<th>Leaves the learner ready for</th>
+<th>Use it</th>
+<th>Takes about</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>catch-up/level-4-start/</code></td>
+<td>Level 4</td>
+<td>Day 1 at 14:20, for anyone still stuck in Level 3</td>
+<td>5 minutes</td>
+</tr>
+<tr>
+<td><code>catch-up/day-2-start/</code></td>
+<td>Level 7</td>
+<td>Start of Day 2</td>
+<td>10 minutes</td>
+</tr>
+<tr>
+<td><code>catch-up/level-10-start/</code></td>
+<td>Level 10</td>
+<td>Day 2, after lunch</td>
+<td>15 minutes</td>
+</tr>
+<tr>
+<td><code>catch-up/level-12-start/</code></td>
+<td>Level 12</td>
+<td>Day 2, after the afternoon break</td>
+<td>15 minutes</td>
+</tr>
+</tbody>
+</table></div>
+<p>Applying a kit replaces the learner's own work for the levels it covers, so offer it when they are more than one level behind, not to fix one exercise. Each README lists what the learner still does by hand: the 📋 steps of Levels 2.3 and 2.5 (virtual host, and the instance's home, landing and logout pages), which have no API. The kits come from a clean run on DXP 2026.Q3.10: re-prove them when you move the course to a new release.</p>
+</li>
+<li>
+<p><strong>Check where a learner stands.</strong> The <a href="https://github.com/Liferay-Community-APAC/liferay-course-building-enterprise-websites-ai/tree/main/instructor/tests/e2e">reference tests</a> have one test per acceptance criterion. Run them against a learner's workspace up to their level (<code>npx playwright test specs/level-6.spec.ts</code>) to see exactly which criteria fail, or against your own demo build before the course.</p>
+</li>
 </ol>
 <h2 id="topics-covered-in-slides-only">Topics covered in slides only<a aria-hidden="true" class="heading-anchor" href="#topics-covered-in-slides-only" tabindex="-1">#</a></h2>
 <p>These original BEWL topics have no exercise. Present them with the slides marked <em>Instructor only</em>, the speaker notes and the matching demos in the <a href="demos.html">instructor demo workbook</a>:</p>
@@ -462,6 +505,17 @@ git clone https://github.com/Liferay-Community-APAC/liferay-course-building-ente
 </tr>
 </tbody>
 </table></div>
+<h2 id="course-feedback">Course feedback<a aria-hidden="true" class="heading-anchor" href="#course-feedback" tabindex="-1">#</a></h2>
+<p>Collect feedback before learners leave, on the last slide of Day 2. Set up a form in your organization's form tool (Microsoft Forms, Google Forms or your LMS) with the questions below, and share its link in the class chat or as a QR code on the closing slide. The first three are the ones that improve the next run of the course; keep them even if you drop the rest.</p>
+<ol>
+<li><strong>Which level was hardest, and why?</strong> (Level 1 to 13, plus a comment)</li>
+<li><strong>Where did your AI agent get stuck or go wrong?</strong> Which agent and model did you use? (comment)</li>
+<li><strong>Did the ✅ Verify steps help you learn where each feature lives in Liferay?</strong> (1 = not at all, 5 = a lot, plus a comment)</li>
+<li><strong>How was the pace?</strong> Day 1 and Day 2 each: too slow, about right, too fast.</li>
+<li><strong>Did you finish the prerequisites before Day 1?</strong> (yes, partly, no) What got in the way?</li>
+<li><strong>How likely are you to recommend this course to a colleague?</strong> (0 to 10)</li>
+</ol>
+<p>After the course, read the answers to questions 1 and 2 against your own notes on where the class stalled: they show which prompts, skills or verify steps to fix first.</p>
 <h2 id="when-something-goes-wrong">When something goes wrong<a aria-hidden="true" class="heading-anchor" href="#when-something-goes-wrong" tabindex="-1">#</a></h2>
 <div class="table-wrap"><table>
 <thead>
@@ -520,7 +574,7 @@ git clone https://github.com/Liferay-Community-APAC/liferay-course-building-ente
 <tr>
 <td>The first sign-in shows a <em>Terms of Use</em> notice</td>
 <td>Liferay Enterprise Search notice on first admin sign-in</td>
-<td>Read and close it.</td>
+<td>Read and close it with <strong>Done</strong>. Until then it covers the admin screens, and the reference tests that read them fail.</td>
 </tr>
 </tbody>
 </table></div>

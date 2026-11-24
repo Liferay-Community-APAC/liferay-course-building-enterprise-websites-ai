@@ -1,0 +1,170 @@
+{
+	"pageElement": {
+		"pageElements": [
+			{
+				"definition": {
+					"name": "Banner",
+					"layout": {
+						"paddingTop": 10,
+						"paddingBottom": 10
+					},
+					"backgroundImage": {
+						"url": {
+							"mapping": {
+								"fieldKey": "fileURL",
+								"itemReference": {
+									"className": "com.liferay.portal.kernel.repository.model.FileEntry",
+									"classPK": 0
+								}
+							}
+						}
+					}
+				},
+				"pageElements": [],
+				"type": "Section"
+			},
+			{
+				"definition": {
+					"name": "Category Content",
+					"layout": {
+						"containerType": "Fixed",
+						"paddingTop": 4
+					}
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"widgetInstance": {
+								"widgetName": "com_liferay_commerce_product_content_web_internal_portlet_CPCategoryContentPortlet"
+							}
+						},
+						"type": "Widget"
+					}
+				],
+				"type": "Section"
+			},
+			{
+				"definition": {
+					"name": "Product Search",
+					"layout": {
+						"containerType": "Fixed",
+						"paddingTop": 4,
+						"paddingBottom": 6
+					}
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"gutters": true,
+							"modulesPerRow": 2,
+							"numberOfColumns": 2,
+							"rowViewports": [
+								{
+									"id": "landscapeMobile",
+									"rowViewportDefinition": {
+										"modulesPerRow": 1
+									}
+								}
+							]
+						},
+						"pageElements": [
+							{
+								"definition": {
+									"size": 3,
+									"columnViewports": [
+										{
+											"columnViewportDefinition": {
+												"size": 12
+											},
+											"id": "landscapeMobile"
+										}
+									]
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"widgetInstance": {
+												"widgetName": "com_liferay_portal_search_web_search_bar_portlet_SearchBarPortlet",
+												"widgetConfig": {
+													"searchScope": "everything",
+													"destination": ""
+												}
+											}
+										},
+										"type": "Widget"
+									},
+									{
+										"definition": {
+											"widgetInstance": {
+												"widgetName": "com_liferay_portal_search_web_search_options_portlet_SearchOptionsPortlet",
+												"widgetConfig": {
+													"allowEmptySearches": "true"
+												}
+											}
+										},
+										"type": "Widget"
+									},
+									{
+										"definition": {
+											"widgetInstance": {
+												"widgetName": "com_liferay_portal_search_web_category_facet_portlet_CategoryFacetPortlet"
+											}
+										},
+										"type": "Widget"
+									},
+									{
+										"definition": {
+											"widgetInstance": {
+												"widgetName": "com_liferay_commerce_product_content_search_web_internal_portlet_CPSpecificationOptionFacetsPortlet"
+											}
+										},
+										"type": "Widget"
+									}
+								],
+								"type": "Column"
+							},
+							{
+								"definition": {
+									"size": 9,
+									"columnViewports": [
+										{
+											"columnViewportDefinition": {
+												"size": 12
+											},
+											"id": "landscapeMobile"
+										}
+									]
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"widgetInstance": {
+												"widgetName": "com_liferay_commerce_product_content_search_web_internal_portlet_CPSearchResultsPortlet",
+												"widgetConfig": {
+													"selectionStyle": "adt",
+													"displayStyle": "ddmTemplate_CLARITY-SEARCH-RESULTS-CARDS",
+													"displayStyleGroupExternalReferenceCode": "clarity-public"
+												}
+											}
+										},
+										"type": "Widget"
+									}
+								],
+								"type": "Column"
+							}
+						],
+						"type": "Row"
+					}
+				],
+				"type": "Section"
+			}
+		],
+		"type": "Root"
+	},
+	"version": 1.1,
+	"settings": {
+		"masterPage": {
+			"key": "primary-master-page"
+		}
+	}
+}
