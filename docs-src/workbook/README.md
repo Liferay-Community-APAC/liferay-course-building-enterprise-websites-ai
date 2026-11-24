@@ -16,6 +16,7 @@ Each level opens with a short intro, then its exercises. Every exercise uses the
 | ✅ **Verify** | Where to look in Liferay, and what you should see. Look, don't change anything. |
 | ⚠️ **If it doesn't match** | Likely causes, and what to tell the agent. |
 | 📖 **Why it matters** | The concept behind the exercise, in a few sentences. |
+| 🧠 **Knowledge check** | Three questions at the end of each level, after its exercises. Answer them on your own in about 3 minutes; your instructor then goes over the answers with the class. They're for you, not graded. |
 | ⭐ **Extras** | Optional bonus exercises at the end of a level, for when you finish early. |
 
 Level intros also have:

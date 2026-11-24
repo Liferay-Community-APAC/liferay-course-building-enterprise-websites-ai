@@ -99,6 +99,33 @@ client-extensions/clarity-site, under Search Options, and deploy. Search
 
 📖 **Why it matters:** the original BEWL course used the Calendar widget here. On this release calendar events have no REST API, so the course keeps events in Liferay CMS, where your agent can create them and a blueprint can query them.
 
+
+
+## 🧠 Knowledge check
+
+⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+
+**Question 1.** You saved the *Boost Associate Job Listings* blueprint, but Open Positions still shows FAQs and articles. What's missing?
+
+- **A.** A Blueprints Options widget on the page.
+- **B.** A reindex, so the job listings pick up the blueprint.
+- **C.** A restart of Liferay, so the new blueprint loads.
+- **D.** Marking the blueprint as the default for the public site.
+
+**Question 2.** A visitor opens Open Positions without typing anything. Without **Allow Empty Searches**, what do they see?
+
+- **A.** Every job listing, newest first.
+- **B.** No results until they type a keyword.
+- **C.** An error asking them for a keyword.
+- **D.** Only the Associate listings, from the boost.
+
+**Question 3.** A week after the *Summer Job Fair*, it no longer appears under Upcoming Events, though nobody edited the page. Why?
+
+- **A.** Its search keeps only events that start after now.
+- **B.** A nightly job unpublishes events once they start.
+- **C.** Someone removed it from a manual collection.
+- **D.** The event's category changed when it ended.
+
 ## ⭐ Extras
 
 Optional, for when you finish early. The next level doesn't depend on them.

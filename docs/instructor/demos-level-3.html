@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Demo workbook</span> <span class="wb-pos">Level 3 of 13</span></summary><a href="demos.html">Start here</a><p class="day">Day 1</p><a href="demos-kickoff.html">Kickoff</a><a href="demos-setup.html">Setup</a><a href="demos-platform.html">Capabilities</a><a href="demos-level-1.html">1 · Users and permissions</a><a href="demos-level-2.html">2 · Sites</a><a href="demos-level-3.html" class="current">3 · Pages, master pages and navigation</a><a href="demos-level-4.html">4 · Fragments and page compositions</a><a href="demos-level-5.html">5 · Design</a><a href="demos-level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="demos-level-7.html">7 · Displaying content</a><a href="demos-level-8.html">8 · Commerce</a><a href="demos-level-9.html">9 · Headless APIs</a><a href="demos-level-10.html">10 · Workflow and publishing</a><a href="demos-level-11.html">11 · Search</a><a href="demos-level-12.html">12 · Objects</a><a href="demos-level-13.html">13 · Personalization</a><a href="demos-operations.html">Performance tuning and maintenance</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#d19-the-site-initializer-folders-in-pages-out">D1.9 — The site initializer: folders in, pages out</a></li><li class="toc-level-2"><a href="#d110-inside-a-master-page">D1.10 — Inside a master page</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#d19-the-site-initializer-folders-in-pages-out">D1.9 — The site initializer: folders in, pages out</a></li><li class="toc-level-2"><a href="#d110-inside-a-master-page">D1.10 — Inside a master page</a></li><li class="toc-level-2"><a href="#knowledge-check-answers">Knowledge check answers</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -335,6 +342,33 @@ how you know it's from the latest deploy.
 <li>Select the drop zone → <strong>expect:</strong> it limits which fragments authors can drop into pages.</li>
 <li>Leave without publishing.</li>
 </ol>
+<h2 id="knowledge-check-answers">Knowledge check answers<a aria-hidden="true" class="heading-anchor" href="#knowledge-check-answers" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">🕒 <strong>5 minutes</strong> · at the end of the block · learners answer on their own first (<a href="../workbook/level-3.html#knowledge-check">Level 3, Knowledge check</a>)</p>
+<p class="wb wb-say">💡 <strong>Say:</strong> ask for a show of hands on each option before you give the answer. A split room is the moment to explain.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> In the site initializer, you rename the FAQ page's friendly URL from <code>/faq</code> to <code>/help</code> and redeploy. What happens on the site?</p>
+<p class="wb wb-answer">✔ <strong>Answer: B.</strong> A new /help page is added, and the /faq page stays as it was. The initializer matches pages by friendly URL and never deletes anything. A new URL looks like a new page, so it's added, and the page at the old URL is left behind. Renaming or removing a page means deleting it (or the site) and deploying again.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> Pages are matched by friendly URL, so a new URL isn't recognized as the same page.</li>
+<li><strong>C:</strong> The deploy succeeds; that's why the duplicate is easy to miss.</li>
+<li><strong>D:</strong> The initializer adds and updates; it never removes.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> How would you notice? (<em>Site Builder</em> → <em>Pages</em>, or the agent reading the page tree back, as 3.1 asks.)</p>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> Christian edits the Home page and can't find the built-in <strong>Footers</strong> fragments in the fragment panel. Why?</p>
+<p class="wb wb-answer">✔ <strong>Answer: C.</strong> The master page's drop zone doesn't allow the Footers set. A master page's drop zone can limit which fragments authors may drop into pages. 3.2 disallows Footers and Navigation Bars, so authors can't add a second footer or menu: the master already supplies them.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> Authors who can edit the page can use the allowed fragments.</li>
+<li><strong>B:</strong> The theme doesn't filter the fragment panel.</li>
+<li><strong>D:</strong> They're available; the master page excludes them on purpose.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> Which other sets would you disallow for Clarity's authors? (Anything that duplicates the master: headers, menus.)</p>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> 3.2 turns off the Classic theme's own header and footer on both master pages. What would visitors see if it didn't?</p>
+<p class="wb wb-answer">✔ <strong>Answer: A.</strong> Two headers and two footers, the theme's and the master's. The master page draws Clarity's header and footer as fragments, and the theme draws its own around the page. Both render unless the theme's are switched off, so you'd see them stacked.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>B:</strong> The master page's fragments still render.</li>
+<li><strong>C:</strong> Both render; neither replaces the other.</li>
+<li><strong>D:</strong> It changes what visitors see.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> Why turn them off in the master page settings instead of hiding them with CSS? (The setting is scoped to this site; CSS hacks break on theme updates.)</p>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="demos-level-2.html"><span>← Previous</span>Level 2 — Sites</a><a class="next" href="demos-level-4.html"><span>Next →</span>Level 4 — Fragments and page compositions</a></nav>
     </main>
   </div>

@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Demo workbook</span> <span class="wb-pos">Level 1 of 13</span></summary><a href="demos.html">Start here</a><p class="day">Day 1</p><a href="demos-kickoff.html">Kickoff</a><a href="demos-setup.html">Setup</a><a href="demos-platform.html">Capabilities</a><a href="demos-level-1.html" class="current">1 · Users and permissions</a><a href="demos-level-2.html">2 · Sites</a><a href="demos-level-3.html">3 · Pages, master pages and navigation</a><a href="demos-level-4.html">4 · Fragments and page compositions</a><a href="demos-level-5.html">5 · Design</a><a href="demos-level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="demos-level-7.html">7 · Displaying content</a><a href="demos-level-8.html">8 · Commerce</a><a href="demos-level-9.html">9 · Headless APIs</a><a href="demos-level-10.html">10 · Workflow and publishing</a><a href="demos-level-11.html">11 · Search</a><a href="demos-level-12.html">12 · Objects</a><a href="demos-level-13.html">13 · Personalization</a><a href="demos-operations.html">Performance tuning and maintenance</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#d16-roles-who-holds-them-and-why-the-api-differs">D1.6 — Roles: who holds them, and why the API differs</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#d16-roles-who-holds-them-and-why-the-api-differs">D1.6 — Roles: who holds them, and why the API differs</a></li><li class="toc-level-2"><a href="#knowledge-check-answers">Knowledge check answers</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -317,6 +324,33 @@ em { color: inherit; }
 <li><em>Global Menu</em> → <em>Control Panel</em> → <em>Roles</em> → <em>Regular Roles</em> → <strong>Marketing Coordinator</strong> → <em>Assignees</em> → <strong>expect:</strong> the <em>Users</em> and <em>User Groups</em> tabs. Show both.</li>
 <li><em>Global Menu</em> → <em>Control Panel</em> → <em>User Groups</em> → <strong>Marketing</strong> → <strong>expect:</strong> its members.</li>
 </ol>
+<h2 id="knowledge-check-answers">Knowledge check answers<a aria-hidden="true" class="heading-anchor" href="#knowledge-check-answers" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">🕒 <strong>5 minutes</strong> · at the end of the block · learners answer on their own first (<a href="../workbook/level-1.html#knowledge-check">Level 1, Knowledge check</a>)</p>
+<p class="wb wb-say">💡 <strong>Say:</strong> ask for a show of hands on each option before you give the answer. A split room is the moment to explain.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> Clarity hires a second Marketing Coordinator. In the Control Panel you can give a role to the <strong>Marketing</strong> user group, so every member gets it. Why did your agent assign each persona's role to the user directly in 1.1?</p>
+<p class="wb wb-answer">✔ <strong>Answer: C.</strong> Liferay's headless API assigns roles to users only, not to user groups. Liferay's headless API assigns roles to users, not to user groups. The Control Panel can do both, which is why the 📖 note in 1.1 points learners to <em>Roles</em> → a role → <em>Assignees</em>, where both kinds of assignee show.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> Assigning a role to a user group is a normal, supported feature.</li>
+<li><strong>B:</strong> The UI does it; D1.6 shows the <em>User Groups</em> tab of a role's assignees.</li>
+<li><strong>D:</strong> The prompt adds users to user groups; it just can't assign roles to them over the API.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> When would you rather assign the role to the user group in the UI? (When people join and leave the team often: membership then carries the role.)</p>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> Each persona gets an external reference code like <code>PERSONA-CCARTER</code>. You run the 1.1 prompt a second time. What does the ERC make possible?</p>
+<p class="wb wb-answer">✔ <strong>Answer: A.</strong> The agent updates the same user instead of adding a duplicate. An ERC is an ID you choose, so a prompt can find the same item again. The agent upserts by ERC: it updates the user that already has that code instead of adding a second one. That's what makes every prompt in the course safe to run twice.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>B:</strong> Sign-in uses the email and password; the ERC plays no part.</li>
+<li><strong>C:</strong> Passwords are set explicitly (<code>learn</code>); the ERC is just an identifier.</li>
+<li><strong>D:</strong> Site membership comes in Level 2, from a separate prompt.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> What would break in a real migration if you used Liferay's numeric ids instead? (They differ on every instance, so a second run or a second environment can't find the same item.)</p>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> <strong>Site Content Contributor</strong> is a site role. Christian holds it in the public site. Later, Christian is added as a member of the Clarity Distributor Portal. What does that role give Christian there?</p>
+<p class="wb wb-answer">✔ <strong>Answer: D.</strong> Nothing, unless it's assigned in that site as well. A site role is assigned per site. Becoming a member of another site gives Christian that site's member permissions, not the site roles held elsewhere. Someone would have to assign Site Content Contributor in the distributor portal too.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> That describes a regular role, which applies across the instance.</li>
+<li><strong>B:</strong> Liferay has no automatic read-only version of a role.</li>
+<li><strong>C:</strong> This is the trap: membership and site roles are separate. Joining a site gives no site role.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> Which kind of role would you use for a reviewer who works in every site? (A regular role, as Level 2 does for Marketing Coordinator.)</p>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="demos-platform.html"><span>← Previous</span>Capabilities, deployment options and Liferay Data Platform</a><a class="next" href="demos-level-2.html"><span>Next →</span>Level 2 — Sites</a></nav>
     </main>
   </div>

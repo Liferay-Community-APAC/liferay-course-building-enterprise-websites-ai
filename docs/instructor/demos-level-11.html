@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Demo workbook</span> <span class="wb-pos">Level 11 of 13</span></summary><a href="demos.html">Start here</a><p class="day">Day 1</p><a href="demos-kickoff.html">Kickoff</a><a href="demos-setup.html">Setup</a><a href="demos-platform.html">Capabilities</a><a href="demos-level-1.html">1 · Users and permissions</a><a href="demos-level-2.html">2 · Sites</a><a href="demos-level-3.html">3 · Pages, master pages and navigation</a><a href="demos-level-4.html">4 · Fragments and page compositions</a><a href="demos-level-5.html">5 · Design</a><a href="demos-level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="demos-level-7.html">7 · Displaying content</a><a href="demos-level-8.html">8 · Commerce</a><a href="demos-level-9.html">9 · Headless APIs</a><a href="demos-level-10.html">10 · Workflow and publishing</a><a href="demos-level-11.html" class="current">11 · Search</a><a href="demos-level-12.html">12 · Objects</a><a href="demos-level-13.html">13 · Personalization</a><a href="demos-operations.html">Performance tuning and maintenance</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#d210-search-facets-and-a-blueprint">D2.10 — Search, facets and a blueprint</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#d210-search-facets-and-a-blueprint">D2.10 — Search, facets and a blueprint</a></li><li class="toc-level-2"><a href="#knowledge-check-answers">Knowledge check answers</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -319,6 +326,33 @@ em { color: inherit; }
 <li>As admin: <em>Global Menu</em> → <em>Applications</em> → <em>Blueprints</em> → <strong>Boost Associate Job Listings</strong> → <em>Preview</em>, search <strong>Associate</strong> → <strong>expect:</strong> Associate positions rank first. Close without saving.</li>
 <li>Open <strong>Events</strong> in a private window → <strong>expect:</strong> only upcoming events, from the <strong>Future Events</strong> blueprint.</li>
 </ol>
+<h2 id="knowledge-check-answers">Knowledge check answers<a aria-hidden="true" class="heading-anchor" href="#knowledge-check-answers" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">🕒 <strong>5 minutes</strong> · at the end of the block · learners answer on their own first (<a href="../workbook/level-11.html#knowledge-check">Level 11, Knowledge check</a>)</p>
+<p class="wb wb-say">💡 <strong>Say:</strong> ask for a show of hands on each option before you give the answer. A split room is the moment to explain.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> You saved the <em>Boost Associate Job Listings</em> blueprint, but Open Positions still shows FAQs and articles. What's missing?</p>
+<p class="wb wb-answer">✔ <strong>Answer: A.</strong> A Blueprints Options widget on the page. A blueprint changes the search only on pages that apply it, through the Blueprints Options widget. 11.2 adds that widget under Search Options.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>B:</strong> The job listings are already indexed; a blueprint changes the query, not the index.</li>
+<li><strong>C:</strong> Blueprints apply live.</li>
+<li><strong>D:</strong> There's no site-wide default; a page applies a blueprint through the widget.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> Why is that a good design? (The same blueprint can serve several pages, and pages can use different ones.)</p>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> A visitor opens Open Positions without typing anything. Without <strong>Allow Empty Searches</strong>, what do they see?</p>
+<p class="wb wb-answer">✔ <strong>Answer: B.</strong> No results until they type a keyword. By default, search needs keywords. Allow Empty Searches lets the page list everything (filtered by the blueprint) as soon as it opens, which is what a job board needs.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> That's with the option on.</li>
+<li><strong>C:</strong> It's not an error, just no results.</li>
+<li><strong>D:</strong> The boost only orders results; it doesn't create them.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> What does the blueprint add to an empty search? (Only job listings, Associate first.)</p>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> A week after the <em>Summer Job Fair</em>, it no longer appears under Upcoming Events, though nobody edited the page. Why?</p>
+<p class="wb wb-answer">✔ <strong>Answer: A.</strong> Its search keeps only events that start after now. The blueprint runs as a collection provider: each view runs the search, and its element compares the start date with the current time. No one maintains the list.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>B:</strong> Nothing unpublishes the events.</li>
+<li><strong>C:</strong> It's a blueprint, not a manual collection.</li>
+<li><strong>D:</strong> Categories don't change by themselves.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> Why not use the Calendar widget, as the original course did? (Calendar events have no REST API on this release; CMS entries do.)</p>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="demos-level-10.html"><span>← Previous</span>Level 10 — Workflow and publishing</a><a class="next" href="demos-level-12.html"><span>Next →</span>Level 12 — Objects: the Contact Us form and its follow-up</a></nav>
     </main>
   </div>

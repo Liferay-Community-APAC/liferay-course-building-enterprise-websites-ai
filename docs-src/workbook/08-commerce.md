@@ -139,3 +139,28 @@ Deploy, then check as Guest: open a category from Products, then a product.
 ![The Sunglasses category page: facets on the left and the Classic Aviator Sunglasses card on the right.](screenshots/8-5-category.png)
 
 ![The Classic Aviator Sunglasses product page: name, SKU, description, Contact Sales button and specifications.](screenshots/8-5-product.png)
+
+## 🧠 Knowledge check
+
+⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+
+**Question 1.** You create a second site and add a Commerce Search Results widget to a page. It shows no products, though the catalog has eleven. What's most likely missing?
+
+- **A.** The products aren't published on the new site.
+- **B.** Guest can't see the Clarity Eyewear catalog.
+- **C.** The widget has no widget template yet.
+- **D.** The new site isn't linked to a channel.
+
+**Question 2.** Visitors want to filter sunglasses by frame size, but the Specification Facet shows only Frame Color and Frame Material. Why?
+
+- **A.** Frame Size isn't used in faceted navigation.
+- **B.** The facet shows two specifications at most.
+- **C.** Frame Size has no values on the products.
+- **D.** Frame Size isn't in the Frame Description group.
+
+**Question 3.** Marketing wants a **New** badge on the category cards on the Products page. Where does that change go?
+
+- **A.** In a new field on each product.
+- **B.** In the Clarity Products vocabulary's categories.
+- **C.** In the Clarity Category Cards widget template.
+- **D.** In Clarity Theme CSS, with a ::before rule.

@@ -68,3 +68,28 @@ for each.
 ![Home as Terrence Wheatley, a distributor: the banner reads "Welcome Back! Elevate Your Inventory with Premium Eyewear." and Terrence's avatar replaces the Sign In button.](screenshots/13-2-terrence-home.png)
 
 📖 **Why it matters:** this works for signed-in users and user groups. For anonymous visitors (by behavior, location or campaign), you need Liferay Data Platform segments, which is the supported path for that kind of personalization.
+
+## 🧠 Knowledge check
+
+⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+
+**Question 1.** Why does the Clarity Audience Container decide in FreeMarker, on the server, instead of hiding content with JavaScript?
+
+- **A.** JavaScript can't read the user's user groups.
+- **B.** FreeMarker makes the page load faster for visitors.
+- **C.** Hidden content never reaches the browser.
+- **D.** Fragments can't run JavaScript inside a drop zone.
+
+**Question 2.** Marketing wants a different Home banner for anonymous visitors arriving from a spring campaign. What does Clarity need?
+
+- **A.** Liferay Data Platform segments.
+- **B.** Another Audience Container, with mode "others".
+- **C.** DXP segments and experiences on the Home page.
+- **D.** A second site for campaign visitors.
+
+**Question 3.** In the page editor, the admin sees both Home banners, each with a label. Is that a bug?
+
+- **A.** Yes: the editor should show only the admin's audience.
+- **B.** No: the editor shows both so both can be edited.
+- **C.** Yes: one banner failed to compile, so both show.
+- **D.** No: admins see every audience on the live site too.

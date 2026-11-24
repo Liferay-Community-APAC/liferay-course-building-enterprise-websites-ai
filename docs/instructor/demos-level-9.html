@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Demo workbook</span> <span class="wb-pos">Level 9 of 13</span></summary><a href="demos.html">Start here</a><p class="day">Day 1</p><a href="demos-kickoff.html">Kickoff</a><a href="demos-setup.html">Setup</a><a href="demos-platform.html">Capabilities</a><a href="demos-level-1.html">1 · Users and permissions</a><a href="demos-level-2.html">2 · Sites</a><a href="demos-level-3.html">3 · Pages, master pages and navigation</a><a href="demos-level-4.html">4 · Fragments and page compositions</a><a href="demos-level-5.html">5 · Design</a><a href="demos-level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="demos-level-7.html">7 · Displaying content</a><a href="demos-level-8.html">8 · Commerce</a><a href="demos-level-9.html" class="current">9 · Headless APIs</a><a href="demos-level-10.html">10 · Workflow and publishing</a><a href="demos-level-11.html">11 · Search</a><a href="demos-level-12.html">12 · Objects</a><a href="demos-level-13.html">13 · Personalization</a><a href="demos-operations.html">Performance tuning and maintenance</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#d27-the-api-explorer">D2.7 — The API Explorer</a></li><li class="toc-level-2"><a href="#d28-a-batch-import-task">D2.8 — A batch import task</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#d27-the-api-explorer">D2.7 — The API Explorer</a></li><li class="toc-level-2"><a href="#d28-a-batch-import-task">D2.8 — A batch import task</a></li><li class="toc-level-2"><a href="#knowledge-check-answers">Knowledge check answers</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -337,6 +344,33 @@ returns. Don't call anything else.
 <div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Find the most recent batch import task in this instance and show me its id,
 className, executeStatus and processedItemsCount. Read only.
 </code></pre></div>
+<h2 id="knowledge-check-answers">Knowledge check answers<a aria-hidden="true" class="heading-anchor" href="#knowledge-check-answers" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">🕒 <strong>5 minutes</strong> · at the end of the block · learners answer on their own first (<a href="../workbook/level-9.html#knowledge-check">Level 9, Knowledge check</a>)</p>
+<p class="wb wb-say">💡 <strong>Say:</strong> ask for a show of hands on each option before you give the answer. A split room is the moment to explain.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> Your agent sends a batch request and gets a response right away. What does that response prove?</p>
+<p class="wb wb-answer">✔ <strong>Answer: C.</strong> Only that a task was created to run the import. A batch request is asynchronous: Liferay accepts the job and hands back a task. Only the task's final status and counts say what happened, which is why every 9.x prompt asks the agent to poll and report them.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> The import hasn't run yet when the response arrives.</li>
+<li><strong>B:</strong> Items are validated while the task runs.</li>
+<li><strong>D:</strong> The response holds the task's id.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> What if the task completes with fewer items processed than sent? (Read its failed items and fix the data; COMPLETED alone isn't success.)</p>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> The CMS <strong>Article</strong> structure has no batch endpoint of its own. How did the agent import three articles in one request?</p>
+<p class="wb wb-answer">✔ <strong>Answer: A.</strong> Through the generic batch engine, scoped to the Space. The batch engine is generic: it can import any entity it has a delegate for. A CMS structure's entries are object entries, so the agent names the structure's delegate and the Space.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>B:</strong> 9.2 asks for one batch request, and it works.</li>
+<li><strong>C:</strong> Articles aren't blog posts.</li>
+<li><strong>D:</strong> The initializer isn't used for content imports here.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> How would you find a delegate name yourself? (The API Explorer's batch engine endpoints, or ask the agent to show the request.)</p>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> Clarity's legacy blog post becomes an entry of CMS's built-in <strong>Blog</strong> structure, not a post in the Blogs application. Why?</p>
+<p class="wb wb-answer">✔ <strong>Answer: D.</strong> Blogs is in maintenance mode on this release. The course builds only on supported features. Blogs is in maintenance mode, so new work goes into Liferay CMS, where a blog post is a structure entry in a Space like any other.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> Blogs can hold images.</li>
+<li><strong>B:</strong> Speed isn't the reason.</li>
+<li><strong>C:</strong> Blogs can be public; it's the support status that matters.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> What else in the course replaces a maintenance-mode feature? (Spaces for asset libraries, workflow for Publications, user groups for segments.)</p>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="demos-level-8.html"><span>← Previous</span>Level 8 — Commerce: catalog, products and product pages</a><a class="next" href="demos-level-10.html"><span>Next →</span>Level 10 — Workflow and publishing</a></nav>
     </main>
   </div>

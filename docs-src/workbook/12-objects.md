@@ -136,6 +136,33 @@ this data set. Deploy.
 
 📖 **Why it matters:** approving the task as Daniel is how you'd accept the workflow in a real project. The data set shows only entries pending review, so an approved request leaves the dashboard.
 
+
+
+## 🧠 Knowledge check
+
+⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+
+**Question 1.** Guest has **ADD_OBJECT_ENTRY** on Contact Us, but not VIEW. Why not grant VIEW too?
+
+- **A.** Guest can't hold VIEW on objects at all.
+- **B.** VIEW would stop the form from submitting.
+- **C.** Anyone could read every submission.
+- **D.** VIEW can only be granted to site members.
+
+**Question 2.** Someone removes Guest's ADD_OBJECT_ENTRY on Contact Us. What do visitors see on the Contact Us page?
+
+- **A.** The form, with an error when they submit.
+- **B.** A prompt to sign in before they can submit.
+- **C.** The form, with its fields read-only.
+- **D.** No form at all, and no error anywhere.
+
+**Question 3.** Daniel approves one request's Follow Up task. It disappears from Contact Us Responses. What happened to the entry?
+
+- **A.** It was deleted when the task was approved.
+- **B.** It's approved; the list shows pending ones.
+- **C.** It moved to the distributor portal site.
+- **D.** It's hidden from Daniel, who approved it.
+
 ## ⭐ Extras
 
 Optional, for when you finish early. The next level doesn't depend on them.

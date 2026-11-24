@@ -44,3 +44,39 @@ returns. Don't call anything else.
 Find the most recent batch import task in this instance and show me its id,
 className, executeStatus and processedItemsCount. Read only.
 ```
+
+### Knowledge check answers
+
+🕒 **5 minutes** · at the end of the block · learners answer on their own first ([Level 9, Knowledge check](../workbook/level-9.html#knowledge-check))
+
+💡 **Say:** ask for a show of hands on each option before you give the answer. A split room is the moment to explain.
+
+**Question 1.** Your agent sends a batch request and gets a response right away. What does that response prove?
+
+✔ **Answer: C.** Only that a task was created to run the import. A batch request is asynchronous: Liferay accepts the job and hands back a task. Only the task's final status and counts say what happened, which is why every 9.x prompt asks the agent to poll and report them.
+
+- **A:** The import hasn't run yet when the response arrives.
+- **B:** Items are validated while the task runs.
+- **D:** The response holds the task's id.
+
+**Ask next:** What if the task completes with fewer items processed than sent? (Read its failed items and fix the data; COMPLETED alone isn't success.)
+
+**Question 2.** The CMS **Article** structure has no batch endpoint of its own. How did the agent import three articles in one request?
+
+✔ **Answer: A.** Through the generic batch engine, scoped to the Space. The batch engine is generic: it can import any entity it has a delegate for. A CMS structure's entries are object entries, so the agent names the structure's delegate and the Space.
+
+- **B:** 9.2 asks for one batch request, and it works.
+- **C:** Articles aren't blog posts.
+- **D:** The initializer isn't used for content imports here.
+
+**Ask next:** How would you find a delegate name yourself? (The API Explorer's batch engine endpoints, or ask the agent to show the request.)
+
+**Question 3.** Clarity's legacy blog post becomes an entry of CMS's built-in **Blog** structure, not a post in the Blogs application. Why?
+
+✔ **Answer: D.** Blogs is in maintenance mode on this release. The course builds only on supported features. Blogs is in maintenance mode, so new work goes into Liferay CMS, where a blog post is a structure entry in a Space like any other.
+
+- **A:** Blogs can hold images.
+- **B:** Speed isn't the reason.
+- **C:** Blogs can be public; it's the support status that matters.
+
+**Ask next:** What else in the course replaces a maintenance-mode feature? (Spaces for asset libraries, workflow for Publications, user groups for segments.)

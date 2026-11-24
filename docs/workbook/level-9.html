@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 9 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html" class="current">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#91-explore-the-api-your-agent-uses">9.1 — Explore the API your agent uses</a><ul><li class="toc-level-3"><a href="#part-1-you-run-an-endpoint">Part 1 — You run an endpoint</a></li><li class="toc-level-3"><a href="#part-2-the-agent-finds-the-batch-endpoints">Part 2 — The agent finds the batch endpoints</a></li></ul></li><li class="toc-level-2"><a href="#92-import-the-legacy-blog-post-and-articles">9.2 — Import the legacy blog post and articles</a></li><li class="toc-level-2"><a href="#93-import-legacy-products-and-office-locations">9.3 — Import legacy products and office locations</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#91-explore-the-api-your-agent-uses">9.1 — Explore the API your agent uses</a><ul><li class="toc-level-3"><a href="#part-1-you-run-an-endpoint">Part 1 — You run an endpoint</a></li><li class="toc-level-3"><a href="#part-2-the-agent-finds-the-batch-endpoints">Part 2 — The agent finds the batch endpoints</a></li></ul></li><li class="toc-level-2"><a href="#92-import-the-legacy-blog-post-and-articles">9.2 — Import the legacy blog post and articles</a></li><li class="toc-level-2"><a href="#93-import-legacy-products-and-office-locations">9.3 — Import legacy products and office locations</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -403,6 +410,29 @@ Casablanca" to the job listing "Retail Associate" as an example.
 <li><em>Global Menu</em> → <em>CMS</em> → <strong>HR</strong> → <em>Categories</em> → <strong>Location</strong>: 26 categories.</li>
 <li>Open the job listing <strong>Retail Associate</strong>: <em>Morocco, Casablanca</em> is among its categories.</li>
 </ol>
+<h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own.</strong> Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> Your agent sends a batch request and gets a response right away. What does that response prove?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> That every item was imported without errors.</li>
+<li><strong>B.</strong> That the data passed validation, though it isn't saved yet.</li>
+<li><strong>C.</strong> Only that a task was created to run the import.</li>
+<li><strong>D.</strong> Nothing: batch requests return an empty response.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> The CMS <strong>Article</strong> structure has no batch endpoint of its own. How did the agent import three articles in one request?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> Through the generic batch engine, scoped to the Space.</li>
+<li><strong>B.</strong> It couldn't, so it sent three requests instead.</li>
+<li><strong>C.</strong> Through the Blogs batch endpoint, which accepts any content.</li>
+<li><strong>D.</strong> By adding them to the site initializer and deploying it.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> Clarity's legacy blog post becomes an entry of CMS's built-in <strong>Blog</strong> structure, not a post in the Blogs application. Why?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> The Blogs application can't store a cover image.</li>
+<li><strong>B.</strong> Blog structure entries load faster on the Blog page.</li>
+<li><strong>C.</strong> Blogs posts can't be shown on a public site.</li>
+<li><strong>D.</strong> Blogs is in maintenance mode on this release.</li>
+</ul>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="level-8.html"><span>← Previous</span>Level 8 — Commerce: catalog, products and product pages</a><a class="next" href="level-10.html"><span>Next →</span>Level 10 — Workflow and publishing</a></nav>
     </main>
   </div>

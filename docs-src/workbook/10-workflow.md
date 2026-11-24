@@ -127,6 +127,33 @@ announcement bar's text on each.
 
 📖 **Why it matters:** the announcement bar (Level 7.5) shows the newest Announcement entry of the Marketing Space. Putting the Announcement structure under the same approval workflow means a site-wide message can't go live without review.
 
+
+
+## 🧠 Knowledge check
+
+⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+
+**Question 1.** In 10.2, why does the agent authenticate as Christian to create the article, rather than as the admin?
+
+- **A.** The admin isn't allowed to create articles in a Space.
+- **B.** So Christian's own permissions are what's tested.
+- **C.** Workflow only starts for content submitted by non-admins.
+- **D.** Persona credentials are faster than the admin's.
+
+**Question 2.** 10.1 publishes a copy of Single Approver named *Clarity Article Approval*, instead of editing Single Approver itself. Why?
+
+- **A.** Liferay doesn't let you edit a workflow it ships.
+- **B.** A copy runs faster than the shipped definition.
+- **C.** Only a copied definition can assign tasks to custom roles.
+- **D.** Editing it would change everything else that uses it.
+
+**Question 3.** Christian has submitted *Spring Campaign*, and Clara hasn't approved it yet. What does the announcement bar show visitors?
+
+- **A.** The new announcement, because it's the newest entry.
+- **B.** Both announcements, the new one marked as pending.
+- **C.** The previous announcement, until Clara approves.
+- **D.** Nothing, while any review is pending.
+
 ## ⭐ Extras
 
 Optional, for when you finish early. The next level doesn't depend on them.
