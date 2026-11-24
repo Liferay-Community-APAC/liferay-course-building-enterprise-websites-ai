@@ -18,6 +18,8 @@ Hold that line in class. When a learner says "the agent did it, it works", ask t
 | DXP 2026.Q1 LTS | DXP 2026.Q3.10 |
 | Publications, DXP segments and experiences, Blogs, Documents and Media, Custom Fields | Workflow, a user-group audience fragment, CMS Blog entries and Space files, Object fields: no deprecated or maintenance-mode features |
 
+For a one-page summary to share with colleagues who know the original course, see [What's new](whats-new.html).
+
 ## Before the course
 
 - **Two weeks before:** send learners the [prerequisites page](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/). It covers Git, JDK 21, Blade, Docker with 8 GB of memory, the Liferay DXP and PostgreSQL Docker images, VS Code and their AI agent. They bring their own agent subscription.
@@ -62,7 +64,7 @@ Most setup problems show up in the first half hour. Before the first slide, put 
 
 - **Demo the first prompt of each level** on the projector, including the verify step. Then let learners run the rest. The [instructor demo workbook](demos.html) has the step-by-step for every other demo, with optional prompts.
 - **One agent session per exercise** keeps costs and confusion down. If a learner's agent goes off track, have them start a new session: `solution-context.md` and `solution-index.yaml` carry the context.
-- **Agents differ.** Prompts are written to work with Claude Code, Codex and Copilot in agent mode. A weaker model may need the skill named explicitly (the 🧩 line) or a follow-up ("read the X skill and try again").
+- **Agents differ.** Prompts are written to work with Claude Code, Codex and Copilot in agent mode. A weaker model may need the skill named explicitly (the exercise's **Skills** line) or a follow-up ("read the X skill and try again").
 - **Learners never start or stop Liferay through the agent.** If an agent offers to, they say no and do it themselves.
 - **Verification is read-only.** Encourage learners to open the editors to look, then leave without saving or publishing. The places where they act (approving a workflow task as Daniel in 12.4, and the few settings with no API) are marked 📋.
 
@@ -85,6 +87,19 @@ These original BEWL topics have no exercise. Present them with the slides marked
 | Performance tuning and maintenance | Day 3 module | Talk only, as in the original course. |
 | Publications | Challenge 18 | Maintenance mode on 2026.Q1 with no replacement; 10.3 publishes through workflow instead. Mention it for existing customers. |
 | DXP segments and experiences | Challenge 22 | Deprecated on 2026.Q1 in favor of Liferay Data Platform segmentation, which needs an LDP workspace connected to each instance. Show it in the slides; Level 13 uses a user-group audience fragment instead. |
+
+## Course feedback
+
+Collect feedback before learners leave, on the last slide of Day 2. Set up a form in your organization's form tool (Microsoft Forms, Google Forms or your LMS) with the questions below, and share its link in the class chat or as a QR code on the closing slide. The first three are the ones that improve the next run of the course; keep them even if you drop the rest.
+
+1. **Which level was hardest, and why?** (Level 1 to 13, plus a comment)
+2. **Where did your AI agent get stuck or go wrong?** Which agent and model did you use? (comment)
+3. **Did the ✅ Verify steps help you learn where each feature lives in Liferay?** (1 = not at all, 5 = a lot, plus a comment)
+4. **How was the pace?** Day 1 and Day 2 each: too slow, about right, too fast.
+5. **Did you finish the prerequisites before Day 1?** (yes, partly, no) What got in the way?
+6. **How likely are you to recommend this course to a colleague?** (0 to 10)
+
+After the course, read the answers to questions 1 and 2 against your own notes on where the class stalled: they show which prompts, skills or verify steps to fix first.
 
 ## When something goes wrong
 
