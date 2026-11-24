@@ -340,6 +340,7 @@ table.grid th {
 .exercises li .id { font-weight: 700; color: var(--accent); }
 .exercises li.bonus .id::after { content: " ★"; }
 .exercises li.bonus { color: rgba(255,255,255,.75); }
+.exercises li.check { font-style: italic; color: rgba(255,255,255,.9); }
 .verify {
   margin-top: auto;
   background: rgba(7, 0, 79, .55);
