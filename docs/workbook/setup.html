@@ -473,7 +473,7 @@ wsl --shutdown
 <ol class="wb-list wb-verify">
 <li>Run <code>docker compose ps</code> in the terminal: <code>clarity-postgres</code> and <code>clarity-liferay</code> are <code>running (healthy)</code>. Liferay reads <code>health: starting</code> until it answers.</li>
 <li>Open <code>http://localhost:8080</code>: the Liferay home page shows.</li>
-<li>Sign in as <code>admin@clarityvisionsolutions.com</code> with password <code>learn</code>. The first sign-in shows a <em>Terms of Use</em> notice about Liferay Enterprise Search: read it and close it with <strong>Done</strong>.</li>
+<li>Sign in as <code>admin@clarityvisionsolutions.com</code> with password <code>learn</code>. The first sign-in shows a <em>Terms of Use</em> notice about Liferay Enterprise Search: read it and close it with <strong>Done</strong>, after the page has finished loading. Until it's closed it covers every admin screen, and the Playwright bonus tests that read admin screens fail.</li>
 <li><em>Global Menu</em> → <em>Control Panel</em> → <em>Server Administration</em> → <em>Properties</em> → <em>Portal Properties</em>: <code>jdbc.default.url</code> contains <code>postgresql</code>.</li>
 </ol>
 <p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (Level 1's Playwright bonus, 1.3, tests these):</p>

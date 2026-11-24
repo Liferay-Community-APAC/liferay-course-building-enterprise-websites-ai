@@ -163,7 +163,7 @@ Don't create or change anything else. Read both files back to me.
 ✅ **Verify** (look, don't change anything):
 1. Run `docker compose ps` in the terminal: `clarity-postgres` and `clarity-liferay` are `running (healthy)`. Liferay reads `health: starting` until it answers.
 2. Open `http://localhost:8080`: the Liferay home page shows.
-3. Sign in as `admin@clarityvisionsolutions.com` with password `learn`. The first sign-in shows a *Terms of Use* notice about Liferay Enterprise Search: read it and close it with **Done**.
+3. Sign in as `admin@clarityvisionsolutions.com` with password `learn`. The first sign-in shows a *Terms of Use* notice about Liferay Enterprise Search: read it and close it with **Done**, after the page has finished loading. Until it's closed it covers every admin screen, and the Playwright bonus tests that read admin screens fail.
 4. *Global Menu* → *Control Panel* → *Server Administration* → *Properties* → *Portal Properties*: `jdbc.default.url` contains `postgresql`.
 
 🧪 **Acceptance criteria** (Level 1's Playwright bonus, 1.3, tests these):

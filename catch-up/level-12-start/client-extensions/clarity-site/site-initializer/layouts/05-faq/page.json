@@ -1,0 +1,11 @@
+{
+	"friendlyURL": "/faq",
+	"hidden": false,
+	"name": "FAQ",
+	"name_i18n": {
+		"en_US": "FAQ"
+	},
+	"private": false,
+	"system": false,
+	"type": "Content"
+}

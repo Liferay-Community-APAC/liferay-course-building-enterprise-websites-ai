@@ -69,10 +69,13 @@ export async function structure(api: APIRequestContext, erc: string): Promise<an
 
 // The newest approved entry, as a "newest first" collection orders them.
 
-export function newest<T extends {dateCreated: string; displayDate?: string; status: {code: number}}>(items: T[]): T {
+// Entries made in the same second (a batch import) tie on the date, and the
+// collection then puts the higher id first.
+
+export function newest<T extends {dateCreated: string; displayDate?: string; id: number; status: {code: number}}>(items: T[]): T {
 	const approved = items.filter((i) => i.status.code === 0);
 
-	approved.sort((a, b) => (b.displayDate ?? b.dateCreated).localeCompare(a.displayDate ?? a.dateCreated) || b.dateCreated.localeCompare(a.dateCreated));
+	approved.sort((a, b) => (b.displayDate ?? b.dateCreated).localeCompare(a.displayDate ?? a.dateCreated) || b.dateCreated.localeCompare(a.dateCreated) || b.id - a.id);
 
 	return approved[0];
 }

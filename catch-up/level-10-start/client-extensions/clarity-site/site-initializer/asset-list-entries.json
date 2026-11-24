@@ -1,0 +1,234 @@
+[
+	{
+		"externalReferenceCode": "helpful-articles",
+		"title": "Helpful Articles",
+		"type": "dynamic",
+		"unicodeProperties": {
+			"classNameIds": "[$OBJECT_DEFINITION_CLASS_NAME:Article$]",
+			"filterBy": [
+				{
+					"key": "groupIds",
+					"value": "0"
+				}
+			],
+			"orderBy": [
+				{
+					"key": "orderByColumn1",
+					"value": "createDate"
+				},
+				{
+					"key": "orderByType1",
+					"value": "DESC"
+				}
+			]
+		}
+	},
+	{
+		"externalReferenceCode": "blog-posts",
+		"title": "Blog Posts",
+		"type": "dynamic",
+		"unicodeProperties": {
+			"classNameIds": "[$OBJECT_DEFINITION_CLASS_NAME:CMSBlog$]",
+			"filterBy": [
+				{
+					"key": "groupIds",
+					"value": "0"
+				}
+			],
+			"orderBy": [
+				{
+					"key": "orderByColumn1",
+					"value": "createDate"
+				},
+				{
+					"key": "orderByType1",
+					"value": "DESC"
+				}
+			]
+		}
+	},
+	{
+		"externalReferenceCode": "announcements",
+		"title": "Announcements",
+		"type": "dynamic",
+		"unicodeProperties": {
+			"classNameIds": "[$OBJECT_DEFINITION_CLASS_NAME:Announcement$]",
+			"filterBy": [
+				{
+					"key": "groupIds",
+					"value": "0"
+				}
+			],
+			"orderBy": [
+				{
+					"key": "orderByColumn1",
+					"value": "createDate"
+				},
+				{
+					"key": "orderByType1",
+					"value": "DESC"
+				}
+			]
+		}
+	},
+	{
+		"externalReferenceCode": "faq-retail-partners",
+		"title": "FAQ - Retail Partners",
+		"type": "dynamic",
+		"unicodeProperties": {
+			"classNameIds": "[$OBJECT_DEFINITION_CLASS_NAME:FAQ$]",
+			"filterBy": [
+				{
+					"key": "groupIds",
+					"value": "0"
+				},
+				{
+					"key": "queryContains0",
+					"value": "true"
+				},
+				{
+					"key": "queryAndOperator0",
+					"value": "true"
+				},
+				{
+					"key": "queryName0",
+					"value": "assetCategories"
+				},
+				{
+					"key": "queryValues0",
+					"value": "0"
+				}
+			],
+			"orderBy": [
+				{
+					"key": "orderByColumn1",
+					"value": "createDate"
+				},
+				{
+					"key": "orderByType1",
+					"value": "ASC"
+				}
+			]
+		}
+	},
+	{
+		"externalReferenceCode": "faq-products-and-services",
+		"title": "FAQ - Products and Services",
+		"type": "dynamic",
+		"unicodeProperties": {
+			"classNameIds": "[$OBJECT_DEFINITION_CLASS_NAME:FAQ$]",
+			"filterBy": [
+				{
+					"key": "groupIds",
+					"value": "0"
+				},
+				{
+					"key": "queryContains0",
+					"value": "true"
+				},
+				{
+					"key": "queryAndOperator0",
+					"value": "true"
+				},
+				{
+					"key": "queryName0",
+					"value": "assetCategories"
+				},
+				{
+					"key": "queryValues0",
+					"value": "0"
+				}
+			],
+			"orderBy": [
+				{
+					"key": "orderByColumn1",
+					"value": "createDate"
+				},
+				{
+					"key": "orderByType1",
+					"value": "ASC"
+				}
+			]
+		}
+	},
+	{
+		"externalReferenceCode": "faq-pricing-and-ordering",
+		"title": "FAQ - Pricing and Ordering",
+		"type": "dynamic",
+		"unicodeProperties": {
+			"classNameIds": "[$OBJECT_DEFINITION_CLASS_NAME:FAQ$]",
+			"filterBy": [
+				{
+					"key": "groupIds",
+					"value": "0"
+				},
+				{
+					"key": "queryContains0",
+					"value": "true"
+				},
+				{
+					"key": "queryAndOperator0",
+					"value": "true"
+				},
+				{
+					"key": "queryName0",
+					"value": "assetCategories"
+				},
+				{
+					"key": "queryValues0",
+					"value": "0"
+				}
+			],
+			"orderBy": [
+				{
+					"key": "orderByColumn1",
+					"value": "createDate"
+				},
+				{
+					"key": "orderByType1",
+					"value": "ASC"
+				}
+			]
+		}
+	},
+	{
+		"externalReferenceCode": "faq-returns-and-exchanges",
+		"title": "FAQ - Returns and Exchanges",
+		"type": "dynamic",
+		"unicodeProperties": {
+			"classNameIds": "[$OBJECT_DEFINITION_CLASS_NAME:FAQ$]",
+			"filterBy": [
+				{
+					"key": "groupIds",
+					"value": "0"
+				},
+				{
+					"key": "queryContains0",
+					"value": "true"
+				},
+				{
+					"key": "queryAndOperator0",
+					"value": "true"
+				},
+				{
+					"key": "queryName0",
+					"value": "assetCategories"
+				},
+				{
+					"key": "queryValues0",
+					"value": "0"
+				}
+			],
+			"orderBy": [
+				{
+					"key": "orderByColumn1",
+					"value": "createDate"
+				},
+				{
+					"key": "orderByType1",
+					"value": "ASC"
+				}
+			]
+		}
+	}
+]

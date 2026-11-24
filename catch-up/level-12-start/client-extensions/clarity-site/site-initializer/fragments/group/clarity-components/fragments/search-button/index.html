@@ -1,0 +1,13 @@
+<div class="clarity-search-button" data-hide-label="${(configuration.hideLabel!true)?c}">
+	<a
+		aria-label="${(configuration.buttonLabel?has_content)?then(configuration.buttonLabel, 'Search')}"
+		class="clarity-search-button__link"
+		href="${(configuration.link?has_content)?then(configuration.link, '#')}"
+		id="fragment-${fragmentEntryLinkNamespace}-search"
+	>
+		<span aria-hidden="true" class="clarity-search-button__icon" style="font-size: ${configuration.iconSize!'1rem'};">
+			[@clay["icon"] symbol=(configuration.iconName?has_content)?then(configuration.iconName, "search") /]
+		</span>
+		<span class="clarity-search-button__label">${(configuration.buttonLabel?has_content)?then(configuration.buttonLabel, 'Search')}</span>
+	</a>
+</div>

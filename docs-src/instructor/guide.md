@@ -70,10 +70,20 @@ Most setup problems show up in the first half hour. Before the first slide, put 
 
 ## Catching up
 
-The levels are chained: a learner who can't finish Level 6 can't do Level 7. Two safety nets:
+The levels are chained: a learner who can't finish Level 6 can't do Level 7. Three safety nets:
 
 1. **Rerun the prompts.** Every prompt is written to be idempotent (upsert by external reference code), so rerunning an earlier one is safe.
-2. **The Day 2 starting point.** `catch-up/day-2-start/` holds the solution for everything up to the end of Level 6: the site initializer, the theme project and a script that creates users, Spaces, structures and content. Give a learner the steps in its README: it takes about ten minutes and leaves them ready for Level 7.
+2. **A catch-up kit.** Each one holds the solution up to a level: the site initializer (and, from Day 2, the theme), re-runnable scripts that create the data, and a README with a prompt for the learner's agent. Each was proven on an empty database with the reference tests below.
+
+   | Kit | Leaves the learner ready for | Use it | Takes about |
+   | --- | --- | --- | --- |
+   | `catch-up/level-4-start/` | Level 4 | Day 1 at 14:20, for anyone still stuck in Level 3 | 5 minutes |
+   | `catch-up/day-2-start/` | Level 7 | Start of Day 2 | 10 minutes |
+   | `catch-up/level-10-start/` | Level 10 | Day 2, after lunch | 15 minutes |
+   | `catch-up/level-12-start/` | Level 12 | Day 2, after the afternoon break | 15 minutes |
+
+   Applying a kit replaces the learner's own work for the levels it covers, so offer it when they are more than one level behind, not to fix one exercise. Each README lists what the learner still does by hand: the 📋 steps of Levels 2.3 and 2.5 (virtual host, and the instance's home, landing and logout pages), which have no API. The kits come from a clean run on DXP 2026.Q3.10: re-prove them when you move the course to a new release.
+3. **Check where a learner stands.** The [reference tests](https://github.com/Liferay-Community-APAC/liferay-course-building-enterprise-websites-ai/tree/main/instructor/tests/e2e) have one test per acceptance criterion. Run them against a learner's workspace up to their level (`npx playwright test specs/level-6.spec.ts`) to see exactly which criteria fail, or against your own demo build before the course.
 
 ## Topics covered in slides only
 
@@ -114,7 +124,7 @@ After the course, read the answers to questions 1 and 2 against your own notes o
 | `/o/mcp` answers 404 | The MCP Server instance setting is off | Rerun prompt S.4. |
 | A deploy "succeeds" but nothing changes | Unchanged zip, or the wrong deploy order | Ask the agent to `blade gw clean deploy` and check the `Initialized` log line, per the site-initializer rules. |
 | A page shows content for the admin, not for Guest | Permissions, or the Space isn't connected to the site | Ask the agent to check Guest access (`rules/guest-access.md`) and the Space's connected sites. |
-| The first sign-in shows a *Terms of Use* notice | Liferay Enterprise Search notice on first admin sign-in | Read and close it. |
+| The first sign-in shows a *Terms of Use* notice | Liferay Enterprise Search notice on first admin sign-in | Read and close it with **Done**. Until then it covers the admin screens, and the reference tests that read them fail. |
 
 ## Resetting a learner's environment
 

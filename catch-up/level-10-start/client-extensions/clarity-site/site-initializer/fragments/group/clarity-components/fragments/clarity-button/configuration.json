@@ -1,0 +1,55 @@
+{
+	"fieldSets": [
+		{
+			"fields": [
+				{
+					"dataType": "string",
+					"defaultValue": "solid",
+					"label": "Type",
+					"name": "type",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{"label": "Solid", "value": "solid"},
+							{"label": "Outline", "value": "outline"},
+							{"label": "Borderless", "value": "borderless"}
+						]
+					}
+				},
+				{
+					"dataType": "string",
+					"defaultValue": "primary",
+					"label": "Style",
+					"name": "style",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{"label": "Primary", "value": "primary"},
+							{"label": "Secondary", "value": "secondary"}
+						]
+					}
+				},
+				{
+					"dataType": "string",
+					"defaultValue": "regular",
+					"label": "Size",
+					"name": "size",
+					"type": "select",
+					"typeOptions": {
+						"validValues": [
+							{"label": "Small", "value": "small"},
+							{"label": "Regular", "value": "regular"},
+							{"label": "Large", "value": "large"}
+						]
+					}
+				},
+				{
+					"defaultValue": false,
+					"label": "Inverted",
+					"name": "inverted",
+					"type": "checkbox"
+				}
+			]
+		}
+	]
+}

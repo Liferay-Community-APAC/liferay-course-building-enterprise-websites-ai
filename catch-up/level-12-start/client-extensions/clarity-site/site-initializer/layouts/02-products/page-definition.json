@@ -1,0 +1,44 @@
+{
+	"pageElement": {
+		"pageElements": [
+			{
+				"definition": {
+					"layout": {
+						"containerType": "Fixed",
+						"paddingBottom": 6,
+						"paddingTop": 6
+					},
+					"name": "Commerce Categories"
+				},
+				"pageElements": [
+					{
+						"definition": {
+							"widgetInstance": {
+								"widgetConfig": {
+									"assetVocabularyExternalReferenceCode": "VOCABULARY_CLARITY_PRODUCTS",
+									"displayStyle": "ddmTemplate_CLARITY-CATEGORY-CARDS",
+									"displayStyleGroupExternalReferenceCode": "clarity-public",
+									"useRootCategory": "false",
+									"categoryImage_CATEGORY_CLARITY_PRODUCTS_EYEGLASSES": "",
+									"categoryImage_CATEGORY_CLARITY_PRODUCTS_SUNGLASSES": "",
+									"categoryImage_CATEGORY_CLARITY_PRODUCTS_CONTACTS": "",
+									"categoryImage_CATEGORY_CLARITY_PRODUCTS_LENSES": ""
+								},
+								"widgetName": "com_liferay_commerce_product_asset_categories_navigation_web_internal_portlet_CPAssetCategoriesNavigationPortlet"
+							}
+						},
+						"type": "Widget"
+					}
+				],
+				"type": "Section"
+			}
+		],
+		"type": "Root"
+	},
+	"version": 1.1,
+	"settings": {
+		"masterPage": {
+			"key": "primary-master-page"
+		}
+	}
+}

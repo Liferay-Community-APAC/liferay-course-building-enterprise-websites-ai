@@ -1,0 +1,15 @@
+{
+	"fieldSets": [
+		{
+			"fields": [
+				{
+					"dataType": "string",
+					"defaultValue": "Sign In",
+					"label": "Sign In Label",
+					"name": "signInLabel",
+					"type": "text"
+				}
+			]
+		}
+	]
+}

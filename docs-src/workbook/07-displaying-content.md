@@ -184,7 +184,7 @@ and check every page using the primary master shows it.
 
 - **AC 7.5-1** · *Browser, as Guest:* Home and FAQ both show the announcement bar with the newest published Announcement's message and its link (after Level 10, *Spring into Style with Clarity…*).
 
-⚠️ **If it doesn't match:** if the bar is empty after a deploy, redeploy once: the initializer sometimes imports the master page before the collection it points to exists.
+⚠️ **If it doesn't match:** if the bar is empty after a deploy, or the Primary Master Page is missing from *Design* → *Masters*, redeploy once: the initializer sometimes imports the master page before the collection it points to exists, and on a new instance it can then skip that master entirely.
 
 
 

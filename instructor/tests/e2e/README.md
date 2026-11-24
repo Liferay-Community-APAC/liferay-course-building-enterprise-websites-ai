@@ -5,7 +5,7 @@ A Playwright suite with one test per acceptance criterion (🧪) in the workbook
 ## What it's for
 
 - **Before the course:** check your own demo build. Every demo assumes the whole site exists, and the suite confirms it in about two minutes.
-- **During the course:** check a learner's build up to their level (`npx playwright test level-6`), or a catch-up kit after it's applied.
+- **During the course:** check a learner's build up to their level (`npx playwright test specs/level-6.spec.ts`), or a catch-up kit after it's applied (each kit in `catch-up/` was proven this way).
 - **The Playwright bonuses:** compare a learner's tests with these. Learners write theirs in their own `tests/e2e/`; this suite stays in `instructor/`.
 - **Upgrading the course to a new DXP release:** run the suite on a build made with the new release; failures show what changed.
 
@@ -16,9 +16,9 @@ Node.js 20 or later, and Google Chrome (or set `PLAYWRIGHT_CHANNEL=chromium` aft
 ```bash
 cd instructor/tests/e2e
 npm install
-npx playwright test              # every level
-npx playwright test level-7      # one level
-npx playwright show-report       # the HTML report, with traces of failures
+npx playwright test                         # every level
+npx playwright test specs/level-7.spec.ts   # one level (a bare "level-1" also matches levels 10 to 13)
+npx playwright show-report                  # the HTML report, with traces of failures
 ```
 
 By default it checks the workspace it's in (this repository's root) at Liferay's port: a Tomcat bundle's `server.xml` if there is one, otherwise 8080 (Docker). To check another workspace or instance:

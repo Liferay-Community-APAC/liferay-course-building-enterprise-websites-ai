@@ -1,0 +1,6 @@
+{
+	"className": "com.liferay.commerce.product.content.search.web.internal.portlet.CPSearchResultsPortlet",
+	"ddmTemplateKey": "CLARITY-SEARCH-RESULTS-CARDS",
+	"name": "Clarity Search Results Cards",
+	"resourceClassName": "com.liferay.portlet.display.template.PortletDisplayTemplate"
+}

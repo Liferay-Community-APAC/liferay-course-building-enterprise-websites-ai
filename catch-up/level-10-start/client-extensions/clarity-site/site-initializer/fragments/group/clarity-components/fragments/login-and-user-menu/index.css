@@ -1,0 +1,19 @@
+.clarity-login-user-menu {
+	align-items: center;
+	display: inline-flex;
+}
+
+.clarity-login-user-menu__sign-in {
+	background-color: var(--color-brand-primary, var(--primary));
+	border-color: var(--color-brand-primary, var(--primary));
+	border-radius: var(--btn-border-radius, 50rem);
+	color: var(--color-neutral-0, var(--white));
+	white-space: nowrap;
+}
+
+.clarity-login-user-menu__sign-in:hover,
+.clarity-login-user-menu__sign-in:focus {
+	background-color: var(--color-brand-primary-darken-1, var(--primary-d1, var(--primary)));
+	border-color: var(--color-brand-primary-darken-1, var(--primary-d1, var(--primary)));
+	color: var(--color-neutral-0, var(--white));
+}

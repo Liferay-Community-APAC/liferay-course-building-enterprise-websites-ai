@@ -6,7 +6,7 @@ clarity-site-init:
     type: siteInitializer
 
 clarity-site-oauth:
-    .serviceAddress: localhost:8480
+    .serviceAddress: localhost:8080
     .serviceScheme: http
     name: Clarity Public Site OAuth
     scopes:

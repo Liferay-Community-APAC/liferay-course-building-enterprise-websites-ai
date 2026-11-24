@@ -2,66 +2,55 @@ requirements:
   - id: R1
     title: "Personas, user groups, roles and least-privilege permissions"
     level: 1
-    status: todo
-    artifacts: []
+    status: done
+    artifacts:
+      - "user groups and roles from context-source/data/user-groups.csv and roles.csv (scripts/setup_people.py)"
+      - "seven personas, ERC PERSONA-<SCREENNAME>, password learn, with group, regular role and portrait (scripts/setup_people.py)"
+      - "Marketing Coordinator: company-scope Collections and Categories permissions (scripts/setup_sites.py, Level 2.4)"
   - id: R2
     title: "Public site with its own address, languages and accessibility"
     level: 2
-    status: in-progress
+    status: done
     artifacts:
-      - type: site
-        name: "Clarity Public Enterprise Website"
-        externalReferenceCode: clarity-public
-        friendlyUrlPath: /clarity
-        id: 37408
-      - type: site
-        name: "Clarity Distributor Portal"
-        externalReferenceCode: clarity-distributor-portal
-        friendlyUrlPath: /distributor-portal
-        id: 37476
+      - "site clarity-public, Clarity Public Enterprise Website, /clarity (scripts/setup_sites.py)"
+      - "site clarity-distributor-portal, Clarity Distributor Portal, /distributor-portal (scripts/setup_sites.py)"
+      - "members and site roles of clarity-public (scripts/setup_sites.py)"
+      - "description, Open membership, English + Spanish, accessibility menu (scripts/site_settings.py, re-run by scripts/deploy_site.sh)"
+      - "virtual host www.clarityvisionsolutions.com and the instance's home, landing and logout pages /web/clarity (set by hand in the UI)"
   - id: R3
     title: "Page hierarchy, master pages, display pages and navigation"
     level: 3
-    status: in-progress
+    status: done
     artifacts:
-      - type: client-extension
-        kind: siteInitializer
-        name: "Clarity Public Site Initializer"
-        key: clarity-site-init
-        path: client-extensions/clarity-site
-        siteExternalReferenceCode: clarity-public
-      - type: client-extension
-        kind: oAuthApplicationHeadlessServer
-        key: clarity-site-oauth
-        path: client-extensions/clarity-site
-      - type: pages
-        site: clarity-public
-        source: client-extensions/clarity-site/site-initializer/layouts
-        items:
-          - {name: Home, friendlyUrl: /home}
-          - {name: Products, friendlyUrl: /products, children: [{name: Product List, friendlyUrl: /product-list}]}
-          - {name: About Us, friendlyUrl: /about-us}
-          - {name: Blog, friendlyUrl: /blog}
-          - {name: FAQ, friendlyUrl: /faq}
-          - {name: Careers, friendlyUrl: /careers, children: [{name: Open Positions, friendlyUrl: /open-positions}]}
-          - {name: Contact Us, friendlyUrl: /contact-us}
-          - {name: Search, friendlyUrl: /search-results}
-    notes: "Product Detail, Events and Contact Us Responses come in later levels."
+      - "site initializer client-extensions/clarity-site (clarity-site-init), bound to clarity-public, deployed with scripts/deploy_site.sh"
+      - "pages Home, Products > Product List, About Us, Blog, FAQ, Careers > Open Positions, Contact Us, Search (/search-results)"
+      - "Primary Master Page and Secondary Master Page; site-configuration.json keeps Open membership"
+      - "menus Header Page Menu, Footer Resources Menu, Footer Company Menu, Footer Legal Menu"
   - id: R4
     title: "Reusable Clarity fragments and page compositions"
     level: 4
-    status: todo
-    artifacts: []
+    status: done
+    artifacts:
+      - "fragment set Clarity Components: Search Button, Login and User Menu, Clarity Button, Clarity Card, FAQ Question and Answer Pair"
+      - "Search Button and Login and User Menu in both masters' Header User Actions"
+      - "Home and FAQ layouts (layouts/01-home, layouts/05-faq)"
   - id: R5
     title: "Clarity's brand applied without editing each page"
     level: 5
-    status: todo
-    artifacts: []
+    status: done
+    artifacts:
+      - "Clarity Style Book (Classic, primary #187373, default)"
+      - "client-extensions/clarity-theme: Clarity Theme CSS and Clarity Favicon, bound to both masters"
+      - "site logo layout-set/public/logo.png"
   - id: R6
     title: "Editorial content in CMS Spaces, shared across sites"
     level: 6
-    status: todo
-    artifacts: []
+    status: done
+    artifacts:
+      - "Spaces space-marketing, space-branding, space-hr, space-events, space-products, connected to clarity-public (scripts/setup_spaces.py)"
+      - "structures ARTICLE, FAQ, ANNOUNCEMENT, LEADERSHIP_PROFILE, JOB_LISTING, EVENT_INFORMATION, EVENT_IMAGE (scripts/setup_structures.py)"
+      - "vocabularies FAQ, Articles (Marketing); Region, Location, Job Positions (HR) (scripts/setup_vocabularies.py)"
+      - "content, files and Guest access (scripts/load_cms_content.py)"
   - id: R7
     title: "Pages that show content from collections, not hard-coded copies"
     level: 7

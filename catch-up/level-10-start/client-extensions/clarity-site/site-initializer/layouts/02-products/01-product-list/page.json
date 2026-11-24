@@ -1,0 +1,11 @@
+{
+	"friendlyURL": "/product-list",
+	"hidden": false,
+	"name": "Product List",
+	"name_i18n": {
+		"en_US": "Product List"
+	},
+	"private": false,
+	"system": false,
+	"type": "Content"
+}

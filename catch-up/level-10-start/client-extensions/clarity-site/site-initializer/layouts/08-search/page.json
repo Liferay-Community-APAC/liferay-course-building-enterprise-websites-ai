@@ -1,0 +1,11 @@
+{
+	"friendlyURL": "/search-results",
+	"hidden": false,
+	"name": "Search",
+	"name_i18n": {
+		"en_US": "Search"
+	},
+	"private": false,
+	"system": false,
+	"type": "Content"
+}
