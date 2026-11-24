@@ -53,7 +53,8 @@ Most setup problems show up in the first half hour. Before the first slide, put 
    - The clone is inside a OneDrive, iCloud Drive or Dropbox folder: move it to `~/courses` or `C:\courses`.
    - Windows: `Filename too long` during the clone. Run `git config --global core.longpaths true`, delete the half-cloned folder and clone again.
    - The agent isn't signed in, or Copilot is in *Ask* mode instead of *Agent*.
-   - Docker Desktop isn't running: start it before S.2.
+   - Docker isn't running: with Colima, run `colima start`; with Rancher Desktop or Docker Desktop, open the app. Do it before S.2.
+   - Two Dockers installed (Docker Desktop and Colima or Rancher Desktop): quit the one the learner doesn't use, and check `docker context show`.
    - Docker has less than 8 GB of memory: Setup S.2 step 2 has the setting for macOS and Windows. Check with `docker info --format '{{.MemTotal}}'` (about 8000000000 or more).
 3. **Then demo S.1** ([D1.4](demos.html#d14-setup-s1-on-the-projector)) and let learners run S.1 to S.5 at their own pace while you walk the room.
 
@@ -91,7 +92,7 @@ These original BEWL topics have no exercise. Present them with the slides marked
 | --- | --- | --- |
 | `docker compose up` downloads the images again, slowly | The images weren't pulled before the course | Let it download, or load them from a USB stick (`docker save` on your laptop, `docker load` on theirs). |
 | `clarity-liferay` restarts in a loop, or exits with code 137 | Docker doesn't have enough memory | Raise it to 8 GB or more (Setup S.2 step 2), then `docker compose up -d`. |
-| Linux: the agent can't read `bundles/logs` | The learner's user ID isn't 1000 (`id -u`) | Use Docker Desktop for Linux, or the Tomcat bundle (Setup S.2, optional section). |
+| Linux: the agent can't read `bundles/logs` | The learner's user ID isn't 1000 (`id -u`) | Use the Tomcat bundle (Setup S.2, optional section). |
 | Liferay won't start: database connection refused | PostgreSQL isn't running | `docker compose up -d`, wait for *healthy*. With the Tomcat bundle, start Liferay again. |
 | Port 8080 or 5432 in use | Another Liferay or PostgreSQL, or a Tomcat bundle and the container both started | Stop the other one, or change the port in `docker-compose.yml` and `portal-ext.properties` (and `server.xml` for the Tomcat bundle). |
 | The agent's MCP server shows connected with no tools | Liferay restarted since the session started | Reconnect or restart the agent session. |
