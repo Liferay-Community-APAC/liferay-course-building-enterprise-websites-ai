@@ -120,6 +120,10 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Acceptance criteria: what the Playwright bonus tests */
+.doc-content p.wb-ac-label { margin-top: 1.25rem; font-size: .95rem; }
+.doc-content ul.wb-ac { border-left: 3px solid var(--lf-neutral-3, #cdced9); padding: .25rem .5rem .25rem 1.9rem; margin-top: .25rem; font-size: .92rem; color: var(--lf-neutral-8); }
+.doc-content ul.wb-ac li { margin: .3rem 0; }
 /* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
 .doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
 .doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
@@ -306,7 +310,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 6 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html" class="current">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#61-create-the-spaces-and-their-members">6.1 — Create the Spaces and their members</a></li><li class="toc-level-2"><a href="#62-model-claritys-content-structures">6.2 — Model Clarity&#x27;s content structures</a></li><li class="toc-level-2"><a href="#63-create-the-vocabularies">6.3 — Create the vocabularies</a></li><li class="toc-level-2"><a href="#64-load-claritys-content-and-files">6.4 — Load Clarity&#x27;s content and files</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#65-bonus-relate-events-to-their-images">⭐ 6.5 — Bonus: relate events to their images</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#61-create-the-spaces-and-their-members">6.1 — Create the Spaces and their members</a></li><li class="toc-level-2"><a href="#62-model-claritys-content-structures">6.2 — Model Clarity&#x27;s content structures</a></li><li class="toc-level-2"><a href="#63-create-the-vocabularies">6.3 — Create the vocabularies</a></li><li class="toc-level-2"><a href="#64-load-claritys-content-and-files">6.4 — Load Clarity&#x27;s content and files</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#65-bonus-relate-events-to-their-images">⭐ 6.5 — Bonus: relate events to their images</a></li><li class="toc-level-2"><a href="#66-bonus-check-level-6-with-playwright">⭐ 6.6 — Bonus: check Level 6 with Playwright</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -358,6 +362,12 @@ clarity-public who isn't a member of a Space can do in it.
 <li>Still as Christian, open <strong>Marketing</strong>: Christian can add content, as a member through the Marketing group. Don't add anything. Close the tab when you're done.</li>
 </ol>
 <p><img alt="Liferay CMS → All Spaces: Marketing, Branding, HR, Events and Products." src="../screenshots/6-1-spaces.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 6.1-1</strong> · <em>API, as the admin:</em> the Spaces <code>space-marketing</code>, <code>space-branding</code>, <code>space-hr</code>, <code>space-events</code> and <code>space-products</code> exist, each connected to <code>clarity-public</code>.</li>
+<li><strong>AC 6.1-2</strong> · <em>API, as the admin:</em> each Space's members and administrator are those in the prompt (for example, the Marketing user group in Marketing, with Clara Murphy as its administrator).</li>
+<li><strong>AC 6.1-3</strong> · <em>Browser, as Christian Carter:</em> <em>CMS</em> lists the five Spaces, and HR has no <strong>New</strong> button.</li>
+</ul>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> connecting a Space to a site gives the site's members read access to it (the <em>Connected Site Member</em> Space role). Authoring takes Space membership and a Space role. Keep that in mind when a Space holds content site members shouldn't read: don't connect it to that site.</p>
 <h2 id="62-model-claritys-content-structures">6.2 — Model Clarity's content structures<a aria-hidden="true" class="heading-anchor" href="#62-model-claritys-content-structures" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> seven structures: <strong>Article</strong>, <strong>FAQ</strong>, <strong>Announcement</strong>, <strong>Leadership Profile</strong>, <strong>Job Listing</strong>, <strong>Event Information</strong> (content) and <strong>Event Image</strong> (file), each limited to the Space that uses it.</p>
@@ -400,6 +410,12 @@ must succeed and the delete must be refused.
 <li>Open <strong>Event Information</strong>: its fields and their types match the prompt, and <em>Spaces</em> lists only <strong>Events</strong>. Close it without saving.</li>
 </ol>
 <p><img alt="Liferay CMS → Content Structures listing Article, FAQ, Announcement, Leadership Profile, Job Listing, Event Information and Event Image." src="../screenshots/6-2-structures.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 6.2-1</strong> · <em>API, as the admin:</em> the seven structures exist with the external reference codes <code>ARTICLE_STRUCTURE</code>, <code>FAQ_STRUCTURE</code>, <code>ANNOUNCEMENT_STRUCTURE</code>, <code>LEADERSHIP_PROFILE_STRUCTURE</code>, <code>JOB_LISTING_STRUCTURE</code>, <code>EVENT_INFORMATION_STRUCTURE</code> and <code>EVENT_IMAGE_STRUCTURE</code>, each accepted only in its Space.</li>
+<li><strong>AC 6.2-2</strong> · <em>API, as the admin:</em> Event Information has <code>startDateTime</code> and <code>endDateTime</code> as date and time fields.</li>
+<li><strong>AC 6.2-3</strong> · <em>API, as Christian Carter:</em> creating an FAQ in the Marketing Space succeeds, and deleting it is refused. (The test then deletes it as the admin.)</li>
+</ul>
 <h2 id="63-create-the-vocabularies">6.3 — Create the vocabularies<a aria-hidden="true" class="heading-anchor" href="#63-create-the-vocabularies" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> the FAQ, Articles and job vocabularies with their categories, in the Spaces that use them.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R6 · <strong>Skills:</strong> <code>manage-cms</code></p>
@@ -423,6 +439,11 @@ Read the vocabularies and category counts back.
 <li><em>Global Menu</em> → <em>CMS</em> → the <strong>HR</strong> Space → <em>Categories</em>: <strong>Location</strong> has 14 categories.</li>
 <li><em>Global Menu</em> → <em>CMS</em> → the <strong>Marketing</strong> Space → <em>Categories</em> → <strong>FAQ</strong>: four categories.</li>
 </ol>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 6.3-1</strong> · <em>API, as the admin:</em> the Marketing Space has the vocabularies FAQ, with the four FAQ categories, and Articles, with Innovation, Industry and Style.</li>
+<li><strong>AC 6.3-2</strong> · <em>API, as the admin:</em> the HR Space has the vocabularies Region, Location (at least 14 categories) and Job Positions.</li>
+</ul>
 <h2 id="64-load-claritys-content-and-files">6.4 — Load Clarity's content and files<a aria-hidden="true" class="heading-anchor" href="#64-load-claritys-content-and-files" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> every Space holds Clarity's real content, categorized, in folders, with its images.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R6 · <strong>Skills:</strong> <code>manage-cms</code></p>
@@ -467,6 +488,13 @@ by fetching one FAQ and one file with no credentials.
 <li><em>Global Menu</em> → <em>CMS</em> → <strong>Events</strong> → <em>Files</em> → <em>Venues Gallery</em>: the event image shows a preview.</li>
 </ol>
 <p><img alt="Liferay CMS → Contents listing Clarity's articles, FAQs, announcement, leadership profiles and job listings." src="../screenshots/6-4-contents.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 6.4-1</strong> · <em>API, as the admin:</em> the Marketing Space's <em>FAQ</em> folder has eight FAQs, each with one FAQ category; <em>What is your return policy?</em> has <em>Returns and Exchanges</em>.</li>
+<li><strong>AC 6.4-2</strong> · <em>API, as the admin:</em> the HR Space's <em>Job Listings</em> folder has ten job listings, each with a region, a location and a job position.</li>
+<li><strong>AC 6.4-3</strong> · <em>API, as Guest</em> (no credentials): one FAQ and one file of the Marketing Space can be read.</li>
+<li><strong>AC 6.4-4</strong> · <em>API, as the admin:</em> the Events Space's <em>Venues Gallery</em> folder has the event image, and its <em>Events</em> folder has the event.</li>
+</ul>
 <h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
 <p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own</strong>, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
 <p class="wb wb-quiz-q"><strong>Question 1.</strong> Christian is a member of the public site but not of the HR Space. In the HR Space, Christian can browse content but sees no <strong>New</strong> button. Why?</p>
@@ -498,6 +526,18 @@ by fetching one FAQ and one file with no credentials.
 <ol class="wb-list wb-verify">
 <li>Editing the event offers a picker that lists only Event Image files.</li>
 <li>More than one image can be chosen.</li>
+</ol>
+<h2 id="66-bonus-check-level-6-with-playwright">⭐ 6.6 — Bonus: check Level 6 with Playwright<a aria-hidden="true" class="heading-anchor" href="#66-bonus-check-level-6-with-playwright" tabindex="-1">#</a></h2>
+<p class="wb wb-goal">🎯 <strong>Goal:</strong> <code>tests/e2e/level-6.spec.ts</code>, with one test per acceptance criterion (🧪) of Level 6, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.</p>
+<p class="wb wb-do-label">📋 <strong>Before the prompt:</strong></p>
+<ol class="wb-list wb-do">
+<li>If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.</li>
+</ol>
+<p class="wb wb-verify-label">✅ <strong>Success looks like:</strong></p>
+<ol class="wb-list wb-verify">
+<li>In <code>tests/e2e</code>, <code>npx playwright test level-6</code> runs one test per acceptance criterion of Level 6, each named by its id, and all pass.</li>
+<li>In the HR Space's settings → <em>Connected Sites</em>, disconnect the public site, and run the tests again: <strong>AC 6.1-1</strong> fails. To undo it, connect it again, searchable, and run them again: all pass.</li>
+<li><code>npx playwright test</code> still passes for every level you've added.</li>
 </ol>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="level-5.html"><span>← Previous</span>Level 5 — Design: style book, Theme CSS, favicon and logo</a><a class="next" href="level-7.html"><span>Next →</span>Level 7 — Displaying content: mapping, display pages and collections</a></nav>
     </main>

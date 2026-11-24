@@ -120,6 +120,10 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Acceptance criteria: what the Playwright bonus tests */
+.doc-content p.wb-ac-label { margin-top: 1.25rem; font-size: .95rem; }
+.doc-content ul.wb-ac { border-left: 3px solid var(--lf-neutral-3, #cdced9); padding: .25rem .5rem .25rem 1.9rem; margin-top: .25rem; font-size: .92rem; color: var(--lf-neutral-8); }
+.doc-content ul.wb-ac li { margin: .3rem 0; }
 /* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
 .doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
 .doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
@@ -306,7 +310,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 8 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html" class="current">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#81-the-clarity-eyewear-catalog-and-its-specifications">8.1 — The Clarity Eyewear catalog and its specifications</a></li><li class="toc-level-2"><a href="#82-create-the-products">8.2 — Create the products</a></li><li class="toc-level-2"><a href="#83-a-channel-for-the-public-site">8.3 — A channel for the public site</a></li><li class="toc-level-2"><a href="#84-category-cards-on-the-products-page">8.4 — Category cards on the Products page</a></li><li class="toc-level-2"><a href="#85-the-product-list-page-and-a-product-display-page">8.5 — The Product List page and a product display page</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#81-the-clarity-eyewear-catalog-and-its-specifications">8.1 — The Clarity Eyewear catalog and its specifications</a></li><li class="toc-level-2"><a href="#82-create-the-products">8.2 — Create the products</a></li><li class="toc-level-2"><a href="#83-a-channel-for-the-public-site">8.3 — A channel for the public site</a></li><li class="toc-level-2"><a href="#84-category-cards-on-the-products-page">8.4 — Category cards on the Products page</a></li><li class="toc-level-2"><a href="#85-the-product-list-page-and-a-product-display-page">8.5 — The Product List page and a product display page</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#86-bonus-check-level-8-with-playwright">⭐ 8.6 — Bonus: check Level 8 with Playwright</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -340,6 +344,11 @@ ERC. Read them back.
 <li><em>Global Menu</em> → <em>Commerce</em> → <em>Specifications</em> → <em>Specification Labels</em>: the three labels, with <em>Frame Description</em> as their default group.</li>
 <li>On the same screen, Frame Material and Frame Color are marked <em>Use in Faceted Navigation</em>.</li>
 </ol>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 8.1-1</strong> · <em>API, as the admin:</em> the catalog Clarity Eyewear exists, with the currency USD and the language en_US.</li>
+<li><strong>AC 8.1-2</strong> · <em>API, as the admin:</em> the specifications <code>frame-material</code>, <code>frame-color</code> and <code>frame-size</code> are in the group <code>frame-description</code>, and only Frame Material and Frame Color are used in faceted navigation.</li>
+</ul>
 <h2 id="82-create-the-products">8.2 — Create the products<a aria-hidden="true" class="heading-anchor" href="#82-create-the-products" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> the three products in <code>context-source/data/products.csv</code>, categorized, with specifications, images and an AI-written description.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R8 · <strong>Skills:</strong> <code>commerce-catalogs</code></p>
@@ -361,6 +370,11 @@ back with their categories, specifications and image count.
 <li><em>Specifications</em> lists Metal, Gold and 54-20.</li>
 <li><em>Media</em> shows the image.</li>
 </ol>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 8.2-1</strong> · <em>API, as the admin:</em> the three products of <code>context-source/data/products.csv</code> are published in Clarity Eyewear, each with its category, its specification values and at least one image.</li>
+<li><strong>AC 8.2-2</strong> · <em>API, as the admin:</em> Classic Aviator Sunglasses has the specification values Metal, Gold and 54-20.</li>
+</ul>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> Liferay's AI Creator writes descriptions inside the product editor; here your agent wrote them. Your instructor shows both.</p>
 <h2 id="83-a-channel-for-the-public-site">8.3 — A channel for the public site<a aria-hidden="true" class="heading-anchor" href="#83-a-channel-for-the-public-site" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> a <strong>Clarity Public</strong> channel (site type B2B) linked to the public site.</p>
@@ -375,6 +389,10 @@ site type B2B. Read it back, with the linked site.
 <li><em>Global Menu</em> → <em>Commerce</em> → <em>Channels</em> → <strong>Clarity Public</strong>: the <em>Type</em> tab shows <strong>Clarity Public Enterprise Website</strong>.</li>
 <li>The <em>General</em> tab shows <em>Commerce Site Type</em> <strong>B2B</strong>.</li>
 </ol>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 8.3-1</strong> · <em>API, as the admin:</em> the channel Clarity Public (USD) is linked to <code>clarity-public</code>, with the Commerce site type B2B.</li>
+</ul>
 <h2 id="84-category-cards-on-the-products-page">8.4 — Category cards on the Products page<a aria-hidden="true" class="heading-anchor" href="#84-category-cards-on-the-products-page" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> the Products page shows the four product categories as cards, using a widget template.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R8 · <strong>Skills:</strong> <code>manage-pages</code></p>
@@ -398,6 +416,11 @@ widget template. Deploy and check the page as Guest.
 <li><em>Site Menu</em> → <em>Design</em> → <em>Templates</em> → <em>Widget Templates</em>: <strong>Clarity Category Cards</strong> is listed.</li>
 </ol>
 <p><img alt="The Products page: Eyeglasses, Sunglasses, Contacts and Lenses as image cards with Explore buttons, in a bento layout." src="../screenshots/8-4-products.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 8.4-1</strong> · <em>Browser, as Guest:</em> Products shows four category cards, Eyeglasses, Sunglasses, Contacts and Lenses, in that order, each with a loaded image and an <strong>Explore</strong> link.</li>
+<li><strong>AC 8.4-2</strong> · <em>Browser, as the admin:</em> <em>Design</em> → <em>Templates</em> → <em>Widget Templates</em> lists Clarity Category Cards.</li>
+</ul>
 <h2 id="85-the-product-list-page-and-a-product-display-page">8.5 — The Product List page and a product display page<a aria-hidden="true" class="heading-anchor" href="#85-the-product-list-page-and-a-product-display-page" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> clicking <strong>Explore</strong> lists the category's products as cards, and each product has a page built from a <strong>Product Details</strong> display page template.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R8 · <strong>Skills:</strong> <code>manage-pages</code></p>
@@ -427,6 +450,11 @@ Deploy, then check as Guest: open a category from Products, then a product.
 </ol>
 <p><img alt="The Sunglasses category page: facets on the left and the Classic Aviator Sunglasses card on the right." src="../screenshots/8-5-category.png"/></p>
 <p><img alt="The Classic Aviator Sunglasses product page: name, SKU, description, Contact Sales button and specifications." src="../screenshots/8-5-product.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 8.5-1</strong> · <em>Browser, as Guest:</em> <strong>Explore</strong> on Sunglasses opens a category page with the Category, Frame Color and Frame Material facets and a card for Classic Aviator Sunglasses.</li>
+<li><strong>AC 8.5-2</strong> · <em>Browser, as Guest:</em> Classic Aviator Sunglasses' page shows its name, SKU, description, three specifications and a <strong>Contact Sales</strong> link to Contact Us.</li>
+</ul>
 <h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
 <p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own</strong>, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
 <p class="wb wb-quiz-q"><strong>Question 1.</strong> You create a second site and add a Commerce Search Results widget to a page. It shows no products, though the catalog has eleven. What's most likely missing?</p>
@@ -450,6 +478,20 @@ Deploy, then check as Guest: open a category from Products, then a product.
 <li><strong>C.</strong> In the Clarity Category Cards widget template.</li>
 <li><strong>D.</strong> In Clarity Theme CSS, with a ::before rule.</li>
 </ul>
+<h2 id="extras">⭐ Extras<a aria-hidden="true" class="heading-anchor" href="#extras" tabindex="-1">#</a></h2>
+<p>Optional, for when you finish early. The next level doesn't depend on them.</p>
+<h2 id="86-bonus-check-level-8-with-playwright">⭐ 8.6 — Bonus: check Level 8 with Playwright<a aria-hidden="true" class="heading-anchor" href="#86-bonus-check-level-8-with-playwright" tabindex="-1">#</a></h2>
+<p class="wb wb-goal">🎯 <strong>Goal:</strong> <code>tests/e2e/level-8.spec.ts</code>, with one test per acceptance criterion (🧪) of Level 8, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.</p>
+<p class="wb wb-do-label">📋 <strong>Before the prompt:</strong></p>
+<ol class="wb-list wb-do">
+<li>If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.</li>
+</ol>
+<p class="wb wb-verify-label">✅ <strong>Success looks like:</strong></p>
+<ol class="wb-list wb-verify">
+<li>In <code>tests/e2e</code>, <code>npx playwright test level-8</code> runs one test per acceptance criterion of Level 8, each named by its id, and all pass.</li>
+<li>In <em>Commerce</em> → <em>Specifications</em>, untick <em>Use in Faceted Navigation</em> on Frame Color, and run the tests again: <strong>AC 8.1-2</strong> fails. To undo it, tick it again, and run them again: all pass.</li>
+<li><code>npx playwright test</code> still passes for every level you've added.</li>
+</ol>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="level-7.html"><span>← Previous</span>Level 7 — Displaying content: mapping, display pages and collections</a><a class="next" href="level-9.html"><span>Next →</span>Level 9 — Headless APIs: importing legacy data</a></nav>
     </main>
   </div>

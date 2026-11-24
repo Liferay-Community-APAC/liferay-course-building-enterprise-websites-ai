@@ -120,6 +120,10 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Acceptance criteria: what the Playwright bonus tests */
+.doc-content p.wb-ac-label { margin-top: 1.25rem; font-size: .95rem; }
+.doc-content ul.wb-ac { border-left: 3px solid var(--lf-neutral-3, #cdced9); padding: .25rem .5rem .25rem 1.9rem; margin-top: .25rem; font-size: .92rem; color: var(--lf-neutral-8); }
+.doc-content ul.wb-ac li { margin: .3rem 0; }
 /* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
 .doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
 .doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
@@ -306,7 +310,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 9 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html" class="current">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#91-explore-the-api-your-agent-uses">9.1 — Explore the API your agent uses</a><ul><li class="toc-level-3"><a href="#part-1-you-run-an-endpoint">Part 1 — You run an endpoint</a></li><li class="toc-level-3"><a href="#part-2-the-agent-finds-the-batch-endpoints">Part 2 — The agent finds the batch endpoints</a></li></ul></li><li class="toc-level-2"><a href="#92-import-the-legacy-blog-post-and-articles">9.2 — Import the legacy blog post and articles</a></li><li class="toc-level-2"><a href="#93-import-legacy-products-and-office-locations">9.3 — Import legacy products and office locations</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#91-explore-the-api-your-agent-uses">9.1 — Explore the API your agent uses</a><ul><li class="toc-level-3"><a href="#part-1-you-run-an-endpoint">Part 1 — You run an endpoint</a></li><li class="toc-level-3"><a href="#part-2-the-agent-finds-the-batch-endpoints">Part 2 — The agent finds the batch endpoints</a></li></ul></li><li class="toc-level-2"><a href="#92-import-the-legacy-blog-post-and-articles">9.2 — Import the legacy blog post and articles</a></li><li class="toc-level-2"><a href="#93-import-legacy-products-and-office-locations">9.3 — Import legacy products and office locations</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#94-bonus-check-level-9-with-playwright">⭐ 9.4 — Bonus: check Level 9 with Playwright</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -350,6 +354,10 @@ I'd find the operation in the API Explorer. Don't call any of them yet.
 <li>In the API Explorer, find each of the four operations the agent named, under the REST application it named.</li>
 <li>Read each one's request body schema: the fields match what the agent told you.</li>
 </ol>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 9.1-1</strong> · <em>Browser, as the admin:</em> the API Explorer at <code>/o/api</code> lists the REST applications <code>headless-admin-user/v1.0</code> and <code>headless-batch-engine/v1.0</code>.</li>
+</ul>
 <h2 id="92-import-the-legacy-blog-post-and-articles">9.2 — Import the legacy blog post and articles<a aria-hidden="true" class="heading-anchor" href="#92-import-the-legacy-blog-post-and-articles" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> the legacy blog post as a <strong>Blog</strong> entry in the Marketing Space, shown on the Blog page, and three legacy articles in the Marketing Space, imported through the API.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R9 · <strong>Skills:</strong> <code>manage-cms</code>, <code>manage-pages</code></p>
@@ -385,6 +393,12 @@ created, and fetch the Blog page and the post's display page as Guest.
 <li>In <code>http://localhost:8080/o/api</code>, run <strong>GET</strong> on the batch task the agent reported (<em>headless-batch-engine</em> → <code>/import-task/{importTaskId}</code>): <code>executeStatus</code> is <strong>COMPLETED</strong>.</li>
 </ol>
 <p><img alt="The Blog page as a visitor sees it: the legacy post as a Clarity Card with its cover image and the Fashion category." src="../screenshots/9-2-blog.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 9.2-1</strong> · <em>API, as the admin:</em> the Marketing Space's <em>Blog</em> folder has <em>Things I Find Interesting in Eyewear</em>, with a cover image and a Blog Topics category.</li>
+<li><strong>AC 9.2-2</strong> · <em>API, as the admin:</em> the Marketing Space's <em>Articles</em> folder has at least six articles.</li>
+<li><strong>AC 9.2-3</strong> · <em>Browser, as Guest:</em> Blog shows the post as a card, and its link opens the Blog Post display page with the post's title and image.</li>
+</ul>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> a CMS structure has no batch endpoint of its own: the agent used the generic batch engine with the structure's delegate name (<code>C_Article</code>) and the Space as scope.</p>
 <h2 id="93-import-legacy-products-and-office-locations">9.3 — Import legacy products and office locations<a aria-hidden="true" class="heading-anchor" href="#93-import-legacy-products-and-office-locations" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> eight legacy products in the catalog, and twelve new office locations in the HR Space's <strong>Location</strong> vocabulary, each through a batch request.</p>
@@ -410,6 +424,12 @@ Casablanca" to the job listing "Retail Associate" as an example.
 <li><em>Global Menu</em> → <em>CMS</em> → <strong>HR</strong> → <em>Categories</em> → <strong>Location</strong>: 26 categories.</li>
 <li>Open the job listing <strong>Retail Associate</strong>: <em>Morocco, Casablanca</em> is among its categories.</li>
 </ol>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 9.3-1</strong> · <em>API, as the admin:</em> Clarity Eyewear has at least 11 products, including the eight from <code>legacy-products.json</code>.</li>
+<li><strong>AC 9.3-2</strong> · <em>Browser, as Guest:</em> the Eyeglasses category page lists at least one product.</li>
+<li><strong>AC 9.3-3</strong> · <em>API, as the admin:</em> the HR Space's Location vocabulary has at least 26 categories, and the job listing <em>Retail Associate</em> has <em>Morocco, Casablanca</em>.</li>
+</ul>
 <h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
 <p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own</strong>, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
 <p class="wb wb-quiz-q"><strong>Question 1.</strong> Your agent sends a batch request and gets a response right away. What does that response prove?</p>
@@ -433,6 +453,20 @@ Casablanca" to the job listing "Retail Associate" as an example.
 <li><strong>C.</strong> Blogs posts can't be shown on a public site.</li>
 <li><strong>D.</strong> Blogs is in maintenance mode on this release.</li>
 </ul>
+<h2 id="extras">⭐ Extras<a aria-hidden="true" class="heading-anchor" href="#extras" tabindex="-1">#</a></h2>
+<p>Optional, for when you finish early. The next level doesn't depend on them.</p>
+<h2 id="94-bonus-check-level-9-with-playwright">⭐ 9.4 — Bonus: check Level 9 with Playwright<a aria-hidden="true" class="heading-anchor" href="#94-bonus-check-level-9-with-playwright" tabindex="-1">#</a></h2>
+<p class="wb wb-goal">🎯 <strong>Goal:</strong> <code>tests/e2e/level-9.spec.ts</code>, with one test per acceptance criterion (🧪) of Level 9, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.</p>
+<p class="wb wb-do-label">📋 <strong>Before the prompt:</strong></p>
+<ol class="wb-list wb-do">
+<li>If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.</li>
+</ol>
+<p class="wb wb-verify-label">✅ <strong>Success looks like:</strong></p>
+<ol class="wb-list wb-verify">
+<li>In <code>tests/e2e</code>, <code>npx playwright test level-9</code> runs one test per acceptance criterion of Level 9, each named by its id, and all pass.</li>
+<li>Remove the category <em>Morocco, Casablanca</em> from the job listing <em>Retail Associate</em>, and run the tests again: <strong>AC 9.3-3</strong> fails. To undo it, add it back, and run them again: all pass.</li>
+<li><code>npx playwright test</code> still passes for every level you've added.</li>
+</ol>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="level-8.html"><span>← Previous</span>Level 8 — Commerce: catalog, products and product pages</a><a class="next" href="level-10.html"><span>Next →</span>Level 10 — Workflow and publishing</a></nav>
     </main>
   </div>

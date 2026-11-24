@@ -48,6 +48,11 @@ Deploy, then fetch Home as Guest and list the image URLs it renders.
 
 ![Home as a visitor sees it after 7.1: the teal announcement bar, Clarity's logo, the banner heading with the eyewear image.](screenshots/7-1-home.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 7.1-1** · *Browser, as Guest:* Home's banner, promotion, gradient and distributor images all load, and each comes from a file of the Marketing Space.
+- **AC 7.1-2** · *Browser, as Guest:* the header logo is the Branding Space's `logo-name-vector` file, links to Home, and is no wider than 200px.
+
 ### 7.2 — Display page templates for articles and leadership profiles
 
 🎯 **Goal:** every Article and every Leadership Profile has its own page, rendered from one template each.
@@ -76,6 +81,11 @@ Guest and confirm they render their own fields. Give me both URLs.
 
 ![The Leadership Profile display page for Nigel Cook: portrait on the left; name, job title and bio on the right.](screenshots/7-2-leadership.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 7.2-1** · *API, as the admin:* the display page templates Article and Leadership Profile exist, each the default for its structure.
+- **AC 7.2-2** · *Browser, as Guest:* an Article's display page shows its title and headline, and a Leadership Profile's shows the name, job title and bio.
+
 ⚠️ **If it doesn't match:** if a display page answers *404* for Guest, the Space's content may not be viewable by Guest, or the Space isn't connected to the site. Ask the agent to check both.
 
 📖 **Why it matters:** the agent mapped images and attachments by the file's numeric id. Those ids differ on every Liferay instance, so this part of the tree is tied to yours. Real projects handle it with a script that looks the ids up by name and rewrites them before each deploy to another environment (see Extras).
@@ -103,6 +113,11 @@ three cards render with their links.
 2. *Site Menu* → *Site Builder* → *Collections* → open **Helpful Articles**: a dynamic collection, item type *Article*, scope the Marketing Space.
 
 ![Home's Helpful Articles section: three Clarity Cards, each with an image, category, title and summary.](screenshots/7-3-helpful-articles.png)
+
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 7.3-1** · *Browser, as Guest:* Home's Helpful Articles section shows three cards, the newest Article first, each with an image, category, title and summary.
+- **AC 7.3-2** · *Browser, as Guest:* each card's link opens that Article's display page.
 
 ### 7.4 — The FAQ page from dynamic collections
 
@@ -137,6 +152,11 @@ Deploy and check as Guest that every question appears under its category.
 
 ![The FAQ page: the banner image on the left and the four FAQ sections, each listing its questions.](screenshots/7-4-faq.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 7.4-1** · *Browser, as Guest:* FAQ lists the FAQs under their four categories, eight in total.
+- **AC 7.4-2** · *Browser, as Guest:* expanding *What is your return policy?* shows its answer.
+
 ### 7.5 — The announcement bar
 
 🎯 **Goal:** the Primary Master Page's announcement bar shows the latest announcement, on Clarity's brand color, on every page.
@@ -159,6 +179,10 @@ and check every page using the primary master shows it.
 
 ✅ **Verify** (look, don't change anything):
 1. Open any page except Sign In: a teal bar above the header shows *See Clarity's latest eyewear innovations!* and a **Learn more** link to Products.
+
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 7.5-1** · *Browser, as Guest:* Home and FAQ both show the announcement bar with the newest published Announcement's message and its link.
 
 ⚠️ **If it doesn't match:** if the bar is empty after a deploy, redeploy once: the initializer sometimes imports the master page before the collection it points to exists.
 
@@ -217,3 +241,15 @@ Optional, for when you finish early. The next level doesn't depend on them.
 1. Your agent shows you the script and the ids it looked up by name.
 
 📖 **Why it matters:** the agent mapped images and attachments by the file's numeric id, and those ids differ on every Liferay instance. A lookup by name keeps the tree portable.
+
+### ⭐ 7.7 — Bonus: check Level 7 with Playwright
+
+🎯 **Goal:** `tests/e2e/level-7.spec.ts`, with one test per acceptance criterion (🧪) of Level 7, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.
+
+📋 **Before the prompt:**
+1. If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.
+
+✅ **Success looks like:**
+1. In `tests/e2e`, `npx playwright test level-7` runs one test per acceptance criterion of Level 7, each named by its id, and all pass.
+2. In *Site Builder* → *Collections* → **Helpful Articles**, set the maximum number of items to 2, and run the tests again: **AC 7.3-1** fails. To undo it, redeploy the site with `scripts/deploy_site.sh`, and run them again: all pass.
+3. `npx playwright test` still passes for every level you've added.

@@ -41,6 +41,12 @@ what the results show.
 
 ![Open Positions searching "Developer": facets grouped by Job Positions, Location and Region on the left, job listings with their categories on the right.](screenshots/11-1-open-positions.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 11.1-1** · *Browser, as Guest:* Careers has an **Explore Open Positions** link to Open Positions.
+- **AC 11.1-2** · *Browser, as Guest:* searching *Developer* on Open Positions lists both web developer job listings.
+- **AC 11.1-3** · *Browser, as Guest:* the facet groups its categories by Job Positions, Location and Region, and selecting *Remote* narrows the results.
+
 ### 11.2 — A blueprint that keeps only job listings and boosts associates
 
 🎯 **Goal:** a **Boost Associate Job Listings** blueprint: only Job Listing entries, with *Associate* positions first, applied to Open Positions.
@@ -63,6 +69,11 @@ client-extensions/clarity-site, under Search Options, and deploy. Search
 ✅ **Verify** (look, don't change anything):
 1. *Global Menu* → *Applications* → *Blueprints* → open **Boost Associate Job Listings** → *Preview*, and search *Associate*: Associate listings come first, and no FAQ or article appears. Close without saving.
 2. On **Open Positions**, run an empty search: it lists only job listings, Associate ones first.
+
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 11.2-1** · *API, as the admin:* the blueprint *Boost Associate Job Listings* exists.
+- **AC 11.2-2** · *Browser, as Guest:* an empty search on Open Positions lists only job listings, Associate ones first.
 
 ### 11.3 — The Events page of upcoming hiring events
 
@@ -96,6 +107,11 @@ client-extensions/clarity-site, under Search Options, and deploy. Search
 2. *Global Menu* → *Applications* → *Blueprints* → **Future Events** → *Preview*: the same three, in that order.
 
 ![The Events page: Upcoming Events lists Summer Job Fair, Campus Recruiting Event and Clarity Vision Showcase 2027 with their locations.](screenshots/11-3-events.png)
+
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 11.3-1** · *Browser, as Guest:* Events lists *Summer Job Fair*, *Campus Recruiting Event* and *Clarity Vision Showcase 2027*, in that order, and not *Spring Job Fair*.
+- **AC 11.3-2** · *API, as the admin:* the Footer Resources Menu has Events right after Careers.
 
 📖 **Why it matters:** the original BEWL course used the Calendar widget here. On this release calendar events have no REST API, so the course keeps events in Liferay CMS, where your agent can create them and a blueprint can query them.
 
@@ -141,3 +157,15 @@ Optional, for when you finish early. The next level doesn't depend on them.
 2. Ian Miller's registrationId is `555777`.
 3. A **Registration ID** blueprint filters users on that field with the search keywords.
 4. Your agent calls `POST /o/search/v1.0/search` with the blueprint and the keyword `555777`: the response returns Ian Miller and no one else.
+
+### ⭐ 11.5 — Bonus: check Level 11 with Playwright
+
+🎯 **Goal:** `tests/e2e/level-11.spec.ts`, with one test per acceptance criterion (🧪) of Level 11, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.
+
+📋 **Before the prompt:**
+1. If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.
+
+✅ **Success looks like:**
+1. In `tests/e2e`, `npx playwright test level-11` runs one test per acceptance criterion of Level 11, each named by its id, and all pass.
+2. In *Applications* → *Blueprints* → **Boost Associate Job Listings**, turn off the boost element and save, and run the tests again: **AC 11.2-2** fails. To undo it, turn it on again, and run them again: all pass.
+3. `npx playwright test` still passes for every level you've added.

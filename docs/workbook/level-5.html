@@ -120,6 +120,10 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Acceptance criteria: what the Playwright bonus tests */
+.doc-content p.wb-ac-label { margin-top: 1.25rem; font-size: .95rem; }
+.doc-content ul.wb-ac { border-left: 3px solid var(--lf-neutral-3, #cdced9); padding: .25rem .5rem .25rem 1.9rem; margin-top: .25rem; font-size: .92rem; color: var(--lf-neutral-8); }
+.doc-content ul.wb-ac li { margin: .3rem 0; }
 /* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
 .doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
 .doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
@@ -306,7 +310,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 5 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html" class="current">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#51-a-style-book-for-a-quick-brand-check">5.1 — A style book for a quick brand check</a></li><li class="toc-level-2"><a href="#52-claritys-theme-css-and-favicon-client-extensions">5.2 — Clarity&#x27;s Theme CSS and favicon client extensions</a></li><li class="toc-level-2"><a href="#53-apply-the-brand-to-the-site-and-its-master-pages">5.3 — Apply the brand to the site and its master pages</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#51-a-style-book-for-a-quick-brand-check">5.1 — A style book for a quick brand check</a></li><li class="toc-level-2"><a href="#52-claritys-theme-css-and-favicon-client-extensions">5.2 — Clarity&#x27;s Theme CSS and favicon client extensions</a></li><li class="toc-level-2"><a href="#53-apply-the-brand-to-the-site-and-its-master-pages">5.3 — Apply the brand to the site and its master pages</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#54-bonus-check-level-5-with-playwright">⭐ 5.4 — Bonus: check Level 5 with Playwright</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -338,6 +342,10 @@ book. Deploy and confirm the style book exists and is the default.
 <li>Open <strong>Home</strong>: the <em>Explore Products</em> button is teal.</li>
 </ol>
 <p><img alt="Design → Style Books: Clarity Style Book marked as the default." src="../screenshots/5-1-style-books.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 5.1-1</strong> · <em>Browser, as the admin:</em> <em>Design</em> → <em>Style Books</em> lists Clarity Style Book, marked as the default.</li>
+</ul>
 <h2 id="52-claritys-theme-css-and-favicon-client-extensions">5.2 — Clarity's Theme CSS and favicon client extensions<a aria-hidden="true" class="heading-anchor" href="#52-claritys-theme-css-and-favicon-client-extensions" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> two frontend client extensions: <strong>Clarity Theme CSS</strong>, carrying Clarity's full brand from section 5 of the brief and declaring its color tokens for the page editor, and <strong>Clarity Favicon</strong>.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R5 · <strong>Skills:</strong> <code>theme-and-design</code>, <code>scaffold-client-extension</code>, <code>deploy-and-verify</code></p>
@@ -365,6 +373,11 @@ registered and the CSS URL answers 200.
 <li><em>Global Menu</em> → <em>Applications</em> → <em>Client Extensions</em>: <strong>Clarity Theme CSS</strong> and <strong>Clarity Favicon</strong> are listed and <em>Ready</em>.</li>
 </ol>
 <p><img alt="Applications → Client Extensions listing Clarity Theme CSS and Clarity Favicon." src="../screenshots/5-2-client-extensions.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 5.2-1</strong> · <em>Browser, as the admin:</em> <em>Applications</em> → <em>Client Extensions</em> lists Clarity Theme CSS and Clarity Favicon, both ready.</li>
+<li><strong>AC 5.2-2</strong> · <em>Browser, as Guest:</em> the Clarity Theme CSS stylesheet that Home links to answers 200 with CSS.</li>
+</ul>
 <h2 id="53-apply-the-brand-to-the-site-and-its-master-pages">5.3 — Apply the brand to the site and its master pages<a aria-hidden="true" class="heading-anchor" href="#53-apply-the-brand-to-the-site-and-its-master-pages" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> both master pages use Clarity Theme CSS; the site has Clarity's favicon and logo.</p>
 <p class="wb wb-tags"><strong>Skills:</strong> <code>theme-and-design</code>, <code>manage-pages</code></p>
@@ -386,6 +399,12 @@ stylesheet link of Clarity Theme CSS and the favicon link in its HTML.
 <li>In the master's editor, select the <em>Header Announcement Bar</em> container → <em>Styles</em> → <em>Background</em>: the color picker offers <strong>Color Brand Primary</strong>. Leave without publishing.</li>
 </ol>
 <p><img alt="Home at the end of Day 1, as a visitor sees it: Clarity's header and menu, Poppins headings and teal pill buttons. The grey boxes are image placeholders you map to real images in Level 7." src="../screenshots/5-3-home.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 5.3-1</strong> · <em>Browser, as Guest:</em> Home links the Clarity Theme CSS stylesheet and Clarity's favicon.</li>
+<li><strong>AC 5.3-2</strong> · <em>Browser, as Guest:</em> Home's text is set in Poppins, and the <strong>Explore Products</strong> button has the brand primary color from section 5 of the brief.</li>
+<li><strong>AC 5.3-3</strong> · <em>API, as the admin:</em> both master pages use Clarity Theme CSS.</li>
+</ul>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> once a Theme CSS client extension replaces the theme's CSS, the Classic theme's style book no longer applies to those pages. 5.1 is a quick check; 5.2 is Clarity's real brand.</p>
 <h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
 <p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own</strong>, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
@@ -410,6 +429,20 @@ stylesheet link of Clarity Theme CSS and the favicon link in its HTML.
 <li><strong>C.</strong> The binding was skipped. Deploy the theme, then the site again.</li>
 <li><strong>D.</strong> The Theme CSS belongs in metadata.json. Add it there and redeploy.</li>
 </ul>
+<h2 id="extras">⭐ Extras<a aria-hidden="true" class="heading-anchor" href="#extras" tabindex="-1">#</a></h2>
+<p>Optional, for when you finish early. The next level doesn't depend on them.</p>
+<h2 id="54-bonus-check-level-5-with-playwright">⭐ 5.4 — Bonus: check Level 5 with Playwright<a aria-hidden="true" class="heading-anchor" href="#54-bonus-check-level-5-with-playwright" tabindex="-1">#</a></h2>
+<p class="wb wb-goal">🎯 <strong>Goal:</strong> <code>tests/e2e/level-5.spec.ts</code>, with one test per acceptance criterion (🧪) of Level 5, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.</p>
+<p class="wb wb-do-label">📋 <strong>Before the prompt:</strong></p>
+<ol class="wb-list wb-do">
+<li>If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.</li>
+</ol>
+<p class="wb wb-verify-label">✅ <strong>Success looks like:</strong></p>
+<ol class="wb-list wb-verify">
+<li>In <code>tests/e2e</code>, <code>npx playwright test level-5</code> runs one test per acceptance criterion of Level 5, each named by its id, and all pass.</li>
+<li>In the Primary Master Page's <em>Page Design Options</em>, set the Theme CSS client extension to none and publish, and run the tests again: <strong>AC 5.3-3</strong> fails. To undo it, redeploy the site with <code>scripts/deploy_site.sh</code>, and run them again: all pass.</li>
+<li><code>npx playwright test</code> still passes for every level you've added.</li>
+</ol>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="level-4.html"><span>← Previous</span>Level 4 — Fragments and page compositions</a><a class="next" href="level-6.html"><span>Next →</span>Level 6 — Content in Liferay CMS</a></nav>
     </main>
   </div>

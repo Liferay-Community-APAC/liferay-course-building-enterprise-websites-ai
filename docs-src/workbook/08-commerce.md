@@ -33,6 +33,11 @@ ERC. Read them back.
 2. *Global Menu* → *Commerce* → *Specifications* → *Specification Labels*: the three labels, with *Frame Description* as their default group.
 3. On the same screen, Frame Material and Frame Color are marked *Use in Faceted Navigation*.
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 8.1-1** · *API, as the admin:* the catalog Clarity Eyewear exists, with the currency USD and the language en_US.
+- **AC 8.1-2** · *API, as the admin:* the specifications `frame-material`, `frame-color` and `frame-size` are in the group `frame-description`, and only Frame Material and Frame Color are used in faceted navigation.
+
 ### 8.2 — Create the products
 
 🎯 **Goal:** the three products in `context-source/data/products.csv`, categorized, with specifications, images and an AI-written description.
@@ -58,6 +63,11 @@ back with their categories, specifications and image count.
 3. *Specifications* lists Metal, Gold and 54-20.
 4. *Media* shows the image.
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 8.2-1** · *API, as the admin:* the three products of `context-source/data/products.csv` are published in Clarity Eyewear, each with its category, its specification values and at least one image.
+- **AC 8.2-2** · *API, as the admin:* Classic Aviator Sunglasses has the specification values Metal, Gold and 54-20.
+
 📖 **Why it matters:** Liferay's AI Creator writes descriptions inside the product editor; here your agent wrote them. Your instructor shows both.
 
 ### 8.3 — A channel for the public site
@@ -76,6 +86,10 @@ site type B2B. Read it back, with the linked site.
 ✅ **Verify** (look, don't change anything):
 1. *Global Menu* → *Commerce* → *Channels* → **Clarity Public**: the *Type* tab shows **Clarity Public Enterprise Website**.
 2. The *General* tab shows *Commerce Site Type* **B2B**.
+
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 8.3-1** · *API, as the admin:* the channel Clarity Public (USD) is linked to `clarity-public`, with the Commerce site type B2B.
 
 ### 8.4 — Category cards on the Products page
 
@@ -104,6 +118,11 @@ widget template. Deploy and check the page as Guest.
 2. *Site Menu* → *Design* → *Templates* → *Widget Templates*: **Clarity Category Cards** is listed.
 
 ![The Products page: Eyeglasses, Sunglasses, Contacts and Lenses as image cards with Explore buttons, in a bento layout.](screenshots/8-4-products.png)
+
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 8.4-1** · *Browser, as Guest:* Products shows four category cards, Eyeglasses, Sunglasses, Contacts and Lenses, in that order, each with a loaded image and an **Explore** link.
+- **AC 8.4-2** · *Browser, as the admin:* *Design* → *Templates* → *Widget Templates* lists Clarity Category Cards.
 
 ### 8.5 — The Product List page and a product display page
 
@@ -140,6 +159,11 @@ Deploy, then check as Guest: open a category from Products, then a product.
 
 ![The Classic Aviator Sunglasses product page: name, SKU, description, Contact Sales button and specifications.](screenshots/8-5-product.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 8.5-1** · *Browser, as Guest:* **Explore** on Sunglasses opens a category page with the Category, Frame Color and Frame Material facets and a card for Classic Aviator Sunglasses.
+- **AC 8.5-2** · *Browser, as Guest:* Classic Aviator Sunglasses' page shows its name, SKU, description, three specifications and a **Contact Sales** link to Contact Us.
+
 ## 🧠 Knowledge check
 
 ⏱ **About 3 minutes, on your own**, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.
@@ -164,3 +188,19 @@ Deploy, then check as Guest: open a category from Products, then a product.
 - **B.** In the Clarity Products vocabulary's categories.
 - **C.** In the Clarity Category Cards widget template.
 - **D.** In Clarity Theme CSS, with a ::before rule.
+
+## ⭐ Extras
+
+Optional, for when you finish early. The next level doesn't depend on them.
+
+### ⭐ 8.6 — Bonus: check Level 8 with Playwright
+
+🎯 **Goal:** `tests/e2e/level-8.spec.ts`, with one test per acceptance criterion (🧪) of Level 8, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.
+
+📋 **Before the prompt:**
+1. If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.
+
+✅ **Success looks like:**
+1. In `tests/e2e`, `npx playwright test level-8` runs one test per acceptance criterion of Level 8, each named by its id, and all pass.
+2. In *Commerce* → *Specifications*, untick *Use in Faceted Navigation* on Frame Color, and run the tests again: **AC 8.1-2** fails. To undo it, tick it again, and run them again: all pass.
+3. `npx playwright test` still passes for every level you've added.

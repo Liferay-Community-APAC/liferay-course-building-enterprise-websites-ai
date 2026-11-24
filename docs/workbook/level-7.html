@@ -120,6 +120,10 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Acceptance criteria: what the Playwright bonus tests */
+.doc-content p.wb-ac-label { margin-top: 1.25rem; font-size: .95rem; }
+.doc-content ul.wb-ac { border-left: 3px solid var(--lf-neutral-3, #cdced9); padding: .25rem .5rem .25rem 1.9rem; margin-top: .25rem; font-size: .92rem; color: var(--lf-neutral-8); }
+.doc-content ul.wb-ac li { margin: .3rem 0; }
 /* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
 .doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
 .doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
@@ -306,7 +310,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 7 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html" class="current">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#71-map-the-home-page-images-to-marketing-files">7.1 — Map the Home page images to Marketing files</a></li><li class="toc-level-2"><a href="#72-display-page-templates-for-articles-and-leadership-profiles">7.2 — Display page templates for articles and leadership profiles</a></li><li class="toc-level-2"><a href="#73-helpful-articles-a-collection-on-home">7.3 — Helpful Articles: a collection on Home</a></li><li class="toc-level-2"><a href="#74-the-faq-page-from-dynamic-collections">7.4 — The FAQ page from dynamic collections</a></li><li class="toc-level-2"><a href="#75-the-announcement-bar">7.5 — The announcement bar</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#76-bonus-a-manual-collection-by-hand">⭐ 7.6 — Bonus: a manual collection, by hand</a></li><li class="toc-level-2"><a href="#bonus-look-up-file-ids-by-name-after-72">⭐ Bonus: look up file ids by name (after 7.2)</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#71-map-the-home-page-images-to-marketing-files">7.1 — Map the Home page images to Marketing files</a></li><li class="toc-level-2"><a href="#72-display-page-templates-for-articles-and-leadership-profiles">7.2 — Display page templates for articles and leadership profiles</a></li><li class="toc-level-2"><a href="#73-helpful-articles-a-collection-on-home">7.3 — Helpful Articles: a collection on Home</a></li><li class="toc-level-2"><a href="#74-the-faq-page-from-dynamic-collections">7.4 — The FAQ page from dynamic collections</a></li><li class="toc-level-2"><a href="#75-the-announcement-bar">7.5 — The announcement bar</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#76-bonus-a-manual-collection-by-hand">⭐ 7.6 — Bonus: a manual collection, by hand</a></li><li class="toc-level-2"><a href="#bonus-look-up-file-ids-by-name-after-72">⭐ Bonus: look up file ids by name (after 7.2)</a></li><li class="toc-level-2"><a href="#77-bonus-check-level-7-with-playwright">⭐ 7.7 — Bonus: check Level 7 with Playwright</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -354,6 +358,11 @@ Deploy, then fetch Home as Guest and list the image URLs it renders.
 <li>As the admin, open <strong>Home</strong> in edit mode and select the banner's <em>Image</em> fragment → its <em>image-square</em> element: <em>Source Selection</em> is <strong>Mapping</strong>, pointing at the Marketing file. Leave without publishing.</li>
 </ol>
 <p><img alt="Home as a visitor sees it after 7.1: the teal announcement bar, Clarity's logo, the banner heading with the eyewear image." src="../screenshots/7-1-home.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 7.1-1</strong> · <em>Browser, as Guest:</em> Home's banner, promotion, gradient and distributor images all load, and each comes from a file of the Marketing Space.</li>
+<li><strong>AC 7.1-2</strong> · <em>Browser, as Guest:</em> the header logo is the Branding Space's <code>logo-name-vector</code> file, links to Home, and is no wider than 200px.</li>
+</ul>
 <h2 id="72-display-page-templates-for-articles-and-leadership-profiles">7.2 — Display page templates for articles and leadership profiles<a aria-hidden="true" class="heading-anchor" href="#72-display-page-templates-for-articles-and-leadership-profiles" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> every Article and every Leadership Profile has its own page, rendered from one template each.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R3, R7 · <strong>Skills:</strong> <code>manage-pages</code></p>
@@ -377,6 +386,11 @@ Guest and confirm they render their own fields. Give me both URLs.
 <li><em>Site Menu</em> → <em>Design</em> → <em>Page Templates</em> → <em>Display Page Templates</em>: <strong>Article</strong> and <strong>Leadership Profile</strong> are marked <em>Default</em>.</li>
 </ol>
 <p><img alt="The Leadership Profile display page for Nigel Cook: portrait on the left; name, job title and bio on the right." src="../screenshots/7-2-leadership.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 7.2-1</strong> · <em>API, as the admin:</em> the display page templates Article and Leadership Profile exist, each the default for its structure.</li>
+<li><strong>AC 7.2-2</strong> · <em>Browser, as Guest:</em> an Article's display page shows its title and headline, and a Leadership Profile's shows the name, job title and bio.</li>
+</ul>
 <p class="adm-block adm-warning">⚠️ <strong>If it doesn't match:</strong> if a display page answers <em>404</em> for Guest, the Space's content may not be viewable by Guest, or the Space isn't connected to the site. Ask the agent to check both.</p>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> the agent mapped images and attachments by the file's numeric id. Those ids differ on every Liferay instance, so this part of the tree is tied to yours. Real projects handle it with a script that looks the ids up by name and rewrites them before each deploy to another environment (see Extras).</p>
 <h2 id="73-helpful-articles-a-collection-on-home">7.3 — Helpful Articles: a collection on Home<a aria-hidden="true" class="heading-anchor" href="#73-helpful-articles-a-collection-on-home" tabindex="-1">#</a></h2>
@@ -398,6 +412,11 @@ three cards render with their links.
 <li><em>Site Menu</em> → <em>Site Builder</em> → <em>Collections</em> → open <strong>Helpful Articles</strong>: a dynamic collection, item type <em>Article</em>, scope the Marketing Space.</li>
 </ol>
 <p><img alt="Home's Helpful Articles section: three Clarity Cards, each with an image, category, title and summary." src="../screenshots/7-3-helpful-articles.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 7.3-1</strong> · <em>Browser, as Guest:</em> Home's Helpful Articles section shows three cards, the newest Article first, each with an image, category, title and summary.</li>
+<li><strong>AC 7.3-2</strong> · <em>Browser, as Guest:</em> each card's link opens that Article's display page.</li>
+</ul>
 <h2 id="74-the-faq-page-from-dynamic-collections">7.4 — The FAQ page from dynamic collections<a aria-hidden="true" class="heading-anchor" href="#74-the-faq-page-from-dynamic-collections" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> four dynamic collections (one per FAQ category) rendered on the FAQ page, plus the Helpful Articles under them.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R7 · <strong>Skills:</strong> <code>manage-pages</code>, <code>scaffold-fragment</code></p>
@@ -426,6 +445,11 @@ Deploy and check as Guest that every question appears under its category.
 <li>Open <strong>FAQ - Retail Partners</strong>: its filter is the <em>Retail Partners</em> category.</li>
 </ol>
 <p><img alt="The FAQ page: the banner image on the left and the four FAQ sections, each listing its questions." src="../screenshots/7-4-faq.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 7.4-1</strong> · <em>Browser, as Guest:</em> FAQ lists the FAQs under their four categories, eight in total.</li>
+<li><strong>AC 7.4-2</strong> · <em>Browser, as Guest:</em> expanding <em>What is your return policy?</em> shows its answer.</li>
+</ul>
 <h2 id="75-the-announcement-bar">7.5 — The announcement bar<a aria-hidden="true" class="heading-anchor" href="#75-the-announcement-bar" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> the Primary Master Page's announcement bar shows the latest announcement, on Clarity's brand color, on every page.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R7 · <strong>Skills:</strong> <code>manage-pages</code>, <code>theme-and-design</code></p>
@@ -445,6 +469,10 @@ and check every page using the primary master shows it.
 <ol class="wb-list wb-verify">
 <li>Open any page except Sign In: a teal bar above the header shows <em>See Clarity's latest eyewear innovations!</em> and a <strong>Learn more</strong> link to Products.</li>
 </ol>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 7.5-1</strong> · <em>Browser, as Guest:</em> Home and FAQ both show the announcement bar with the newest published Announcement's message and its link.</li>
+</ul>
 <p class="adm-block adm-warning">⚠️ <strong>If it doesn't match:</strong> if the bar is empty after a deploy, redeploy once: the initializer sometimes imports the master page before the collection it points to exists.</p>
 <h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
 <p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own</strong>, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
@@ -491,6 +519,18 @@ and check every page using the primary master shows it.
 <li>Your agent shows you the script and the ids it looked up by name.</li>
 </ol>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> the agent mapped images and attachments by the file's numeric id, and those ids differ on every Liferay instance. A lookup by name keeps the tree portable.</p>
+<h2 id="77-bonus-check-level-7-with-playwright">⭐ 7.7 — Bonus: check Level 7 with Playwright<a aria-hidden="true" class="heading-anchor" href="#77-bonus-check-level-7-with-playwright" tabindex="-1">#</a></h2>
+<p class="wb wb-goal">🎯 <strong>Goal:</strong> <code>tests/e2e/level-7.spec.ts</code>, with one test per acceptance criterion (🧪) of Level 7, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.</p>
+<p class="wb wb-do-label">📋 <strong>Before the prompt:</strong></p>
+<ol class="wb-list wb-do">
+<li>If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.</li>
+</ol>
+<p class="wb wb-verify-label">✅ <strong>Success looks like:</strong></p>
+<ol class="wb-list wb-verify">
+<li>In <code>tests/e2e</code>, <code>npx playwright test level-7</code> runs one test per acceptance criterion of Level 7, each named by its id, and all pass.</li>
+<li>In <em>Site Builder</em> → <em>Collections</em> → <strong>Helpful Articles</strong>, set the maximum number of items to 2, and run the tests again: <strong>AC 7.3-1</strong> fails. To undo it, redeploy the site with <code>scripts/deploy_site.sh</code>, and run them again: all pass.</li>
+<li><code>npx playwright test</code> still passes for every level you've added.</li>
+</ol>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="level-6.html"><span>← Previous</span>Level 6 — Content in Liferay CMS</a><a class="next" href="level-8.html"><span>Next →</span>Level 8 — Commerce: catalog, products and product pages</a></nav>
     </main>
   </div>

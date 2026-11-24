@@ -43,7 +43,7 @@ The last three columns say who uses them:
 | 17:00–17:15 | Performance tuning and maintenance (no exercise) | Talk | — | [37–38](slides/day-2.html#37) | [D2.13](demos.html#d213-page-audit) |
 | 17:15–17:30 | Conclusion, certification, feedback, Q&A | Talk | — | [39–41](slides/day-2.html#39) | — |
 
-Bonus exercises (⭐) are for fast learners during the hands-on blocks; skip them in the schedule.
+Bonus exercises (⭐) are for fast learners during the hands-on blocks; skip them in the schedule. Each level's last bonus is a Playwright test of the level's acceptance criteria (🧪): point fast learners there first, since a suite that passes is also the quickest way to confirm their build before the next level. It needs Node.js 20 or later.
 
 Each level block (Levels 1 to 13) ends with a knowledge check, and its time is included: learners answer the three questions while their last prompt runs, then you spend about 5 minutes going over the answers, from the end of the level's page in the [demo workbook](demos.html).
 

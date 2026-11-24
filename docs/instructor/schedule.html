@@ -120,6 +120,10 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Acceptance criteria: what the Playwright bonus tests */
+.doc-content p.wb-ac-label { margin-top: 1.25rem; font-size: .95rem; }
+.doc-content ul.wb-ac { border-left: 3px solid var(--lf-neutral-3, #cdced9); padding: .25rem .5rem .25rem 1.9rem; margin-top: .25rem; font-size: .92rem; color: var(--lf-neutral-8); }
+.doc-content ul.wb-ac li { margin: .3rem 0; }
 /* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
 .doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
 .doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
@@ -556,7 +560,7 @@ em { color: inherit; }
 </tr>
 </tbody>
 </table></div>
-<p>Bonus exercises (⭐) are for fast learners during the hands-on blocks; skip them in the schedule.</p>
+<p>Bonus exercises (⭐) are for fast learners during the hands-on blocks; skip them in the schedule. Each level's last bonus is a Playwright test of the level's acceptance criteria (🧪): point fast learners there first, since a suite that passes is also the quickest way to confirm their build before the next level. It needs Node.js 20 or later.</p>
 <p>Each level block (Levels 1 to 13) ends with a knowledge check, and its time is included: learners answer the three questions while their last prompt runs, then you spend about 5 minutes going over the answers, from the end of the level's page in the <a href="demos.html">demo workbook</a>.</p>
 <p><strong>Day 2 is tight.</strong> Level 7 has five exercises and five demos. If the class falls behind, in this order:</p>
 <ol>

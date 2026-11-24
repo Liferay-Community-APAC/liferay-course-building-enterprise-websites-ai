@@ -410,9 +410,10 @@ BLOCK_ICONS = {
     "🧹": "wb-clean",
     "ℹ": "wb-note",
     "✔": "wb-answer",
+    "🧪": "wb-ac-label",
 }
 LIST_AFTER = {"wb-do-label": "wb-do", "wb-verify-label": "wb-verify", "wb-clean": "wb-do",
-              "wb-quiz-q": "wb-quiz", "wb-answer": "wb-quiz-why"}
+              "wb-quiz-q": "wb-quiz", "wb-answer": "wb-quiz-why", "wb-ac-label": "wb-ac"}
 
 
 def style_workbook_blocks(soup: BeautifulSoup) -> None:
@@ -602,6 +603,10 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Acceptance criteria: what the Playwright bonus tests */
+.doc-content p.wb-ac-label { margin-top: 1.25rem; font-size: .95rem; }
+.doc-content ul.wb-ac { border-left: 3px solid var(--lf-neutral-3, #cdced9); padding: .25rem .5rem .25rem 1.9rem; margin-top: .25rem; font-size: .92rem; color: var(--lf-neutral-8); }
+.doc-content ul.wb-ac li { margin: .3rem 0; }
 /* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
 .doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
 .doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }

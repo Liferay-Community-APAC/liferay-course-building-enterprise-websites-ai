@@ -53,6 +53,12 @@ fragments failed to compile.
 
 ![Design → Fragments: the Clarity Components set with Search Button, Login and User Menu, Clarity Button, Clarity Card and FAQ Question and Answer Pair.](screenshots/4-1-fragments.png)
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 4.1-1** · *API, as the admin:* `clarity-public` has a fragment set Clarity Components with Search Button, Login and User Menu, Clarity Button, Clarity Card and FAQ Question and Answer Pair, all approved, none in draft.
+- **AC 4.1-2** · *API, as the admin:* Search Button's configuration has `iconName`, `iconSize`, `link`, `hideLabel` and `buttonLabel`, with the defaults from the prompt.
+- **AC 4.1-3** · *API, as the admin:* Clarity Card's HTML has the editables `card-image`, `category`, `card-title`, `summary` and `card-link`.
+
 ### 4.2 — Put the custom fragments in the master pages
 
 🎯 **Goal:** the search button and the login/user menu in the header of both master pages, the search button linking to the Search page.
@@ -73,6 +79,12 @@ Guest that both appear.
 1. Open `http://localhost:8080/web/clarity/home` in a private window: the header shows a search icon and a **Sign In** button.
 2. Click the search icon: you land on the Search page.
 3. In the private window, sign in as any persona: the **Sign In** button is replaced by the user's avatar menu.
+
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
+
+- **AC 4.2-1** · *Browser, as Guest:* Home's header has a search icon link and a **Sign In** button.
+- **AC 4.2-2** · *Browser, as Guest:* the search icon link goes to `/web/clarity/search-results`.
+- **AC 4.2-3** · *Browser, as Christian Carter:* Home's header has no **Sign In** button, and has Christian's user menu.
 
 ### 4.3 — Wireframe the Home and FAQ pages
 
@@ -112,7 +124,11 @@ written, and deploy.
 1. Open **Home** in edit mode (the pencil icon at the top right) → the *Browser* panel: the containers carry the names from the prompt. Leave without publishing.
 2. Open **FAQ** in edit mode → the *Browser* panel: the containers carry the names from the prompt. Leave without publishing.
 
+🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
 
+- **AC 4.3-1** · *Browser, as Guest:* Home has the heading *Elevate Your Brand with Premium Eyewear* and an **Explore Products** link to the Products page.
+- **AC 4.3-2** · *Browser, as Guest:* Home has the heading *Become a Clarity Distributor* with a link to the Contact Us page.
+- **AC 4.3-3** · *Browser, as Guest:* FAQ has four sections, headed with the four FAQ categories of `context-source/content/faqs.json`.
 
 ## 🧠 Knowledge check
 
@@ -150,3 +166,15 @@ Optional, for when you finish early. The next level doesn't depend on them.
 ✅ **Success looks like:**
 1. In the page editor, selecting the fragment shows a URL option.
 2. Changing that option changes where *Sign In* goes.
+
+### ⭐ 4.5 — Bonus: check Level 4 with Playwright
+
+🎯 **Goal:** `tests/e2e/level-4.spec.ts`, with one test per acceptance criterion (🧪) of Level 4, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.
+
+📋 **Before the prompt:**
+1. If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.
+
+✅ **Success looks like:**
+1. In `tests/e2e`, `npx playwright test level-4` runs one test per acceptance criterion of Level 4, each named by its id, and all pass.
+2. In the Primary Master Page, change the Search Button's link to `/home` and publish, and run the tests again: **AC 4.2-2** fails. To undo it, redeploy the site with `scripts/deploy_site.sh`, and run them again: all pass.
+3. `npx playwright test` still passes for every level you've added.

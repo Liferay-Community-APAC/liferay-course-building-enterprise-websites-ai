@@ -120,6 +120,10 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Acceptance criteria: what the Playwright bonus tests */
+.doc-content p.wb-ac-label { margin-top: 1.25rem; font-size: .95rem; }
+.doc-content ul.wb-ac { border-left: 3px solid var(--lf-neutral-3, #cdced9); padding: .25rem .5rem .25rem 1.9rem; margin-top: .25rem; font-size: .92rem; color: var(--lf-neutral-8); }
+.doc-content ul.wb-ac li { margin: .3rem 0; }
 /* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
 .doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
 .doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
@@ -306,7 +310,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 3 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html" class="current">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#31-scaffold-the-site-initializer-and-the-page-hierarchy">3.1 — Scaffold the site initializer and the page hierarchy</a></li><li class="toc-level-2"><a href="#32-build-the-primary-and-secondary-master-pages">3.2 — Build the Primary and Secondary master pages</a></li><li class="toc-level-2"><a href="#33-create-the-navigation-menus-and-wire-them-in">3.3 — Create the navigation menus and wire them in</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#34-bonus-the-sign-in-utility-page">⭐ 3.4 — Bonus: the Sign In utility page</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#31-scaffold-the-site-initializer-and-the-page-hierarchy">3.1 — Scaffold the site initializer and the page hierarchy</a></li><li class="toc-level-2"><a href="#32-build-the-primary-and-secondary-master-pages">3.2 — Build the Primary and Secondary master pages</a></li><li class="toc-level-2"><a href="#33-create-the-navigation-menus-and-wire-them-in">3.3 — Create the navigation menus and wire them in</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#34-bonus-the-sign-in-utility-page">⭐ 3.4 — Bonus: the Sign In utility page</a></li><li class="toc-level-2"><a href="#35-bonus-check-level-3-with-playwright">⭐ 3.5 — Bonus: check Level 3 with Playwright</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -362,6 +366,12 @@ solution-index.yaml (R3).
 <li>Open <code>http://localhost:8080/web/clarity/home</code>: an empty page with Liferay's default header.</li>
 </ol>
 <p><img alt="Site Builder → Pages: Home, Products with Product List, About Us, Blog, FAQ, Careers with Open Positions, Contact Us and Search." src="../screenshots/3-1-pages.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 3.1-1</strong> · <em>API, as the admin:</em> <code>clarity-public</code> has the public content pages Home, Products (with Product List under it), About Us, Blog, FAQ, Careers (with Open Positions under it), Contact Us and Search, in that order, at the friendly URLs from the prompt.</li>
+<li><strong>AC 3.1-2</strong> · <em>API, as the admin:</em> <code>clarity-public</code> still has the membership type Open, and only English and Spanish.</li>
+<li><strong>AC 3.1-3</strong> · <em>Browser, as Guest:</em> <code>/web/clarity/home</code> answers with a page.</li>
+</ul>
 <h2 id="32-build-the-primary-and-secondary-master-pages">3.2 — Build the Primary and Secondary master pages<a aria-hidden="true" class="heading-anchor" href="#32-build-the-primary-and-secondary-master-pages" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> two master pages wireframed as in section 4 of the brief, applied to the pages, with the allowed fragments limited on the primary one.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R3 · <strong>Skills:</strong> <code>theme-and-design</code>, <code>manage-pages</code></p>
@@ -405,6 +415,12 @@ uses the primary one.
 <li>Open the <strong>Home</strong> page: the header and footer wireframe surround an empty body.</li>
 </ol>
 <p><img alt="Design → Page Templates → Masters: Primary Master Page and Secondary Master Page." src="../screenshots/3-2-masters.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 3.2-1</strong> · <em>API, as the admin:</em> the master pages Primary Master Page and Secondary Master Page exist, and every page from 3.1 uses the Primary Master Page.</li>
+<li><strong>AC 3.2-2</strong> · <em>API, as the admin:</em> the Primary Master Page's drop zone disallows the Footers and Navigation Bars fragment sets.</li>
+<li><strong>AC 3.2-3</strong> · <em>Browser, as Guest:</em> Home shows the footer text <em>© Clarity Vision Solutions</em>, and none of the Classic theme's own header or footer.</li>
+</ul>
 <h2 id="33-create-the-navigation-menus-and-wire-them-in">3.3 — Create the navigation menus and wire them in<a aria-hidden="true" class="heading-anchor" href="#33-create-the-navigation-menus-and-wire-them-in" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> the four menus from section 4 of the brief, with the header and footer Menu Display fragments pointing at them.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R3 · <strong>Skills:</strong> <code>manage-pages</code></p>
@@ -429,6 +445,13 @@ the brief.
 <li>Click <strong>FAQ</strong> in the header: you're on the FAQ page.</li>
 </ol>
 <p><img alt="Site Builder → Navigation Menus: Header Page Menu, Footer Resources Menu, Footer Company Menu and Footer Legal Menu." src="../screenshots/3-3-menus.png"/></p>
+<p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
+<ul class="wb-list wb-ac">
+<li><strong>AC 3.3-1</strong> · <em>API, as the admin:</em> the four menus Header Page Menu, Footer Resources Menu, Footer Company Menu and Footer Legal Menu exist, each with the items in the brief (Level 11 later adds Events to the Footer Resources Menu).</li>
+<li><strong>AC 3.3-2</strong> · <em>Browser, as Guest:</em> Home's header has the links Products, About Us, Blog, FAQ, Careers and Contact Us, in that order.</li>
+<li><strong>AC 3.3-3</strong> · <em>Browser, as Guest:</em> clicking <strong>FAQ</strong> in the header opens <code>/web/clarity/faq</code>.</li>
+<li><strong>AC 3.3-4</strong> · <em>Browser, as Guest:</em> the footer's legal links go to <code>https://www.clarityvisionsolutions.com/privacy</code> and <code>/terms</code>, and open in a new tab.</li>
+</ul>
 <h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
 <p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own</strong>, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
 <p class="wb wb-quiz-q"><strong>Question 1.</strong> In the site initializer, you rename the FAQ page's friendly URL from <code>/faq</code> to <code>/help</code> and redeploy. What happens on the site?</p>
@@ -459,6 +482,18 @@ the brief.
 <p class="wb wb-verify-label">✅ <strong>Success looks like:</strong></p>
 <ol class="wb-list wb-verify">
 <li>Sign out and click <em>Sign In</em>: Clarity's lighter header and footer surround the sign-in form.</li>
+</ol>
+<h2 id="35-bonus-check-level-3-with-playwright">⭐ 3.5 — Bonus: check Level 3 with Playwright<a aria-hidden="true" class="heading-anchor" href="#35-bonus-check-level-3-with-playwright" tabindex="-1">#</a></h2>
+<p class="wb wb-goal">🎯 <strong>Goal:</strong> <code>tests/e2e/level-3.spec.ts</code>, with one test per acceptance criterion (🧪) of Level 3, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria.</p>
+<p class="wb wb-do-label">📋 <strong>Before the prompt:</strong></p>
+<ol class="wb-list wb-do">
+<li>If you skipped 1.3, do it first: it sets up the suite and its sign-in helpers.</li>
+</ol>
+<p class="wb wb-verify-label">✅ <strong>Success looks like:</strong></p>
+<ol class="wb-list wb-verify">
+<li>In <code>tests/e2e</code>, <code>npx playwright test level-3</code> runs one test per acceptance criterion of Level 3, each named by its id, and all pass.</li>
+<li>In <em>Site Builder</em> → <em>Navigation Menus</em> → <strong>Header Page Menu</strong>, move FAQ below Careers, and run the tests again: <strong>AC 3.3-2</strong> fails. To undo it, redeploy the site with <code>scripts/deploy_site.sh</code>, which puts the menu back as the code says, and run them again: all pass.</li>
+<li><code>npx playwright test</code> still passes for every level you've added.</li>
 </ol>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="level-2.html"><span>← Previous</span>Level 2 — Sites</a><a class="next" href="level-4.html"><span>Next →</span>Level 4 — Fragments and page compositions</a></nav>
     </main>
