@@ -134,6 +134,33 @@ the brief.
 
 ![Site Builder → Navigation Menus: Header Page Menu, Footer Resources Menu, Footer Company Menu and Footer Legal Menu.](screenshots/3-3-menus.png)
 
+
+
+## 🧠 Knowledge check
+
+⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+
+**Question 1.** In the site initializer, you rename the FAQ page's friendly URL from `/faq` to `/help` and redeploy. What happens on the site?
+
+- **A.** The existing FAQ page keeps its content and gets the URL /help.
+- **B.** A new /help page is added, and the /faq page stays as it was.
+- **C.** The deploy fails, because a page with that name already exists.
+- **D.** The /faq page is deleted and recreated at /help, losing its content.
+
+**Question 2.** Christian edits the Home page and can't find the built-in **Footers** fragments in the fragment panel. Why?
+
+- **A.** Christian's role doesn't allow using built-in fragments.
+- **B.** The Classic theme hides footer fragments while its footer is off.
+- **C.** The master page's drop zone doesn't allow the Footers set.
+- **D.** Footer fragments are deprecated on this release.
+
+**Question 3.** 3.2 turns off the Classic theme's own header and footer on both master pages. What would visitors see if it didn't?
+
+- **A.** Two headers and two footers, the theme's and the master's.
+- **B.** Only the theme's header and footer: the theme overrides the master.
+- **C.** No header at all: the two would cancel each other out.
+- **D.** The same page: the setting only changes the page editor.
+
 ## ⭐ Extras
 
 Optional, for when you finish early. The next level doesn't depend on them.

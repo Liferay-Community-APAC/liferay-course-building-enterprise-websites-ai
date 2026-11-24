@@ -20,6 +20,8 @@ It follows the course, like the learners' workbook: a page per teaching block, i
 | 💬 **Live prompt** | Optional: a prompt you run during the demo. Its first words say which step it is, or which steps it replaces. |
 | 🧹 **After the demo** | Cleanup, if any. It's also in the After class checklist. |
 
+**Each level's page ends with its Knowledge check answers.** Learners answer three questions on their own at the end of the level (about 3 minutes, in their workbook); then you go over them with the class (about 5 minutes). For each question the page gives the answer (✔) and why, why each other option is wrong, and an **Ask next** question to take the discussion one step further. Take the 8 minutes from the level's hands-on time, not from the demos.
+
 ## Working rules
 
 - **Run the demos on your own finished build.** The week before the course you run the whole learners' workbook from a clean clone (see the [instructor guide](index.html)). Keep that instance: every demo assumes the Clarity site exists end to end, with the personas, content, products, workflows and objects.

@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 7 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html" class="current">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#71-map-the-home-page-images-to-marketing-files">7.1 — Map the Home page images to Marketing files</a></li><li class="toc-level-2"><a href="#72-display-page-templates-for-articles-and-leadership-profiles">7.2 — Display page templates for articles and leadership profiles</a></li><li class="toc-level-2"><a href="#73-helpful-articles-a-collection-on-home">7.3 — Helpful Articles: a collection on Home</a></li><li class="toc-level-2"><a href="#74-the-faq-page-from-dynamic-collections">7.4 — The FAQ page from dynamic collections</a></li><li class="toc-level-2"><a href="#75-the-announcement-bar">7.5 — The announcement bar</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#76-bonus-a-manual-collection-by-hand">⭐ 7.6 — Bonus: a manual collection, by hand</a></li><li class="toc-level-2"><a href="#bonus-look-up-file-ids-by-name-after-72">⭐ Bonus: look up file ids by name (after 7.2)</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#71-map-the-home-page-images-to-marketing-files">7.1 — Map the Home page images to Marketing files</a></li><li class="toc-level-2"><a href="#72-display-page-templates-for-articles-and-leadership-profiles">7.2 — Display page templates for articles and leadership profiles</a></li><li class="toc-level-2"><a href="#73-helpful-articles-a-collection-on-home">7.3 — Helpful Articles: a collection on Home</a></li><li class="toc-level-2"><a href="#74-the-faq-page-from-dynamic-collections">7.4 — The FAQ page from dynamic collections</a></li><li class="toc-level-2"><a href="#75-the-announcement-bar">7.5 — The announcement bar</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#76-bonus-a-manual-collection-by-hand">⭐ 7.6 — Bonus: a manual collection, by hand</a></li><li class="toc-level-2"><a href="#bonus-look-up-file-ids-by-name-after-72">⭐ Bonus: look up file ids by name (after 7.2)</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -439,6 +446,29 @@ and check every page using the primary master shows it.
 <li>Open any page except Sign In: a teal bar above the header shows <em>See Clarity's latest eyewear innovations!</em> and a <strong>Learn more</strong> link to Products.</li>
 </ol>
 <p class="adm-block adm-warning">⚠️ <strong>If it doesn't match:</strong> if the bar is empty after a deploy, redeploy once: the initializer sometimes imports the master page before the collection it points to exists.</p>
+<h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own.</strong> Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> Marketing replaces the <code>gradient-overlay</code> file in the Marketing Space with a new version. What happens to the Home page?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> Nothing, until someone edits and republishes the page.</li>
+<li><strong>B.</strong> It shows the new image after the next site deploy.</li>
+<li><strong>C.</strong> It shows the new image right away, with no page edit.</li>
+<li><strong>D.</strong> The image breaks, since the mapping points to the old version.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> A new Article is published in the Marketing Space. What happens to <strong>Helpful Articles</strong> (dynamic, newest first, at most 3) and to a manual collection <strong>Editor's Picks</strong>?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> Both show it, each as its first item.</li>
+<li><strong>B.</strong> Helpful Articles adds it; Editor's Picks stays.</li>
+<li><strong>C.</strong> Neither changes until an editor updates them.</li>
+<li><strong>D.</strong> Editor's Picks shows it; Helpful Articles doesn't.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> You deploy <code>clarity-site</code> to a fresh UAT environment. The display pages render, but the images mapped by file id show nothing. Why?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> UAT's Spaces aren't connected to the site yet.</li>
+<li><strong>B.</strong> The file ids in the tree only exist locally.</li>
+<li><strong>C.</strong> Images can't be mapped on display pages on UAT.</li>
+<li><strong>D.</strong> UAT needs a restart before it serves new files.</li>
+</ul>
 <h2 id="extras">⭐ Extras<a aria-hidden="true" class="heading-anchor" href="#extras" tabindex="-1">#</a></h2>
 <p>Optional, for when you finish early. The next level doesn't depend on them.</p>
 <h2 id="76-bonus-a-manual-collection-by-hand">⭐ 7.6 — Bonus: a manual collection, by hand<a aria-hidden="true" class="heading-anchor" href="#76-bonus-a-manual-collection-by-hand" tabindex="-1">#</a></h2>

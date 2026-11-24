@@ -28,3 +28,39 @@ their title, inquiry type and workflow status. Read only.
 ```
 
 🧹 **After the demo:** after class, delete your test entry.
+
+### Knowledge check answers
+
+🕒 **5 minutes** · at the end of the block · learners answer on their own first ([Level 12, Knowledge check](../workbook/level-12.html#knowledge-check))
+
+💡 **Say:** ask for a show of hands on each option before you give the answer. A split room is the moment to explain.
+
+**Question 1.** Guest has **ADD_OBJECT_ENTRY** on Contact Us, but not VIEW. Why not grant VIEW too?
+
+✔ **Answer: C.** Anyone could read every submission. A public form is write-only: visitors submit, and nobody but staff reads the submissions. VIEW at company scope would publish every person's details through the API.
+
+- **A:** Guest can hold VIEW; Clarity's CMS content relies on it.
+- **B:** The form would still work; it would just leak data.
+- **D:** VIEW can be granted to any role.
+
+**Ask next:** How does a visitor still see what they submitted? (The submission's own response returns the created entry.)
+
+**Question 2.** Someone removes Guest's ADD_OBJECT_ENTRY on Contact Us. What do visitors see on the Contact Us page?
+
+✔ **Answer: D.** No form at all, and no error anywhere. A Form Container renders nothing for a user who can't add entries to its object: no fields, no button, no message, no log line. The page looks empty, which is why prompts state who may submit.
+
+- **A:** The form isn't even drawn.
+- **B:** Nothing redirects to sign-in.
+- **C:** There's no read-only mode.
+
+**Ask next:** How do you catch this before launch? (Check the page as Guest after every permission change, as 12.2 does.)
+
+**Question 3.** Daniel approves one request's Follow Up task. It disappears from Contact Us Responses. What happened to the entry?
+
+✔ **Answer: B.** It's approved; the list shows pending ones. The end node sets the entry to approved, and the data set filters on pending entries, so the dashboard is a to-do list. The entry still exists under *Content & Data*.
+
+- **A:** Approval doesn't delete; Delete is a separate action.
+- **C:** Entries stay in their site.
+- **D:** The filter is the same for everyone.
+
+**Ask next:** How would you show approved requests too? (A second data set or view, filtered on approved.)

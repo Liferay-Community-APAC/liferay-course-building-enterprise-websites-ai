@@ -111,3 +111,28 @@ Casablanca" to the job listing "Retail Associate" as an example.
 2. The **Eyeglasses** category page now lists products.
 3. *Global Menu* → *CMS* → **HR** → *Categories* → **Location**: 26 categories.
 4. Open the job listing **Retail Associate**: *Morocco, Casablanca* is among its categories.
+
+## 🧠 Knowledge check
+
+⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+
+**Question 1.** Your agent sends a batch request and gets a response right away. What does that response prove?
+
+- **A.** That every item was imported without errors.
+- **B.** That the data passed validation, though it isn't saved yet.
+- **C.** Only that a task was created to run the import.
+- **D.** Nothing: batch requests return an empty response.
+
+**Question 2.** The CMS **Article** structure has no batch endpoint of its own. How did the agent import three articles in one request?
+
+- **A.** Through the generic batch engine, scoped to the Space.
+- **B.** It couldn't, so it sent three requests instead.
+- **C.** Through the Blogs batch endpoint, which accepts any content.
+- **D.** By adding them to the site initializer and deploying it.
+
+**Question 3.** Clarity's legacy blog post becomes an entry of CMS's built-in **Blog** structure, not a post in the Blogs application. Why?
+
+- **A.** The Blogs application can't store a cover image.
+- **B.** Blog structure entries load faster on the Blog page.
+- **C.** Blogs posts can't be shown on a public site.
+- **D.** Blogs is in maintenance mode on this release.

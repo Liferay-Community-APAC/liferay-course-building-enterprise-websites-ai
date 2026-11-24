@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 13 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html" class="current">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#131-the-clarity-audience-container-fragment">13.1 — The Clarity Audience Container fragment</a></li><li class="toc-level-2"><a href="#132-a-distributor-variant-of-home">13.2 — A distributor variant of Home</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#131-the-clarity-audience-container-fragment">13.1 — The Clarity Audience Container fragment</a></li><li class="toc-level-2"><a href="#132-a-distributor-variant-of-home">13.2 — A distributor variant of Home</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -362,6 +369,29 @@ for each.
 </ol>
 <p><img alt="Home as Terrence Wheatley, a distributor: the banner reads &quot;Welcome Back! Elevate Your Inventory with Premium Eyewear.&quot; and Terrence's avatar replaces the Sign In button." src="../screenshots/13-2-terrence-home.png"/></p>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> this works for signed-in users and user groups. For anonymous visitors (by behavior, location or campaign), you need Liferay Data Platform segments, which is the supported path for that kind of personalization.</p>
+<h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own.</strong> Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> Why does the Clarity Audience Container decide in FreeMarker, on the server, instead of hiding content with JavaScript?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> JavaScript can't read the user's user groups.</li>
+<li><strong>B.</strong> FreeMarker makes the page load faster for visitors.</li>
+<li><strong>C.</strong> Hidden content never reaches the browser.</li>
+<li><strong>D.</strong> Fragments can't run JavaScript inside a drop zone.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> Marketing wants a different Home banner for anonymous visitors arriving from a spring campaign. What does Clarity need?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> Liferay Data Platform segments.</li>
+<li><strong>B.</strong> Another Audience Container, with mode "others".</li>
+<li><strong>C.</strong> DXP segments and experiences on the Home page.</li>
+<li><strong>D.</strong> A second site for campaign visitors.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> In the page editor, the admin sees both Home banners, each with a label. Is that a bug?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> Yes: the editor should show only the admin's audience.</li>
+<li><strong>B.</strong> No: the editor shows both so both can be edited.</li>
+<li><strong>C.</strong> Yes: one banner failed to compile, so both show.</li>
+<li><strong>D.</strong> No: admins see every audience on the live site too.</li>
+</ul>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="level-12.html"><span>← Previous</span>Level 12 — Objects: the Contact Us form and its follow-up</a></nav>
     </main>
   </div>

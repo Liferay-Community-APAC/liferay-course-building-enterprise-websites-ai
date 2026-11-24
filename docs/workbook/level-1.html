@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 1 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html" class="current">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#11-create-claritys-user-groups-roles-and-personas">1.1 — Create Clarity&#x27;s user groups, roles and personas</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#12-bonus-a-manager-for-the-marketing-team">⭐ 1.2 — Bonus: a manager for the Marketing team</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#11-create-claritys-user-groups-roles-and-personas">1.1 — Create Clarity&#x27;s user groups, roles and personas</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#12-bonus-a-manager-for-the-marketing-team">⭐ 1.2 — Bonus: a manager for the Marketing team</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -353,6 +360,29 @@ groups and roles as Liferay returns them, not as you intended them.
 <p><img alt="Control Panel → Users and Organizations listing the seven Clarity personas with their screen names, job titles and user groups." src="../screenshots/1-1-users.png"/></p>
 <p><img alt="Control Panel → Roles: the Regular Roles tab lists Content Manager, Distributor Representative, IT Manager, Marketing Coordinator and Web Developer next to Liferay's own roles." src="../screenshots/1-1-roles.png"/></p>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> in the Control Panel you can also assign a role to a <strong>user group</strong>, so every member gets it. Liferay's headless API assigns roles to users only, so the agent assigns them one by one here. You can see both kinds of assignee in <em>Global Menu</em> → <em>Control Panel</em> → <em>Roles</em> → a role → <em>Assignees</em>.</p>
+<h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own.</strong> Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> Clarity hires a second Marketing Coordinator. In the Control Panel you can give a role to the <strong>Marketing</strong> user group, so every member gets it. Why did your agent assign each persona's role to the user directly in 1.1?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> User group role assignment is deprecated on this release, so the agent avoided it.</li>
+<li><strong>B.</strong> Regular roles go to users only; only site roles can go to user groups.</li>
+<li><strong>C.</strong> Liferay's headless API assigns roles to users only, not to user groups.</li>
+<li><strong>D.</strong> The prompt told the agent not to use user groups for anything.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> Each persona gets an external reference code like <code>PERSONA-CCARTER</code>. You run the 1.1 prompt a second time. What does the ERC make possible?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> The agent updates the same user instead of adding a duplicate.</li>
+<li><strong>B.</strong> Personas sign in with it instead of an email, which is faster.</li>
+<li><strong>C.</strong> Liferay generates each persona's password from the code.</li>
+<li><strong>D.</strong> Each persona joins every site whose code matches the prefix.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> <strong>Site Content Contributor</strong> is a site role. Christian holds it in the public site. Later, Christian is added as a member of the Clarity Distributor Portal. What does that role give Christian there?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> The same permissions as in the public site: roles apply everywhere.</li>
+<li><strong>B.</strong> Read-only versions of the same permissions, as a plain member.</li>
+<li><strong>C.</strong> The same permissions: joining a site carries over a user's site roles.</li>
+<li><strong>D.</strong> Nothing, unless it's assigned in that site as well.</li>
+</ul>
 <h2 id="extras">⭐ Extras<a aria-hidden="true" class="heading-anchor" href="#extras" tabindex="-1">#</a></h2>
 <p>Optional, for when you finish early. The next level doesn't depend on them.</p>
 <h2 id="12-bonus-a-manager-for-the-marketing-team">⭐ 1.2 — Bonus: a manager for the Marketing team<a aria-hidden="true" class="heading-anchor" href="#12-bonus-a-manager-for-the-marketing-team" tabindex="-1">#</a></h2>

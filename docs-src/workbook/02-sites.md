@@ -165,3 +165,28 @@ Liferay: give me the exact screen and fields to set them myself.
 ✅ **Verify** (look, don't change anything):
 1. *Global Menu* → *Control Panel* → *Instance Settings* → *Platform* → *Instance Configuration* → *General*: the three fields read `/web/clarity`.
 2. Open `http://localhost:8080/` in a private window: it redirects to the Clarity site (still empty until Level 3).
+
+## 🧠 Knowledge check
+
+⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+
+**Question 1.** In 2.4 you grant the **regular** role Marketing Coordinator permission to manage Collections, at company scope. Christian holds that role. In which sites can Christian now manage collections?
+
+- **A.** Only in the public site, where Christian is a Site Content Contributor.
+- **B.** In every site Christian can work in, because the role is regular.
+- **C.** Only in sites where Christian also holds a site role.
+- **D.** In none, until each site grants the permission in its own settings.
+
+**Question 2.** The public site's membership type is **Open**. What does that allow?
+
+- **A.** Visitors who aren't signed in can see the site's private pages.
+- **B.** Every user group in the instance becomes a member of the site.
+- **C.** Guest can add content, as long as a workflow reviews it.
+- **D.** Any signed-in user can join the site without approval.
+
+**Question 3.** 2.3 puts the site settings in a re-runnable script, `scripts/site_settings.py`. Why does the course need to run it again later?
+
+- **A.** Each site deploy resets some of them, such as languages.
+- **B.** Liferay forgets site settings each time the server restarts.
+- **C.** The headless API can't store them, so a script holds them instead.
+- **D.** Settings expire overnight and must be re-applied each morning.

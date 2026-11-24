@@ -38,3 +38,39 @@
 2. In the impersonated tab, open the *Site Menu* → **expect:** no *Site Builder* or *Categorization* section. Close the tab.
 3. Run [2.4](../workbook/#24-give-the-marketing-coordinator-role-its-permissions) → **expect:** the agent lists the permissions, with the class, before it grants them. Read the list.
 4. Impersonate Christian again → **expect:** the sections are there now.
+
+### Knowledge check answers
+
+🕒 **5 minutes** · at the end of the block · learners answer on their own first ([Level 2, Knowledge check](../workbook/level-2.html#knowledge-check))
+
+💡 **Say:** ask for a show of hands on each option before you give the answer. A split room is the moment to explain.
+
+**Question 1.** In 2.4 you grant the **regular** role Marketing Coordinator permission to manage Collections, at company scope. Christian holds that role. In which sites can Christian now manage collections?
+
+✔ **Answer: B.** In every site Christian can work in, because the role is regular. A regular role's permissions apply at company scope: in every site where its holder can work. That's why 2.4 lists exactly which actions to grant, and nothing beyond them.
+
+- **A:** The site role plays no part; the permission comes from the regular role.
+- **C:** Regular roles don't depend on site roles.
+- **D:** Company scope already covers every site; there's no per-site switch for a regular role.
+
+**Ask next:** If Clarity wanted Christian to curate collections in the public site only, what would change? (Use a site role, assigned in that site only.)
+
+**Question 2.** The public site's membership type is **Open**. What does that allow?
+
+✔ **Answer: D.** Any signed-in user can join the site without approval. Membership type controls how users join a site: Open lets any signed-in user join themself, Restricted needs approval, Private allows no requests. It says nothing about what visitors can see or do.
+
+- **A:** Page visibility is set by page permissions, not by membership type.
+- **B:** User groups are added as members explicitly (by hand, in Level 2).
+- **C:** Guest's rights come from permissions; membership type doesn't grant any.
+
+**Ask next:** Level 3's site initializer keeps this setting in `site-configuration.json`. Why? (A deploy otherwise resets an existing site to Restricted.)
+
+**Question 3.** 2.3 puts the site settings in a re-runnable script, `scripts/site_settings.py`. Why does the course need to run it again later?
+
+✔ **Answer: A.** Each site deploy resets some of them, such as languages. From Level 3 on, the site initializer is deployed over and over, and each deploy resets settings it has no file for, such as the languages. `scripts/deploy_site.sh` re-applies them right after every deploy.
+
+- **B:** Settings are stored in the database and survive restarts.
+- **C:** The agent writes them through the API (or an OSGi configuration) in 2.3.
+- **D:** Nothing expires; the deploys are what reset them.
+
+**Ask next:** What's the general lesson? (When a tool resets something, automate putting it back rather than remembering to.)

@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 6 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html" class="current">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#61-create-the-spaces-and-their-members">6.1 — Create the Spaces and their members</a></li><li class="toc-level-2"><a href="#62-model-claritys-content-structures">6.2 — Model Clarity&#x27;s content structures</a></li><li class="toc-level-2"><a href="#63-create-the-vocabularies">6.3 — Create the vocabularies</a></li><li class="toc-level-2"><a href="#64-load-claritys-content-and-files">6.4 — Load Clarity&#x27;s content and files</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#65-bonus-relate-events-to-their-images">⭐ 6.5 — Bonus: relate events to their images</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#61-create-the-spaces-and-their-members">6.1 — Create the Spaces and their members</a></li><li class="toc-level-2"><a href="#62-model-claritys-content-structures">6.2 — Model Clarity&#x27;s content structures</a></li><li class="toc-level-2"><a href="#63-create-the-vocabularies">6.3 — Create the vocabularies</a></li><li class="toc-level-2"><a href="#64-load-claritys-content-and-files">6.4 — Load Clarity&#x27;s content and files</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#65-bonus-relate-events-to-their-images">⭐ 6.5 — Bonus: relate events to their images</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -460,6 +467,29 @@ by fetching one FAQ and one file with no credentials.
 <li><em>Global Menu</em> → <em>CMS</em> → <strong>Events</strong> → <em>Files</em> → <em>Venues Gallery</em>: the event image shows a preview.</li>
 </ol>
 <p><img alt="Liferay CMS → Contents listing Clarity's articles, FAQs, announcement, leadership profiles and job listings." src="../screenshots/6-4-contents.png"/></p>
+<h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own.</strong> Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> Christian is a member of the public site but not of the HR Space. In the HR Space, Christian can browse content but sees no <strong>New</strong> button. Why?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> Christian's Marketing Coordinator role blocks the HR Space.</li>
+<li><strong>B.</strong> Connecting HR to the site gives site members read access.</li>
+<li><strong>C.</strong> Every user in the instance can read every Space.</li>
+<li><strong>D.</strong> HR's content is published, and published content is read-only.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> In 6.2, Christian creates a throwaway FAQ in the Marketing Space, then tries to delete it, and the delete is refused. Why?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> Its Space role lets members add and update, not delete.</li>
+<li><strong>B.</strong> Nobody can delete published content, not even administrators.</li>
+<li><strong>C.</strong> Christian's regular role doesn't include the delete permission.</li>
+<li><strong>D.</strong> Entries can be deleted in the UI only, never through the API.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> 6.4 also sets Guest VIEW in each Space's <strong>default permissions</strong>. What would go wrong without that?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> Nothing: Guest already sees everything on a public site.</li>
+<li><strong>B.</strong> Visitors would see the entries but not their images.</li>
+<li><strong>C.</strong> Signed-in site members couldn't see the content either.</li>
+<li><strong>D.</strong> Entries created later would be hidden from visitors.</li>
+</ul>
 <h2 id="extras">⭐ Extras<a aria-hidden="true" class="heading-anchor" href="#extras" tabindex="-1">#</a></h2>
 <p>Optional, for when you finish early. The next level doesn't depend on them.</p>
 <h2 id="65-bonus-relate-events-to-their-images">⭐ 6.5 — Bonus: relate events to their images<a aria-hidden="true" class="heading-anchor" href="#65-bonus-relate-events-to-their-images" tabindex="-1">#</a></h2>

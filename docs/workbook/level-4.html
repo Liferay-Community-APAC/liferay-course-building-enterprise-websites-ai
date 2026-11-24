@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 4 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html" class="current">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#41-create-the-clarity-components-fragments">4.1 — Create the Clarity Components fragments</a></li><li class="toc-level-2"><a href="#42-put-the-custom-fragments-in-the-master-pages">4.2 — Put the custom fragments in the master pages</a></li><li class="toc-level-2"><a href="#43-wireframe-the-home-and-faq-pages">4.3 — Wireframe the Home and FAQ pages</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#44-bonus-a-configurable-sign-in-url">⭐ 4.4 — Bonus: a configurable sign-in URL</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#41-create-the-clarity-components-fragments">4.1 — Create the Clarity Components fragments</a></li><li class="toc-level-2"><a href="#42-put-the-custom-fragments-in-the-master-pages">4.2 — Put the custom fragments in the master pages</a></li><li class="toc-level-2"><a href="#43-wireframe-the-home-and-faq-pages">4.3 — Wireframe the Home and FAQ pages</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#44-bonus-a-configurable-sign-in-url">⭐ 4.4 — Bonus: a configurable sign-in URL</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -403,6 +410,29 @@ written, and deploy.
 <li>Open <strong>Home</strong> in edit mode (the pencil icon at the top right) → the <em>Browser</em> panel: the containers carry the names from the prompt. Leave without publishing.</li>
 <li>Open <strong>FAQ</strong> in edit mode → the <em>Browser</em> panel: the containers carry the names from the prompt. Leave without publishing.</li>
 </ol>
+<h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own.</strong> Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> After Level 7 maps the Clarity Card's <code>card-title</code> editable to the article title, a teammate renames that editable id to <code>title</code> in the fragment's HTML. What happens to the cards on Home?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> Nothing: a mapping follows its editable by position in the HTML.</li>
+<li><strong>B.</strong> The deploy fails, because the fragment no longer compiles.</li>
+<li><strong>C.</strong> Liferay notices the rename and moves the mapping to the new id.</li>
+<li><strong>D.</strong> The titles lose their mapping and show default text.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> Authors should be able to map a card's title to a CMS field in Level 7. What must the fragment provide for that?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> A text configuration option that authors point at a field.</li>
+<li><strong>B.</strong> An editable with an id, such as <code>card-title</code>.</li>
+<li><strong>C.</strong> A JavaScript function that fetches the title from the API.</li>
+<li><strong>D.</strong> A composition that ties the card to the structure.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> You change the Clarity Button's CSS and deploy only the fragment. Home already uses the button. What does Home show?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> The new style: pages read the fragment's code live from the library.</li>
+<li><strong>B.</strong> The new style, once each visitor's browser cache expires.</li>
+<li><strong>C.</strong> The old style, until the page itself is imported again.</li>
+<li><strong>D.</strong> The new style, but only after Liferay is restarted.</li>
+</ul>
 <h2 id="extras">⭐ Extras<a aria-hidden="true" class="heading-anchor" href="#extras" tabindex="-1">#</a></h2>
 <p>Optional, for when you finish early. The next level doesn't depend on them.</p>
 <h2 id="44-bonus-a-configurable-sign-in-url">⭐ 4.4 — Bonus: a configurable sign-in URL<a aria-hidden="true" class="heading-anchor" href="#44-bonus-a-configurable-sign-in-url" tabindex="-1">#</a></h2>

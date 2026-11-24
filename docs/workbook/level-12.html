@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 12 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html" class="current">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#121-the-inquiry-types-picklist-and-the-contact-us-object">12.1 — The Inquiry Types picklist and the Contact Us object</a></li><li class="toc-level-2"><a href="#122-the-contact-us-form">12.2 — The Contact Us form</a></li><li class="toc-level-2"><a href="#123-a-follow-up-workflow-for-new-requests">12.3 — A follow-up workflow for new requests</a></li><li class="toc-level-2"><a href="#124-the-contact-us-responses-dashboard">12.4 — The Contact Us Responses dashboard</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#125-bonus-a-two-step-form">⭐ 12.5 — Bonus: a two-step form</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#121-the-inquiry-types-picklist-and-the-contact-us-object">12.1 — The Inquiry Types picklist and the Contact Us object</a></li><li class="toc-level-2"><a href="#122-the-contact-us-form">12.2 — The Contact Us form</a></li><li class="toc-level-2"><a href="#123-a-follow-up-workflow-for-new-requests">12.3 — A follow-up workflow for new requests</a></li><li class="toc-level-2"><a href="#124-the-contact-us-responses-dashboard">12.4 — The Contact Us Responses dashboard</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#125-bonus-a-two-step-form">⭐ 12.5 — Bonus: a two-step form</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -423,6 +430,29 @@ this data set. Deploy.
 </ol>
 <p><img alt="Contact Us Responses as Daniel Raymond: one pending request from Priya Sharma, with filter, sort and row actions." src="../screenshots/12-4-responses.png"/></p>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> approving the task as Daniel is how you'd accept the workflow in a real project. The data set shows only entries pending review, so an approved request leaves the dashboard.</p>
+<h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own.</strong> Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> Guest has <strong>ADD_OBJECT_ENTRY</strong> on Contact Us, but not VIEW. Why not grant VIEW too?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> Guest can't hold VIEW on objects at all.</li>
+<li><strong>B.</strong> VIEW would stop the form from submitting.</li>
+<li><strong>C.</strong> Anyone could read every submission.</li>
+<li><strong>D.</strong> VIEW can only be granted to site members.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> Someone removes Guest's ADD_OBJECT_ENTRY on Contact Us. What do visitors see on the Contact Us page?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> The form, with an error when they submit.</li>
+<li><strong>B.</strong> A prompt to sign in before they can submit.</li>
+<li><strong>C.</strong> The form, with its fields read-only.</li>
+<li><strong>D.</strong> No form at all, and no error anywhere.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> Daniel approves one request's Follow Up task. It disappears from Contact Us Responses. What happened to the entry?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> It was deleted when the task was approved.</li>
+<li><strong>B.</strong> It's approved; the list shows pending ones.</li>
+<li><strong>C.</strong> It moved to the distributor portal site.</li>
+<li><strong>D.</strong> It's hidden from Daniel, who approved it.</li>
+</ul>
 <h2 id="extras">⭐ Extras<a aria-hidden="true" class="heading-anchor" href="#extras" tabindex="-1">#</a></h2>
 <p>Optional, for when you finish early. The next level doesn't depend on them.</p>
 <h2 id="125-bonus-a-two-step-form">⭐ 12.5 — Bonus: a two-step form<a aria-hidden="true" class="heading-anchor" href="#125-bonus-a-two-step-form" tabindex="-1">#</a></h2>

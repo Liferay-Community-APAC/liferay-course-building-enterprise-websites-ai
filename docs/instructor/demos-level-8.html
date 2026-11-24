@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Demo workbook</span> <span class="wb-pos">Level 8 of 13</span></summary><a href="demos.html">Start here</a><p class="day">Day 1</p><a href="demos-kickoff.html">Kickoff</a><a href="demos-setup.html">Setup</a><a href="demos-platform.html">Capabilities</a><a href="demos-level-1.html">1 · Users and permissions</a><a href="demos-level-2.html">2 · Sites</a><a href="demos-level-3.html">3 · Pages, master pages and navigation</a><a href="demos-level-4.html">4 · Fragments and page compositions</a><a href="demos-level-5.html">5 · Design</a><a href="demos-level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="demos-level-7.html">7 · Displaying content</a><a href="demos-level-8.html" class="current">8 · Commerce</a><a href="demos-level-9.html">9 · Headless APIs</a><a href="demos-level-10.html">10 · Workflow and publishing</a><a href="demos-level-11.html">11 · Search</a><a href="demos-level-12.html">12 · Objects</a><a href="demos-level-13.html">13 · Personalization</a><a href="demos-operations.html">Performance tuning and maintenance</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#d26-the-product-journey">D2.6 — The product journey</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#d26-the-product-journey">D2.6 — The product journey</a></li><li class="toc-level-2"><a href="#knowledge-check-answers">Knowledge check answers</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -319,6 +326,33 @@ em { color: inherit; }
 <li><em>Global Menu</em> → <em>Commerce</em> → <em>Specifications</em> → <em>Specification Labels</em> → <strong>expect:</strong> Frame Material and Frame Color are marked <em>Use in Faceted Navigation</em>.</li>
 <li><em>Global Menu</em> → <em>Commerce</em> → <em>Channels</em> → <strong>Clarity Public</strong> → <em>Type</em> → <strong>expect:</strong> linked to <strong>Clarity Public Enterprise Website</strong>.</li>
 </ol>
+<h2 id="knowledge-check-answers">Knowledge check answers<a aria-hidden="true" class="heading-anchor" href="#knowledge-check-answers" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">🕒 <strong>5 minutes</strong> · at the end of the block · learners answer on their own first (<a href="../workbook/level-8.html#knowledge-check">Level 8, Knowledge check</a>)</p>
+<p class="wb wb-say">💡 <strong>Say:</strong> ask for a show of hands on each option before you give the answer. A split room is the moment to explain.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> You create a second site and add a Commerce Search Results widget to a page. It shows no products, though the catalog has eleven. What's most likely missing?</p>
+<p class="wb wb-answer">✔ <strong>Answer: D.</strong> The new site isn't linked to a channel. A site shows products through a channel. 8.3 links Clarity Public to the public site; any other site needs its own channel link before Commerce widgets show anything.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> They're published and show on the public site.</li>
+<li><strong>B:</strong> Then signed-in admins would still see them.</li>
+<li><strong>C:</strong> The widget has a default display.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> Why does Clarity create a channel at all if it takes no orders? (The channel is how a site sees products, orders or not.)</p>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> Visitors want to filter sunglasses by frame size, but the Specification Facet shows only Frame Color and Frame Material. Why?</p>
+<p class="wb wb-answer">✔ <strong>Answer: A.</strong> Frame Size isn't used in faceted navigation. 8.1 marks only Frame Material and Frame Color as used in faceted navigation. The Specification Facet only offers specifications with that flag.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>B:</strong> There's no such limit.</li>
+<li><strong>C:</strong> It has values (54-20 on the aviators).</li>
+<li><strong>D:</strong> All three are in that group.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> Why not mark every specification? (A long facet list hurts visitors; pick the ones they filter by.)</p>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> Marketing wants a <strong>New</strong> badge on the category cards on the Products page. Where does that change go?</p>
+<p class="wb wb-answer">✔ <strong>Answer: C.</strong> In the Clarity Category Cards widget template. The cards' markup comes from the widget template the Commerce Categories Navigation widget uses. Changing the template changes how the widget displays its items, without touching the data.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> Products don't control the category cards.</li>
+<li><strong>B:</strong> The vocabulary holds the categories, not how they're displayed.</li>
+<li><strong>D:</strong> CSS can style the badge, but the markup comes from the template.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> What does the template read the images from? (Marketing files, looked up by name before deploy, not by hard-coded id.)</p>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="demos-level-7.html"><span>← Previous</span>Level 7 — Displaying content: mapping, display pages and collections</a><a class="next" href="demos-level-9.html"><span>Next →</span>Level 9 — Headless APIs: importing legacy data</a></nav>
     </main>
   </div>

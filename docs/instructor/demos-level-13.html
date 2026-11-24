@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Demo workbook</span> <span class="wb-pos">Level 13 of 13</span></summary><a href="demos.html">Start here</a><p class="day">Day 1</p><a href="demos-kickoff.html">Kickoff</a><a href="demos-setup.html">Setup</a><a href="demos-platform.html">Capabilities</a><a href="demos-level-1.html">1 · Users and permissions</a><a href="demos-level-2.html">2 · Sites</a><a href="demos-level-3.html">3 · Pages, master pages and navigation</a><a href="demos-level-4.html">4 · Fragments and page compositions</a><a href="demos-level-5.html">5 · Design</a><a href="demos-level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="demos-level-7.html">7 · Displaying content</a><a href="demos-level-8.html">8 · Commerce</a><a href="demos-level-9.html">9 · Headless APIs</a><a href="demos-level-10.html">10 · Workflow and publishing</a><a href="demos-level-11.html">11 · Search</a><a href="demos-level-12.html">12 · Objects</a><a href="demos-level-13.html" class="current">13 · Personalization</a><a href="demos-operations.html">Performance tuning and maintenance</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#d212-personalization-by-audience">D2.12 — Personalization by audience</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#d212-personalization-by-audience">D2.12 — Personalization by audience</a></li><li class="toc-level-2"><a href="#knowledge-check-answers">Knowledge check answers</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -318,6 +325,33 @@ em { color: inherit; }
 <li><em>Site Menu</em> → <em>Design</em> → <em>Fragments</em> → <strong>expect:</strong> <strong>Clarity Audience Container</strong>, with its user group and mode settings.</li>
 <li>In a private window, open Home as Guest, then sign in as <code>terrence.wheatley@distributor.com</code> → <strong>expect:</strong> <strong>Welcome Back!</strong>, and no distributor promotion. Sign out → <strong>expect:</strong> the promotion is back.</li>
 </ol>
+<h2 id="knowledge-check-answers">Knowledge check answers<a aria-hidden="true" class="heading-anchor" href="#knowledge-check-answers" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">🕒 <strong>5 minutes</strong> · at the end of the block · learners answer on their own first (<a href="../workbook/level-13.html#knowledge-check">Level 13, Knowledge check</a>)</p>
+<p class="wb wb-say">💡 <strong>Say:</strong> ask for a show of hands on each option before you give the answer. A split room is the moment to explain.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> Why does the Clarity Audience Container decide in FreeMarker, on the server, instead of hiding content with JavaScript?</p>
+<p class="wb wb-answer">✔ <strong>Answer: C.</strong> Hidden content never reaches the browser. Content hidden in the browser has already been sent: anyone can read it in the page source. Deciding on the server means a visitor outside the audience never receives it.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> JavaScript could fetch them, but the content would already be in the page.</li>
+<li><strong>B:</strong> Speed isn't the reason.</li>
+<li><strong>D:</strong> Fragments can run JavaScript.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> Is this a security control? (For promotions, it's tidiness. Real access control belongs in page and content permissions.)</p>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> Marketing wants a different Home banner for anonymous visitors arriving from a spring campaign. What does Clarity need?</p>
+<p class="wb wb-answer">✔ <strong>Answer: A.</strong> Liferay Data Platform segments. The Audience Container reads who's signed in. Anonymous visitors are all just Guest to it. Behavior, location or campaign targeting is Liferay Data Platform's job.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>B:</strong> "Others" means everyone outside the user group, campaign or not.</li>
+<li><strong>C:</strong> They're deprecated on this release; the course doesn't build on them.</li>
+<li><strong>D:</strong> A second site doesn't target anyone.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> What do you need before using Data Platform segments? (A Data Platform workspace connected to your instance.)</p>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> In the page editor, the admin sees both Home banners, each with a label. Is that a bug?</p>
+<p class="wb wb-answer">✔ <strong>Answer: B.</strong> No: the editor shows both so both can be edited. 13.1 asks for that: in edit mode the container shows its content with a label saying who it's for. On the live page, only the matching banner renders.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> Authors couldn't edit the other banner then.</li>
+<li><strong>C:</strong> Both compiled; that's why both show.</li>
+<li><strong>D:</strong> On the live site the admin sees the "others" version, since the admin isn't a distributor.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> How do you check what Terrence sees? (A private window signed in as Terrence, or the agent fetching as Terrence.)</p>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="demos-level-12.html"><span>← Previous</span>Level 12 — Objects: the Contact Us form and its follow-up</a><a class="next" href="demos-operations.html"><span>Next →</span>Performance tuning and maintenance</a></nav>
     </main>
   </div>

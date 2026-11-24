@@ -44,3 +44,5 @@ The last three columns say who uses them:
 | 16:45–17:00 | Conclusion, certification, feedback, Q&A | Talk | — | [39–41](slides/day-2.html#39) | — |
 
 Bonus exercises (⭐) are for fast learners during the hands-on blocks; skip them in the schedule.
+
+Each level block (Levels 1 to 13) ends with a knowledge check: about 3 minutes for learners to answer three questions on their own, then about 5 minutes for you to go over the answers, from the end of the level's page in the [demo workbook](demos.html). They come out of the block's hands-on time; if a block runs late, go over just the question the room split on most.

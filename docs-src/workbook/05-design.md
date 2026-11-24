@@ -92,3 +92,28 @@ stylesheet link of Clarity Theme CSS and the favicon link in its HTML.
 ![Home at the end of Day 1, as a visitor sees it: Clarity's header and menu, Poppins headings and teal pill buttons. The grey boxes are image placeholders you map to real images in Level 7.](screenshots/5-3-home.png)
 
 📖 **Why it matters:** once a Theme CSS client extension replaces the theme's CSS, the Classic theme's style book no longer applies to those pages. 5.1 is a quick check; 5.2 is Clarity's real brand.
+
+## 🧠 Knowledge check
+
+⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+
+**Question 1.** After 5.3, someone changes the Primary color in **Clarity Style Book** to red. What changes on pages that use the Primary Master Page?
+
+- **A.** The buttons turn red, because the style book is the site's default.
+- **B.** Only the page editor's preview turns red, until the page is published.
+- **C.** Only pages without a master page turn red.
+- **D.** Nothing: Clarity Theme CSS has replaced what the style book styles.
+
+**Question 2.** Why do Clarity Theme CSS and Clarity Favicon live in their own project, `client-extensions/clarity-theme`, and not in `clarity-site`?
+
+- **A.** Frontend and site initializer extensions can't share a project.
+- **B.** Themes must live in the workspace's themes/ folder instead.
+- **C.** A separate project deploys faster and keeps the zip small.
+- **D.** The favicon needs a project of its own, so the theme went with it.
+
+**Question 3.** On a fresh environment, `clarity-site` is deployed before `clarity-theme`. Every page shows Classic's default look. What's the cause, and the fix?
+
+- **A.** The style book overrides the Theme CSS. Delete the style book.
+- **B.** Liferay caches CSS. Restart it to load the new stylesheet.
+- **C.** The binding was skipped. Deploy the theme, then the site again.
+- **D.** The Theme CSS belongs in metadata.json. Add it there and redeploy.

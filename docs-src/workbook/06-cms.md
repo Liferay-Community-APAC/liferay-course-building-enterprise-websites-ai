@@ -177,6 +177,33 @@ by fetching one FAQ and one file with no credentials.
 
 ![Liferay CMS → Contents listing Clarity's articles, FAQs, announcement, leadership profiles and job listings.](screenshots/6-4-contents.png)
 
+
+
+## 🧠 Knowledge check
+
+⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+
+**Question 1.** Christian is a member of the public site but not of the HR Space. In the HR Space, Christian can browse content but sees no **New** button. Why?
+
+- **A.** Christian's Marketing Coordinator role blocks the HR Space.
+- **B.** Connecting HR to the site gives site members read access.
+- **C.** Every user in the instance can read every Space.
+- **D.** HR's content is published, and published content is read-only.
+
+**Question 2.** In 6.2, Christian creates a throwaway FAQ in the Marketing Space, then tries to delete it, and the delete is refused. Why?
+
+- **A.** Its Space role lets members add and update, not delete.
+- **B.** Nobody can delete published content, not even administrators.
+- **C.** Christian's regular role doesn't include the delete permission.
+- **D.** Entries can be deleted in the UI only, never through the API.
+
+**Question 3.** 6.4 also sets Guest VIEW in each Space's **default permissions**. What would go wrong without that?
+
+- **A.** Nothing: Guest already sees everything on a public site.
+- **B.** Visitors would see the entries but not their images.
+- **C.** Signed-in site members couldn't see the content either.
+- **D.** Entries created later would be hidden from visitors.
+
 ## ⭐ Extras
 
 Optional, for when you finish early. The next level doesn't depend on them.

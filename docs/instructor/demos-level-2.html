@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Demo workbook</span> <span class="wb-pos">Level 2 of 13</span></summary><a href="demos.html">Start here</a><p class="day">Day 1</p><a href="demos-kickoff.html">Kickoff</a><a href="demos-setup.html">Setup</a><a href="demos-platform.html">Capabilities</a><a href="demos-level-1.html">1 · Users and permissions</a><a href="demos-level-2.html" class="current">2 · Sites</a><a href="demos-level-3.html">3 · Pages, master pages and navigation</a><a href="demos-level-4.html">4 · Fragments and page compositions</a><a href="demos-level-5.html">5 · Design</a><a href="demos-level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="demos-level-7.html">7 · Displaying content</a><a href="demos-level-8.html">8 · Commerce</a><a href="demos-level-9.html">9 · Headless APIs</a><a href="demos-level-10.html">10 · Workflow and publishing</a><a href="demos-level-11.html">11 · Search</a><a href="demos-level-12.html">12 · Objects</a><a href="demos-level-13.html">13 · Personalization</a><a href="demos-operations.html">Performance tuning and maintenance</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#d17-site-settings-and-instance-settings">D1.7 — Site settings and instance settings</a></li><li class="toc-level-2"><a href="#d18-least-privilege-as-christian">D1.8 — Least privilege, as Christian</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#d17-site-settings-and-instance-settings">D1.7 — Site settings and instance settings</a></li><li class="toc-level-2"><a href="#d18-least-privilege-as-christian">D1.8 — Least privilege, as Christian</a></li><li class="toc-level-2"><a href="#knowledge-check-answers">Knowledge check answers</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -335,6 +342,33 @@ clarity-public, and list what you removed. Change nothing else.
 <li>Run <a href="../workbook/level-2.html#24-give-the-marketing-coordinator-role-its-permissions">2.4</a> → <strong>expect:</strong> the agent lists the permissions, with the class, before it grants them. Read the list.</li>
 <li>Impersonate Christian again → <strong>expect:</strong> the sections are there now.</li>
 </ol>
+<h2 id="knowledge-check-answers">Knowledge check answers<a aria-hidden="true" class="heading-anchor" href="#knowledge-check-answers" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">🕒 <strong>5 minutes</strong> · at the end of the block · learners answer on their own first (<a href="../workbook/level-2.html#knowledge-check">Level 2, Knowledge check</a>)</p>
+<p class="wb wb-say">💡 <strong>Say:</strong> ask for a show of hands on each option before you give the answer. A split room is the moment to explain.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> In 2.4 you grant the <strong>regular</strong> role Marketing Coordinator permission to manage Collections, at company scope. Christian holds that role. In which sites can Christian now manage collections?</p>
+<p class="wb wb-answer">✔ <strong>Answer: B.</strong> In every site Christian can work in, because the role is regular. A regular role's permissions apply at company scope: in every site where its holder can work. That's why 2.4 lists exactly which actions to grant, and nothing beyond them.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> The site role plays no part; the permission comes from the regular role.</li>
+<li><strong>C:</strong> Regular roles don't depend on site roles.</li>
+<li><strong>D:</strong> Company scope already covers every site; there's no per-site switch for a regular role.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> If Clarity wanted Christian to curate collections in the public site only, what would change? (Use a site role, assigned in that site only.)</p>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> The public site's membership type is <strong>Open</strong>. What does that allow?</p>
+<p class="wb wb-answer">✔ <strong>Answer: D.</strong> Any signed-in user can join the site without approval. Membership type controls how users join a site: Open lets any signed-in user join themself, Restricted needs approval, Private allows no requests. It says nothing about what visitors can see or do.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> Page visibility is set by page permissions, not by membership type.</li>
+<li><strong>B:</strong> User groups are added as members explicitly (by hand, in Level 2).</li>
+<li><strong>C:</strong> Guest's rights come from permissions; membership type doesn't grant any.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> Level 3's site initializer keeps this setting in <code>site-configuration.json</code>. Why? (A deploy otherwise resets an existing site to Restricted.)</p>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> 2.3 puts the site settings in a re-runnable script, <code>scripts/site_settings.py</code>. Why does the course need to run it again later?</p>
+<p class="wb wb-answer">✔ <strong>Answer: A.</strong> Each site deploy resets some of them, such as languages. From Level 3 on, the site initializer is deployed over and over, and each deploy resets settings it has no file for, such as the languages. <code>scripts/deploy_site.sh</code> re-applies them right after every deploy.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>B:</strong> Settings are stored in the database and survive restarts.</li>
+<li><strong>C:</strong> The agent writes them through the API (or an OSGi configuration) in 2.3.</li>
+<li><strong>D:</strong> Nothing expires; the deploys are what reset them.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> What's the general lesson? (When a tool resets something, automate putting it back rather than remembering to.)</p>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="demos-level-1.html"><span>← Previous</span>Level 1 — Users and permissions</a><a class="next" href="demos-level-3.html"><span>Next →</span>Level 3 — Pages, master pages and navigation</a></nav>
     </main>
   </div>

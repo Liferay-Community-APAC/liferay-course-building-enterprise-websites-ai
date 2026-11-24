@@ -76,3 +76,39 @@
 2. As admin: *Site Menu* → *Site Builder* → **Collections** → **expect:** Helpful Articles, one FAQ collection per category, Announcements and Blog Posts, all *Dynamic*.
 3. Open **Helpful Articles** → **expect:** item type *Article (CMS)*, its filter and order.
 4. Open FAQ in a private window and expand *What is your return policy?* under Returns and Exchanges → **expect:** the answer appears.
+
+### Knowledge check answers
+
+🕒 **5 minutes** · at the end of the block · learners answer on their own first ([Level 7, Knowledge check](../workbook/level-7.html#knowledge-check))
+
+💡 **Say:** ask for a show of hands on each option before you give the answer. A split room is the moment to explain.
+
+**Question 1.** Marketing replaces the `gradient-overlay` file in the Marketing Space with a new version. What happens to the Home page?
+
+✔ **Answer: C.** It shows the new image right away, with no page edit. Mapping links the page to the content item. Change the content and every page that maps it follows, with no page edit and no deploy.
+
+- **A:** No page edit is needed: that's the point of mapping.
+- **B:** No deploy is needed either.
+- **D:** The mapping points to the file, which now has a new version.
+
+**Ask next:** Where else on Clarity's site does this matter? (The logo in both masters: change it once in the Branding Space.)
+
+**Question 2.** A new Article is published in the Marketing Space. What happens to **Helpful Articles** (dynamic, newest first, at most 3) and to a manual collection **Editor's Picks**?
+
+✔ **Answer: B.** Helpful Articles adds it; Editor's Picks stays. A dynamic collection holds whatever matches its rules, so it updates itself. A manual collection holds exactly the items someone picked, in their order.
+
+- **A:** A manual collection never adds items by itself.
+- **C:** The dynamic one updates on its own.
+- **D:** That's the reverse of how they behave.
+
+**Ask next:** When would Clarity's editors want a manual collection? (A curated campaign page, where the order matters.)
+
+**Question 3.** You deploy `clarity-site` to a fresh UAT environment. The display pages render, but the images mapped by file id show nothing. Why?
+
+✔ **Answer: B.** The file ids in the tree only exist locally. The agent mapped some images by numeric id, and those ids come from your instance's database. On another instance the same file has another id. Real projects look ids up by name before each deploy (the 7.2 bonus).
+
+- **A:** Then the display pages would answer 404, not render without images.
+- **C:** They can; it worked on your instance.
+- **D:** A restart doesn't change ids.
+
+**Ask next:** What's portable in the tree, and what isn't? (ERCs and names are; numeric ids aren't.)

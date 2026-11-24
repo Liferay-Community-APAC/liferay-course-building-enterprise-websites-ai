@@ -57,6 +57,33 @@ groups and roles as Liferay returns them, not as you intended them.
 
 📖 **Why it matters:** in the Control Panel you can also assign a role to a **user group**, so every member gets it. Liferay's headless API assigns roles to users only, so the agent assigns them one by one here. You can see both kinds of assignee in *Global Menu* → *Control Panel* → *Roles* → a role → *Assignees*.
 
+
+
+## 🧠 Knowledge check
+
+⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+
+**Question 1.** Clarity hires a second Marketing Coordinator. In the Control Panel you can give a role to the **Marketing** user group, so every member gets it. Why did your agent assign each persona's role to the user directly in 1.1?
+
+- **A.** User group role assignment is deprecated on this release, so the agent avoided it.
+- **B.** Regular roles go to users only; only site roles can go to user groups.
+- **C.** Liferay's headless API assigns roles to users only, not to user groups.
+- **D.** The prompt told the agent not to use user groups for anything.
+
+**Question 2.** Each persona gets an external reference code like `PERSONA-CCARTER`. You run the 1.1 prompt a second time. What does the ERC make possible?
+
+- **A.** The agent updates the same user instead of adding a duplicate.
+- **B.** Personas sign in with it instead of an email, which is faster.
+- **C.** Liferay generates each persona's password from the code.
+- **D.** Each persona joins every site whose code matches the prefix.
+
+**Question 3.** **Site Content Contributor** is a site role. Christian holds it in the public site. Later, Christian is added as a member of the Clarity Distributor Portal. What does that role give Christian there?
+
+- **A.** The same permissions as in the public site: roles apply everywhere.
+- **B.** Read-only versions of the same permissions, as a plain member.
+- **C.** The same permissions: joining a site carries over a user's site roles.
+- **D.** Nothing, unless it's assigned in that site as well.
+
 ## ⭐ Extras
 
 Optional, for when you finish early. The next level doesn't depend on them.

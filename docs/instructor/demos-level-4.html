@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Demo workbook</span> <span class="wb-pos">Level 4 of 13</span></summary><a href="demos.html">Start here</a><p class="day">Day 1</p><a href="demos-kickoff.html">Kickoff</a><a href="demos-setup.html">Setup</a><a href="demos-platform.html">Capabilities</a><a href="demos-level-1.html">1 · Users and permissions</a><a href="demos-level-2.html">2 · Sites</a><a href="demos-level-3.html">3 · Pages, master pages and navigation</a><a href="demos-level-4.html" class="current">4 · Fragments and page compositions</a><a href="demos-level-5.html">5 · Design</a><a href="demos-level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="demos-level-7.html">7 · Displaying content</a><a href="demos-level-8.html">8 · Commerce</a><a href="demos-level-9.html">9 · Headless APIs</a><a href="demos-level-10.html">10 · Workflow and publishing</a><a href="demos-level-11.html">11 · Search</a><a href="demos-level-12.html">12 · Objects</a><a href="demos-level-13.html">13 · Personalization</a><a href="demos-operations.html">Performance tuning and maintenance</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#d111-a-fragments-configuration-and-code">D1.11 — A fragment&#x27;s configuration and code</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#d111-a-fragments-configuration-and-code">D1.11 — A fragment&#x27;s configuration and code</a></li><li class="toc-level-2"><a href="#knowledge-check-answers">Knowledge check answers</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -319,6 +326,33 @@ em { color: inherit; }
 <li>Leave without publishing.</li>
 <li>Open <strong>Home</strong> in edit mode (pencil icon) and select the search button → <strong>expect:</strong> its configuration appears in the right panel.</li>
 </ol>
+<h2 id="knowledge-check-answers">Knowledge check answers<a aria-hidden="true" class="heading-anchor" href="#knowledge-check-answers" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">🕒 <strong>5 minutes</strong> · at the end of the block · learners answer on their own first (<a href="../workbook/level-4.html#knowledge-check">Level 4, Knowledge check</a>)</p>
+<p class="wb wb-say">💡 <strong>Say:</strong> ask for a show of hands on each option before you give the answer. A split room is the moment to explain.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> After Level 7 maps the Clarity Card's <code>card-title</code> editable to the article title, a teammate renames that editable id to <code>title</code> in the fragment's HTML. What happens to the cards on Home?</p>
+<p class="wb wb-answer">✔ <strong>Answer: D.</strong> The titles lose their mapping and show default text. A mapping is stored against the editable's id. Change the id and the mapping points at nothing, so the title falls back to the fragment's default text. That's why 4.1 says the ids must be exactly as written.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> Mappings are keyed by id, not by position.</li>
+<li><strong>B:</strong> The fragment still compiles; the break is silent.</li>
+<li><strong>C:</strong> Liferay doesn't track renames.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> How would you change an editable id safely? (Update every page definition and mapping that uses it in the same change.)</p>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> Authors should be able to map a card's title to a CMS field in Level 7. What must the fragment provide for that?</p>
+<p class="wb wb-answer">✔ <strong>Answer: B.</strong> An editable with an id, such as <code>card-title</code>. Only editables (text, rich text, image, link) can be mapped to content fields. Configuration options are settings an author picks, such as a style or size; they can't be mapped.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> Configuration values can't be mapped to content.</li>
+<li><strong>C:</strong> Mapping happens on the server; no JavaScript is needed.</li>
+<li><strong>D:</strong> A composition arranges fragments; it doesn't make a field mappable.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> Which Clarity Button options are configuration, and which are editables? (Type, style and size are configuration; the link text and URL are an editable.)</p>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> You change the Clarity Button's CSS and deploy only the fragment. Home already uses the button. What does Home show?</p>
+<p class="wb wb-answer">✔ <strong>Answer: C.</strong> The old style, until the page itself is imported again. When a page is imported, Liferay copies each fragment's HTML, CSS and JavaScript into the page. Updating the fragment doesn't touch those copies, so the page must be imported again afterwards. That's the deploy order 4.2 asks for: fragments first, then pages.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> Pages hold a copy, not a reference.</li>
+<li><strong>B:</strong> The old code is in the page itself, not in the browser cache.</li>
+<li><strong>D:</strong> A restart doesn't refresh the page's copy.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> What does that mean for a fragment used on fifty pages? (Every page needs re-importing; the initializer does it on the next deploy.)</p>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="demos-level-3.html"><span>← Previous</span>Level 3 — Pages, master pages and navigation</a><a class="next" href="demos-level-5.html"><span>Next →</span>Level 5 — Design: style book, Theme CSS, favicon and logo</a></nav>
     </main>
   </div>

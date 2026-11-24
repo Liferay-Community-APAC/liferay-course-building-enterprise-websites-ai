@@ -409,8 +409,10 @@ BLOCK_ICONS = {
     "📖": "wb-why",
     "🧹": "wb-clean",
     "ℹ": "wb-note",
+    "✔": "wb-answer",
 }
-LIST_AFTER = {"wb-do-label": "wb-do", "wb-verify-label": "wb-verify", "wb-clean": "wb-do"}
+LIST_AFTER = {"wb-do-label": "wb-do", "wb-verify-label": "wb-verify", "wb-clean": "wb-do",
+              "wb-quiz-q": "wb-quiz", "wb-answer": "wb-quiz-why"}
 
 
 def style_workbook_blocks(soup: BeautifulSoup) -> None:
@@ -421,6 +423,10 @@ def style_workbook_blocks(soup: BeautifulSoup) -> None:
         css = next((c for icon, c in BLOCK_ICONS.items() if text.startswith(icon)), None)
         if css is None and re.match(r"^(Requirement|Skills):", text):
             css = "wb-tags"
+        if css is None and re.match(r"^Question \d+\.", text):
+            css = "wb-quiz-q"
+        if css is None and text.startswith("Ask next:"):
+            css = "wb-ask"
         if css is None:
             continue
         paragraph["class"] = [c for c in paragraph.get("class", []) if c not in ("adm-block", "adm-important")] + ["wb", css]
@@ -596,6 +602,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }

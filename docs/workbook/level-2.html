@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Level 2 of 13</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html" class="current">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#21-create-claritys-two-sites">2.1 — Create Clarity&#x27;s two sites</a></li><li class="toc-level-2"><a href="#22-add-members-and-assign-site-roles">2.2 — Add members and assign site roles</a></li><li class="toc-level-2"><a href="#23-configure-the-public-site">2.3 — Configure the public site</a></li><li class="toc-level-2"><a href="#24-give-the-marketing-coordinator-role-its-permissions">2.4 — Give the Marketing Coordinator role its permissions</a></li><li class="toc-level-2"><a href="#25-point-the-instance-at-the-public-site">2.5 — Point the instance at the public site</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#21-create-claritys-two-sites">2.1 — Create Clarity&#x27;s two sites</a></li><li class="toc-level-2"><a href="#22-add-members-and-assign-site-roles">2.2 — Add members and assign site roles</a></li><li class="toc-level-2"><a href="#23-configure-the-public-site">2.3 — Configure the public site</a></li><li class="toc-level-2"><a href="#24-give-the-marketing-coordinator-role-its-permissions">2.4 — Give the Marketing Coordinator role its permissions</a></li><li class="toc-level-2"><a href="#25-point-the-instance-at-the-public-site">2.5 — Point the instance at the public site</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -448,6 +455,29 @@ Liferay: give me the exact screen and fields to set them myself.
 <li><em>Global Menu</em> → <em>Control Panel</em> → <em>Instance Settings</em> → <em>Platform</em> → <em>Instance Configuration</em> → <em>General</em>: the three fields read <code>/web/clarity</code>.</li>
 <li>Open <code>http://localhost:8080/</code> in a private window: it redirects to the Clarity site (still empty until Level 3).</li>
 </ol>
+<h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own.</strong> Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> In 2.4 you grant the <strong>regular</strong> role Marketing Coordinator permission to manage Collections, at company scope. Christian holds that role. In which sites can Christian now manage collections?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> Only in the public site, where Christian is a Site Content Contributor.</li>
+<li><strong>B.</strong> In every site Christian can work in, because the role is regular.</li>
+<li><strong>C.</strong> Only in sites where Christian also holds a site role.</li>
+<li><strong>D.</strong> In none, until each site grants the permission in its own settings.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> The public site's membership type is <strong>Open</strong>. What does that allow?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> Visitors who aren't signed in can see the site's private pages.</li>
+<li><strong>B.</strong> Every user group in the instance becomes a member of the site.</li>
+<li><strong>C.</strong> Guest can add content, as long as a workflow reviews it.</li>
+<li><strong>D.</strong> Any signed-in user can join the site without approval.</li>
+</ul>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> 2.3 puts the site settings in a re-runnable script, <code>scripts/site_settings.py</code>. Why does the course need to run it again later?</p>
+<ul class="wb-list wb-quiz">
+<li><strong>A.</strong> Each site deploy resets some of them, such as languages.</li>
+<li><strong>B.</strong> Liferay forgets site settings each time the server restarts.</li>
+<li><strong>C.</strong> The headless API can't store them, so a script holds them instead.</li>
+<li><strong>D.</strong> Settings expire overnight and must be re-applied each morning.</li>
+</ul>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="level-1.html"><span>← Previous</span>Level 1 — Users and permissions</a><a class="next" href="level-3.html"><span>Next →</span>Level 3 — Pages, master pages and navigation</a></nav>
     </main>
   </div>

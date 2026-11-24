@@ -162,6 +162,33 @@ and check every page using the primary master shows it.
 
 ⚠️ **If it doesn't match:** if the bar is empty after a deploy, redeploy once: the initializer sometimes imports the master page before the collection it points to exists.
 
+
+
+## 🧠 Knowledge check
+
+⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+
+**Question 1.** Marketing replaces the `gradient-overlay` file in the Marketing Space with a new version. What happens to the Home page?
+
+- **A.** Nothing, until someone edits and republishes the page.
+- **B.** It shows the new image after the next site deploy.
+- **C.** It shows the new image right away, with no page edit.
+- **D.** The image breaks, since the mapping points to the old version.
+
+**Question 2.** A new Article is published in the Marketing Space. What happens to **Helpful Articles** (dynamic, newest first, at most 3) and to a manual collection **Editor's Picks**?
+
+- **A.** Both show it, each as its first item.
+- **B.** Helpful Articles adds it; Editor's Picks stays.
+- **C.** Neither changes until an editor updates them.
+- **D.** Editor's Picks shows it; Helpful Articles doesn't.
+
+**Question 3.** You deploy `clarity-site` to a fresh UAT environment. The display pages render, but the images mapped by file id show nothing. Why?
+
+- **A.** UAT's Spaces aren't connected to the site yet.
+- **B.** The file ids in the tree only exist locally.
+- **C.** Images can't be mapped on display pages on UAT.
+- **D.** UAT needs a restart before it serves new files.
+
 ## ⭐ Extras
 
 Optional, for when you finish early. The next level doesn't depend on them.

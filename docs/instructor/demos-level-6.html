@@ -120,6 +120,13 @@ body {
 .doc-content ol.wb-verify li { margin: .35rem 0; }
 .doc-content ol.wb-do, .doc-content ul.wb-do { background: var(--lf-neutral-1); border-radius: var(--lf-radius); padding: .75rem 1rem .75rem 2.4rem; margin-top: .25rem; }
 .doc-content h2 + p.wb-meta { margin-top: -.25rem; }
+/* Knowledge checks: questions in the learners' workbook, answers in the demo workbook */
+.doc-content p.wb-quiz-q { margin-top: 1.5rem; font-weight: 500; }
+.doc-content ul.wb-quiz { list-style: none; padding: 0; margin: .4rem 0 1rem; display: grid; gap: .35rem; }
+.doc-content ul.wb-quiz li { border: 1px solid var(--lf-neutral-2); border-radius: var(--lf-radius); padding: .45rem .8rem; margin: 0; }
+.doc-content p.wb-answer { background: var(--lf-success-bg); padding: .6rem .9rem; border-radius: var(--lf-radius); }
+.doc-content ul.wb-quiz-why { color: var(--lf-neutral-8); font-size: .95rem; }
+.doc-content p.wb-ask { border-left: 4px solid var(--lf-neutral-3, #cdced9); padding: .2rem .9rem; color: var(--lf-neutral-8); }
 
 /* Workbook navigation */
 .wb-levels { padding: 0 .25rem .75rem; margin-bottom: .75rem; border-bottom: 1px solid var(--lf-neutral-2); }
@@ -299,7 +306,7 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Demo workbook</span> <span class="wb-pos">Level 6 of 13</span></summary><a href="demos.html">Start here</a><p class="day">Day 1</p><a href="demos-kickoff.html">Kickoff</a><a href="demos-setup.html">Setup</a><a href="demos-platform.html">Capabilities</a><a href="demos-level-1.html">1 · Users and permissions</a><a href="demos-level-2.html">2 · Sites</a><a href="demos-level-3.html">3 · Pages, master pages and navigation</a><a href="demos-level-4.html">4 · Fragments and page compositions</a><a href="demos-level-5.html">5 · Design</a><a href="demos-level-6.html" class="current">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="demos-level-7.html">7 · Displaying content</a><a href="demos-level-8.html">8 · Commerce</a><a href="demos-level-9.html">9 · Headless APIs</a><a href="demos-level-10.html">10 · Workflow and publishing</a><a href="demos-level-11.html">11 · Search</a><a href="demos-level-12.html">12 · Objects</a><a href="demos-level-13.html">13 · Personalization</a><a href="demos-operations.html">Performance tuning and maintenance</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#d113-a-space-its-members-and-its-connected-site">D1.13 — A Space, its members and its connected site</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#d113-a-space-its-members-and-its-connected-site">D1.13 — A Space, its members and its connected site</a></li><li class="toc-level-2"><a href="#knowledge-check-answers">Knowledge check answers</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
@@ -319,6 +326,33 @@ em { color: inherit; }
 <li><em>Content Structures</em> → <strong>Event Information</strong> → <strong>expect:</strong> its fields, and that only the Events Space can use it.</li>
 <li>Open the <strong>HR</strong> Space → <em>Categories</em> → <strong>Location</strong> → <strong>expect:</strong> on the finished build, 26 categories (14 from Level 6, twelve more from the Level 9 batch import). Learners at Level 6 have 14, because the Level 9 import hasn't run yet.</li>
 </ol>
+<h2 id="knowledge-check-answers">Knowledge check answers<a aria-hidden="true" class="heading-anchor" href="#knowledge-check-answers" tabindex="-1">#</a></h2>
+<p class="wb wb-meta">🕒 <strong>5 minutes</strong> · at the end of the block · learners answer on their own first (<a href="../workbook/level-6.html#knowledge-check">Level 6, Knowledge check</a>)</p>
+<p class="wb wb-say">💡 <strong>Say:</strong> ask for a show of hands on each option before you give the answer. A split room is the moment to explain.</p>
+<p class="wb wb-quiz-q"><strong>Question 1.</strong> Christian is a member of the public site but not of the HR Space. In the HR Space, Christian can browse content but sees no <strong>New</strong> button. Why?</p>
+<p class="wb wb-answer">✔ <strong>Answer: B.</strong> Connecting HR to the site gives site members read access. Connecting a Space to a site gives that site's members the Connected Site Member role in the Space: read access. Adding content takes Space membership and a Space role, which Christian has in Marketing, not in HR.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> A role can't block access; permissions only add.</li>
+<li><strong>C:</strong> A user outside a Space and its connected sites can't read it.</li>
+<li><strong>D:</strong> Published content can be edited by those with permission.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> What should Clarity do with a Space of confidential drafts? (Don't connect it to the site, or every site member can read it.)</p>
+<p class="wb wb-quiz-q"><strong>Question 2.</strong> In 6.2, Christian creates a throwaway FAQ in the Marketing Space, then tries to delete it, and the delete is refused. Why?</p>
+<p class="wb wb-answer">✔ <strong>Answer: A.</strong> Its Space role lets members add and update, not delete. The prompt sets access through the Space's roles: members add, view and update; only administrators delete. Testing both sides, what's allowed and what's refused, is how you prove a permission design.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>B:</strong> Administrators can delete it, so it's not a global rule.</li>
+<li><strong>C:</strong> Regular roles don't decide Space permissions here.</li>
+<li><strong>D:</strong> The API deletes entries when the caller has permission.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> Why prove the refusal, not just the success? (A permission that's too broad also lets the success through.)</p>
+<p class="wb wb-quiz-q"><strong>Question 3.</strong> 6.4 also sets Guest VIEW in each Space's <strong>default permissions</strong>. What would go wrong without that?</p>
+<p class="wb wb-answer">✔ <strong>Answer: D.</strong> Entries created later would be hidden from visitors. Permissions set on existing entries don't apply to new ones; default permissions do. Without them, each new entry is hidden from Guest, while it looks fine to the signed-in author who created it.</p>
+<ul class="wb-list wb-quiz-why">
+<li><strong>A:</strong> Guest gets only what's explicitly granted.</li>
+<li><strong>B:</strong> The entries themselves would be hidden too.</li>
+<li><strong>C:</strong> Signed-in members still get access through their Space or connected site.</li>
+</ul>
+<p class="wb wb-ask"><strong>Ask next:</strong> How do you check what a visitor sees? (A private window, or the agent fetching with no credentials, as the 6.4 prompt asks.)</p>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="demos-level-5.html"><span>← Previous</span>Level 5 — Design: style book, Theme CSS, favicon and logo</a><a class="next" href="demos-level-7.html"><span>Next →</span>Level 7 — Displaying content: mapping, display pages and collections</a></nav>
     </main>
   </div>

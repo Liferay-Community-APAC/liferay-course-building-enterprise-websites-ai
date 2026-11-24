@@ -112,6 +112,33 @@ written, and deploy.
 1. Open **Home** in edit mode (the pencil icon at the top right) → the *Browser* panel: the containers carry the names from the prompt. Leave without publishing.
 2. Open **FAQ** in edit mode → the *Browser* panel: the containers carry the names from the prompt. Leave without publishing.
 
+
+
+## 🧠 Knowledge check
+
+⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+
+**Question 1.** After Level 7 maps the Clarity Card's `card-title` editable to the article title, a teammate renames that editable id to `title` in the fragment's HTML. What happens to the cards on Home?
+
+- **A.** Nothing: a mapping follows its editable by position in the HTML.
+- **B.** The deploy fails, because the fragment no longer compiles.
+- **C.** Liferay notices the rename and moves the mapping to the new id.
+- **D.** The titles lose their mapping and show default text.
+
+**Question 2.** Authors should be able to map a card's title to a CMS field in Level 7. What must the fragment provide for that?
+
+- **A.** A text configuration option that authors point at a field.
+- **B.** An editable with an id, such as `card-title`.
+- **C.** A JavaScript function that fetches the title from the API.
+- **D.** A composition that ties the card to the structure.
+
+**Question 3.** You change the Clarity Button's CSS and deploy only the fragment. Home already uses the button. What does Home show?
+
+- **A.** The new style: pages read the fragment's code live from the library.
+- **B.** The new style, once each visitor's browser cache expires.
+- **C.** The old style, until the page itself is imported again.
+- **D.** The new style, but only after Liferay is restarted.
+
 ## ⭐ Extras
 
 Optional, for when you finish early. The next level doesn't depend on them.
