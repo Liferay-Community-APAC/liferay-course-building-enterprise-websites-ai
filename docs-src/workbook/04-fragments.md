@@ -1,6 +1,6 @@
 # Level 4 — Fragments and page compositions
 
-⏱ **About 45 minutes**, with the talk · **Builds on:** Level 3
+⏱ **About 50 minutes**, with the talk and the knowledge check · **Builds on:** Level 3
 
 **What you'll build:** Clarity's own fragments in a **Clarity Components** fragment set, placed in the master pages' header, and the Home and FAQ pages laid out like Clarity's previous site.
 
@@ -116,7 +116,7 @@ written, and deploy.
 
 ## 🧠 Knowledge check
 
-⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+⏱ **About 3 minutes, on your own**, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.
 
 **Question 1.** After Level 7 maps the Clarity Card's `card-title` editable to the article title, a teammate renames that editable id to `title` in the fragment's HTML. What happens to the cards on Home?
 

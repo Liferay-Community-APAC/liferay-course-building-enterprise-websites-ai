@@ -1,6 +1,6 @@
 # Setup — Your workspace, Liferay DXP and the MCP server
 
-⏱ **About 45 minutes**, with the talk · **Builds on:** the prerequisites
+⏱ **About 60 minutes**, with the talk · **Builds on:** the prerequisites
 
 **What you'll build:** the course repository open in VS Code, Liferay DXP running on PostgreSQL, your AI agent connected to Liferay's MCP server, and the two context files every later session reads. Do this once, on the first morning.
 

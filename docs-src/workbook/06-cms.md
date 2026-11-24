@@ -1,6 +1,6 @@
 # Level 6 — Content in Liferay CMS
 
-⏱ **About 55 minutes**, with the talk · **Builds on:** Levels 2 and 5
+⏱ **About 70 minutes**, with the talk and the knowledge check · **Builds on:** Levels 2 and 5
 
 **What you'll build:** Clarity's content in Liferay CMS: five Spaces connected to the public site, the structures that model each kind of content, the vocabularies that categorize it, and Clarity's real entries and files.
 
@@ -181,7 +181,7 @@ by fetching one FAQ and one file with no credentials.
 
 ## 🧠 Knowledge check
 
-⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+⏱ **About 3 minutes, on your own**, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.
 
 **Question 1.** Christian is a member of the public site but not of the HR Space. In the HR Space, Christian can browse content but sees no **New** button. Why?
 

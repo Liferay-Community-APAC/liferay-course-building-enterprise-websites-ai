@@ -1,6 +1,6 @@
 # Level 7 — Displaying content: mapping, display pages and collections
 
-⏱ **60-minute block** · **Slides:** [Day 2, 4–10](slides/day-2.html#4) · **Learners:** [Level 7](../workbook/level-7.html)
+⏱ **90-minute block** · **Slides:** [Day 2, 4–10](slides/day-2.html#4) · **Learners:** [Level 7](../workbook/level-7.html)
 
 **In this block:** Learners map content onto pages, build display page templates and collections. The block also covers the AI content tools in the slides.
 
@@ -79,7 +79,7 @@
 
 ### Knowledge check answers
 
-🕒 **5 minutes** · at the end of the block · learners answer on their own first ([Level 7, Knowledge check](../workbook/level-7.html#knowledge-check))
+🕒 **5 minutes** · at the end of the block, included in its time · learners answer on their own first, while their last prompt runs ([Level 7, Knowledge check](../workbook/level-7.html#knowledge-check))
 
 💡 **Say:** ask for a show of hands on each option before you give the answer. A split room is the moment to explain.
 

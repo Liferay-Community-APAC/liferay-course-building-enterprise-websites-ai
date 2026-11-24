@@ -1,6 +1,6 @@
 # Level 13 — Personalization: a Home page for distributors
 
-⏱ **About 30 minutes**, with the talk · **Builds on:** Levels 1 and 4
+⏱ **About 35 minutes**, with the talk and the knowledge check · **Builds on:** Levels 1 and 4
 
 **What you'll build:** a reusable **Clarity Audience Container** fragment, and a Home page that welcomes signed-in distributors back instead of asking them to become distributors. It tailors the page by **who the visitor is**, using only non-deprecated features.
 
@@ -71,7 +71,7 @@ for each.
 
 ## 🧠 Knowledge check
 
-⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+⏱ **About 3 minutes, on your own**, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.
 
 **Question 1.** Why does the Clarity Audience Container decide in FreeMarker, on the server, instead of hiding content with JavaScript?
 

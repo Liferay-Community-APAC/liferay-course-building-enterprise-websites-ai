@@ -1,6 +1,6 @@
 # Level 11 — Search: job openings, blueprints and events
 
-⏱ **About 55 minutes**, with the talk · **Builds on:** Levels 6 and 7
+⏱ **About 55 minutes**, with the talk and the knowledge check · **Builds on:** Levels 6 and 7
 
 **What you'll build:** an Open Positions job search for Clarity's CMS job listings, tuned by a blueprint, and an Events page that lists only upcoming hiring events.
 
@@ -103,7 +103,7 @@ client-extensions/clarity-site, under Search Options, and deploy. Search
 
 ## 🧠 Knowledge check
 
-⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+⏱ **About 3 minutes, on your own**, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.
 
 **Question 1.** You saved the *Boost Associate Job Listings* blueprint, but Open Positions still shows FAQs and articles. What's missing?
 

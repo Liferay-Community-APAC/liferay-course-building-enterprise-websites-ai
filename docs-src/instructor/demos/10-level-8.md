@@ -1,6 +1,6 @@
 # Level 8 — Commerce: catalog, products and product pages
 
-⏱ **50-minute block** · **Slides:** [Day 2, 11–15](slides/day-2.html#11) · **Learners:** [Level 8](../workbook/level-8.html)
+⏱ **60-minute block** · **Slides:** [Day 2, 11–15](slides/day-2.html#11) · **Learners:** [Level 8](../workbook/level-8.html)
 
 **In this block:** Learners build the catalog, specifications, products, channel and product pages.
 
@@ -22,7 +22,7 @@
 
 ### Knowledge check answers
 
-🕒 **5 minutes** · at the end of the block · learners answer on their own first ([Level 8, Knowledge check](../workbook/level-8.html#knowledge-check))
+🕒 **5 minutes** · at the end of the block, included in its time · learners answer on their own first, while their last prompt runs ([Level 8, Knowledge check](../workbook/level-8.html#knowledge-check))
 
 💡 **Say:** ask for a show of hands on each option before you give the answer. A split room is the moment to explain.
 

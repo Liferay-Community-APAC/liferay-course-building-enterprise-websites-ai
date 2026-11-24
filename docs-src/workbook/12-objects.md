@@ -1,6 +1,6 @@
 # Level 12 — Objects: the Contact Us form and its follow-up
 
-⏱ **About 60 minutes**, with the talk · **Builds on:** Levels 1 and 3
+⏱ **About 60 minutes**, with the talk and the knowledge check · **Builds on:** Levels 1 and 3
 
 **What you'll build:** a Contact Us form that stores each visitor's request, a workflow that routes each new request to a Distributor Representative, and a dashboard where they follow up.
 
@@ -140,7 +140,7 @@ this data set. Deploy.
 
 ## 🧠 Knowledge check
 
-⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+⏱ **About 3 minutes, on your own**, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.
 
 **Question 1.** Guest has **ADD_OBJECT_ENTRY** on Contact Us, but not VIEW. Why not grant VIEW too?
 

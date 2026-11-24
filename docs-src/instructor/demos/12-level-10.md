@@ -1,6 +1,6 @@
 # Level 10 — Workflow and publishing
 
-⏱ **45-minute block** · **Slides:** [Day 2, 20–23](slides/day-2.html#20) · **Learners:** [Level 10](../workbook/level-10.html)
+⏱ **50-minute block** · **Slides:** [Day 2, 20–23](slides/day-2.html#20) · **Learners:** [Level 10](../workbook/level-10.html)
 
 **In this block:** Learners add an approval workflow for articles and publish a site-wide announcement through it.
 
@@ -33,7 +33,7 @@
 
 ### Knowledge check answers
 
-🕒 **5 minutes** · at the end of the block · learners answer on their own first ([Level 10, Knowledge check](../workbook/level-10.html#knowledge-check))
+🕒 **5 minutes** · at the end of the block, included in its time · learners answer on their own first, while their last prompt runs ([Level 10, Knowledge check](../workbook/level-10.html#knowledge-check))
 
 💡 **Say:** ask for a show of hands on each option before you give the answer. A split room is the moment to explain.
 

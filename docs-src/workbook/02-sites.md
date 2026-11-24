@@ -1,6 +1,6 @@
 # Level 2 — Sites
 
-⏱ **About 45 minutes**, with the talk · **Builds on:** Level 1
+⏱ **About 65 minutes**, with the talk and the knowledge check · **Builds on:** Level 1
 
 **What you'll build:** Clarity's public enterprise website, configured for launch, and an empty site for a future distributor portal. You also give the Marketing Coordinator role its permissions and point the instance at the public site.
 
@@ -168,7 +168,7 @@ Liferay: give me the exact screen and fields to set them myself.
 
 ## 🧠 Knowledge check
 
-⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+⏱ **About 3 minutes, on your own**, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.
 
 **Question 1.** In 2.4 you grant the **regular** role Marketing Coordinator permission to manage Collections, at company scope. Christian holds that role. In which sites can Christian now manage collections?
 

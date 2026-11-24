@@ -1,6 +1,6 @@
 # Level 1 — Users and permissions
 
-⏱ **45-minute block** · **Slides:** [Day 1, 16–20](slides/day-1.html#16) · **Learners:** [Level 1](../workbook/level-1.html)
+⏱ **35-minute block** · **Slides:** [Day 1, 16–20](slides/day-1.html#16) · **Learners:** [Level 1](../workbook/level-1.html)
 
 **In this block:** Learners create Clarity's user groups, roles and personas.
 
@@ -20,7 +20,7 @@
 
 ### Knowledge check answers
 
-🕒 **5 minutes** · at the end of the block · learners answer on their own first ([Level 1, Knowledge check](../workbook/level-1.html#knowledge-check))
+🕒 **5 minutes** · at the end of the block, included in its time · learners answer on their own first, while their last prompt runs ([Level 1, Knowledge check](../workbook/level-1.html#knowledge-check))
 
 💡 **Say:** ask for a show of hands on each option before you give the answer. A split room is the moment to explain.
 

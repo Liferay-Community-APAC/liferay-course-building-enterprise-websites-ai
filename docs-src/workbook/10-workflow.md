@@ -1,6 +1,6 @@
 # Level 10 — Workflow and publishing
 
-⏱ **About 45 minutes**, with the talk · **Builds on:** Levels 1, 6 and 7
+⏱ **About 50 minutes**, with the talk and the knowledge check · **Builds on:** Levels 1, 6 and 7
 
 **What you'll build:** an approval step for Clarity's articles and announcements. Christian submits, Clara reviews, and nothing reaches visitors until it's approved.
 
@@ -131,7 +131,7 @@ announcement bar's text on each.
 
 ## 🧠 Knowledge check
 
-⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+⏱ **About 3 minutes, on your own**, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.
 
 **Question 1.** In 10.2, why does the agent authenticate as Christian to create the article, rather than as the admin?
 

@@ -1,6 +1,6 @@
 # Level 3 — Pages, master pages and navigation
 
-⏱ **About 60 minutes**, with the talk · **Builds on:** Level 2
+⏱ **About 70 minutes**, with the talk and the knowledge check · **Builds on:** Level 2
 
 **What you'll build:** Clarity's page hierarchy, the two master pages that frame every page, and the four navigation menus, all in a site initializer your agent deploys.
 
@@ -138,7 +138,7 @@ the brief.
 
 ## 🧠 Knowledge check
 
-⏱ **About 3 minutes, on your own.** Choose one answer for each question. Your instructor then goes over the answers with the class.
+⏱ **About 3 minutes, on your own**, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.
 
 **Question 1.** In the site initializer, you rename the FAQ page's friendly URL from `/faq` to `/help` and redeploy. What happens on the site?
 

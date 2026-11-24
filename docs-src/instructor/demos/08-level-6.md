@@ -1,6 +1,6 @@
 # Level 6 — Content in Liferay CMS
 
-⏱ **55-minute block** · **Slides:** [Day 1, 39–44](slides/day-1.html#39) · **Learners:** [Level 6](../workbook/level-6.html)
+⏱ **70-minute block** · **Slides:** [Day 1, 39–44](slides/day-1.html#39) · **Learners:** [Level 6](../workbook/level-6.html)
 
 **In this block:** Learners create the Spaces, structures and vocabularies, and load Clarity's content.
 
@@ -22,7 +22,7 @@
 
 ### Knowledge check answers
 
-🕒 **5 minutes** · at the end of the block · learners answer on their own first ([Level 6, Knowledge check](../workbook/level-6.html#knowledge-check))
+🕒 **5 minutes** · at the end of the block, included in its time · learners answer on their own first, while their last prompt runs ([Level 6, Knowledge check](../workbook/level-6.html#knowledge-check))
 
 💡 **Say:** ask for a show of hands on each option before you give the answer. A split room is the moment to explain.
 
