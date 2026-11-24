@@ -205,20 +205,21 @@
   <p class="kicker">How this course works</p>
   <h2>Reading the workbook</h2>
   <table class="grid">
-    <thead><tr><th>Mark</th><th>Meaning</th></tr></thead>
+    <thead><tr><th>Block</th><th>Meaning</th></tr></thead>
     <tbody>
-      <tr><td>Target</td><td>What you're building</td></tr>
+      <tr><td>🎯 Goal</td><td>What exists when you're done</td></tr>
       <tr><td>Skills</td><td>Skills the exercise relies on; name one in the prompt to help a weaker model</td></tr>
-      <tr><td>Concept</td><td>Read before you start</td></tr>
-      <tr><td>Prompt</td><td>Paste into your agent</td></tr>
-      <tr><td>Verify</td><td>Where to check it worked, in Liferay</td></tr>
-      <tr><td>Gotcha</td><td>Worth knowing before you start</td></tr>
-      <tr><td>Bonus</td><td>A challenge if you finish early: you write the prompt</td></tr>
+      <tr><td>📋 Before / after</td><td>Steps you do yourself, around the prompt</td></tr>
+      <tr><td>💬 Prompt</td><td>Paste into your agent</td></tr>
+      <tr><td>✅ Verify</td><td>Where to check it worked, in Liferay. Look, don't change anything</td></tr>
+      <tr><td>⚠️ If it doesn't match</td><td>Likely causes, and what to tell the agent</td></tr>
+      <tr><td>🧠 Knowledge check</td><td>Three questions at the end of each level: answer on your own, then we go over them</td></tr>
+      <tr><td>⭐ Extras</td><td>Bonus challenges if you finish early: you write the prompt</td></tr>
     </tbody>
   </table>
   <p class="callout info">Every prompt that creates something says who may see it. Keep those access lines when you adapt a prompt.</p>
   <aside class="notes">
-    <p>Open the workbook on the projector and show one exercise with each mark, for example 1.1. Personas all use the password learn, and a private browser window lets learners sign in as a second persona while staying signed in as the admin. Point out the access lines: permission gaps fail silently, so a page answers and only a visitor notices. Learners ask whether bonus exercises matter; they're for fast learners and aren't in the schedule.</p>
+    <p>Open the workbook on the projector and show one exercise with each block, for example 2.4, which has a Before the prompt step. Personas all use the password learn, and a private browser window lets learners sign in as a second persona while staying signed in as the admin. Point out the access lines: permission gaps fail silently, so a page answers and only a visitor notices. Each level ends with a knowledge check: learners answer the three questions while their last prompt runs, and you take about five minutes on the answers; they aren't graded. Learners ask whether bonus exercises matter; they're for fast learners and aren't in the schedule.</p>
   </aside>
 </section>
 
@@ -555,13 +556,14 @@
   <div class="split">
     <ol class="exercises">
       <li><span class="id">1.1</span><span>Create Clarity's user groups, roles and personas</span></li>
+      <li class="check"><span class="id">🧠</span><span>Knowledge check: three questions on your own, then we go over the answers</span></li>
       <li class="bonus"><span class="id">1.2</span><span>Bonus: let Clara manage the Marketing group's members, nothing more</span></li>
     </ol>
     <figure class="shot"><div class="frame"><img src="../../screenshots/1-1-users.png" alt="Control Panel, Users and Organizations, listing the Clarity personas with job titles and user groups"></div><figcaption>Users and Organizations after 1.1: seven personas with job titles and groups</figcaption></figure>
   </div>
   <p class="verify"><b>Verify habit:</b> in the Control Panel, open Users, User Groups and Roles and compare with the brief. Then sign in as Christian in a private window: no password change prompt.</p>
   <aside class="notes">
-    <p>Demo 1.1 on the projector, then show the verify steps: Christian's portrait and job title, the Marketing group's members, and the Marketing Coordinator role's assignees. Point out that the prompt asks the agent to report what Liferay returns, not what it intended; that habit catches silent failures. The prompt is idempotent, so rerunning it is safe. Learners ask why the role has no permissions yet; it gets them in Level 2, once the site exists.</p>
+    <p>Demo 1.1 on the projector, then show the verify steps: Christian's portrait and job title, the Marketing group's members, and the Marketing Coordinator role's assignees. Point out that the prompt asks the agent to report what Liferay returns, not what it intended; that habit catches silent failures. The prompt is idempotent, so rerunning it is safe. Learners ask why the role has no permissions yet; it gets them in Level 2, once the site exists. Close the block with the knowledge check: learners answer while their last prompt runs, then take about five minutes on the answers. The answers, why each other option is wrong and a follow-up question are at the end of the <a href="../demos-level-1.html#knowledge-check-answers">Level 1 demo page</a>.</p>
   </aside>
 </section>
 
@@ -678,12 +680,13 @@
       <li><span class="id">2.3</span><span>Configure the public site: address, languages, accessibility</span></li>
       <li><span class="id">2.4</span><span>Give the Marketing Coordinator role its permissions</span></li>
       <li><span class="id">2.5</span><span>Point the instance at the public site</span></li>
+      <li class="check"><span class="id">🧠</span><span>Knowledge check: three questions on your own, then we go over the answers</span></li>
     </ol>
     <figure class="shot"><div class="frame"><img src="../../screenshots/2-1-sites.png" alt="Control Panel, Sites, listing Clarity Public Enterprise Website (Open) and Clarity Distributor Portal (Restricted)"></div><figcaption>Sites after 2.1: the public site is Open, the distributor portal Restricted</figcaption></figure>
   </div>
   <p class="verify"><b>Verify habit:</b> Site Settings and Memberships for the site; impersonate Christian before and after 2.4 and watch Site Builder → Collections and Categorization → Categories appear. Close dialogs without saving.</p>
   <aside class="notes">
-    <p>Demo 2.4 on the projector, because it's the clearest least-privilege lesson: impersonate Christian first, show there's no Site Builder or Categorization section, run the prompt, refresh. The prompt asks the agent to list the permissions it will add and why before granting anything; read that list with the class. The virtual host only answers once a hosts entry points to the machine, so learners keep using localhost:8080/web/clarity. If 2.5 has no supported API on this release, the agent stops and lists the screen to set by hand.</p>
+    <p>Demo 2.4 on the projector, because it's the clearest least-privilege lesson: impersonate Christian first, show there's no Site Builder or Categorization section, run the prompt, refresh. The prompt asks the agent to list the permissions it will add and why before granting anything; read that list with the class. The virtual host only answers once a hosts entry points to the machine, so learners keep using localhost:8080/web/clarity. If 2.5 has no supported API on this release, the agent stops and lists the screen to set by hand. Close the block with the knowledge check: learners answer while their last prompt runs, then take about five minutes on the answers. The answers, why each other option is wrong and a follow-up question are at the end of the <a href="../demos-level-2.html#knowledge-check-answers">Level 2 demo page</a>.</p>
   </aside>
 </section>
 
@@ -869,13 +872,14 @@
       <li><span class="id">3.1</span><span>Scaffold the site initializer and the page hierarchy</span></li>
       <li><span class="id">3.2</span><span>Build the Primary and Secondary master pages</span></li>
       <li><span class="id">3.3</span><span>Create the navigation menus and wire them in</span></li>
+      <li class="check"><span class="id">🧠</span><span>Knowledge check: three questions on your own, then we go over the answers</span></li>
       <li class="bonus"><span class="id">3.4</span><span>Bonus: the Sign In utility page on the Secondary master</span></li>
     </ol>
     <figure class="shot"><div class="frame"><img src="../../screenshots/3-2-masters.png" alt="Site Builder, Page Templates, Masters tab, with the Primary and Secondary Master Pages"></div><figcaption>Page Templates → Masters after 3.2</figcaption></figure>
   </div>
   <p class="verify"><b>Verify habit:</b> Site Builder, Pages for the order; the master's Browser panel and allowed fragments; Navigation Menus; then Home as a visitor. Leave editors without publishing.</p>
   <aside class="notes">
-    <p>Demo 3.1, including the log line that shows the initializer ran for clarity-public. If a deploy "succeeds" but nothing changes, the zip didn't change or the deploy order was wrong; ask the agent to clean deploy and check the Initialized log line. Note that Search uses /search-results because /search is reserved. Learners ask why Product Detail and Calendar are missing; later levels add them.</p>
+    <p>Demo 3.1, including the log line that shows the initializer ran for clarity-public. If a deploy "succeeds" but nothing changes, the zip didn't change or the deploy order was wrong; ask the agent to clean deploy and check the Initialized log line. Note that Search uses /search-results because /search is reserved. Learners ask why Product Detail and Calendar are missing; later levels add them. Close the block with the knowledge check: learners answer while their last prompt runs, then take about five minutes on the answers. The answers, why each other option is wrong and a follow-up question are at the end of the <a href="../demos-level-3.html#knowledge-check-answers">Level 3 demo page</a>.</p>
   </aside>
 </section>
 
@@ -958,13 +962,14 @@
       <li><span class="id">4.1</span><span>Create the Clarity Components fragments</span></li>
       <li><span class="id">4.2</span><span>Put the search button and login menu in the master pages</span></li>
       <li><span class="id">4.3</span><span>Wireframe the Home and FAQ pages</span></li>
+      <li class="check"><span class="id">🧠</span><span>Knowledge check: three questions on your own, then we go over the answers</span></li>
       <li class="bonus"><span class="id">4.4</span><span>Bonus: a configurable sign-in URL</span></li>
     </ol>
     <figure class="shot"><div class="frame"><img src="../../screenshots/4-1-fragments.png" alt="Design, Fragments, with the Clarity Components fragment set selected"></div><figcaption>Design → Fragments: the Clarity Components set after 4.1</figcaption></figure>
   </div>
   <p class="verify"><b>Verify habit:</b> Design, Fragments for the set and its options; Home as a visitor shows the search icon and Sign In; edit mode shows the container names.</p>
   <aside class="notes">
-    <p>Demo 4.1 and open the Search Button fragment's Configuration tab with the class. In 4.2 the deploy order matters: fragments before pages, as the site-initializer rules describe. Remind learners to check as Guest in a private window, since what the admin sees isn't proof. A common question: why not import the old fragment zips directly? They were built for an older release and theme; the agent rewrites them to work on this one.</p>
+    <p>Demo 4.1 and open the Search Button fragment's Configuration tab with the class. In 4.2 the deploy order matters: fragments before pages, as the site-initializer rules describe. Remind learners to check as Guest in a private window, since what the admin sees isn't proof. A common question: why not import the old fragment zips directly? They were built for an older release and theme; the agent rewrites them to work on this one. Close the block with the knowledge check: learners answer while their last prompt runs, then take about five minutes on the answers. The answers, why each other option is wrong and a follow-up question are at the end of the <a href="../demos-level-4.html#knowledge-check-answers">Level 4 demo page</a>.</p>
   </aside>
 </section>
 
@@ -1079,12 +1084,13 @@
       <li><span class="id">5.1</span><span>A style book for a quick brand check</span></li>
       <li><span class="id">5.2</span><span>Clarity's Theme CSS and favicon client extensions</span></li>
       <li><span class="id">5.3</span><span>Apply the brand to the site and its master pages</span></li>
+      <li class="check"><span class="id">🧠</span><span>Knowledge check: three questions on your own, then we go over the answers</span></li>
     </ol>
     <figure class="shot"><div class="frame"><img src="../../screenshots/5-3-home.png" alt="The Home page as a visitor after Level 5, in Poppins with teal buttons and grey image placeholders"></div><figcaption>Home as a visitor after 5.3: Poppins and teal buttons (grey boxes are image placeholders)</figcaption></figure>
   </div>
   <p class="verify"><b>Verify habit:</b> Home in a private window shows Poppins, teal buttons and the favicon; Applications, Client Extensions lists both as Ready; the master's design options show Clarity Theme CSS.</p>
   <aside class="notes">
-    <p>Demo 5.1 and open the style book to show the primary color, then run 5.2 and 5.3. If the brand doesn't appear, the usual cause is deploy order: the Theme CSS wasn't registered when the masters were imported, so redeploy the initializer. Remind learners to leave the style book and master editors without publishing. Someone will ask why the style book's teal is a different shade; #187373 is a shade of the brand primary, used only for the quick check.</p>
+    <p>Demo 5.1 and open the style book to show the primary color, then run 5.2 and 5.3. If the brand doesn't appear, the usual cause is deploy order: the Theme CSS wasn't registered when the masters were imported, so redeploy the initializer. Remind learners to leave the style book and master editors without publishing. Someone will ask why the style book's teal is a different shade; #187373 is a shade of the brand primary, used only for the quick check. Close the block with the knowledge check: learners answer while their last prompt runs, then take about five minutes on the answers. The answers, why each other option is wrong and a follow-up question are at the end of the <a href="../demos-level-5.html#knowledge-check-answers">Level 5 demo page</a>.</p>
   </aside>
 </section>
 
@@ -1260,13 +1266,14 @@
       <li><span class="id">6.2</span><span>Model Clarity's content structures</span></li>
       <li><span class="id">6.3</span><span>Create the vocabularies</span></li>
       <li><span class="id">6.4</span><span>Load Clarity's content and files with a re-runnable script</span></li>
+      <li class="check"><span class="id">🧠</span><span>Knowledge check: three questions on your own, then we go over the answers</span></li>
       <li class="bonus"><span class="id">6.5</span><span>Bonus: relate events to their images</span></li>
     </ol>
     <figure class="shot"><div class="frame"><img src="../../screenshots/6-4-contents.png" alt="Liferay CMS, Contents, with folders for Events, Job Listings, Leadership, Announcements, FAQ and Articles"></div><figcaption>CMS → Contents after 6.4: one folder per kind of content</figcaption></figure>
   </div>
   <p class="verify"><b>Verify habit:</b> in CMS, check each Space's members and connected site, impersonate Christian (Marketing and Events only), then count FAQs, job listings and files against the brief.</p>
   <aside class="notes">
-    <p>Demo 6.1 and the impersonation check: Christian sees Marketing and Events, not HR. In 6.4 the agent writes a small script in scripts/ instead of issuing hundreds of calls by hand, and it upserts by external reference code so it can run again. This is the last level of day 1, and day 2 depends on it: anyone who doesn't finish can use the day-2 starting point tomorrow morning. Learners ask how to check categorization; open an FAQ entry and read the Categorization side panel, then close without saving.</p>
+    <p>Demo 6.1 and the impersonation check: Christian sees Marketing and Events, not HR. In 6.4 the agent writes a small script in scripts/ instead of issuing hundreds of calls by hand, and it upserts by external reference code so it can run again. This is the last level of day 1, and day 2 depends on it: anyone who doesn't finish can use the day-2 starting point tomorrow morning. Learners ask how to check categorization; open an FAQ entry and read the Categorization side panel, then close without saving. Close the block with the knowledge check: learners answer while their last prompt runs, then take about five minutes on the answers. The answers, why each other option is wrong and a follow-up question are at the end of the <a href="../demos-level-6.html#knowledge-check-answers">Level 6 demo page</a>.</p>
   </aside>
 </section>
 
