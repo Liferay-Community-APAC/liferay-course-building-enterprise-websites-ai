@@ -13,6 +13,7 @@ Usage: python3 -I scripts/setup_job_blueprint.py
 import json
 import os
 import sys
+import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -41,8 +42,21 @@ def element(lr, erc, values):
 	}
 
 
+def wait_for_api(lr):
+	# The Search Experiences API registers about 20 seconds after Tomcat's "Server startup":
+	# right after a start it answers 404, so wait for it instead of failing.
+	for _ in range(30):
+		status, _body = lr.request("GET", f"{API}/sxp-elements?pageSize=1", raise_errors=False)
+		if status == 200:
+			return
+		time.sleep(5)
+	sys.exit(f"The Search Experiences API ({API}) still answers {status}. Check that Liferay is fully started; "
+		"if it is, your DXP activation key may not include Search Experiences (Blueprints).")
+
+
 def main():
 	lr = Liferay()
+	wait_for_api(lr)
 
 	blueprint = {
 		"configuration": {
