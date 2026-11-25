@@ -143,6 +143,12 @@ function writeState(state) {
 
 const ERC = /^[A-Za-z0-9_-]{1,80}$/;
 
+// An agent saved without a User Message gets the one AI Hub starts it with, as in the console.
+const DEFAULT_USER_MESSAGES = {
+	answer: 'Original user request:\n{{originalRequest}}\n\nGathered information:\n{{gatheredInformation}}',
+	search: '{{request}}',
+};
+
 function validAgent(a) {
 	if (!a || !ERC.test(a.erc || '')) {
 		throw new Error('The External Reference Code may only use letters, digits, - and _.');
@@ -156,7 +162,7 @@ function validAgent(a) {
 		throw new Error('Unknown agent type.');
 	}
 
-	if (a.type === 'search' && (!a.rag || a.rag.key !== 'liferay')) {
+	if (a.type === 'search' && a.rag && a.rag.key !== 'liferay') {
 		throw new Error('The RAG config needs {"contentRetriever": {"key": "liferay", ...}}.');
 	}
 
@@ -167,10 +173,10 @@ function validAgent(a) {
 		inputVariables: a.type === 'search' ? 'request' : 'originalRequest,gatheredInformation',
 		outputVariable: 'response',
 		prompt: String(a.prompt || ''),
-		rag: a.type === 'search' ? {blueprintExternalReferenceCode: String(a.rag.blueprintExternalReferenceCode || ''), key: 'liferay'} : null,
+		rag: a.type === 'search' ? {blueprintExternalReferenceCode: String(a.rag?.blueprintExternalReferenceCode || ''), key: 'liferay'} : null,
 		title: String(a.title),
 		type: a.type,
-		userMessage: String(a.userMessage || ''),
+		userMessage: String(a.userMessage || DEFAULT_USER_MESSAGES[a.type]),
 	};
 }
 

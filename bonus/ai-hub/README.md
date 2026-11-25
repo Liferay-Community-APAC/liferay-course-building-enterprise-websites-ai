@@ -22,6 +22,50 @@ Then open `http://localhost:3010`. Stop it with `Ctrl+C`.
 
 What you build in the console is saved in `bonus/ai-hub/data/ai-hub.json` (git-ignored). Delete it to start over.
 
+## The console's API (for your agent)
+
+Everything the console does goes through a small JSON API on the same port, so your agent can set the mock up with `curl`. It answers requests with no `Origin` header (a terminal) or from the console itself, and refuses other web pages. Each `PUT` creates or replaces the item named in the URL.
+
+| Call | Body | Does |
+| --- | --- | --- |
+| `GET /api/state` | | Everything: `configuration`, `agents`, `chatbots`, and which agent CLI writes the answers (`runtime`) |
+| `PUT /api/configuration` | `{"environmentURL": "http://localhost:8080"}` | Where your Liferay is |
+| `POST /api/test-connection` | `{}` | Searches your Liferay as Guest once: `200` with a message, or `500` with the reason in `error` |
+| `PUT /api/agents/<ERC>` | see below | Creates or replaces an agent |
+| `PUT /api/chatbots/<ERC>` | see below | Creates or replaces a chatbot |
+| `DELETE /api/agents/<ERC>`, `/api/chatbots/<ERC>` | | Deletes it |
+| `POST /api/chatbots/<ERC>/chat` | `{"message": "…", "history": []}` | Asks the chatbot, as the chat bubble does: `{answer, sources, log}`. No sign-in or header needed; any page may call it |
+
+An agent (`type` is `search` for a Liferay Search agent, `answer` for an LLM agent):
+
+```json
+{
+	"description": "What the agent is for.",
+	"enabled": true,
+	"erc": "CLARITY_CONTENT_SEARCH",
+	"prompt": "The node's Prompt.",
+	"rag": {"blueprintExternalReferenceCode": "", "key": "liferay"},
+	"title": "Clarity Content Search",
+	"type": "search",
+	"userMessage": "{{request}}"
+}
+```
+
+`rag` is for search agents only, and `blueprintExternalReferenceCode` is optional. Leave out `userMessage` to get AI Hub's default: `{{request}}` for a search agent, the original request and the gathered information for an LLM agent.
+
+A chatbot (`agents` lists agent ERCs):
+
+```json
+{
+	"agents": ["CLARITY_CONTENT_SEARCH", "CLARITY_ANSWER_BUILDER"],
+	"enabled": true,
+	"erc": "CLARITY_ASSISTANT",
+	"introMessage": "The first message visitors see.",
+	"placeholderMessage": "The hint in the empty message box.",
+	"title": "Clarity Assistant"
+}
+```
+
 ## How Liferay loads the chat
 
 Liferay's **Click to Chat** has an **AI Hub** chat provider. With it chosen in a site's settings, each page gets two tags pointing at the *Service URL* of *Instance Settings* → *AI Hub*:
@@ -32,7 +76,26 @@ Liferay's **Click to Chat** has an **AI Hub** chat provider. With it chosen in a
   ai-hub-url="<Service URL>" chatbot-external-reference-code="<Chat Provider Account ID>"></script>
 ```
 
-With the Service URL set to `http://localhost:3010`, the mock serves its chat bubble (`public/widget.js`) at that path, and a near-empty stylesheet. Liferay never calls AI Hub itself for this, so the *Client ID* and *Client Secret* it asks for are only placeholders here: the mock shows them in *Configurations* and checks neither. The *AI Hub* settings screen appears once the release feature flag **AI Hub (LPD-62272)** is on.
+With the Service URL set to `http://localhost:3010`, the mock serves its chat bubble (`public/widget.js`) at that path, and a near-empty stylesheet. Liferay never calls AI Hub itself for this, so the *Client ID* and *Client Secret* it asks for are only placeholders here: the mock shows them in *Configurations* and checks neither.
+
+All three settings can live in code, which is what Level 14.5 does (verified on DXP 2026.Q3.10, with the AI Hub feature flag off):
+
+- **AI Hub** and **Click to Chat for the instance**: two OSGi configuration files, in `configs/local/osgi/configs/` (kept with the workspace) and `bundles/osgi/configs/` (applies live):
+  ```properties
+  # com.liferay.ai.hub.cell.configuration.AIHubCellConfiguration.config
+  clientId="ai-hub-mock-client"
+  clientSecret="ai-hub-mock-secret"
+  serviceURL="http://localhost:3010"
+  ```
+  ```properties
+  # com.liferay.click.to.chat.web.internal.configuration.ClickToChatConfiguration.config
+  enabled=B"true"
+  siteSettingsStrategy="inherit-or-override"
+  ```
+  They have no `scoped~` part and no company id, so they're system-wide defaults: every instance without its own saved value uses them. A company-scoped file with only `companyWebId` was ignored.
+- **Click to Chat for the site**: the site initializer's `site-settings.json`, with the same PID and `chatProviderId` `aihub`, `chatProviderAccountId` (the chatbot's ERC), `enabled` and `guestUsersAllowed`.
+
+The *AI Hub* screen in *Instance Settings* only appears once the release feature flag **AI Hub (LPD-62272)** is on; the configuration file works without it. Liferay adds the script with inline JavaScript, so look for `aihub-chatbot-widget-script` in a browser (or in the page's JavaScript), not as a `<script id=…>` tag in the HTML.
 
 Without Click to Chat, the same bubble loads from the chatbot's embed snippet, for example in a fragment:
 
