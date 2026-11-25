@@ -27,7 +27,7 @@ You need Git, JDK 21 and Blade CLI 7+ (to build client extensions), Docker with 
    ```bash
    git clone https://github.com/Liferay-Community-APAC/liferay-course-building-enterprise-websites-ai.git bewl-ai
    ```
-2. Copy your DXP activation key into `configs/local/deploy/` (it's git-ignored).
+2. Copy your DXP activation key into `configs/local/deploy/` (it's git-ignored). Get the free key from the [Liferay DXP Free Tier](https://one.liferay.com/p/liferay-dxp-free-tier) (*Get Activation Key*, valid for a year on `localhost`), or use a DXP developer key issued to you on one.liferay.com.
 3. Start PostgreSQL and Liferay DXP, and wait for `Server startup in` in the log (`Ctrl+C` stops following it, not Liferay). The commands are the same on all three systems:
    ```bash
    docker compose up -d

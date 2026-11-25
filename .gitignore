@@ -34,9 +34,10 @@ configs/local/admin.properties
 # Test persona credentials for browser-verify (never commit)
 configs/local/test-users.properties
 
-# DXP activation keys are sent to you by email: never commit them
-configs/*/deploy/activation-key*.xml
+# DXP activation keys (the free key or a developer key): never commit them
+configs/*/deploy/*.xml
 activation-key*.xml
+*Activation Key*.xml
 
 .DS_Store
 

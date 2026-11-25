@@ -362,7 +362,7 @@ em { color: inherit; }
 <h2 id="before-the-course">Before the course<a aria-hidden="true" class="heading-anchor" href="#before-the-course" tabindex="-1">#</a></h2>
 <ul>
 <li><strong>Two weeks before:</strong> send learners the <a href="https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/">prerequisites page</a>. It covers Git, JDK 21, Blade, Docker with 8 GB of memory, the Liferay DXP and PostgreSQL Docker images, VS Code and their AI agent. They bring their own agent subscription.</li>
-<li><strong>One week before:</strong> email each learner a <strong>DXP activation key</strong> (training developer key). Never put a key in the repository.</li>
+<li><strong>One week before:</strong> remind learners to get their <strong>DXP activation key</strong> (the prerequisites page shows how): the free key from the <a href="https://one.liferay.com/p/liferay-dxp-free-tier">Liferay DXP Free Tier</a>, or a developer key issued to them on one.liferay.com. Each learner uses their own key; never put a key in the repository.</li>
 <li><strong>The day before:</strong> run the whole workbook on your own machine from a clean clone, with the agent you'll demo with (see <em>Set up your own machine</em> below). Note anything that changed with agent or DXP updates.</li>
 <li><strong>On the morning of day 1:</strong> share the repository URL (it's not on the prerequisites page) and walk the room through Setup S.0 (see <em>The first 30 minutes</em> below). The workbook is also published on the repository's GitHub Pages.</li>
 </ul>
@@ -370,7 +370,7 @@ em { color: inherit; }
 <p>Do this the week before, on the laptop you'll present from. You run the whole workbook once, in one copy of the course, and present from that finished build: the <a href="demos.html">demo workbook</a> assumes it. Live demos of a level's first prompt also run on it, because every prompt is safe to rerun.</p>
 <ol>
 <li><strong>Install the prerequisites</strong> from the <a href="https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/">prerequisites page</a>, and run its agent check prompt until every line passes. Use the agent you'll demo with; if you can, install a second one, so you can answer questions about both.</li>
-<li><strong>Get a DXP activation key</strong> for yourself (a training developer key), the same kind you send learners.</li>
+<li><strong>Get a DXP activation key</strong> for yourself, the way learners do: the free key from the <a href="https://one.liferay.com/p/liferay-dxp-free-tier">Liferay DXP Free Tier</a>, or a developer key from one.liferay.com.</li>
 <li>
 <p><strong>Clone the course</strong> and open it in VS Code, exactly as learners do in <a href="../workbook/setup.html#s0-get-the-course-repository-and-open-it-in-vs-code">Setup S.0</a>:</p>
 <div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>mkdir -p ~/courses &amp;&amp; cd ~/courses
