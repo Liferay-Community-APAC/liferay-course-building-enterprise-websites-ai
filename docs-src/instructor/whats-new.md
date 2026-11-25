@@ -46,8 +46,13 @@ That's how a real project ships a Liferay site today: version-controlled and rep
 ### Knowledge checks and acceptance criteria
 
 - Each level ends with three scenario questions; then the instructor goes over the answers.
-- Every exercise lists acceptance criteria (113 in all): who checks, and what they must find.
+- Every exercise lists acceptance criteria (117 in all, 4 of them in the bonus Level 14): who checks, and what they must find.
 - Each level's last bonus has the agent write a Playwright test of those criteria, so a learner can re-check their whole build in a minute.
+
+### A bonus AI chatbot, no AI Hub needed
+
+- [Level 14](../workbook/level-14.html) has learners set up a website chatbot the way Liferay AI Hub does: a search agent, an answer agent, a chatbot, and its snippet on the site.
+- A small AI Hub mock in the repository runs on the laptop; it searches the site as Guest, and the learner's own agent writes the answers.
 
 ### Free tools, checked in advance
 

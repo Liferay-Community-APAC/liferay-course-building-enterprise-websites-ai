@@ -85,6 +85,15 @@ The levels are chained: a learner who can't finish Level 6 can't do Level 7. Thr
    Applying a kit replaces the learner's own work for the levels it covers, so offer it when they are more than one level behind, not to fix one exercise. Each README lists what the learner still does by hand: the 📋 steps of Levels 2.3 and 2.5 (virtual host, and the instance's home, landing and logout pages), which have no API. The kits come from a clean run on DXP 2026.Q3.10: re-prove them when you move the course to a new release.
 3. **Check where a learner stands.** The [reference tests](https://github.com/Liferay-Community-APAC/liferay-course-building-enterprise-websites-ai/tree/main/instructor/tests/e2e) have one test per acceptance criterion. Run them against a learner's workspace up to their level (`npx playwright test specs/level-6.spec.ts`) to see exactly which criteria fail, or against your own demo build before the course.
 
+## The bonus level: a website chatbot
+
+[Level 14](../workbook/level-14.html) is optional, for learners who finish early or want more after the course. Learners set up a chatbot the way Liferay AI Hub does (a Liferay Search agent, an LLM agent, a chatbot, its embed snippet in a fragment on the master pages), in a small **AI Hub mock** that runs on their computer (`bonus/ai-hub/`, Node.js 20, no install). It answers from the site's content, searched as Guest, and the answers are written by the learner's own agent CLI (Claude Code, Codex, Copilot or Gemini), so no AI Hub access or API key is needed.
+
+- **Try it on your machine first:** about 45 minutes. Each answer takes 5 to 30 seconds and uses the learner's agent subscription. It was tested with Claude Code; tell learners on other agents it's a bonus, not a promise.
+- **It needs a finished build up to Level 7** (content to answer from, and the master pages). A `level-10-start` or later catch-up kit is enough.
+- **The one step that surprises learners** is 14.2: the headless search API answers 403 to Guest until a Service Access Policy allows it. It's the course's "permissions fail silently" lesson again, at the API gate instead of the content gate.
+- **With the real AI Hub**, the same build is the masterclass's Energy Advisor exercise: AI Hub's console, a Search Blueprint for the RAG config, and Click to Chat in Site Settings.
+
 ## Topics covered in slides only
 
 These original BEWL topics have no exercise. Present them with the slides marked *Instructor only*, the speaker notes and the matching demos in the [instructor demo workbook](demos.html):
