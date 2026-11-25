@@ -9,7 +9,7 @@
 - **Agent:** one step a chatbot runs, with a small workflow: *Start → one node → End*. A **Liferay Search agent** searches your Liferay; an **LLM agent** asks a language model to write text.
 - **RAG (retrieval-augmented generation):** first retrieve content that may answer the question, then have a language model answer from that content only. It keeps the answers grounded in your site instead of the model's memory.
 - **Service Access Policy:** a Liferay rule that decides which API methods a caller may reach at all, before any permission is checked. Anonymous visitors get almost none by default.
-- **Embed snippet:** the `<script>` tag that puts a chatbot on a web page.
+- **Click to Chat:** Liferay's setting that adds a chat to every page of a site, from a chat provider such as AI Hub.
 
 ℹ️ **Note:** the mock is in `bonus/ai-hub/` (no install: it only needs Node.js 20 or later, which the Playwright bonuses use too). It runs your agent's command line non-interactively, in an empty folder: with Claude Code every tool is switched off, so the chatbot can only write text; other agents run in their read-only modes. Each answer takes 5 to 30 seconds and uses your agent subscription, like any other prompt. See `bonus/ai-hub/README.md` for how it works.
 
@@ -94,11 +94,11 @@
 📋 **Steps**, in the mock's **Chatbots**:
 1. **New Chatbot**. In **Details**, turn **Enable Chatbot** on, and fill in:
    - **Title:** `Clarity Assistant`
-   - **External Reference Code:** `CLARITY_ASSISTANT`. Write it down: the site's embed snippet names the chatbot by it.
+   - **External Reference Code:** `CLARITY_ASSISTANT`. Write it down: Click to Chat names the chatbot by it.
    - **Assigned Agents:** select both of your agents; each becomes a chip.
    - **Placeholder Message:** `Ask about eyewear, orders or careers`
    - **Intro Message:** `Hi! I'm the Clarity Assistant. Ask me about our eyewear, orders and returns, or careers at Clarity.`
-2. **Save**. The page now shows the chatbot's **Embed Snippet** and a **Try It** card.
+2. **Save**. The page now shows **Add It to Your Site** and a **Try It** card.
 3. In **Try It**, ask `What is your return policy?`, and read the **Run Log**: the search request, its results, then your agent's answer and how long each step took.
 
 ✅ **Verify** (look, don't change anything):
@@ -113,33 +113,25 @@
 - *The answer lists results instead of a written answer:* the mock found no agent command line, or no enabled LLM agent is assigned. The terminal running the mock says which.
 - *exited with … or didn't answer within 120 seconds:* run your agent once in a terminal (for example `claude -p "hello"`) to check it's signed in.
 
-### 14.5 — Put the chatbot on every page
+### 14.5 — Put the chatbot on every page, with Click to Chat
 
-🎯 **Goal:** the chat bubble on every page of the public site, for anyone, Guest included.
+🎯 **Goal:** the chat bubble on every page of the public site, for anyone, Guest included, added the way you add an AI Hub chatbot: with Liferay's **Click to Chat**.
 
-**Requirement:** none (bonus) · **Skills:** `scaffold-fragment`, `theme-and-design`
+**Requirement:** none (bonus) · **Skills:** none, you do this yourself
 
-💬 **Prompt:**
-```
-Using the scaffold-fragment and theme-and-design skills, add a "Clarity
-Chat" fragment to the Clarity Components set in
-client-extensions/clarity-site. Configuration: chatbotERC (text, default
-"CLARITY_ASSISTANT") and aiHubURL (text, default "http://localhost:3010").
-On the live page, its HTML is only the AI Hub embed snippet:
-<script data-chatbot="${configuration.chatbotERC}" defer
-src="${configuration.aiHubURL}/widget.js"></script>
-In the page editor (layoutMode "edit"), render a small dashed label
-"Clarity Chat: <chatbotERC>" instead of the script. Place it at the end of
-both master pages, after the footer, with those two values. Deploy with
-scripts/deploy_site.sh, then fetch Home as Guest and show me the script
-tag in the HTML.
-```
+📋 **Steps** (there's no prompt in this exercise), as the admin in Liferay:
+1. **Turn on AI Hub.** *Control Panel* → *Instance Settings* → *Platform* → **Feature Flags**, then the **Release** tab: turn **AI Hub (LPD-62272)** on. No restart is needed.
+2. **Connect Liferay to the mock.** In the mock's **Configurations**, find **API Credentials**. Back in *Instance Settings* → *Platform* → **AI Hub**, paste the **Client ID** and **Client Secret**, set **Service URL** to `http://localhost:3010`, and **Save**.
+3. **Turn on Click to Chat for the instance.** *Instance Settings* → *Content and Data* → **Click to Chat**: turn **Enable Click to Chat** on, set **Site Settings Strategy** to **Inherit or Override**, and **Save**. This lets each site choose its own chat.
+4. **Turn it on for Clarity.** On the Clarity site, *Site Menu* → *Configuration* → *Site Settings* → **Click to Chat**: turn **Enable Click to Chat** on, choose **AI Hub** as the **Chat Provider**, enter `CLARITY_ASSISTANT` as the **Chat Provider Account ID**, turn **Guest Users Allowed** on, and **Save**. Ignore the *Get my account token for AI Hub* link: it's for the real AI Hub.
+
+![Clarity's Site Settings, Click to Chat: enabled, the AI Hub provider, CLARITY_ASSISTANT as the account ID, and guest users allowed.](screenshots/14-5-click-to-chat.png)
 
 ✅ **Verify** (look, don't change anything):
 1. In a private window (as Guest), open Clarity's Home page: a round chat bubble sits bottom right. Click it: *Clarity Assistant* and its intro message.
 2. Ask `Do I have to pay for return shipping?`: after a few seconds, an answer (yes, unless the item is defective or Clarity made an error) and its sources.
 3. Open another page, such as *FAQ*: the bubble is there too.
-4. As the admin, open the **Primary Master Page** in edit mode (*Site Menu* → *Design* → *Page Templates* → *Masters*): the *Clarity Chat: CLARITY_ASSISTANT* label is below the footer. Leave without publishing.
+4. View the page source (*Ctrl+U*, or *Cmd+Option+U* on a Mac) and search for `aihub-chatbot-widget-script`: Liferay added a script from `http://localhost:3010/documents/d/global/index-js`, with `chatbot-external-reference-code="CLARITY_ASSISTANT"`. That's the path Click to Chat loads from AI Hub; the mock serves its bubble there.
 
 ![Clarity's Home page as Guest, with the Clarity Assistant chat open: the answer about return shipping, and its sources.](screenshots/14-5-chat-on-site.png)
 
@@ -148,14 +140,15 @@ tag in the HTML.
 - **AC 14.2-1** · *API, as Guest:* `GET /o/search/v1.0/search?search=return policy` answers 200, and its items include *What is your return policy?*.
 - **AC 14.4-1** · *API, as the console (`http://localhost:3010/api/state`):* the chatbot `CLARITY_ASSISTANT` is enabled, and its assigned agents are an enabled Liferay Search agent and an enabled LLM agent.
 - **AC 14.4-2** · *API, as a site (`POST http://localhost:3010/api/chatbots/CLARITY_ASSISTANT/chat`):* *What is your return policy?* gets an answer that mentions 30 days, with *What is your return policy?* among its sources.
-- **AC 14.5-1** · *Browser, as Guest:* Home and the FAQ page load `widget.js` with `data-chatbot="CLARITY_ASSISTANT"`, and clicking the bubble shows the intro message.
+- **AC 14.5-1** · *Browser, as Guest:* Home and the FAQ page have Click to Chat's AI Hub script (`script#aihub-chatbot-widget-script`) from `http://localhost:3010`, with `chatbot-external-reference-code="CLARITY_ASSISTANT"`, and clicking the bubble shows the intro message.
 
 ⚠️ **If it doesn't match:**
+- *No* AI Hub *in Instance Settings:* the feature flag isn't on (step 1). Reload the page after turning it on.
 - *No bubble, and the script tag is in the HTML:* the mock isn't running. Start it again (14.1): the site only links to it.
-- *The bubble says the chat isn't available:* the chatbot is disabled, or its ERC differs from the fragment's *chatbotERC*.
-- *No script tag in the HTML:* the deploy didn't re-import the master pages; ask the agent to check that both master page definitions place the fragment, and to deploy again.
+- *No script tag in the HTML:* Click to Chat is off for the instance or the site, the *Chat Provider* isn't *AI Hub*, or *Guest Users Allowed* is off (check signed in: if the bubble shows there, it's this one). An empty *Service URL* in *AI Hub* also leaves it out.
+- *The bubble says the chat isn't available:* the chatbot is disabled, or its ERC differs from the *Chat Provider Account ID*.
 
-📖 **Why it matters:** with the real AI Hub, you'd do the same: paste the chatbot's snippet into a fragment, or turn on *Click to Chat* in Site Settings, which puts one chatbot on every page of a site. Placing it in the **master pages** puts it on every page that uses them, without touching a single page. The bubble only links to the mock: stop the mock, and the site keeps working, without a chat.
+📖 **Why it matters:** these are the same four settings you'd change with the real AI Hub; only the *Service URL* and the credentials would come from your AI Hub account instead of the mock. Click to Chat puts one chatbot on every page of a site, without touching a page or a master, and a site can override the instance's choice. The bubble only links to AI Hub: stop the mock, and the site keeps working, without a chat.
 
 ## 🧠 Knowledge check
 
@@ -206,3 +199,25 @@ Optional, for when you finish early.
 ✅ **Success looks like:**
 1. With the mock running, `npx playwright test level-14` runs one test per acceptance criterion, each named by its id, and all pass.
 2. Stop the mock: AC 14.4-1, AC 14.4-2 and AC 14.5-1 fail, and AC 14.2-1 still passes. Start it again: all pass.
+
+### ⭐ 14.8 — Bonus: the embed snippet instead of Click to Chat
+
+🎯 **Goal:** the same bubble from a fragment, for a site that doesn't use Click to Chat. The chatbot page's **Add It to Your Site** card shows the snippet.
+
+💬 **Prompt:**
+```
+Using the scaffold-fragment and theme-and-design skills, add a "Clarity
+Chat" fragment to the Clarity Components set in
+client-extensions/clarity-site. Configuration: chatbotERC (text, default
+"CLARITY_ASSISTANT") and aiHubURL (text, default "http://localhost:3010").
+On the live page, its HTML is only the AI Hub embed snippet:
+<script data-chatbot="${configuration.chatbotERC}" defer
+src="${configuration.aiHubURL}/widget.js"></script>
+In the page editor (layoutMode "edit"), render a small dashed label
+"Clarity Chat: <chatbotERC>" instead of the script. Place it at the end of
+both master pages, after the footer, with those two values. Deploy with
+scripts/deploy_site.sh, then fetch Home as Guest and show me the script
+tag in the HTML.
+```
+
+✅ **Success looks like:** turn Click to Chat off in Clarity's *Site Settings*: the bubble still shows on every page, now from the fragment. One page shows one bubble, even with both on.

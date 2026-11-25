@@ -51,7 +51,7 @@ That's how a real project ships a Liferay site today: version-controlled and rep
 
 ### A bonus AI chatbot, no AI Hub needed
 
-- [Level 14](../workbook/level-14.html) has learners set up a website chatbot the way Liferay AI Hub does: a search agent, an answer agent, a chatbot, and its snippet on the site.
+- [Level 14](../workbook/level-14.html) has learners set up a website chatbot the way Liferay AI Hub does: a search agent, an answer agent, a chatbot, and Liferay's Click to Chat to put it on the site.
 - A small AI Hub mock in the repository runs on the laptop; it searches the site as Guest, and the learner's own agent writes the answers.
 
 ### Free tools, checked in advance

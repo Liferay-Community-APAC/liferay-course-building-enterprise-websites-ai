@@ -76,6 +76,9 @@ const field = (id, label, value, {hint = '', readonly = false, required = false,
 const toggle = (id, label, checked) =>
 	`<label class="switch"><input type="checkbox" id="${id}" ${checked ? 'checked' : ''}><span class="track"></span>${label}</label>`;
 
+// What Liferay's Instance Settings → AI Hub asks for. The mock checks neither value.
+const CREDENTIALS = {clientId: 'ai-hub-mock-client', clientSecret: 'ai-hub-mock-secret'};
+
 const val = (id) => document.getElementById(id).value;
 
 function route() {
@@ -114,7 +117,7 @@ function home() {
 		<p class="sub" style="margin-bottom:24px">Build agents, combine them in a chatbot, and put the chatbot on your site. You have
 			${state.agents.length} agent${state.agents.length === 1 ? '' : 's'} and ${state.chatbots.length} chatbot${state.chatbots.length === 1 ? '' : 's'}.</p>
 		<div class="home-steps">
-			${step(1, 'Connect your Liferay', 'Tell AI Hub where your Liferay is, and test the connection.', '#configurations', 'Open Configurations')}
+			${step(1, 'Connect your Liferay', 'Tell AI Hub where your Liferay is, test the connection, and copy the API credentials to Liferay.', '#configurations', 'Open Configurations')}
 			${step(2, 'Build agents', 'A Liferay Search agent finds content in your Liferay; an LLM agent writes the answer.', '#agents', 'Open Agent Builder')}
 			${step(3, 'Create a chatbot', 'Assign your agents to a chatbot, give it an intro message, and try it.', '#chatbots', 'Open Chatbots')}
 		</div>
@@ -327,7 +330,7 @@ function chatbotList() {
 
 	main.innerHTML = `<div class="narrow">
 		<h1>Chatbots</h1>
-		<div class="toolbar"><p class="sub">A chatbot runs its assigned agents for each question, and goes on your site with its embed snippet.</p>
+		<div class="toolbar"><p class="sub">A chatbot runs its assigned agents for each question, and goes on your site through Liferay's Click to Chat.</p>
 			<button class="btn primary" id="new">New Chatbot</button></div>
 		${state.chatbots.length
 			? `<table class="list"><tr><th>Title</th><th>External Reference Code</th><th>Assigned Agents</th><th>Status</th></tr>${rows}</table>`
@@ -355,7 +358,7 @@ function chatbotEditor(erc) {
 		<div class="card">
 			<div class="card-head"><h2>Details</h2>${toggle('enabled', 'Enable Chatbot', bot.enabled)}</div>
 			${field('title', 'Title', bot.title, {required: true})}
-			${field('erc', 'External Reference Code', bot.erc, {hint: 'Write it down: the embed snippet on your site names the chatbot by it.', readonly: Boolean(existing), required: true})}
+			${field('erc', 'External Reference Code', bot.erc, {hint: 'Write it down: your site\'s Click to Chat names the chatbot by it.', readonly: Boolean(existing), required: true})}
 			${field('description', 'Description', bot.description || '', {textarea: true})}
 			<div class="field"><span class="label">Assigned Agents</span><div class="chips" id="chips"></div></div>
 			${field('placeholder', 'Placeholder Message', bot.placeholderMessage || '', {hint: 'The hint in the visitor\'s empty message box, such as "Ask a question".'})}
@@ -366,8 +369,10 @@ function chatbotEditor(erc) {
 		<div id="msg"></div>
 		${existing ? `
 		<div class="card" style="margin-top:24px">
-			<h2 style="margin-bottom:8px">Embed Snippet</h2>
-			<p class="sub" style="margin-bottom:16px">Put it in a fragment on your site's master pages: the chat bubble shows on every page that uses them.</p>
+			<h2 style="margin-bottom:8px">Add It to Your Site</h2>
+			<p class="sub" style="margin-bottom:16px">In Liferay, turn on <strong>Click to Chat</strong> in the site's settings, with <strong>AI Hub</strong> as the chat provider and this chatbot's ERC as the account ID. Liferay connects to AI Hub with the credentials in <a href="#configurations">Configurations</a>.</p>
+			${field('ctcAccount', 'Chat Provider Account ID', bot.erc, {readonly: true})}
+			<span class="label">Or, without Click to Chat: Embed Snippet</span>
 			<pre class="snippet">&lt;script src="${esc(location.origin)}/widget.js" data-chatbot="${esc(bot.erc)}" defer&gt;&lt;/script&gt;</pre>
 		</div>
 		<div class="card" id="tryIt">
@@ -482,6 +487,12 @@ function configurations() {
 			<h2 style="margin-bottom:20px">Account Configuration</h2>
 			${field('env', 'Environment URL', state.configuration.environmentURL, {
 				hint: 'Your Liferay\'s address. The real AI Hub is a cloud service and needs a public HTTPS URL here; this mock runs on your computer, so http://localhost:8080 works.'})}
+			<hr style="border:0;border-top:1px solid var(--border);margin:24px 0">
+			<h2 style="margin-bottom:8px">API Credentials</h2>
+			<p class="sub" style="margin-bottom:20px">Copy them to your Liferay, in <em>Instance Settings</em> → <em>AI Hub</em>. The mock doesn't check them: they're placeholders, never a secret.</p>
+			${field('clientId', 'Client ID', CREDENTIALS.clientId, {readonly: true})}
+			${field('clientSecret', 'Client Secret', CREDENTIALS.clientSecret, {readonly: true})}
+			${field('serviceURL', 'Service URL', location.origin, {readonly: true, hint: 'Liferay\'s Click to Chat loads the chat bubble from here.'})}
 			<hr style="border:0;border-top:1px solid var(--border);margin:24px 0">
 			<h2 style="margin-bottom:20px">AI Provider</h2>
 			${field('provider', 'Answers From', state.runtime.cli ? state.runtime.cliLabel : 'None found: answers list the search results only', {readonly: true,

@@ -8,7 +8,9 @@
 //   (GET /o/search/v1.0/search, optionally through a Search Blueprint), then its LLM agent
 //   hands the question and the search results to YOUR AI agent's command line (Claude Code,
 //   Codex, Copilot or Gemini), run with no tools in an empty folder.
-// - Serves widget.js, the chat bubble a site loads with the chatbot's embed snippet.
+// - Serves widget.js, the chat bubble: Liferay's Click to Chat loads it as AI Hub's
+//   /documents/d/global/index-js when the AI Hub Service URL points here, and the chatbot's
+//   embed snippet loads it as /widget.js.
 //
 // Node.js 20 or later, no dependencies. Start it yourself (not from an agent session):
 //   node bonus/ai-hub/server.mjs
@@ -477,7 +479,15 @@ const server = http.createServer(async (req, res) => {
 			return send(res, 404, {error: 'Not found.'});
 		}
 
-		const file = url.pathname === '/' ? 'console.html' : url.pathname.slice(1);
+		// Click to Chat's AI Hub provider loads <Service URL>/documents/d/global/index-js and index-css.
+
+		if (url.pathname === '/documents/d/global/index-css') {
+			res.writeHead(200, {'Cache-Control': 'no-store', 'Content-Type': 'text/css'});
+
+			return res.end('/* The AI Hub mock styles its chat bubble inside the bubble itself. */\n');
+		}
+
+		const file = url.pathname === '/' ? 'console.html' : url.pathname === '/documents/d/global/index-js' ? 'widget.js' : url.pathname.slice(1);
 		const resolved = path.join(PUBLIC, file);
 
 		if (!resolved.startsWith(PUBLIC + path.sep) || !fs.existsSync(resolved) || !fs.statSync(resolved).isFile()) {

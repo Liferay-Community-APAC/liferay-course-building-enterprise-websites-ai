@@ -87,11 +87,12 @@ The levels are chained: a learner who can't finish Level 6 can't do Level 7. Thr
 
 ## The bonus level: a website chatbot
 
-[Level 14](../workbook/level-14.html) is optional, for learners who finish early or want more after the course. Learners set up a chatbot the way Liferay AI Hub does (a Liferay Search agent, an LLM agent, a chatbot, its embed snippet in a fragment on the master pages), in a small **AI Hub mock** that runs on their computer (`bonus/ai-hub/`, Node.js 20, no install). It answers from the site's content, searched as Guest, and the answers are written by the learner's own agent CLI (Claude Code, Codex, Copilot or Gemini), so no AI Hub access or API key is needed.
+[Level 14](../workbook/level-14.html) is optional, for learners who finish early or want more after the course. Learners set up a chatbot the way Liferay AI Hub does (a Liferay Search agent, an LLM agent, a chatbot, then Liferay's own Click to Chat with the AI Hub provider), in a small **AI Hub mock** that runs on their computer (`bonus/ai-hub/`, Node.js 20, no install). It answers from the site's content, searched as Guest, and the answers are written by the learner's own agent CLI (Claude Code, Codex, Copilot or Gemini), so no AI Hub access or API key is needed.
 
 - **Try it on your machine first:** about 45 minutes. Each answer takes 5 to 30 seconds and uses the learner's agent subscription. It was tested with Claude Code; tell learners on other agents it's a bonus, not a promise.
 - **It needs a finished build up to Level 7** (content to answer from, and the master pages). A `level-10-start` or later catch-up kit is enough.
 - **The one step that surprises learners** is 14.2: the headless search API answers 403 to Guest until a Service Access Policy allows it. It's the course's "permissions fail silently" lesson again, at the API gate instead of the content gate.
+- **Click to Chat is the real one.** In 14.5 learners turn on the release flag *AI Hub (LPD-62272)*, set *Instance Settings* → *AI Hub*'s Service URL to the mock (`http://localhost:3010`, with the placeholder Client ID and Secret the mock shows), and choose the *AI Hub* provider in *Site Settings* → *Click to Chat*. Liferay then loads the chat bubble from the mock, as it would from AI Hub; nothing calls Liferay's cloud.
 - **With the real AI Hub**, the same build is the masterclass's Energy Advisor exercise: AI Hub's console, a Search Blueprint for the RAG config, and Click to Chat in Site Settings.
 
 ## Topics covered in slides only

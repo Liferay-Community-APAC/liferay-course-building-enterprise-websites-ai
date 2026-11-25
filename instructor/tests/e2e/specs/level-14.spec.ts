@@ -60,12 +60,17 @@ test('AC 14.4-2 · asked about returns, the chatbot answers 30 days, with the re
 	await api.dispose();
 });
 
-test('AC 14.5-1 · as Guest, Home and FAQ load the chat, and its bubble shows the intro message', async ({browser}) => {
+test('AC 14.5-1 · as Guest, Home and FAQ load the chat through Click to Chat, and its bubble shows the intro message', async ({browser}) => {
 	const {context, page} = await pageAs(browser, 'guest');
 
 	for (const path of ['home', 'faq']) {
 		await page.goto(`${SITE_PATH}/${path}`);
-		await expect(page.locator(`script[src$="/widget.js"][data-chatbot="${CHATBOT}"]`), `${path} has the embed snippet`).toHaveCount(1);
+
+		const script = page.locator('script#aihub-chatbot-widget-script');
+
+		await expect(script, `${path} has Click to Chat's AI Hub script`).toHaveCount(1);
+		await expect(script).toHaveAttribute('src', `${AI_HUB}/documents/d/global/index-js`);
+		await expect(script).toHaveAttribute('chatbot-external-reference-code', CHATBOT);
 	}
 
 	const host = page.locator(`[data-ai-hub-chat="${CHATBOT}"]`);
