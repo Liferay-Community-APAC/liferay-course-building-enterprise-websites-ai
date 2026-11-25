@@ -12,7 +12,7 @@
 - **Blade:** Liferay's command-line tool. Your agent uses it to build and deploy client extensions.
 - **MCP server:** Liferay's Model Context Protocol server at `/o/mcp`. It lets your agent call Liferay's APIs as tools instead of hand-writing `curl` commands.
 
-ℹ️ **Note:** before you start, finish the [prerequisites](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/): Git, JDK 21 and Blade (they build your client extensions), Docker running, Docker given 8 GB of memory, the Liferay DXP and PostgreSQL images pulled, VS Code and your AI agent installed and signed in. Have the activation key file from your email at hand.
+ℹ️ **Note:** before you start, finish the [prerequisites](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/): Git, JDK 21 and Blade (they build your client extensions), Docker running, Docker given 8 GB of memory, the Liferay DXP and PostgreSQL images pulled, VS Code and your AI agent installed and signed in. Have your DXP activation key file at hand: the free key from the [Liferay DXP Free Tier](https://one.liferay.com/p/liferay-dxp-free-tier), or a developer key issued to you on one.liferay.com.
 
 ### S.0 — Get the course repository and open it in VS Code
 
@@ -126,7 +126,7 @@ Don't create or change anything else. Read both files back to me.
 ⚠️ **Before you start:** you start and stop Liferay, not the agent. Never ask the agent to run `docker compose up`, `stop`, `restart` or `down`: restarting Liferay drops the agent's MCP connection and interrupts your work.
 
 📋 **Steps** (there's no prompt in this exercise):
-1. **Copy the activation key** file you received by email into `configs/local/deploy/`: drag it from your email or Downloads folder onto that folder in VS Code's Explorer. It's git-ignored: it never leaves your computer.
+1. **Copy your activation key** file into `configs/local/deploy/`: drag it from your Downloads folder onto that folder in VS Code's Explorer. It's the free key (`Liferay Free Activation Key.xml`) or a developer key you downloaded from one.liferay.com; the [prerequisites](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/#bw-key) show how to get either. Every `.xml` file in that folder is git-ignored: it never leaves your computer. The free key is issued for `localhost`, so open Liferay at `http://localhost:8080`, as the workbook does.
 2. **Check that Docker has at least 8 GB of memory.** Liferay and its search engine need about 6 GB, and PostgreSQL needs some too. You set it in the prerequisites; check it:
    ```bash
    docker info --format "{{.MemTotal}}"
