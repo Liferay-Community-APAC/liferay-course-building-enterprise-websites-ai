@@ -55,3 +55,6 @@ instructor/tests/e2e/node_modules/
 instructor/tests/e2e/test-results/
 instructor/tests/e2e/playwright-report/
 instructor/tests/e2e/.auth/
+
+# AI Hub mock (bonus Level 14): what you build in its console
+bonus/ai-hub/data/

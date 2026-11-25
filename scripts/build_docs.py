@@ -38,6 +38,11 @@ OUT = ROOT / "docs"
 
 DAY_1 = ["00-setup", "01-users-permissions", "02-sites", "03-pages-navigation", "04-fragments", "05-design", "06-cms"]
 DAY_2 = ["07-displaying-content", "08-commerce", "09-headless", "10-workflow", "11-search", "12-objects", "13-personalization"]
+BONUS = ["14-bonus-ai-chatbot"]  # optional, after the course; listed under "Bonus"
+
+
+def day_label(day: int) -> str:
+    return "Bonus" if day == 3 else f"Day {day}"
 
 
 def page_name(source: str) -> str:
@@ -79,7 +84,8 @@ def page_label(title: str) -> tuple[str, str]:
     """Sidebar label and position text for a page title."""
     number, rest = short_title(title)
     if number.isdigit():
-        return f"{number} · {rest.split(':')[0]}", f"Level {number} of 13"
+        where = "Bonus level" if int(number) > 13 else f"Level {number} of 13"
+        return f"{number} · {rest.split(':')[0]}", where
     label = number if rest else title.split(",")[0].split(":")[0]
     return label, label
 
@@ -87,8 +93,8 @@ def page_label(title: str) -> tuple[str, str]:
 def sidebar_nav(book: dict, pages: list[dict], current: str) -> str:
     """A collapsible list of every page of a book; open on the start page."""
     links, position = [], "Start here"
-    for day in (1, 2):
-        links.append(f'<p class="day">Day {day}</p>')
+    for day in sorted({page["day"] for page in pages}):
+        links.append(f'<p class="day">{day_label(day)}</p>')
         for page in pages:
             if page["day"] != day:
                 continue
@@ -127,7 +133,7 @@ def collect_ids(page_html: str) -> set[str]:
 # demo workbook (one page per teaching block). Each source folder has a
 # README.md for the start page and one numbered Markdown file per page.
 STUDENT = {"name": "Workbook", "src": SRC / "workbook", "out": OUT / "workbook", "index": "index.html",
-           "pages": [(n, 1) for n in DAY_1] + [(n, 2) for n in DAY_2], "file": page_name}
+           "pages": [(n, 1) for n in DAY_1] + [(n, 2) for n in DAY_2] + [(n, 3) for n in BONUS], "file": page_name}
 INSTRUCTOR = {"name": "Demo workbook", "src": SRC / "instructor" / "demos", "out": OUT / "instructor", "index": "demos.html",
               "pages": None, "file": lambda source: "demos-" + source.split("-", 1)[1] + ".html"}
 INSTRUCTOR_DAY_2_FROM = "09-"  # demo pages from 09-level-7 on are Day 2
@@ -158,7 +164,7 @@ def build_book(book: dict) -> tuple[dict[str, str], callable]:
              f'<span>Start →</span>{html.escape(first["title"])}</a></nav>')
     built[index] = build_page(readme, home="../", sidebar_nav=sidebar_nav(book, pages, index), after=start)
     for i, page in enumerate(pages):
-        crumb = f'<p class="wb-crumb"><a href="{index}">{book["name"]}</a> › Day {page["day"]}</p>'
+        crumb = f'<p class="wb-crumb"><a href="{index}">{book["name"]}</a> › {day_label(page["day"])}</p>'
         built[page["file"]] = build_page(
             level_page_markdown(page["md"]), home="../",
             sidebar_nav=sidebar_nav(book, pages, page["file"]),

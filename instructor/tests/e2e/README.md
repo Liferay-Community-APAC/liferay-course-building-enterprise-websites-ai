@@ -1,6 +1,6 @@
 # Reference tests for the acceptance criteria
 
-A Playwright suite with one test per acceptance criterion (🧪) in the workbook: 113 tests over Setup and Levels 1 to 13, each titled with its id (`AC 2.3-1 · …`). It's the instructor's answer key for the Playwright bonus exercises, and a quick way to check a build.
+A Playwright suite with one test per acceptance criterion (🧪) in the workbook: 113 tests over Setup and Levels 1 to 13, plus 4 for the bonus Level 14, each titled with its id (`AC 2.3-1 · …`). It's the instructor's answer key for the Playwright bonus exercises, and a quick way to check a build.
 
 ## What it's for
 
@@ -17,7 +17,7 @@ Node.js 20 or later, and Google Chrome (or set `PLAYWRIGHT_CHANNEL=chromium` aft
 cd instructor/tests/e2e
 npm install
 npx playwright test                         # every level
-npx playwright test specs/level-7.spec.ts   # one level (a bare "level-1" also matches levels 10 to 13)
+npx playwright test specs/level-7.spec.ts   # one level (a bare "level-1" also matches levels 10 to 14)
 npx playwright show-report                  # the HTML report, with traces of failures
 ```
 
@@ -43,3 +43,5 @@ Nothing, except four tests that need their own data, and clean it up in a `final
 - **Where no API exists, the tests read the admin UI:** fragments (the fragment API needs the beta flag LPD-39244, which the course doesn't enable), style books, client extensions, widget templates, site settings screens, and the channel's site type. A Liferay UI change can break those tests without the build being wrong; read the trace before blaming the build.
 
 Last full run: 113 of 113 passed on a complete build on DXP 2026.Q3.10.
+
+**Level 14 is a bonus:** its 4 tests need the AI Hub mock (`node bonus/ai-hub/server.mjs`, set up as in the workbook), and are skipped when it doesn't answer, so a full run still passes without it. Set `AI_HUB_URL` if it runs on another port. AC 14.4-2 waits for the learner's agent to answer (up to 2 minutes). Last run: 4 of 4 passed, with Claude Code writing the answers.
