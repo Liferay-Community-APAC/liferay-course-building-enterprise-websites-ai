@@ -5,6 +5,9 @@ date ascending.
 Event Information's fields are indexed inside nestedFieldArray (startDateTime -> value_date,
 yyyyMMddHHmmss), so the filter and the sort are nested queries (manage-search). Re-runnable.
 
+On an instance without Search Blueprints (the DXP Free Tier key), it does nothing: run
+scripts/free_key_search.py for the free-key path.
+
 Usage: python3 -I scripts/setup_future_events.py
 """
 
@@ -14,7 +17,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from liferay_client import Liferay, q
+from liferay_client import Liferay, has_blueprints, q
 
 API = "/o/search-experiences-rest/v1.0"
 ELEMENT_ERC = "FUTURE_EVENTS"
@@ -69,6 +72,12 @@ ELEMENT_DEFINITION = {
 
 def main():
 	lr = Liferay()
+
+	if not has_blueprints(lr):
+		print("No Search Blueprints on this instance (the DXP Free Tier key doesn't include them): "
+			"skipped. scripts/free_key_search.py sets up the free-key path of Level 11.3 instead.")
+
+		return
 
 	element = {
 		"description_i18n": {"en_US": "Only Event Information entries whose start date and time is after now."},

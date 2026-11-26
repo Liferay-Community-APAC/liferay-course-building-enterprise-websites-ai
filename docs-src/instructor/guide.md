@@ -23,7 +23,7 @@ For a one-page summary to share with colleagues who know the original course, se
 ## Before the course
 
 - **Two weeks before:** send learners the [prerequisites page](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/). It covers Git, JDK 21, Blade, Docker with 8 GB of memory, the Liferay DXP and PostgreSQL Docker images, VS Code and their AI agent. They bring their own agent subscription.
-- **One week before:** remind learners to get their **DXP activation key** (the prerequisites page shows how): the free key from the [Liferay DXP Free Tier](https://one.liferay.com/p/liferay-dxp-free-tier), or a developer key issued to them on one.liferay.com. Each learner uses their own key; never put a key in the repository.
+- **One week before:** remind learners to get their **DXP activation key** (the prerequisites page shows how): the free key from the [Liferay DXP Free Tier](https://one.liferay.com/p/liferay-dxp-free-tier), or a developer key issued to them on one.liferay.com. Each learner uses their own key; never put a key in the repository. Tell them the free key's one limitation: it has no Search Blueprints (Liferay Enterprise Search isn't in the Free Tier), so Levels 11.2 and 11.3 have **free-key paths** (Custom Filter widgets; expiration dates and a collection) and ⭐ 14.6 is skipped. Everything else is the same on both keys.
 - **The day before:** run the whole workbook on your own machine from a clean clone, with the agent you'll demo with (see *Set up your own machine* below). Note anything that changed with agent or DXP updates.
 - **On the morning of day 1:** share the repository URL (it's not on the prerequisites page) and walk the room through Setup S.0 (see *The first 30 minutes* below). The workbook is also published on the repository's GitHub Pages.
 
@@ -32,7 +32,7 @@ For a one-page summary to share with colleagues who know the original course, se
 Do this the week before, on the laptop you'll present from. You run the whole workbook once, in one copy of the course, and present from that finished build: the [demo workbook](demos.html) assumes it. Live demos of a level's first prompt also run on it, because every prompt is safe to rerun.
 
 1. **Install the prerequisites** from the [prerequisites page](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/), and run its agent check prompt until every line passes. Use the agent you'll demo with; if you can, install a second one, so you can answer questions about both.
-2. **Get a DXP activation key** for yourself, the way learners do: the free key from the [Liferay DXP Free Tier](https://one.liferay.com/p/liferay-dxp-free-tier), or a developer key from one.liferay.com.
+2. **Get a DXP activation key** for yourself, the way learners do: the free key from the [Liferay DXP Free Tier](https://one.liferay.com/p/liferay-dxp-free-tier), or a developer key from one.liferay.com. Use a developer key for your demo build, so the blueprints of Level 11 are there to show; keep a free-key instance at hand if you want to walk free-key learners through their paths.
 3. **Clone the course** and open it in VS Code, exactly as learners do in [Setup S.0](../workbook/#s0-get-the-course-repository-and-open-it-in-vs-code):
    ```bash
    mkdir -p ~/courses && cd ~/courses

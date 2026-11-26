@@ -57,6 +57,16 @@ COLLECTIONS = [
 		"order": ("createDate", "ASC"),
 	}
 	for category in FAQ_CATEGORIES
+] + [
+	# The free-key path of Level 11.3: upcoming events, soonest first. Each event's expiration date
+	# is its start (scripts/free_key_search.py). Unused on an instance with Search Blueprints.
+	{
+		"erc": "upcoming-events",
+		"title": "Upcoming Events",
+		"space": "space-events",
+		"structure": "EventInformation",
+		"order": ("expirationDate", "ASC"),
+	},
 ]
 
 

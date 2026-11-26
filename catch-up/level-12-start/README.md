@@ -1,6 +1,6 @@
 # Level 12 starting point
 
-Use this if you couldn't finish Levels 1–11. It gives you everything Level 12 builds on: the personas, both sites, the site initializer and theme as Level 11 leaves them, the CMS Spaces and content from Level 6, the mappings, display pages and collections from Level 7, the catalog and product pages from Level 8, the legacy content and data from Level 9, the approval workflow with its approved article and announcement from Level 10, and the job search, blueprints and Events page from Level 11. It takes about fifteen minutes.
+Use this if you couldn't finish Levels 1–11. It gives you everything Level 12 builds on: the personas, both sites, the site initializer and theme as Level 11 leaves them, the CMS Spaces and content from Level 6, the mappings, display pages and collections from Level 7, the catalog and product pages from Level 8, the legacy content and data from Level 9, the approval workflow with its approved article and announcement from Level 10, and the job search, blueprints and Events page from Level 11 (on the DXP Free Tier key, which has no Search Blueprints, the free-key paths of 11.2 and 11.3 instead). It takes about fifteen minutes.
 
 It's the solution from a clean run of the workbook on DXP 2026.Q3.10. Your instructor will tell you whether to use it.
 
@@ -23,7 +23,7 @@ It's the solution from a clean run of the workbook on DXP 2026.Q3.10. Your instr
 Bring this Liferay instance to the end of Level 11 using the catch-up kit I
 just copied. In order:
 1. Run the scripts in scripts/ as catch-up/level-12-start/README.md lists
-   them (steps 1 to 20), with the admin credentials from
+   them (steps 1 to 21), with the admin credentials from
    configs/local/admin.properties and Liferay's HTTP port (8080, or with
    the optional Tomcat bundle the port in bundles/tomcat/conf/server.xml).
    Stop at the first error and show it to me.
@@ -31,7 +31,7 @@ just copied. In order:
    client-extensions/clarity-site with bash scripts/deploy_site.sh (it waits
    for the site initializer, then re-applies the site settings each deploy
    resets). Confirm in the log that the initializer ran for clarity-public.
-3. Run step 21 of the README's script order.
+3. Run step 22 of the README's script order.
 4. Read back and show me: the five Spaces with their entry and file counts,
    the workflow linked to Article and Announcement in the Marketing Space,
    the status and creator of "Clarity x Almanac Optics" and "Spring
@@ -41,7 +41,7 @@ just copied. In order:
 ```
 
 4. Do the steps in "What you still do by hand" below.
-5. Check the result as in the Level 10 and 11 verify steps: **Home** shows the *Spring into Style with Clarity* announcement bar; **Open Positions** finds both web developer listings; **Events** lists three upcoming events, soonest first.
+5. Check the result as in the Level 10 and 11 verify steps: **Home** shows the *Spring into Style with Clarity* announcement bar; **Open Positions** finds both web developer listings; **Events** lists three upcoming events, soonest first (the same on the free key).
 
 ## Script order
 
@@ -65,17 +65,18 @@ Data:
 14. `setup_job_blueprint.py`: the Boost Associate Job Listings blueprint (Level 11.2)
 15. `load_hiring_events.py`: the hiring events, dated relative to today (Level 11.3)
 16. `setup_future_events.py`: the Future Events search element and blueprint, a collection provider for the Events page (Level 11.3)
+17. `free_key_search.py`: only on an instance without Search Blueprints (the DXP Free Tier key): the free-key paths of 11.2 and 11.3. It sets each event's expiration date to its start, expires the past ones, and rewrites Open Positions (two Custom Filter widgets instead of the Blueprints Options widget) and Events (the Upcoming Events collection instead of the blueprint). With a developer key it does nothing, and steps 14 and 16 build the blueprints; without Search Blueprints those two skip.
 
 Fit the tree to this instance. The page definitions refer to files, fields and categories by numeric id, and those ids differ on every instance, so these rewrite the tree. Run them before every deploy to a new instance:
 
-17. `map_cms_images.py`: the Home, FAQ, Product List and master page images, mapped to Space files found by title (Level 7.1)
-18. `map_attachment_fields.py`: the image fields of the cards and display page templates (Levels 7.2 to 9.2)
-19. `build_collections.py`: `asset-list-entries.json`, the dynamic collections of Levels 7 and 9
-20. `setup_category_cards.py`: the Products page's category cards, and Guest VIEW on the Clarity Products categories (Level 8.4)
+18. `map_cms_images.py`: the Home, FAQ, Product List and master page images, mapped to Space files found by title (Level 7.1)
+19. `map_attachment_fields.py`: the image fields of the cards and display page templates (Levels 7.2 to 9.2)
+20. `build_collections.py`: `asset-list-entries.json`, the dynamic collections of Levels 7 and 9, and Upcoming Events for the free-key path of 11.3
+21. `setup_category_cards.py`: the Products page's category cards, and Guest VIEW on the Clarity Products categories (Level 8.4)
 
 Deploy `clarity-theme`, then `clarity-site` with `scripts/deploy_site.sh`. Then:
 
-21. `set_category_display_page.py`: Product List as the channel's default category display page (Level 8.5; it needs the page the deploy creates)
+22. `set_category_display_page.py`: Product List as the channel's default category display page (Level 8.5; it needs the page the deploy creates)
 
 Deploy `clarity-site` with `scripts/deploy_site.sh`, now and later in the course: every deploy of the site initializer resets the site's languages, and the script puts them back by running `scripts/site_settings.py` (description, Open membership, English and Spanish, accessibility menu). It also checks that both master pages exist, and deploys once more if one is missing: on a new instance the first run can skip the Primary Master Page, because its announcement bar shows a collection that the same run creates later.
 

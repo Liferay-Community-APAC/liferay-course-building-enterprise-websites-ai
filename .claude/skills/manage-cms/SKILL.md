@@ -288,6 +288,13 @@ To make a whole Space reproducible, use one `batch` CET (`manage-objects` → "I
 - **One file failing stops every later file.** Check for one `Successfully deployed batch engine file` log line per file, then re-read the records. Redeploying twice with no `Duplicate name` proves the field ERCs are in place.
 - **The connection to a Site is not in the batch.** Do step 2 after deploying.
 
+## Expiration Dates and Expiring Entries (Verified on 2026.q3.10)
+
+- **`expirationDate`** is a top-level field of every CMS entry (`PATCH /o/c/<plural>/{id}` with `{"expirationDate": "2027-01-09T13:00:00Z"}`), copied to the entry's asset (`assetentry.expirationDate`). A date in the past answers `400` "Expiration date must be a future date."
+- **Nothing expires an entry when that date passes**: an entry whose expiration date had passed stayed *Approved* and kept showing in collections (no expiry job for object entries on this release). Expire it explicitly: `POST /o/c/<plural>/scopes/{scopeKey}/by-external-reference-code/{erc}/expire` → `200`, status `{"code": 3, "label": "expired"}`. In the UI: select it in the Space, then *Expire*.
+- **An expired entry drops out of collections** for every visitor; the others stay.
+- **A dynamic collection can sort by it:** in `asset-list-entries.json`, `"orderBy": [{"key": "orderByColumn1", "value": "expirationDate"}, {"key": "orderByType1", "value": "ASC"}]`. With each event's expiration date set to its start date, that lists upcoming events soonest first: the free-key replacement for a "future events" blueprint (`manage-search`).
+
 ## Deleting
 
 - **Deleting a Space** (`DELETE .../asset-libraries/<space-erc>` → `204`) removes its entries, Basic Documents, folders, and Site connections, but **not** its structures, which are company-scoped definitions. Delete them explicitly, and re-check the `acceptAllGroups` rewrite above for any you keep.

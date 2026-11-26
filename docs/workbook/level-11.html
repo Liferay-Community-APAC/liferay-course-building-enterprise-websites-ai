@@ -325,7 +325,9 @@ em { color: inherit; }
 <li><strong>Search element:</strong> a query element you create yourself and use in a blueprint.</li>
 <li><strong>Blueprints Options:</strong> the widget that applies a blueprint to the search on a page.</li>
 <li><strong>Collection provider:</strong> a source of items that a Collection Display can render like a collection. A blueprint can be one, so a Collection Display renders its results.</li>
+<li><strong>Expiration date:</strong> the date after which a CMS entry should stop showing. An <em>expired</em> entry drops out of collections; the free-key path of 11.3 uses it for past events.</li>
 </ul>
+<p>🔑 <strong>On the Free Tier key?</strong> Search Blueprints, search elements and the Blueprints Options widget are part of Liferay Enterprise Search, which the Free Tier doesn't include (see <em>Setup</em>, S.2). 11.1 works as written. 11.2 and 11.3 each have a <strong>free-key path</strong> below that reaches the same result with features the free key has: Custom Filter widgets, and a collection of entries with expiration dates. Not sure which key you have? <em>Global Menu</em> → <em>Applications</em>: if there's no <strong>Blueprints</strong>, follow the free-key paths.</p>
 <h2 id="111-the-open-positions-job-search">11.1 — The Open Positions job search<a aria-hidden="true" class="heading-anchor" href="#111-the-open-positions-job-search" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> Open Positions is a working job search: a search bar, a category facet grouped by vocabulary, results, and empty searches allowed. The Careers page links to it.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> R11 · <strong>Skills:</strong> <code>manage-pages</code></p>
@@ -371,14 +373,25 @@ Blueprints Options widget with this blueprint to the Open Positions page in
 client-extensions/clarity-site, under Search Options, and deploy. Search
 "Engineer" as Guest and show the order of results before and after.
 </code></pre></div>
+<p>🔑 <strong>Free-key path</strong> (no Blueprints): the same result with two hidden <strong>Custom Filter</strong> widgets on Open Positions, one that filters and one that boosts.</p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the manage-search skill, on the Open Positions page in
+client-extensions/clarity-site, add two Custom Filter widgets under
+Search Options, both invisible and immutable: 1) "Job Listings Only",
+occur "filter", a term query that keeps only Job Listing CMS entries,
+on the field that identifies an object entry's definition (read the
+indexed fields of one job listing first to find it and its value);
+2) "Associate First", occur "should", boost 100, a match query for
+"Associate" on the English title field. Deploy, then search "Engineer"
+and run an empty search as Guest, and show the order of results.
+</code></pre></div>
 <p class="wb wb-verify-label">✅ <strong>Verify</strong> (look, don't change anything):</p>
 <ol class="wb-list wb-verify">
-<li><em>Global Menu</em> → <em>Applications</em> → <em>Blueprints</em> → open <strong>Boost Associate Job Listings</strong> → <em>Preview</em>, and search <em>Associate</em>: Associate listings come first, and no FAQ or article appears. Close without saving.</li>
+<li><em>Global Menu</em> → <em>Applications</em> → <em>Blueprints</em> → open <strong>Boost Associate Job Listings</strong> → <em>Preview</em>, and search <em>Associate</em>: Associate listings come first, and no FAQ or article appears. Close without saving. <em>Free key:</em> skip this step; instead, as the admin, open Open Positions in edit mode: the two Custom Filter widgets are under Search Options (they're hidden from visitors).</li>
 <li>On <strong>Open Positions</strong>, run an empty search: it lists only job listings, Associate ones first.</li>
 </ol>
 <p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
 <ul class="wb-list wb-ac">
-<li><strong>AC 11.2-1</strong> · <em>API, as the admin:</em> the blueprint <em>Boost Associate Job Listings</em> exists.</li>
+<li><strong>AC 11.2-1</strong> · <em>API, as the admin:</em> the blueprint <em>Boost Associate Job Listings</em> exists. <em>Free key:</em> searching <em>Engineer</em> on Open Positions, as Guest, lists only job listings, <em>Associate Optical Engineer (Level 2)</em> first.</li>
 <li><strong>AC 11.2-2</strong> · <em>Browser, as Guest:</em> an empty search on Open Positions lists only job listings, Associate ones first.</li>
 </ul>
 <h2 id="113-the-events-page-of-upcoming-hiring-events">11.3 — The Events page of upcoming hiring events<a aria-hidden="true" class="heading-anchor" href="#113-the-events-page-of-upcoming-hiring-events" tabindex="-1">#</a></h2>
@@ -403,18 +416,37 @@ client-extensions/clarity-site, under Search Options, and deploy. Search
    and a Paragraph (location). Add Events to the Footer Resources Menu
    after Careers. Deploy and check as Guest.
 </code></pre></div>
+<p>🔑 <strong>Free-key path</strong> (no Blueprints): give each event an <strong>expiration date</strong> equal to its start, expire the ones that already started, and list Event Information entries in a dynamic collection sorted by expiration date.</p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the manage-cms and manage-pages skills:
+1. Create the hiring events in context-source/content/hiring-events.json
+   as Event Information entries in the Events Space, in a Contents folder
+   "Hiring Events", dated relative to today as the file says, viewable by
+   Guest. Then set the expiration date of every Event Information entry
+   in the Events Space (Level 6's showcase too) to its start date and
+   time. Liferay refuses an expiration date in the past, so expire the
+   events that already started with the entry's expire endpoint instead.
+2. In client-extensions/clarity-site, add a dynamic collection "Upcoming
+   Events" of Event Information entries from the Events Space, ordered by
+   expiration date ascending, and an Events page (/events) on the
+   Primary Master Page with an "Upcoming Events" container: a heading
+   "Upcoming Events" and a Collection Display of that collection, flex
+   column, no pagination (don't set "display all items"), each item a
+   Heading (H4, title) and a Paragraph (location). Add Events to the
+   Footer Resources Menu after Careers. Deploy and check as Guest.
+</code></pre></div>
 <p class="wb wb-verify-label">✅ <strong>Verify</strong> (look, don't change anything):</p>
 <ol class="wb-list wb-verify">
 <li>Open <strong>Events</strong> in a private window: <em>Upcoming Events</em> lists <strong>Summer Job Fair</strong>, <strong>Campus Recruiting Event</strong> and <strong>Clarity Vision Showcase 2027</strong>, soonest first, and not the past <em>Spring Job Fair</em>.</li>
-<li><em>Global Menu</em> → <em>Applications</em> → <em>Blueprints</em> → <strong>Future Events</strong> → <em>Preview</em>: the same three, in that order.</li>
+<li><em>Global Menu</em> → <em>Applications</em> → <em>Blueprints</em> → <strong>Future Events</strong> → <em>Preview</em>: the same three, in that order. <em>Free key:</em> instead, open the Events Space's <em>Hiring Events</em> folder: <em>Spring Job Fair</em> is <strong>Expired</strong>, and the others are approved, each with an expiration date.</li>
 </ol>
+<p class="wb wb-note">ℹ️ <strong>Note:</strong> on the free-key path an event leaves the list only once it's expired, and DXP 2026.Q3 doesn't expire CMS entries by itself when their expiration date passes. On a real site, an editor (or a scheduled job) would expire each event when it starts: select it in the Space and choose <em>Expire</em>. The blueprint path doesn't need this, since it compares the start date with the current time on every search.</p>
 <p><img alt="The Events page: Upcoming Events lists Summer Job Fair, Campus Recruiting Event and Clarity Vision Showcase 2027 with their locations." src="../screenshots/11-3-events.png"/></p>
 <p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
 <ul class="wb-list wb-ac">
 <li><strong>AC 11.3-1</strong> · <em>Browser, as Guest:</em> Events lists <em>Summer Job Fair</em>, <em>Campus Recruiting Event</em> and <em>Clarity Vision Showcase 2027</em>, in that order, and not <em>Spring Job Fair</em>.</li>
 <li><strong>AC 11.3-2</strong> · <em>API, as the admin:</em> the Footer Resources Menu has Events right after Careers.</li>
 </ul>
-<p class="wb wb-why">📖 <strong>Why it matters:</strong> the original BEWL course used the Calendar widget here. On this release calendar events have no REST API, so the course keeps events in Liferay CMS, where your agent can create them and a blueprint can query them.</p>
+<p class="wb wb-why">📖 <strong>Why it matters:</strong> the original BEWL course used the Calendar widget here. On this release calendar events have no REST API, so the course keeps events in Liferay CMS, where your agent can create them and a blueprint can query them. The free-key path shows the trade-off: a collection can only sort and filter on what's stored on the entries, so "upcoming" has to be kept up to date on the content itself, while a blueprint computes it at search time.</p>
 <h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
 <p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own</strong>, while your last prompt runs. Choose one answer for each question. Your instructor then goes over the answers with the class.</p>
 <p class="wb wb-quiz-q"><strong>Question 1.</strong> You saved the <em>Boost Associate Job Listings</em> blueprint, but Open Positions still shows FAQs and articles. What's missing?</p>

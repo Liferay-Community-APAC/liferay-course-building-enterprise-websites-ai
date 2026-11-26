@@ -2,6 +2,8 @@
 
 Over two days you build **Clarity Vision Solutions' public enterprise website** on Liferay DXP 2026.Q3. Every exercise is a **prompt** you give your AI coding agent, followed by a **check** you do yourself in Liferay: the agent does the typing, and you confirm the result on screen before you build on it.
 
+🔑 **Which activation key?** The course runs on Liferay DXP with either key: the free key from the [Liferay DXP Free Tier](https://one.liferay.com/p/liferay-dxp-free-tier), or a developer key issued to you on one.liferay.com. One limitation: the **free key doesn't include Liferay Enterprise Search**, so it has no **Search Blueprints**. Levels 11.2 and 11.3 use blueprints; each has a **free-key path** that reaches the same result another way, and you lose only the blueprint itself. The bonus ⭐ 14.6 needs blueprints and has no free-key path. With a developer key, everything runs as written. Details: *Setup*, S.2.
+
 ## How the workbook works
 
 Each level opens with a short intro, then its exercises. Every exercise uses the same blocks, always in this order. A block is left out when the exercise doesn't need it.
@@ -12,6 +14,7 @@ Each level opens with a short intro, then its exercises. Every exercise uses the
 | **Requirement** and **Skills** | The requirement the exercise builds (R1 to R13) and the skills your agent relies on. |
 | 📋 **Before the prompt** | Steps you do yourself before you send the prompt. |
 | 💬 **Prompt** | The text to paste into your agent. |
+| 🔑 **Free-key path** | A second prompt for the same goal, for the DXP Free Tier key, which lacks a feature the main prompt uses (Levels 11.2 and 11.3 only). |
 | 📋 **After the prompt** | Steps you do yourself after the agent answers. |
 | ✅ **Verify** | Where to look in Liferay, and what you should see. Look, don't change anything. |
 | 🧪 **Acceptance criteria** | What must be true when the exercise is done, as checks a test can run: who checks (Guest, a persona, the admin over the API, or the files) and what they find. Each has an id, such as AC 2.3-1. |
