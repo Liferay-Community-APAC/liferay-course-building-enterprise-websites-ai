@@ -27,7 +27,7 @@ It follows the course, like the learners' workbook: a page per teaching block, i
 - **Run the demos on your own finished build.** The week before the course you run the whole learners' workbook from a clean clone (see the [instructor guide](index.html)). Keep that instance: every demo assumes the Clarity site exists end to end, with the personas, content, products, workflows and objects.
 - **Your agent is set up exactly like a learner's** (Setup S.0 to S.4), so a live prompt behaves as it will on their laptops.
 - **Personas sign in with password `learn`.** Use a **private window** for any persona or Guest, so your admin session stays signed in.
-- **Use it with** the [schedule](schedule.html) and the speaker notes (press N in the slides).
+- **Use it with** the [schedule](schedule.html) and the speaker notes. In the slides, **▦ Slides** (T) shows every slide as a thumbnail on the left, to pick up where you left off; press N for the notes, or **▶ Present** (P) to show the deck full screen and open a presenter view in a new window, with the timer, the current and next slides and the notes, like Google Slides. Drag the presenter window to your laptop screen and the deck to the projector.
 
 ## Before Day 1
 
