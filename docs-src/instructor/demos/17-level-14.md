@@ -1,8 +1,8 @@
-# Level 14 — A website chatbot (bonus)
+# Level 14 — Liferay AI Hub: an AI chatbot for your website (bonus)
 
 ⏱ **Optional: no block in the schedule** · **Slides:** [Day 2, 42–44](slides/day-2.html#42) · **Learners:** [Level 14](../workbook/level-14.html)
 
-**In this block:** Learners who finish early, or who continue after the course, set up a website chatbot the way Liferay AI Hub does: a Liferay Search agent, an LLM agent and a chatbot, in a small AI Hub mock that runs on their laptop, then Liferay's own Click to Chat to put it on every page. Their own agent CLI writes the answers, so nobody needs AI Hub access or an API key.
+**In this block:** Learners who finish early, or who continue after the course, build an AI chatbot with Liferay AI Hub's setup: a Liferay Search agent, an LLM agent and a chatbot, in a small AI Hub mock that runs on their laptop, then Liferay's own Click to Chat to put it on every page. Their own agent CLI writes the answers, so nobody needs AI Hub access or an API key.
 
 **Demos:** D2.14 (8 min)
 
@@ -14,7 +14,7 @@
 
 🎯 **Show:** the chain from a visitor's question to an answer: the chat bubble on the site, the chatbot, its Liferay Search agent, its LLM agent, and the answer with its sources.
 
-💡 **Say:** this is AI Hub's real setup, on a mock. Retrieval decides *what the chatbot knows*, the LLM agent decides *how it speaks*, and the search runs as Guest, so the chatbot can never answer from content a visitor isn't allowed to see.
+💡 **Say:** this is Liferay AI Hub's real setup, on a course mock: the steps learners take here are the same in AI Hub. Retrieval decides *what the chatbot knows*, the LLM agent decides *how it speaks*, and the search runs as Guest, so the chatbot can never answer from content a visitor isn't allowed to see.
 
 🧰 **Prepare:** on your demo build, do Level 14 once (14.1 to 14.5). Before the demo, start the mock in a terminal of your own: `node bonus/ai-hub/server.mjs`. It prints which agent CLI writes the answers. Open `http://localhost:3010` in one tab and Clarity's Home in a private window.
 
@@ -33,6 +33,8 @@ sources and its run log.
 ```
 
 🧹 **After the demo:** stop the mock with `Ctrl+C` in its terminal. The site keeps working without it, with no chat.
+
+🚀 **Close with AI Hub:** the real AI Hub adds Liferay's ready-made agents (writing, translation, categorization, SEO, image generation), guardrails, data sources, managed models and the AI Assistant in Liferay CMS. Invite anyone interested to talk to their Liferay account team about using it with their Liferay.
 
 ### Knowledge check answers
 

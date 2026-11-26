@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Level 14 — A website chatbot (bonus)</title>
+<title>Level 14 — Liferay AI Hub: an AI chatbot for your website (bonus)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -303,27 +303,27 @@ em { color: inherit; }
 <header class="topbar">
   <button class="menu-toggle" type="button" aria-label="Toggle table of contents">&#9776;</button>
   <a class="logo" href="../"><span class="dot"></span>BEWL with AI</a>
-  <div class="doc-title">Level 14 — A website chatbot (bonus)</div>
+  <div class="doc-title">Level 14 — Liferay AI Hub: an AI chatbot for your website (bonus)</div>
   <div class="spacer"></div>
 </header>
 <div class="layout">
   <nav class="sidebar" aria-label="Table of contents">
-    <details class="wb-levels"><summary><span class="wb-levels-title">Demo workbook</span> <span class="wb-pos">Bonus level</span></summary><a href="demos.html">Start here</a><p class="day">Day 1</p><a href="demos-kickoff.html">Kickoff</a><a href="demos-setup.html">Setup</a><a href="demos-platform.html">Capabilities</a><a href="demos-level-1.html">1 · Users and permissions</a><a href="demos-level-2.html">2 · Sites</a><a href="demos-level-3.html">3 · Pages, master pages and navigation</a><a href="demos-level-4.html">4 · Fragments and page compositions</a><a href="demos-level-5.html">5 · Design</a><a href="demos-level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="demos-level-7.html">7 · Displaying content</a><a href="demos-level-8.html">8 · Commerce</a><a href="demos-level-9.html">9 · Headless APIs</a><a href="demos-level-10.html">10 · Workflow and publishing</a><a href="demos-level-11.html">11 · Search</a><a href="demos-level-12.html">12 · Objects</a><a href="demos-level-13.html">13 · Personalization</a><a href="demos-operations.html">Performance tuning and maintenance</a><p class="day">Bonus</p><a href="demos-level-14.html" class="current">14 · A website chatbot (bonus)</a></details>
+    <details class="wb-levels"><summary><span class="wb-levels-title">Demo workbook</span> <span class="wb-pos">Bonus level</span></summary><a href="demos.html">Start here</a><p class="day">Day 1</p><a href="demos-kickoff.html">Kickoff</a><a href="demos-setup.html">Setup</a><a href="demos-platform.html">Capabilities</a><a href="demos-level-1.html">1 · Users and permissions</a><a href="demos-level-2.html">2 · Sites</a><a href="demos-level-3.html">3 · Pages, master pages and navigation</a><a href="demos-level-4.html">4 · Fragments and page compositions</a><a href="demos-level-5.html">5 · Design</a><a href="demos-level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="demos-level-7.html">7 · Displaying content</a><a href="demos-level-8.html">8 · Commerce</a><a href="demos-level-9.html">9 · Headless APIs</a><a href="demos-level-10.html">10 · Workflow and publishing</a><a href="demos-level-11.html">11 · Search</a><a href="demos-level-12.html">12 · Objects</a><a href="demos-level-13.html">13 · Personalization</a><a href="demos-operations.html">Performance tuning and maintenance</a><p class="day">Bonus</p><a href="demos-level-14.html" class="current">14 · Liferay AI Hub</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
     <div class="toc"><ul><li class="toc-level-2"><a href="#d214-an-ai-hub-chatbot-on-the-clarity-site">D2.14 — An AI Hub chatbot on the Clarity site</a></li><li class="toc-level-2"><a href="#knowledge-check-answers">Knowledge check answers</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
 <p class="wb-crumb"><a href="demos.html">Demo workbook</a> › Bonus</p>
-<h1 id="level-14-a-website-chatbot-bonus">Level 14 — A website chatbot (bonus)</h1>
+<h1 id="level-14-liferay-ai-hub-an-ai-chatbot-for-your-website-bonus">Level 14 — Liferay AI Hub: an AI chatbot for your website (bonus)</h1>
 <p class="wb wb-meta">⏱ <strong>Optional: no block in the schedule</strong> · <strong>Slides:</strong> <a href="slides/day-2.html#42">Day 2, 42–44</a> · <strong>Learners:</strong> <a href="../workbook/level-14.html">Level 14</a></p>
-<p><strong>In this block:</strong> Learners who finish early, or who continue after the course, set up a website chatbot the way Liferay AI Hub does: a Liferay Search agent, an LLM agent and a chatbot, in a small AI Hub mock that runs on their laptop, then Liferay's own Click to Chat to put it on every page. Their own agent CLI writes the answers, so nobody needs AI Hub access or an API key.</p>
+<p><strong>In this block:</strong> Learners who finish early, or who continue after the course, build an AI chatbot with Liferay AI Hub's setup: a Liferay Search agent, an LLM agent and a chatbot, in a small AI Hub mock that runs on their laptop, then Liferay's own Click to Chat to put it on every page. Their own agent CLI writes the answers, so nobody needs AI Hub access or an API key.</p>
 <p><strong>Demos:</strong> D2.14 (8 min)</p>
 <p class="wb wb-note">ℹ️ <strong>Note:</strong> run this demo only if the class has time at the end of Day 2, or when a few learners start the level and you want to show the shape of it. Present slides 42 to 44 with it; they come after the closing slides, as an appendix.</p>
 <h2 id="d214-an-ai-hub-chatbot-on-the-clarity-site">D2.14 — An AI Hub chatbot on the Clarity site<a aria-hidden="true" class="heading-anchor" href="#d214-an-ai-hub-chatbot-on-the-clarity-site" tabindex="-1">#</a></h2>
 <p class="wb wb-meta">🕒 <strong>8 minutes</strong> · Day 2, slides 43 and 44 · after the conclusion, or when learners start Level 14</p>
 <p class="wb wb-goal">🎯 <strong>Show:</strong> the chain from a visitor's question to an answer: the chat bubble on the site, the chatbot, its Liferay Search agent, its LLM agent, and the answer with its sources.</p>
-<p class="wb wb-say">💡 <strong>Say:</strong> this is AI Hub's real setup, on a mock. Retrieval decides <em>what the chatbot knows</em>, the LLM agent decides <em>how it speaks</em>, and the search runs as Guest, so the chatbot can never answer from content a visitor isn't allowed to see.</p>
+<p class="wb wb-say">💡 <strong>Say:</strong> this is Liferay AI Hub's real setup, on a course mock: the steps learners take here are the same in AI Hub. Retrieval decides <em>what the chatbot knows</em>, the LLM agent decides <em>how it speaks</em>, and the search runs as Guest, so the chatbot can never answer from content a visitor isn't allowed to see.</p>
 <p class="wb wb-do-label">🧰 <strong>Prepare:</strong> on your demo build, do Level 14 once (14.1 to 14.5). Before the demo, start the mock in a terminal of your own: <code>node bonus/ai-hub/server.mjs</code>. It prints which agent CLI writes the answers. Open <code>http://localhost:3010</code> in one tab and Clarity's Home in a private window.</p>
 <p class="wb wb-do-label">📋 <strong>Steps:</strong></p>
 <ol class="wb-list wb-do">
@@ -339,6 +339,7 @@ through its chat endpoint, as a site would, and show me the answer, its
 sources and its run log.
 </code></pre></div>
 <p class="wb wb-clean">🧹 <strong>After the demo:</strong> stop the mock with <code>Ctrl+C</code> in its terminal. The site keeps working without it, with no chat.</p>
+<p>🚀 <strong>Close with AI Hub:</strong> the real AI Hub adds Liferay's ready-made agents (writing, translation, categorization, SEO, image generation), guardrails, data sources, managed models and the AI Assistant in Liferay CMS. Invite anyone interested to talk to their Liferay account team about using it with their Liferay.</p>
 <h2 id="knowledge-check-answers">Knowledge check answers<a aria-hidden="true" class="heading-anchor" href="#knowledge-check-answers" tabindex="-1">#</a></h2>
 <p class="wb wb-meta">🕒 <strong>5 minutes, if the class did the level</strong> · learners answer on their own first (<a href="../workbook/level-14.html#knowledge-check">Level 14, Knowledge check</a>). The answers are also at the end of <code>bonus/ai-hub/README.md</code>, for learners working after the course.</p>
 <p class="wb wb-say">💡 <strong>Say:</strong> most questions about chatbots come back to two gates: what the search may reach (Service Access Policy, then permissions), and what the model is told to do with it (the prompt).</p>

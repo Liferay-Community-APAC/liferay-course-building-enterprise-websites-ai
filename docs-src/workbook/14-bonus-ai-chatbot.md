@@ -1,11 +1,20 @@
-# Level 14 — A website chatbot (bonus): AI Hub's setup, with your own AI
+# Level 14 — Liferay AI Hub: an AI chatbot for your website (bonus)
 
 ⏱ **About 45 minutes**, on your own, after the course or when you finish early · **Builds on:** Levels 6 and 7 (content to answer from), and the Clarity site and its master pages
 
-**What you'll build:** a **Clarity Assistant** chatbot on every page of the public site. A visitor asks a question; the chatbot searches the site's content, and an AI writes a short answer from what it found, with its sources. It's set up the way you set up a chatbot in **Liferay AI Hub**: a search agent, an answer agent, then a chatbot that uses both, then Liferay's *Click to Chat* to put it on the site. As in the rest of the course, your agent does the setup from your prompts, and you check each step on the screens: the AI Hub console and Liferay. AI Hub is a Liferay cloud service you may not have access to, so this level uses a small **mock** of it that runs on your computer and answers with **the AI agent you already use** in this course.
+**What you'll build:** with **Liferay AI Hub**, a **Clarity Assistant** chatbot on every page of the public site. A visitor asks a question; the chatbot searches the site's content, and an AI writes a short answer from what it found, with its sources. You build it exactly as you would in AI Hub: a search agent, an answer agent, a chatbot that uses both, then Liferay's *Click to Chat* to put it on the site. As in the rest of the course, your agent does the setup from your prompts, and you check each step on AI Hub's screens and in Liferay.
+
+🚀 **Why Liferay AI Hub:** it's Liferay's cloud service for AI agents and chatbots, built to work with your Liferay.
+- **Build agents visually** in *Agent Builder*: each agent is a workflow of nodes (LLM, Liferay Search, HTTP requests, AI decisions, forks), with prompts and variables you set on screen.
+- **Start from Liferay's own agents**: ready-made agents for writing, translation, categorization, tagging, SEO titles and descriptions, and image generation. Duplicate one and adapt it.
+- **Grounded in your content**: Liferay Search agents answer from your Liferay, within its permissions, and data sources add more.
+- **Governed**: guardrails, a risk classification for every agent, the model provider's compliance documentation, and an activity log.
+- **Put to work anywhere**: chatbots on any site through Click to Chat or their chatbot code, and agents behind the AI Assistant in Liferay CMS. The models run in Liferay's cloud: nothing to host.
+
+ℹ️ **In this course:** so that everyone can try it, even without an AI Hub account yet, this level uses a **course mock** of AI Hub that runs on your computer. It copies AI Hub's screens and setup, and its chatbot answers with **the AI agent you already use** in this course instead of AI Hub's models. The steps are the same in the real AI Hub.
 
 **Key terms**
-- **AI Hub:** Liferay's cloud service for AI agents and chatbots. You build agents in its *Agent Builder*, combine them in a *chatbot*, and put the chatbot on a site. This level's mock copies its screens.
+- **Liferay AI Hub:** Liferay's cloud service for AI agents and chatbots. You build agents in its *Agent Builder*, combine them in a *chatbot*, and put the chatbot on a site. This level's course mock copies its screens.
 - **Agent:** one step a chatbot runs, with a small workflow: *Start → one node → End*. A **Liferay Search agent** searches your Liferay; an **LLM agent** asks a language model to write text.
 - **RAG (retrieval-augmented generation):** first retrieve content that may answer the question, then have a language model answer from that content only. It keeps the answers grounded in your site instead of the model's memory.
 - **Service Access Policy:** a Liferay rule that decides which API methods a caller may reach at all, before any permission is checked. Anonymous visitors get almost none by default.
@@ -171,6 +180,8 @@ open Home as Guest, click the chat bubble and show me its first message.
 - *The bubble says the chat isn't available:* the chatbot is disabled, or its ERC differs from the *Chat Provider Account ID*.
 
 📖 **Why it matters:** these are the same settings you'd make with the real AI Hub; only the *Service URL* and the credentials would come from your AI Hub account instead of the mock. Kept in code, they come back with every deploy and every new environment, like the rest of the site. Click to Chat puts one chatbot on every page of a site, without touching a page or a master, and a site can override the instance's choice. The bubble only links to AI Hub: stop the mock, and the site keeps working, without a chat.
+
+🚀 **Next: the real Liferay AI Hub.** Everything in this level is AI Hub's own setup: the same agents, the same chatbot, the same Click to Chat settings, with AI Hub's *Service URL* and credentials instead of the mock's. On the real AI Hub you also get Liferay's ready-made agents, guardrails, data sources, managed models and the AI Assistant in Liferay CMS. To use it with your Liferay, talk to your Liferay account team.
 
 ## 🧠 Knowledge check
 

@@ -71,7 +71,7 @@ Level intros also have:
 | 2 | [11 — Search](#level-11-search-job-openings-blueprints-and-events) | Job search page, facets, search blueprints, upcoming events | 19, 20 |
 | 2 | [12 — Objects](#level-12-objects-the-contact-us-form-and-its-follow-up) | Contact Us object, form, follow-up workflow, data set dashboard | 21 |
 | 2 | [13 — Personalization](#level-13-personalization-a-home-page-for-distributors) | A Home page variant for distributors, by user group | 22 |
-| Bonus | [14 — Website chatbot](#level-14-a-website-chatbot-bonus-ai-hubs-setup-with-your-own-ai) | A chatbot on every page, set up like Liferay AI Hub, answering from the site's content with your own AI agent | — |
+| Bonus | [14 — Liferay AI Hub](#level-14-liferay-ai-hub-an-ai-chatbot-for-your-website-bonus) | An AI chatbot on every page, built with Liferay AI Hub's agents and chatbots, answering from the site's content | — |
 
 Challenge 1 (touring the finished site), Challenge 13 (ChatGPT content creation), the Liferay Data Platform overview and the performance tuning module aren't exercises in this course. Your instructor covers them in the slides.
 
