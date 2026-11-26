@@ -2,7 +2,7 @@
 
 A lightweight stand-in for **Liferay AI Hub**, for the bonus Level 14 of the workbook. It lets you set up a website chatbot the way AI Hub does (agents, then a chatbot, then Liferay's *Click to Chat* on your site) without access to AI Hub, and it really answers: with your Liferay's content and **the AI agent you already use** in the course.
 
-The console copies AI Hub's screens, as the masterclass's Energy Advisor exercise shows them. Features the mock doesn't have are greyed out, and the cards that only the mock has (*Add It to Your Site*, *Try It*, and *Course Mock* in Configurations) carry a **Course mock** label.
+The console copies AI Hub's screens (checked against the live AI Hub in November 2026): Home, the Agent Builder and Chatbots lists, the full-page agent and chatbot editors, the workflow editor and Configurations. Features the mock doesn't have are greyed out, and what only the mock has (*Try It*, the AI Provider card, *Course Mock* in Configurations, the menu of agent types under *New Agent*) carries a **Course mock** label.
 
 It isn't AI Hub, and isn't meant for production: it's one Node.js file and a few static pages, for learning the shape of the setup.
 
@@ -99,7 +99,7 @@ All three settings can live in code, which is what Level 14.5 does (verified on 
 
 The *AI Hub* screen in *Instance Settings* only appears once the release feature flag **AI Hub (LPD-62272)** is on; the configuration file works without it. Liferay adds the script with inline JavaScript, so look for `aihub-chatbot-widget-script` in a browser (or in the page's JavaScript), not as a `<script id=…>` tag in the HTML.
 
-Without Click to Chat, the same bubble loads from the chatbot's embed snippet, for example in a fragment:
+Without Click to Chat, the same bubble loads from the chatbot's **Chatbot Code**, shown at the bottom of its page as in AI Hub: a `<link>` to `index-css`, and a script that adds the same `aihub-chatbot-widget-script` tag. Paste it into any page, or a fragment. A shorter form also works:
 
 ```html
 <script src="http://localhost:3010/widget.js" data-chatbot="CLARITY_ASSISTANT" defer></script>
