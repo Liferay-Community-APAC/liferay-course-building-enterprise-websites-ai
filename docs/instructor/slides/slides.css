@@ -532,6 +532,20 @@ figure.shot figcaption {
 }
 .slide.photo .slide-foot { right: calc(38% + 1.6em); }
 .slide.photo[data-instructor]::after { z-index: 2; }
+.slide[data-bonus]::after {
+  content: "Bonus · optional";
+  position: absolute;
+  top: 1.1em; right: 1.6em;
+  font-size: .62em;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #0b5fff;
+  background: #f0f5ff;
+  border: 1px solid #b3cdff;
+  border-radius: 2em;
+  padding: .3em .9em;
+}
 
 /* ---------- Photo banner on a business-case column ---------- */
 
@@ -900,6 +914,7 @@ html.help-open .help { display: flex; }
   html.stacked .slide h1 { font-size: 1.9em; }
   html.stacked .slide h2 { font-size: 1.45em; }
   html.stacked .slide-foot { left: 16px; right: 16px; }
+  html.stacked .slide[data-bonus]::after { position: static; display: inline-block; margin-top: 12px; order: 99; align-self: flex-start; }
   html.stacked .slide[data-instructor]::after { position: static; display: inline-block; margin-top: 12px; order: 99; align-self: flex-start; }
   html.stacked .cols,
   html.stacked .cols.three,

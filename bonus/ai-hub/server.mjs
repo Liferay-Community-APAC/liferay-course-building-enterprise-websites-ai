@@ -10,7 +10,7 @@
 //   Codex, Copilot or Gemini), run with no tools in an empty folder.
 // - Serves widget.js, the chat bubble: Liferay's Click to Chat loads it as AI Hub's
 //   /documents/d/global/index-js when the AI Hub Service URL points here, and the chatbot's
-//   embed snippet loads it as /widget.js.
+//   Chatbot Code loads it the same way (or as /widget.js).
 //
 // Node.js 20 or later, no dependencies. Start it yourself (not from an agent session):
 //   node bonus/ai-hub/server.mjs

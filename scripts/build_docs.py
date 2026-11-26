@@ -7,7 +7,7 @@ Build the course's GitHub Pages site (docs/) from docs-src/.
 
 Writes:
     docs/workbook/index.html      the student workbook's start page
-    docs/workbook/setup.html, level-1.html … level-13.html  one page per level
+    docs/workbook/setup.html, level-1.html … level-14.html  one page per level (14 is the bonus)
     docs/instructor/index.html    the instructor guide
     docs/instructor/schedule.html the two-day schedule
     docs/instructor/whats-new.html what's new compared to the original course
@@ -137,13 +137,14 @@ STUDENT = {"name": "Workbook", "src": SRC / "workbook", "out": OUT / "workbook",
 INSTRUCTOR = {"name": "Demo workbook", "src": SRC / "instructor" / "demos", "out": OUT / "instructor", "index": "demos.html",
               "pages": None, "file": lambda source: "demos-" + source.split("-", 1)[1] + ".html"}
 INSTRUCTOR_DAY_2_FROM = "09-"  # demo pages from 09-level-7 on are Day 2
+BONUS_DEMOS = {"level-14"}  # the bonus level's demo page, labelled like the workbook's
 
 
 def book_pages(book: dict) -> list[tuple[str, int]]:
     if book["pages"] is not None:
         return book["pages"]
     names = sorted(p.stem for p in book["src"].glob("[0-9][0-9]-*.md"))
-    return [(n, 2 if n >= INSTRUCTOR_DAY_2_FROM else 1) for n in names]
+    return [(n, 3 if n.split("-", 1)[1] in BONUS_DEMOS else 2 if n >= INSTRUCTOR_DAY_2_FROM else 1) for n in names]
 
 
 def build_book(book: dict) -> tuple[dict[str, str], callable]:

@@ -3,7 +3,7 @@
 //   <script id="aihub-chatbot-widget-script" src="<Service URL>/documents/d/global/index-js"
 //     ai-hub-url="<Service URL>" chatbot-external-reference-code="<chatbot ERC>">,
 //   and the mock serves this file at that path.
-// - The chatbot's embed snippet, in a fragment:
+// - The chatbot's Chatbot Code (or this shorter form), on any page or in a fragment:
 //   <script src="http://localhost:3010/widget.js" data-chatbot="<chatbot ERC>" defer></script>
 // It renders in a shadow root, so the site's CSS and the bubble's don't mix.
 
