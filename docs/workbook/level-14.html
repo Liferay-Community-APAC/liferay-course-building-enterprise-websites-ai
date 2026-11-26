@@ -339,7 +339,7 @@ em { color: inherit; }
 <p>It prints which AI agent will write the answers, for example <code>Answers from: Claude Code (claude -p)</code>. It looks for <code>claude</code>, <code>codex</code>, <code>copilot</code> and <code>gemini</code>, in that order. To choose one, start it with <code>AI_CLI=codex node bonus/ai-hub/server.mjs</code> (on Windows PowerShell: <code>$env:AI_CLI="codex"; node bonus/ai-hub/server.mjs</code>).</p>
 </li>
 <li>
-<p>Open <code>http://localhost:3010</code> in your browser: the <strong>AI Hub</strong> console, with <em>Agent Builder</em>, <em>Chatbots</em> and <em>Configurations</em>. Its screens copy AI Hub's; what the mock doesn't have (<em>Account Management</em>, an agent's <em>Data Sources</em>, a chatbot's <em>Avatar</em>, other languages) is greyed out, and the cards only the mock has are marked <strong>Course mock</strong>. Keep it open: in the next exercises your agent sets AI Hub up through the console's API, and you check each step on these screens.</p>
+<p>Open <code>http://localhost:3010</code> in your browser: the <strong>AI Hub</strong> console, with <em>Agent Builder</em>, <em>Chatbots</em> and <em>Configurations</em>. Its screens copy AI Hub's, including the full-page editors with <strong>Cancel</strong> and <strong>Save</strong> at the top. What the mock doesn't have (<em>Account Management</em>, an agent's <em>Data Sources</em> and <em>Guardrails</em>, a chatbot's <em>Avatar</em> and <em>Suggested Questions</em>, other languages) is greyed out, and what only the mock has is marked <strong>Course mock</strong>. Keep it open: in the next exercises your agent sets AI Hub up through the console's API, and you check each step on these screens.</p>
 </li>
 </ol>
 <h2 id="142-connect-the-mock-and-let-anonymous-visitors-search">14.2 — Connect the mock, and let anonymous visitors search<a aria-hidden="true" class="heading-anchor" href="#142-connect-the-mock-and-let-anonymous-visitors-search" tabindex="-1">#</a></h2>
@@ -390,8 +390,8 @@ Then show me both agents as the API stored them.
 </code></pre></div>
 <p class="wb wb-verify-label">✅ <strong>Verify</strong> in the mock's console (look, don't change anything):</p>
 <ol class="wb-list wb-verify">
-<li><strong>Agent Builder</strong> lists both agents, <strong>Enabled</strong>, one <em>Liferay Search</em> and one <em>LLM</em>.</li>
-<li>Open <strong>Clarity Content Search</strong>, then <strong>Edit Workflow</strong>: the canvas shows <strong>Start → Liferay Search → End</strong>. The <strong>Liferay Search</strong> node's panel has the prompt, the <strong>User Message</strong> <code>{{request}}</code>, and the <strong>Retrieval-Augmented Generation</strong> configuration with <code>"key": "liferay"</code> (your Liferay, no blueprint). Click <strong>Start</strong> and <strong>End</strong>: they show the variables going in and out.</li>
+<li><strong>Agent Builder</strong> lists both agents, <strong>Running</strong>, one labelled <em>Liferay Search agent</em> and one <em>LLM agent</em>.</li>
+<li>Open <strong>Clarity Content Search</strong>, then <strong>Edit Workflow</strong>: the canvas shows <strong>Start → Liferay Search → End</strong>, and the panel on the right lists AI Hub's node types. Click the <strong>Liferay Search</strong> node: its panel has the prompt, the <strong>User Message</strong> <code>{{request}}</code>, and the <strong>Retrieval-Augmented Generation</strong> configuration with <code>"key": "liferay"</code> (your Liferay, no blueprint). Click <strong>Start</strong> and <strong>End</strong>: they show the variables going in and out.</li>
 <li>Open <strong>Clarity Answer Builder</strong>'s workflow: <strong>Start → LLM → End</strong>, and its <strong>User Message</strong> passes <code>{{originalRequest}}</code> and <code>{{gatheredInformation}}</code>, the search results.</li>
 </ol>
 <p><img alt="The Clarity Content Search agent's workflow in the mock's Agent Builder: Start, Liferay Search and End nodes on a dotted canvas, and the Liferay Search node's Prompt, variables, User Message and Retrieval-Augmented Generation configuration in the panel on the right." src="../screenshots/14-3-search-agent.png"/></p>
@@ -509,20 +509,20 @@ blueprint, and assign it to CLARITY_ASSISTANT too. Then ask the chatbot
 <li>Stop the mock: AC 14.4-1, AC 14.4-2 and AC 14.5-1 fail, and AC 14.2-1 still passes. Start it again: all pass.</li>
 </ol>
 <h2 id="148-bonus-the-embed-snippet-instead-of-click-to-chat">⭐ 14.8 — Bonus: the embed snippet instead of Click to Chat<a aria-hidden="true" class="heading-anchor" href="#148-bonus-the-embed-snippet-instead-of-click-to-chat" tabindex="-1">#</a></h2>
-<p class="wb wb-goal">🎯 <strong>Goal:</strong> the same bubble from a fragment, for a site that doesn't use Click to Chat. The chatbot page's <strong>Add It to Your Site</strong> card shows the snippet.</p>
+<p class="wb wb-goal">🎯 <strong>Goal:</strong> the same bubble from a fragment, for a site that doesn't use Click to Chat. It uses the <strong>Chatbot Code</strong> that AI Hub shows at the bottom of a chatbot's page, as the mock does.</p>
 <p class="wb wb-prompt-label">💬 <strong>Prompt:</strong></p>
 <div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the scaffold-fragment and theme-and-design skills, add a "Clarity
 Chat" fragment to the Clarity Components set in
 client-extensions/clarity-site. Configuration: chatbotERC (text, default
 "CLARITY_ASSISTANT") and aiHubURL (text, default "http://localhost:3010").
-On the live page, its HTML is only the AI Hub embed snippet:
-&lt;script data-chatbot="${configuration.chatbotERC}" defer
-src="${configuration.aiHubURL}/widget.js"&gt;&lt;/script&gt;
+On the live page, its HTML is only the Chatbot Code that the AI Hub
+mock shows at the bottom of the Clarity Assistant chatbot's page, with
+the chatbot's ERC and the AI Hub URL taken from those two values.
 In the page editor (layoutMode "edit"), render a small dashed label
 "Clarity Chat: &lt;chatbotERC&gt;" instead of the script. Place it at the end of
 both master pages, after the footer, with those two values. Deploy with
-scripts/deploy_site.sh, then fetch Home as Guest and show me the script
-tag in the HTML.
+scripts/deploy_site.sh, then fetch Home as Guest and show me the
+chatbot code in the HTML.
 </code></pre></div>
 <p class="wb wb-verify-label">✅ <strong>Success looks like:</strong> turn Click to Chat off in Clarity's <em>Site Settings</em>: the bubble still shows on every page, now from the fragment. One page shows one bubble, even with both on.</p>
 <nav class="wb-pager" aria-label="Workbook pages"><a class="prev" href="level-13.html"><span>← Previous</span>Level 13 — Personalization: a Home page for distributors</a></nav>
