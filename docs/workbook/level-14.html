@@ -310,14 +310,14 @@ em { color: inherit; }
   <nav class="sidebar" aria-label="Table of contents">
     <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Bonus level</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a><p class="day">Bonus</p><a href="level-14.html" class="current">14 · A website chatbot (bonus)</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
-    <div class="toc"><ul><li class="toc-level-2"><a href="#141-start-the-ai-hub-mock-and-connect-it-to-liferay">14.1 — Start the AI Hub mock and connect it to Liferay</a></li><li class="toc-level-2"><a href="#142-let-anonymous-visitors-search-through-the-api">14.2 — Let anonymous visitors search through the API</a></li><li class="toc-level-2"><a href="#143-build-the-two-agents">14.3 — Build the two agents</a></li><li class="toc-level-2"><a href="#144-create-the-chatbot-and-try-it">14.4 — Create the chatbot and try it</a></li><li class="toc-level-2"><a href="#145-put-the-chatbot-on-every-page-with-click-to-chat">14.5 — Put the chatbot on every page, with Click to Chat</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#146-bonus-search-through-a-blueprint">⭐ 14.6 — Bonus: search through a blueprint</a></li><li class="toc-level-2"><a href="#147-bonus-check-level-14-with-playwright">⭐ 14.7 — Bonus: check Level 14 with Playwright</a></li><li class="toc-level-2"><a href="#148-bonus-the-embed-snippet-instead-of-click-to-chat">⭐ 14.8 — Bonus: the embed snippet instead of Click to Chat</a></li></ul></div>
+    <div class="toc"><ul><li class="toc-level-2"><a href="#141-start-the-ai-hub-mock">14.1 — Start the AI Hub mock</a></li><li class="toc-level-2"><a href="#142-connect-the-mock-and-let-anonymous-visitors-search">14.2 — Connect the mock, and let anonymous visitors search</a></li><li class="toc-level-2"><a href="#143-build-the-two-agents">14.3 — Build the two agents</a></li><li class="toc-level-2"><a href="#144-create-the-chatbot-and-try-it">14.4 — Create the chatbot and try it</a></li><li class="toc-level-2"><a href="#145-put-the-chatbot-on-every-page-with-click-to-chat">14.5 — Put the chatbot on every page, with Click to Chat</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#146-bonus-search-through-a-blueprint">⭐ 14.6 — Bonus: search through a blueprint</a></li><li class="toc-level-2"><a href="#147-bonus-check-level-14-with-playwright">⭐ 14.7 — Bonus: check Level 14 with Playwright</a></li><li class="toc-level-2"><a href="#148-bonus-the-embed-snippet-instead-of-click-to-chat">⭐ 14.8 — Bonus: the embed snippet instead of Click to Chat</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
 <p class="wb-crumb"><a href="index.html">Workbook</a> › Bonus</p>
 <h1 id="level-14-a-website-chatbot-bonus-ai-hubs-setup-with-your-own-ai">Level 14 — A website chatbot (bonus): AI Hub's setup, with your own AI</h1>
 <p class="wb wb-meta">⏱ <strong>About 45 minutes</strong>, on your own, after the course or when you finish early · <strong>Builds on:</strong> Levels 6 and 7 (content to answer from), and the Clarity site and its master pages</p>
-<p><strong>What you'll build:</strong> a <strong>Clarity Assistant</strong> chatbot on every page of the public site. A visitor asks a question; the chatbot searches the site's content, and an AI writes a short answer from what it found, with its sources. You set it up the way you set up a chatbot in <strong>Liferay AI Hub</strong>: a search agent, an answer agent, then a chatbot that uses both. AI Hub is a Liferay cloud service you may not have access to, so this level uses a small <strong>mock</strong> of it that runs on your computer and answers with <strong>the AI agent you already use</strong> in this course.</p>
+<p><strong>What you'll build:</strong> a <strong>Clarity Assistant</strong> chatbot on every page of the public site. A visitor asks a question; the chatbot searches the site's content, and an AI writes a short answer from what it found, with its sources. It's set up the way you set up a chatbot in <strong>Liferay AI Hub</strong>: a search agent, an answer agent, then a chatbot that uses both, then Liferay's <em>Click to Chat</em> to put it on the site. As in the rest of the course, your agent does the setup from your prompts, and you check each step on the screens: the AI Hub console and Liferay. AI Hub is a Liferay cloud service you may not have access to, so this level uses a small <strong>mock</strong> of it that runs on your computer and answers with <strong>the AI agent you already use</strong> in this course.</p>
 <p><strong>Key terms</strong></p>
 <ul>
 <li><strong>AI Hub:</strong> Liferay's cloud service for AI agents and chatbots. You build agents in its <em>Agent Builder</em>, combine them in a <em>chatbot</em>, and put the chatbot on a site. This level's mock copies its screens.</li>
@@ -327,143 +327,129 @@ em { color: inherit; }
 <li><strong>Click to Chat:</strong> Liferay's setting that adds a chat to every page of a site, from a chat provider such as AI Hub.</li>
 </ul>
 <p class="wb wb-note">ℹ️ <strong>Note:</strong> the mock is in <code>bonus/ai-hub/</code> (no install: it only needs Node.js 20 or later, which the Playwright bonuses use too). It runs your agent's command line non-interactively, in an empty folder: with Claude Code every tool is switched off, so the chatbot can only write text; other agents run in their read-only modes. Each answer takes 5 to 30 seconds and uses your agent subscription, like any other prompt. See <code>bonus/ai-hub/README.md</code> for how it works.</p>
-<h2 id="141-start-the-ai-hub-mock-and-connect-it-to-liferay">14.1 — Start the AI Hub mock and connect it to Liferay<a aria-hidden="true" class="heading-anchor" href="#141-start-the-ai-hub-mock-and-connect-it-to-liferay" tabindex="-1">#</a></h2>
-<p class="wb wb-goal">🎯 <strong>Goal:</strong> the AI Hub mock running at <code>http://localhost:3010</code>, pointing at your Liferay.</p>
+<h2 id="141-start-the-ai-hub-mock">14.1 — Start the AI Hub mock<a aria-hidden="true" class="heading-anchor" href="#141-start-the-ai-hub-mock" tabindex="-1">#</a></h2>
+<p class="wb wb-goal">🎯 <strong>Goal:</strong> the AI Hub mock running at <code>http://localhost:3010</code>, and its console open next to your agent.</p>
 <p class="wb wb-tags"><strong>Requirement:</strong> none (bonus) · <strong>Skills:</strong> none, you do this yourself</p>
-<p class="wb wb-do-label">📋 <strong>Steps</strong> (there's no prompt in this exercise):</p>
+<p class="wb wb-do-label">📋 <strong>Steps</strong> (there's no prompt in this exercise: like Liferay, you start and stop the mock yourself, never the agent):</p>
 <ol class="wb-list wb-do">
 <li>
-<p>Open a <strong>second terminal</strong> in VS Code (<em>Terminal</em> → <em>New Terminal</em>), and start the mock from the workspace root. Like Liferay, you start and stop it yourself, never the agent:</p>
+<p>Open a <strong>second terminal</strong> in VS Code (<em>Terminal</em> → <em>New Terminal</em>), and start the mock from the workspace root:</p>
 <div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>node bonus/ai-hub/server.mjs
 </code></pre></div>
 <p>It prints which AI agent will write the answers, for example <code>Answers from: Claude Code (claude -p)</code>. It looks for <code>claude</code>, <code>codex</code>, <code>copilot</code> and <code>gemini</code>, in that order. To choose one, start it with <code>AI_CLI=codex node bonus/ai-hub/server.mjs</code> (on Windows PowerShell: <code>$env:AI_CLI="codex"; node bonus/ai-hub/server.mjs</code>).</p>
 </li>
 <li>
-<p>Open <code>http://localhost:3010</code> in your browser: the <strong>AI Hub</strong> console, with <em>Agent Builder</em>, <em>Chatbots</em> and <em>Configurations</em>.</p>
+<p>Open <code>http://localhost:3010</code> in your browser: the <strong>AI Hub</strong> console, with <em>Agent Builder</em>, <em>Chatbots</em> and <em>Configurations</em>. Keep it open: in the next exercises your agent sets AI Hub up through the console's API, and you check each step on these screens.</p>
 </li>
-<li>Open <strong>Configurations</strong>. Check that <em>Environment URL</em> is <code>http://localhost:8080</code>, your Liferay, and click <strong>Save</strong>.</li>
-<li>Click <strong>Test connection</strong>. You should get a red message: <em>Liferay refused the search as Guest (403)</em>. That's expected: the next exercise fixes it.</li>
 </ol>
-<p class="wb wb-why">📖 <strong>Why it matters:</strong> the real AI Hub is a cloud service: it needs a public HTTPS URL for your Liferay, and it signs in to Liferay with an OAuth client. The mock runs next to your Liferay, so <code>localhost</code> works, and it searches as an anonymous visitor (Guest), which is what a public chatbot should see.</p>
-<h2 id="142-let-anonymous-visitors-search-through-the-api">14.2 — Let anonymous visitors search through the API<a aria-hidden="true" class="heading-anchor" href="#142-let-anonymous-visitors-search-through-the-api" tabindex="-1">#</a></h2>
-<p class="wb wb-goal">🎯 <strong>Goal:</strong> Guest may call Liferay's headless search API, so the chatbot can search what any visitor may see, and nothing more.</p>
-<p class="wb wb-tags"><strong>Requirement:</strong> none (bonus) · <strong>Skills:</strong> none, you do this yourself</p>
-<p class="wb wb-do-label">📋 <strong>Steps</strong> (there's no prompt: Service Access Policies have no headless API):</p>
-<ol class="wb-list wb-do">
+<h2 id="142-connect-the-mock-and-let-anonymous-visitors-search">14.2 — Connect the mock, and let anonymous visitors search<a aria-hidden="true" class="heading-anchor" href="#142-connect-the-mock-and-let-anonymous-visitors-search" tabindex="-1">#</a></h2>
+<p class="wb wb-goal">🎯 <strong>Goal:</strong> the mock pointing at your Liferay, and Guest allowed to call Liferay's headless search API, so the chatbot can search what any visitor may see, and nothing more.</p>
+<p class="wb wb-tags"><strong>Requirement:</strong> none (bonus) · <strong>Skills:</strong> none named: the agent reads <code>rules/guest-access.md</code> and the mock's README</p>
+<p class="wb wb-prompt-label">💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>The AI Hub mock in bonus/ai-hub runs at http://localhost:3010; its API
+is in bonus/ai-hub/README.md. Point its configuration at my Liferay and
+run its connection test. If Liferay refuses the search as Guest, find
+out why with rules/guest-access.md, and give me the exact UI steps to
+allow only the headless search's getSearchPage method for Guest. When I
+say it's done, run the connection test again, then fetch
+/o/search/v1.0/search?search=return%20policy as Guest and show me the
+titles.
+</code></pre></div>
+<p>The first test fails with a <strong>403</strong>: Liferay's Service Access Policy keeps the search API closed to Guest. Service Access Policies have no headless API, so the agent gives you the steps, and you do them. They should match these:</p>
+<ol>
 <li><em>Global Menu</em> → <em>Control Panel</em> → <em>Security</em> → <strong>Service Access Policy</strong> → <strong>New</strong>.</li>
-<li>
-<p>Fill in:</p>
-<ul>
-<li><strong>Name:</strong> <code>CLARITY_GUEST_SEARCH</code></li>
-<li><strong>Enabled:</strong> on. <strong>Default:</strong> on (a policy applies to anonymous requests only when it's a default one).</li>
-<li><strong>Title:</strong> <code>Clarity Guest Search</code></li>
-<li><strong>Service Class:</strong> <code>com.liferay.portal.search.rest.internal.resource.v1_0.SearchResultResourceImpl</code></li>
-<li><strong>Method Name:</strong> <code>getSearchPage</code></li>
-</ul>
-</li>
-<li>
-<p><strong>Save</strong>.</p>
-</li>
-<li>Back in the mock's <strong>Configurations</strong>, click <strong>Test connection</strong> again: <em>Liferay answered a search as Guest: … → 200</em>.</li>
+<li><strong>Name:</strong> <code>CLARITY_GUEST_SEARCH</code>. <strong>Enabled:</strong> on. <strong>Default:</strong> on (a policy applies to anonymous requests only when it's a default one). <strong>Title:</strong> <code>Clarity Guest Search</code>.</li>
+<li><strong>Service Class:</strong> <code>com.liferay.portal.search.rest.internal.resource.v1_0.SearchResultResourceImpl</code>, <strong>Method Name:</strong> <code>getSearchPage</code>. <strong>Save</strong>.</li>
 </ol>
+<p>Then tell the agent it's done.</p>
 <p class="wb wb-verify-label">✅ <strong>Verify</strong> (look, don't change anything):</p>
 <ol class="wb-list wb-verify">
+<li>In the mock's <strong>Configurations</strong>, <em>Environment URL</em> is your Liferay (<code>http://localhost:8080</code>). Click <strong>Test Connection</strong>: <em>Liferay answered a search as Guest: … → 200</em>.</li>
 <li>In a private window, open <code>http://localhost:8080/o/search/v1.0/search?search=return%20policy</code>: JSON with Clarity's FAQ entries about returns.</li>
 </ol>
-<p class="wb wb-why">📖 <strong>Why it matters:</strong> two gates protect your content from an API call. The Service Access Policy decides whether the API method can be reached at all; then permissions decide which results come back. This policy opens only the first gate, for one read method: the search still runs as Guest, so it returns only what Guest may view (your public FAQs, products and articles), never a persona's or the admin's content. A public chatbot is only as public as its content's permissions.</p>
+<p class="wb wb-why">📖 <strong>Why it matters:</strong> two gates protect your content from an API call. The Service Access Policy decides whether the API method can be reached at all; then permissions decide which results come back. This policy opens only the first gate, for one read method: the search still runs as Guest, so it returns only what Guest may view (your public FAQs, products and articles), never a persona's or the admin's content. A public chatbot is only as public as its content's permissions. The real AI Hub is a cloud service: it needs a public HTTPS URL for your Liferay, and signs in with an OAuth client. The mock runs next to your Liferay, so <code>localhost</code> works.</p>
 <h2 id="143-build-the-two-agents">14.3 — Build the two agents<a aria-hidden="true" class="heading-anchor" href="#143-build-the-two-agents" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> a <strong>Clarity Content Search</strong> agent that searches your Liferay, and a <strong>Clarity Answer Builder</strong> agent that writes the answer.</p>
-<p class="wb wb-tags"><strong>Requirement:</strong> none (bonus) · <strong>Skills:</strong> none, you do this yourself</p>
-<p class="wb wb-do-label">📋 <strong>Steps</strong>, in the mock's <strong>Agent Builder</strong> (as in AI Hub, an agent is saved before you edit its workflow):</p>
-<ol class="wb-list wb-do">
-<li>
-<p>Click <strong>New Liferay Search Agent</strong>. In <strong>Details</strong>, turn <strong>Enable Agent</strong> on, and fill in:</p>
-<ul>
-<li><strong>Title:</strong> <code>Clarity Content Search</code></li>
-<li><strong>External Reference Code:</strong> <code>CLARITY_CONTENT_SEARCH</code></li>
-<li><strong>Description:</strong> <code>Retrieval worker for Clarity Vision Solutions: products, FAQs, articles and job openings. The request is used directly as the search query.</code></li>
-</ul>
-<p><strong>Variables</strong> shows its input (<code>request</code>) and output (<code>response</code>). Click <strong>Save</strong>.</p>
-</li>
-<li>
-<p>In the <strong>Workflow</strong> card, click <strong>Edit Workflow</strong>: the canvas shows <strong>Start → Liferay Search → End</strong>. The <strong>Liferay Search</strong> node is selected, and its settings are in the panel on the right:</p>
-<ul>
-<li><strong>Prompt:</strong> <code>Use only the retrieved content as evidence. Do not invent or infer missing facts.</code></li>
-<li>Leave <strong>User Message</strong> (<code>{{request}}</code>) and the <strong>Retrieval-Augmented Generation</strong> configuration as they are: <code>"key": "liferay"</code> searches your Liferay, with no Search Blueprint.</li>
-</ul>
-<p>Click <strong>Save</strong> in the panel. Click <strong>Start</strong> and <strong>End</strong> too: they show the variables going in and out.</p>
-</li>
-<li>
-<p>Back in <strong>Agent Builder</strong>, click <strong>New LLM Agent</strong>. Turn <strong>Enable Agent</strong> on, fill in, and <strong>Save</strong>:</p>
-<ul>
-<li><strong>Title:</strong> <code>Clarity Answer Builder</code></li>
-<li><strong>External Reference Code:</strong> <code>CLARITY_ANSWER_BUILDER</code></li>
-<li><strong>Description:</strong> <code>Always runs last: writes the answer from the gathered information.</code></li>
-</ul>
-</li>
-<li>
-<p><strong>Edit Workflow</strong>: <strong>Start → LLM → End</strong>. In the <strong>LLM</strong> node's panel:</p>
-<ul>
-<li><strong>Prompt:</strong> <code>You are Clarity Vision Solutions' website assistant. Build a clear, short answer to the original request from the gathered information alone. Never invent facts. If the information doesn't cover the question, say so and suggest contacting Clarity. Offer more details at the end.</code></li>
-<li>Leave the <strong>User Message</strong>: it passes <code>{{originalRequest}}</code> and <code>{{gatheredInformation}}</code>, the search results.</li>
-</ul>
-<p>Click <strong>Save</strong> in the panel.</p>
-</li>
+<p class="wb wb-tags"><strong>Requirement:</strong> none (bonus) · <strong>Skills:</strong> none named: the agent reads the mock's README</p>
+<p class="wb wb-prompt-label">💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the AI Hub mock's API (bonus/ai-hub/README.md), create two enabled
+agents, keeping AI Hub's default user messages:
+1. A Liferay Search agent "Clarity Content Search", ERC
+   CLARITY_CONTENT_SEARCH, description "Retrieval worker for Clarity Vision
+   Solutions: products, FAQs, articles and job openings.", prompt "Use only the retrieved
+   content as evidence. Do not invent or infer missing facts.", searching
+   my Liferay with no Search Blueprint.
+2. An LLM agent "Clarity Answer Builder", ERC CLARITY_ANSWER_BUILDER,
+   description "Always runs last: writes the answer from the gathered
+   information.", prompt "You are Clarity Vision Solutions' website
+   assistant. Build a clear, short answer to the original request from the
+   gathered information alone. Never invent facts. If the information
+   doesn't cover the question, say so and suggest contacting Clarity.
+   Offer more details at the end."
+Then show me both agents as the API stored them.
+</code></pre></div>
+<p class="wb wb-verify-label">✅ <strong>Verify</strong> in the mock's console (look, don't change anything):</p>
+<ol class="wb-list wb-verify">
+<li><strong>Agent Builder</strong> lists both agents, <strong>Enabled</strong>, one <em>Liferay Search</em> and one <em>LLM</em>.</li>
+<li>Open <strong>Clarity Content Search</strong>, then <strong>Edit Workflow</strong>: the canvas shows <strong>Start → Liferay Search → End</strong>. The <strong>Liferay Search</strong> node's panel has the prompt, the <strong>User Message</strong> <code>{{request}}</code>, and the <strong>Retrieval-Augmented Generation</strong> configuration with <code>"key": "liferay"</code> (your Liferay, no blueprint). Click <strong>Start</strong> and <strong>End</strong>: they show the variables going in and out.</li>
+<li>Open <strong>Clarity Answer Builder</strong>'s workflow: <strong>Start → LLM → End</strong>, and its <strong>User Message</strong> passes <code>{{originalRequest}}</code> and <code>{{gatheredInformation}}</code>, the search results.</li>
 </ol>
 <p><img alt="The Clarity Content Search agent's workflow in the mock's Agent Builder: Start, Liferay Search and End nodes on a dotted canvas, and the Liferay Search node's Prompt, variables, User Message and Retrieval-Augmented Generation configuration in the panel on the right." src="../screenshots/14-3-search-agent.png"/></p>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> splitting retrieval from writing is the RAG pattern. The search agent decides <em>what the chatbot knows</em>; the LLM agent decides <em>how it speaks</em>. The prompt that says "from the gathered information alone" is what stops the model from answering from its own memory.</p>
 <h2 id="144-create-the-chatbot-and-try-it">14.4 — Create the chatbot and try it<a aria-hidden="true" class="heading-anchor" href="#144-create-the-chatbot-and-try-it" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> a <strong>Clarity Assistant</strong> chatbot that uses both agents, tried in the console.</p>
-<p class="wb wb-tags"><strong>Requirement:</strong> none (bonus) · <strong>Skills:</strong> none, you do this yourself</p>
-<p class="wb wb-do-label">📋 <strong>Steps</strong>, in the mock's <strong>Chatbots</strong>:</p>
-<ol class="wb-list wb-do">
-<li>
-<p><strong>New Chatbot</strong>. In <strong>Details</strong>, turn <strong>Enable Chatbot</strong> on, and fill in:</p>
-<ul>
-<li><strong>Title:</strong> <code>Clarity Assistant</code></li>
-<li><strong>External Reference Code:</strong> <code>CLARITY_ASSISTANT</code>. Write it down: Click to Chat names the chatbot by it.</li>
-<li><strong>Assigned Agents:</strong> select both of your agents; each becomes a chip.</li>
-<li><strong>Placeholder Message:</strong> <code>Ask about eyewear, orders or careers</code></li>
-<li><strong>Intro Message:</strong> <code>Hi! I'm the Clarity Assistant. Ask me about our eyewear, orders and returns, or careers at Clarity.</code></li>
-</ul>
-</li>
-<li>
-<p><strong>Save</strong>. The page now shows <strong>Add It to Your Site</strong> and a <strong>Try It</strong> card.</p>
-</li>
-<li>In <strong>Try It</strong>, ask <code>What is your return policy?</code>, and read the <strong>Run Log</strong>: the search request, its results, then your agent's answer and how long each step took.</li>
-</ol>
-<p class="wb wb-verify-label">✅ <strong>Verify</strong> (look, don't change anything):</p>
+<p class="wb wb-tags"><strong>Requirement:</strong> none (bonus) · <strong>Skills:</strong> none named: the agent reads the mock's README</p>
+<p class="wb wb-prompt-label">💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the AI Hub mock's API, create an enabled chatbot "Clarity
+Assistant", ERC CLARITY_ASSISTANT, with both Clarity agents assigned, the
+placeholder message "Ask about eyewear, orders or careers" and the intro
+message "Hi! I'm the Clarity Assistant. Ask me about our eyewear, orders
+and returns, or careers at Clarity." Then ask it "What is your return
+policy?" through its chat endpoint, as a site would, and show me the
+answer, its sources and its run log.
+</code></pre></div>
+<p class="wb wb-verify-label">✅ <strong>Verify</strong> in the mock's console (look, don't change anything):</p>
 <ol class="wb-list wb-verify">
-<li>The answer says returns are accepted within <strong>30 days</strong> of delivery, for unused items, and <strong>Sources</strong> lists <em>What is your return policy?</em>.</li>
+<li><strong>Chatbots</strong> → <strong>Clarity Assistant</strong>: <strong>Enable Chatbot</strong> is on, and both agents are chips under <strong>Assigned Agents</strong>.</li>
+<li>In <strong>Try It</strong>, ask <code>What is your return policy?</code>, and read the <strong>Run Log</strong>: the search request, its results, then your agent's answer and how long each step took. The answer says returns are accepted within <strong>30 days</strong> of delivery, for unused items, and <strong>Sources</strong> lists <em>What is your return policy?</em>.</li>
 <li>Ask <code>How many years of warranty do your frames have?</code>: Clarity's content doesn't say, so the answer says it found no warranty information, and doesn't make a number up.</li>
 </ol>
 <p><img alt="Try It in the mock's chatbot screen: the answer about Clarity's 30-day return policy, its sources, and the run log showing the Liferay search as Guest (200) and the answer step." src="../screenshots/14-4-try-it.png"/></p>
 <p class="adm-block adm-warning">⚠️ <strong>If it doesn't match:</strong></p>
 <ul>
-<li><em>No enabled Liferay Search agent assigned:</em> turn the agent's <strong>Enable Agent</strong> on, and check it's a chip under <strong>Assigned Agents</strong>.</li>
+<li><em>No enabled Liferay Search agent assigned:</em> the agent isn't enabled, or its ERC isn't in the chatbot's agents. Check both in the console.</li>
 <li><em>Liferay refused the search as Guest (403):</em> redo 14.2; check that the policy is both <strong>Enabled</strong> and <strong>Default</strong>.</li>
 <li><em>The answer lists results instead of a written answer:</em> the mock found no agent command line, or no enabled LLM agent is assigned. The terminal running the mock says which.</li>
 <li><em>exited with … or didn't answer within 120 seconds:</em> run your agent once in a terminal (for example <code>claude -p "hello"</code>) to check it's signed in.</li>
 </ul>
 <h2 id="145-put-the-chatbot-on-every-page-with-click-to-chat">14.5 — Put the chatbot on every page, with Click to Chat<a aria-hidden="true" class="heading-anchor" href="#145-put-the-chatbot-on-every-page-with-click-to-chat" tabindex="-1">#</a></h2>
-<p class="wb wb-goal">🎯 <strong>Goal:</strong> the chat bubble on every page of the public site, for anyone, Guest included, added the way you add an AI Hub chatbot: with Liferay's <strong>Click to Chat</strong>.</p>
-<p class="wb wb-tags"><strong>Requirement:</strong> none (bonus) · <strong>Skills:</strong> none, you do this yourself</p>
-<p class="wb wb-do-label">📋 <strong>Steps</strong> (there's no prompt in this exercise), as the admin in Liferay:</p>
-<ol class="wb-list wb-do">
-<li><strong>Turn on AI Hub.</strong> <em>Control Panel</em> → <em>Instance Settings</em> → <em>Platform</em> → <strong>Feature Flags</strong>, then the <strong>Release</strong> tab: turn <strong>AI Hub (LPD-62272)</strong> on. No restart is needed.</li>
-<li><strong>Connect Liferay to the mock.</strong> In the mock's <strong>Configurations</strong>, find <strong>API Credentials</strong>. Back in <em>Instance Settings</em> → <em>Platform</em> → <strong>AI Hub</strong>, paste the <strong>Client ID</strong> and <strong>Client Secret</strong>, set <strong>Service URL</strong> to <code>http://localhost:3010</code>, and <strong>Save</strong>.</li>
-<li><strong>Turn on Click to Chat for the instance.</strong> <em>Instance Settings</em> → <em>Content and Data</em> → <strong>Click to Chat</strong>: turn <strong>Enable Click to Chat</strong> on, set <strong>Site Settings Strategy</strong> to <strong>Inherit or Override</strong>, and <strong>Save</strong>. This lets each site choose its own chat.</li>
-<li><strong>Turn it on for Clarity.</strong> On the Clarity site, <em>Site Menu</em> → <em>Configuration</em> → <em>Site Settings</em> → <strong>Click to Chat</strong>: turn <strong>Enable Click to Chat</strong> on, choose <strong>AI Hub</strong> as the <strong>Chat Provider</strong>, enter <code>CLARITY_ASSISTANT</code> as the <strong>Chat Provider Account ID</strong>, turn <strong>Guest Users Allowed</strong> on, and <strong>Save</strong>. Ignore the <em>Get my account token for AI Hub</em> link: it's for the real AI Hub.</li>
-</ol>
-<p><img alt="Clarity's Site Settings, Click to Chat: enabled, the AI Hub provider, CLARITY_ASSISTANT as the account ID, and guest users allowed." src="../screenshots/14-5-click-to-chat.png"/></p>
+<p class="wb wb-goal">🎯 <strong>Goal:</strong> the chat bubble on every page of the public site, for anyone, Guest included, added the way you add an AI Hub chatbot: with Liferay's <strong>Click to Chat</strong> and its <strong>AI Hub</strong> provider, set in code.</p>
+<p class="wb wb-tags"><strong>Requirement:</strong> none (bonus) · <strong>Skills:</strong> <code>manage-sites</code>, <code>browser-verify</code></p>
+<p class="wb wb-prompt-label">💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the manage-sites skill, put the Clarity Assistant on every page of
+the Clarity site with Liferay's Click to Chat and its AI Hub provider,
+pointed at the AI Hub mock, all in code. bonus/ai-hub/README.md ("How
+Liferay loads the chat") has the settings:
+- AI Hub (the mock's Client ID, Client Secret and Service URL
+  http://localhost:3010) and Click to Chat for the instance (enabled, site
+  settings strategy inherit-or-override), as OSGi configuration files in
+  configs/local/osgi/configs and bundles/osgi/configs;
+- Click to Chat for clarity-public in the site initializer's
+  site-settings.json: the AI Hub provider, account ID CLARITY_ASSISTANT,
+  guest users allowed.
+Deploy with scripts/deploy_site.sh, then use the browser-verify skill to
+open Home as Guest, click the chat bubble and show me its first message.
+</code></pre></div>
 <p class="wb wb-verify-label">✅ <strong>Verify</strong> (look, don't change anything):</p>
 <ol class="wb-list wb-verify">
+<li>As the admin, on the Clarity site: <em>Site Menu</em> → <em>Configuration</em> → <em>Site Settings</em> → <strong>Click to Chat</strong>: enabled, <strong>Chat Provider</strong> <em>AI Hub</em>, <strong>Chat Provider Account ID</strong> <code>CLARITY_ASSISTANT</code>, <strong>Guest Users Allowed</strong> on, all from <code>site-settings.json</code>.</li>
 <li>In a private window (as Guest), open Clarity's Home page: a round chat bubble sits bottom right. Click it: <em>Clarity Assistant</em> and its intro message.</li>
 <li>Ask <code>Do I have to pay for return shipping?</code>: after a few seconds, an answer (yes, unless the item is defective or Clarity made an error) and its sources.</li>
 <li>Open another page, such as <em>FAQ</em>: the bubble is there too.</li>
-<li>View the page source (<em>Ctrl+U</em>, or <em>Cmd+Option+U</em> on a Mac) and search for <code>aihub-chatbot-widget-script</code>: Liferay added a script from <code>http://localhost:3010/documents/d/global/index-js</code>, with <code>chatbot-external-reference-code="CLARITY_ASSISTANT"</code>. That's the path Click to Chat loads from AI Hub; the mock serves its bubble there.</li>
 </ol>
+<p><img alt="Clarity's Site Settings, Click to Chat: enabled, the AI Hub provider, CLARITY_ASSISTANT as the account ID, and guest users allowed." src="../screenshots/14-5-click-to-chat.png"/></p>
 <p><img alt="Clarity's Home page as Guest, with the Clarity Assistant chat open: the answer about return shipping, and its sources." src="../screenshots/14-5-chat-on-site.png"/></p>
+<p class="wb wb-note">ℹ️ <strong>Note:</strong> <em>Instance Settings</em> → <em>Platform</em> → <strong>AI Hub</strong> only appears once the release feature flag <strong>AI Hub (LPD-62272)</strong> is on (<em>Instance Settings</em> → <em>Platform</em> → <em>Feature Flags</em> → <em>Release</em>). The configuration file works without it; turn the flag on if you want to see the values on that screen.</p>
 <p class="wb wb-ac-label">🧪 <strong>Acceptance criteria</strong> (what the level's Playwright check tests, in ⭐ Extras):</p>
 <ul class="wb-list wb-ac">
 <li><strong>AC 14.2-1</strong> · <em>API, as Guest:</em> <code>GET /o/search/v1.0/search?search=return policy</code> answers 200, and its items include <em>What is your return policy?</em>.</li>
@@ -473,12 +459,12 @@ em { color: inherit; }
 </ul>
 <p class="adm-block adm-warning">⚠️ <strong>If it doesn't match:</strong></p>
 <ul>
-<li><em>No</em> AI Hub <em>in Instance Settings:</em> the feature flag isn't on (step 1). Reload the page after turning it on.</li>
-<li><em>No bubble, and the script tag is in the HTML:</em> the mock isn't running. Start it again (14.1): the site only links to it.</li>
-<li><em>No script tag in the HTML:</em> Click to Chat is off for the instance or the site, the <em>Chat Provider</em> isn't <em>AI Hub</em>, or <em>Guest Users Allowed</em> is off (check signed in: if the bubble shows there, it's this one). An empty <em>Service URL</em> in <em>AI Hub</em> also leaves it out.</li>
+<li><em>No bubble, and the agent's browser check found the chat's script:</em> the mock isn't running. Start it again (14.1): the site only links to it.</li>
+<li><em>No bubble, and no Click to Chat values in Site Settings:</em> <code>site-settings.json</code> wasn't deployed; ask the agent to check it's in <code>client-extensions/clarity-site/site-initializer/</code> and to deploy again.</li>
+<li><em>Site Settings has the values, but no bubble even signed in:</em> the instance files are missing from <code>bundles/osgi/configs</code>, or Click to Chat for the instance isn't <em>Inherit or Override</em> (check <em>Instance Settings</em> → <em>Content and Data</em> → <em>Click to Chat</em>).</li>
 <li><em>The bubble says the chat isn't available:</em> the chatbot is disabled, or its ERC differs from the <em>Chat Provider Account ID</em>.</li>
 </ul>
-<p class="wb wb-why">📖 <strong>Why it matters:</strong> these are the same four settings you'd change with the real AI Hub; only the <em>Service URL</em> and the credentials would come from your AI Hub account instead of the mock. Click to Chat puts one chatbot on every page of a site, without touching a page or a master, and a site can override the instance's choice. The bubble only links to AI Hub: stop the mock, and the site keeps working, without a chat.</p>
+<p class="wb wb-why">📖 <strong>Why it matters:</strong> these are the same settings you'd make with the real AI Hub; only the <em>Service URL</em> and the credentials would come from your AI Hub account instead of the mock. Kept in code, they come back with every deploy and every new environment, like the rest of the site. Click to Chat puts one chatbot on every page of a site, without touching a page or a master, and a site can override the instance's choice. The bubble only links to AI Hub: stop the mock, and the site keeps working, without a chat.</p>
 <h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
 <p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own.</strong> Choose one answer for each question. The answers are at the end of <code>bonus/ai-hub/README.md</code>.</p>
 <p class="wb wb-quiz-q"><strong>Question 1.</strong> Signed in as the admin, the chatbot's search finds nothing that Guest can't see. Why?</p>
@@ -506,17 +492,14 @@ em { color: inherit; }
 <p>Optional, for when you finish early.</p>
 <h2 id="146-bonus-search-through-a-blueprint">⭐ 14.6 — Bonus: search through a blueprint<a aria-hidden="true" class="heading-anchor" href="#146-bonus-search-through-a-blueprint" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> a second search agent that searches through the <strong>Boost Associate Job Listings</strong> blueprint from 11.2, so career questions get job listings only.</p>
-<p class="wb wb-do-label">📋 <strong>Steps:</strong></p>
-<ol class="wb-list wb-do">
-<li>
-<p>In <strong>Agent Builder</strong>, create a Liferay Search agent <strong>Clarity Jobs Search</strong> (<code>CLARITY_JOBS_SEARCH</code>), enabled, with the description <code>Job openings at Clarity.</code>, and then <strong>Edit Workflow</strong>, and set its <strong>Retrieval-Augmented Generation</strong> configuration to:</p>
-<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>{"contentRetriever": {"blueprintExternalReferenceCode": "BOOST_ASSOCIATE_JOB_LISTINGS", "key": "liferay"}}
+<p class="wb wb-prompt-label">💬 <strong>Prompt:</strong></p>
+<div class="copy-frame copy-frame-code"><button aria-label="Copy to clipboard" class="copy-btn" type="button"><svg class="icon-copy" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="13" rx="2" width="13" x="9" y="9"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><svg class="icon-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><polyline points="20 6 9 17 4 12"></polyline></svg></button><pre><code>Using the AI Hub mock's API, add an enabled Liferay Search agent "Clarity
+Jobs Search" (ERC CLARITY_JOBS_SEARCH, description "Job openings at
+Clarity.") that searches through the BOOST_ASSOCIATE_JOB_LISTINGS
+blueprint, and assign it to CLARITY_ASSISTANT too. Then ask the chatbot
+"Are you hiring warehouse staff?" and show me the run log.
 </code></pre></div>
-</li>
-<li>
-<p>Add it to <strong>Clarity Assistant</strong>'s <strong>Assigned Agents</strong>, and ask in <strong>Try It</strong>: <code>Are you hiring warehouse staff?</code>. The run log shows two searches, the second with <code>blueprintExternalReferenceCode</code>.</p>
-</li>
-</ol>
+<p class="wb wb-verify-label">✅ <strong>Success looks like:</strong> the agent's workflow panel in the console shows <code>"blueprintExternalReferenceCode": "BOOST_ASSOCIATE_JOB_LISTINGS"</code>, and <strong>Try It</strong>'s run log for the same question shows two searches, the second with <code>blueprintExternalReferenceCode</code>.</p>
 <p class="wb wb-note">ℹ️ <strong>Note:</strong> blueprints need Liferay's Search Experiences. If <em>Applications</em> → <em>Blueprints</em> says the portlet can't be found, your activation key doesn't include it: skip this bonus.</p>
 <h2 id="147-bonus-check-level-14-with-playwright">⭐ 14.7 — Bonus: check Level 14 with Playwright<a aria-hidden="true" class="heading-anchor" href="#147-bonus-check-level-14-with-playwright" tabindex="-1">#</a></h2>
 <p class="wb wb-goal">🎯 <strong>Goal:</strong> <code>tests/e2e/level-14.spec.ts</code>, with one test per acceptance criterion (🧪) of Level 14, added to the Playwright suite from 1.3. Write the prompt yourself: start from 1.3's and point it at this level's criteria. AC 14.4-2 waits for your agent's answer, so give it a 2-minute timeout.</p>

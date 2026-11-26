@@ -2,7 +2,7 @@
 
 ⏱ **About 45 minutes**, on your own, after the course or when you finish early · **Builds on:** Levels 6 and 7 (content to answer from), and the Clarity site and its master pages
 
-**What you'll build:** a **Clarity Assistant** chatbot on every page of the public site. A visitor asks a question; the chatbot searches the site's content, and an AI writes a short answer from what it found, with its sources. You set it up the way you set up a chatbot in **Liferay AI Hub**: a search agent, an answer agent, then a chatbot that uses both. AI Hub is a Liferay cloud service you may not have access to, so this level uses a small **mock** of it that runs on your computer and answers with **the AI agent you already use** in this course.
+**What you'll build:** a **Clarity Assistant** chatbot on every page of the public site. A visitor asks a question; the chatbot searches the site's content, and an AI writes a short answer from what it found, with its sources. It's set up the way you set up a chatbot in **Liferay AI Hub**: a search agent, an answer agent, then a chatbot that uses both, then Liferay's *Click to Chat* to put it on the site. As in the rest of the course, your agent does the setup from your prompts, and you check each step on the screens: the AI Hub console and Liferay. AI Hub is a Liferay cloud service you may not have access to, so this level uses a small **mock** of it that runs on your computer and answers with **the AI agent you already use** in this course.
 
 **Key terms**
 - **AI Hub:** Liferay's cloud service for AI agents and chatbots. You build agents in its *Agent Builder*, combine them in a *chatbot*, and put the chatbot on a site. This level's mock copies its screens.
@@ -13,73 +13,80 @@
 
 ℹ️ **Note:** the mock is in `bonus/ai-hub/` (no install: it only needs Node.js 20 or later, which the Playwright bonuses use too). It runs your agent's command line non-interactively, in an empty folder: with Claude Code every tool is switched off, so the chatbot can only write text; other agents run in their read-only modes. Each answer takes 5 to 30 seconds and uses your agent subscription, like any other prompt. See `bonus/ai-hub/README.md` for how it works.
 
-### 14.1 — Start the AI Hub mock and connect it to Liferay
+### 14.1 — Start the AI Hub mock
 
-🎯 **Goal:** the AI Hub mock running at `http://localhost:3010`, pointing at your Liferay.
+🎯 **Goal:** the AI Hub mock running at `http://localhost:3010`, and its console open next to your agent.
 
 **Requirement:** none (bonus) · **Skills:** none, you do this yourself
 
-📋 **Steps** (there's no prompt in this exercise):
-1. Open a **second terminal** in VS Code (*Terminal* → *New Terminal*), and start the mock from the workspace root. Like Liferay, you start and stop it yourself, never the agent:
+📋 **Steps** (there's no prompt in this exercise: like Liferay, you start and stop the mock yourself, never the agent):
+1. Open a **second terminal** in VS Code (*Terminal* → *New Terminal*), and start the mock from the workspace root:
    ```bash
    node bonus/ai-hub/server.mjs
    ```
    It prints which AI agent will write the answers, for example `Answers from: Claude Code (claude -p)`. It looks for `claude`, `codex`, `copilot` and `gemini`, in that order. To choose one, start it with `AI_CLI=codex node bonus/ai-hub/server.mjs` (on Windows PowerShell: `$env:AI_CLI="codex"; node bonus/ai-hub/server.mjs`).
-2. Open `http://localhost:3010` in your browser: the **AI Hub** console, with *Agent Builder*, *Chatbots* and *Configurations*.
-3. Open **Configurations**. Check that *Environment URL* is `http://localhost:8080`, your Liferay, and click **Save**.
-4. Click **Test connection**. You should get a red message: *Liferay refused the search as Guest (403)*. That's expected: the next exercise fixes it.
+2. Open `http://localhost:3010` in your browser: the **AI Hub** console, with *Agent Builder*, *Chatbots* and *Configurations*. Keep it open: in the next exercises your agent sets AI Hub up through the console's API, and you check each step on these screens.
 
-📖 **Why it matters:** the real AI Hub is a cloud service: it needs a public HTTPS URL for your Liferay, and it signs in to Liferay with an OAuth client. The mock runs next to your Liferay, so `localhost` works, and it searches as an anonymous visitor (Guest), which is what a public chatbot should see.
+### 14.2 — Connect the mock, and let anonymous visitors search
 
-### 14.2 — Let anonymous visitors search through the API
+🎯 **Goal:** the mock pointing at your Liferay, and Guest allowed to call Liferay's headless search API, so the chatbot can search what any visitor may see, and nothing more.
 
-🎯 **Goal:** Guest may call Liferay's headless search API, so the chatbot can search what any visitor may see, and nothing more.
+**Requirement:** none (bonus) · **Skills:** none named: the agent reads `rules/guest-access.md` and the mock's README
 
-**Requirement:** none (bonus) · **Skills:** none, you do this yourself
+💬 **Prompt:**
+```
+The AI Hub mock in bonus/ai-hub runs at http://localhost:3010; its API
+is in bonus/ai-hub/README.md. Point its configuration at my Liferay and
+run its connection test. If Liferay refuses the search as Guest, find
+out why with rules/guest-access.md, and give me the exact UI steps to
+allow only the headless search's getSearchPage method for Guest. When I
+say it's done, run the connection test again, then fetch
+/o/search/v1.0/search?search=return%20policy as Guest and show me the
+titles.
+```
 
-📋 **Steps** (there's no prompt: Service Access Policies have no headless API):
+The first test fails with a **403**: Liferay's Service Access Policy keeps the search API closed to Guest. Service Access Policies have no headless API, so the agent gives you the steps, and you do them. They should match these:
 1. *Global Menu* → *Control Panel* → *Security* → **Service Access Policy** → **New**.
-2. Fill in:
-   - **Name:** `CLARITY_GUEST_SEARCH`
-   - **Enabled:** on. **Default:** on (a policy applies to anonymous requests only when it's a default one).
-   - **Title:** `Clarity Guest Search`
-   - **Service Class:** `com.liferay.portal.search.rest.internal.resource.v1_0.SearchResultResourceImpl`
-   - **Method Name:** `getSearchPage`
-3. **Save**.
-4. Back in the mock's **Configurations**, click **Test connection** again: *Liferay answered a search as Guest: … → 200*.
+2. **Name:** `CLARITY_GUEST_SEARCH`. **Enabled:** on. **Default:** on (a policy applies to anonymous requests only when it's a default one). **Title:** `Clarity Guest Search`.
+3. **Service Class:** `com.liferay.portal.search.rest.internal.resource.v1_0.SearchResultResourceImpl`, **Method Name:** `getSearchPage`. **Save**.
+
+Then tell the agent it's done.
 
 ✅ **Verify** (look, don't change anything):
-1. In a private window, open `http://localhost:8080/o/search/v1.0/search?search=return%20policy`: JSON with Clarity's FAQ entries about returns.
+1. In the mock's **Configurations**, *Environment URL* is your Liferay (`http://localhost:8080`). Click **Test Connection**: *Liferay answered a search as Guest: … → 200*.
+2. In a private window, open `http://localhost:8080/o/search/v1.0/search?search=return%20policy`: JSON with Clarity's FAQ entries about returns.
 
-📖 **Why it matters:** two gates protect your content from an API call. The Service Access Policy decides whether the API method can be reached at all; then permissions decide which results come back. This policy opens only the first gate, for one read method: the search still runs as Guest, so it returns only what Guest may view (your public FAQs, products and articles), never a persona's or the admin's content. A public chatbot is only as public as its content's permissions.
+📖 **Why it matters:** two gates protect your content from an API call. The Service Access Policy decides whether the API method can be reached at all; then permissions decide which results come back. This policy opens only the first gate, for one read method: the search still runs as Guest, so it returns only what Guest may view (your public FAQs, products and articles), never a persona's or the admin's content. A public chatbot is only as public as its content's permissions. The real AI Hub is a cloud service: it needs a public HTTPS URL for your Liferay, and signs in with an OAuth client. The mock runs next to your Liferay, so `localhost` works.
 
 ### 14.3 — Build the two agents
 
 🎯 **Goal:** a **Clarity Content Search** agent that searches your Liferay, and a **Clarity Answer Builder** agent that writes the answer.
 
-**Requirement:** none (bonus) · **Skills:** none, you do this yourself
+**Requirement:** none (bonus) · **Skills:** none named: the agent reads the mock's README
 
-📋 **Steps**, in the mock's **Agent Builder** (as in AI Hub, an agent is saved before you edit its workflow):
-1. Click **New Liferay Search Agent**. In **Details**, turn **Enable Agent** on, and fill in:
-   - **Title:** `Clarity Content Search`
-   - **External Reference Code:** `CLARITY_CONTENT_SEARCH`
-   - **Description:** `Retrieval worker for Clarity Vision Solutions: products, FAQs, articles and job openings. The request is used directly as the search query.`
+💬 **Prompt:**
+```
+Using the AI Hub mock's API (bonus/ai-hub/README.md), create two enabled
+agents, keeping AI Hub's default user messages:
+1. A Liferay Search agent "Clarity Content Search", ERC
+   CLARITY_CONTENT_SEARCH, description "Retrieval worker for Clarity Vision
+   Solutions: products, FAQs, articles and job openings.", prompt "Use only the retrieved
+   content as evidence. Do not invent or infer missing facts.", searching
+   my Liferay with no Search Blueprint.
+2. An LLM agent "Clarity Answer Builder", ERC CLARITY_ANSWER_BUILDER,
+   description "Always runs last: writes the answer from the gathered
+   information.", prompt "You are Clarity Vision Solutions' website
+   assistant. Build a clear, short answer to the original request from the
+   gathered information alone. Never invent facts. If the information
+   doesn't cover the question, say so and suggest contacting Clarity.
+   Offer more details at the end."
+Then show me both agents as the API stored them.
+```
 
-   **Variables** shows its input (`request`) and output (`response`). Click **Save**.
-2. In the **Workflow** card, click **Edit Workflow**: the canvas shows **Start → Liferay Search → End**. The **Liferay Search** node is selected, and its settings are in the panel on the right:
-   - **Prompt:** `Use only the retrieved content as evidence. Do not invent or infer missing facts.`
-   - Leave **User Message** (`{{request}}`) and the **Retrieval-Augmented Generation** configuration as they are: `"key": "liferay"` searches your Liferay, with no Search Blueprint.
-
-   Click **Save** in the panel. Click **Start** and **End** too: they show the variables going in and out.
-3. Back in **Agent Builder**, click **New LLM Agent**. Turn **Enable Agent** on, fill in, and **Save**:
-   - **Title:** `Clarity Answer Builder`
-   - **External Reference Code:** `CLARITY_ANSWER_BUILDER`
-   - **Description:** `Always runs last: writes the answer from the gathered information.`
-4. **Edit Workflow**: **Start → LLM → End**. In the **LLM** node's panel:
-   - **Prompt:** `You are Clarity Vision Solutions' website assistant. Build a clear, short answer to the original request from the gathered information alone. Never invent facts. If the information doesn't cover the question, say so and suggest contacting Clarity. Offer more details at the end.`
-   - Leave the **User Message**: it passes `{{originalRequest}}` and `{{gatheredInformation}}`, the search results.
-
-   Click **Save** in the panel.
+✅ **Verify** in the mock's console (look, don't change anything):
+1. **Agent Builder** lists both agents, **Enabled**, one *Liferay Search* and one *LLM*.
+2. Open **Clarity Content Search**, then **Edit Workflow**: the canvas shows **Start → Liferay Search → End**. The **Liferay Search** node's panel has the prompt, the **User Message** `{{request}}`, and the **Retrieval-Augmented Generation** configuration with `"key": "liferay"` (your Liferay, no blueprint). Click **Start** and **End**: they show the variables going in and out.
+3. Open **Clarity Answer Builder**'s workflow: **Start → LLM → End**, and its **User Message** passes `{{originalRequest}}` and `{{gatheredInformation}}`, the search results.
 
 ![The Clarity Content Search agent's workflow in the mock's Agent Builder: Start, Liferay Search and End nodes on a dotted canvas, and the Liferay Search node's Prompt, variables, User Message and Retrieval-Augmented Generation configuration in the panel on the right.](screenshots/14-3-search-agent.png)
 
@@ -89,51 +96,66 @@
 
 🎯 **Goal:** a **Clarity Assistant** chatbot that uses both agents, tried in the console.
 
-**Requirement:** none (bonus) · **Skills:** none, you do this yourself
+**Requirement:** none (bonus) · **Skills:** none named: the agent reads the mock's README
 
-📋 **Steps**, in the mock's **Chatbots**:
-1. **New Chatbot**. In **Details**, turn **Enable Chatbot** on, and fill in:
-   - **Title:** `Clarity Assistant`
-   - **External Reference Code:** `CLARITY_ASSISTANT`. Write it down: Click to Chat names the chatbot by it.
-   - **Assigned Agents:** select both of your agents; each becomes a chip.
-   - **Placeholder Message:** `Ask about eyewear, orders or careers`
-   - **Intro Message:** `Hi! I'm the Clarity Assistant. Ask me about our eyewear, orders and returns, or careers at Clarity.`
-2. **Save**. The page now shows **Add It to Your Site** and a **Try It** card.
-3. In **Try It**, ask `What is your return policy?`, and read the **Run Log**: the search request, its results, then your agent's answer and how long each step took.
+💬 **Prompt:**
+```
+Using the AI Hub mock's API, create an enabled chatbot "Clarity
+Assistant", ERC CLARITY_ASSISTANT, with both Clarity agents assigned, the
+placeholder message "Ask about eyewear, orders or careers" and the intro
+message "Hi! I'm the Clarity Assistant. Ask me about our eyewear, orders
+and returns, or careers at Clarity." Then ask it "What is your return
+policy?" through its chat endpoint, as a site would, and show me the
+answer, its sources and its run log.
+```
 
-✅ **Verify** (look, don't change anything):
-1. The answer says returns are accepted within **30 days** of delivery, for unused items, and **Sources** lists *What is your return policy?*.
-2. Ask `How many years of warranty do your frames have?`: Clarity's content doesn't say, so the answer says it found no warranty information, and doesn't make a number up.
+✅ **Verify** in the mock's console (look, don't change anything):
+1. **Chatbots** → **Clarity Assistant**: **Enable Chatbot** is on, and both agents are chips under **Assigned Agents**.
+2. In **Try It**, ask `What is your return policy?`, and read the **Run Log**: the search request, its results, then your agent's answer and how long each step took. The answer says returns are accepted within **30 days** of delivery, for unused items, and **Sources** lists *What is your return policy?*.
+3. Ask `How many years of warranty do your frames have?`: Clarity's content doesn't say, so the answer says it found no warranty information, and doesn't make a number up.
 
 ![Try It in the mock's chatbot screen: the answer about Clarity's 30-day return policy, its sources, and the run log showing the Liferay search as Guest (200) and the answer step.](screenshots/14-4-try-it.png)
 
 ⚠️ **If it doesn't match:**
-- *No enabled Liferay Search agent assigned:* turn the agent's **Enable Agent** on, and check it's a chip under **Assigned Agents**.
+- *No enabled Liferay Search agent assigned:* the agent isn't enabled, or its ERC isn't in the chatbot's agents. Check both in the console.
 - *Liferay refused the search as Guest (403):* redo 14.2; check that the policy is both **Enabled** and **Default**.
 - *The answer lists results instead of a written answer:* the mock found no agent command line, or no enabled LLM agent is assigned. The terminal running the mock says which.
 - *exited with … or didn't answer within 120 seconds:* run your agent once in a terminal (for example `claude -p "hello"`) to check it's signed in.
 
 ### 14.5 — Put the chatbot on every page, with Click to Chat
 
-🎯 **Goal:** the chat bubble on every page of the public site, for anyone, Guest included, added the way you add an AI Hub chatbot: with Liferay's **Click to Chat**.
+🎯 **Goal:** the chat bubble on every page of the public site, for anyone, Guest included, added the way you add an AI Hub chatbot: with Liferay's **Click to Chat** and its **AI Hub** provider, set in code.
 
-**Requirement:** none (bonus) · **Skills:** none, you do this yourself
+**Requirement:** none (bonus) · **Skills:** `manage-sites`, `browser-verify`
 
-📋 **Steps** (there's no prompt in this exercise), as the admin in Liferay:
-1. **Turn on AI Hub.** *Control Panel* → *Instance Settings* → *Platform* → **Feature Flags**, then the **Release** tab: turn **AI Hub (LPD-62272)** on. No restart is needed.
-2. **Connect Liferay to the mock.** In the mock's **Configurations**, find **API Credentials**. Back in *Instance Settings* → *Platform* → **AI Hub**, paste the **Client ID** and **Client Secret**, set **Service URL** to `http://localhost:3010`, and **Save**.
-3. **Turn on Click to Chat for the instance.** *Instance Settings* → *Content and Data* → **Click to Chat**: turn **Enable Click to Chat** on, set **Site Settings Strategy** to **Inherit or Override**, and **Save**. This lets each site choose its own chat.
-4. **Turn it on for Clarity.** On the Clarity site, *Site Menu* → *Configuration* → *Site Settings* → **Click to Chat**: turn **Enable Click to Chat** on, choose **AI Hub** as the **Chat Provider**, enter `CLARITY_ASSISTANT` as the **Chat Provider Account ID**, turn **Guest Users Allowed** on, and **Save**. Ignore the *Get my account token for AI Hub* link: it's for the real AI Hub.
+💬 **Prompt:**
+```
+Using the manage-sites skill, put the Clarity Assistant on every page of
+the Clarity site with Liferay's Click to Chat and its AI Hub provider,
+pointed at the AI Hub mock, all in code. bonus/ai-hub/README.md ("How
+Liferay loads the chat") has the settings:
+- AI Hub (the mock's Client ID, Client Secret and Service URL
+  http://localhost:3010) and Click to Chat for the instance (enabled, site
+  settings strategy inherit-or-override), as OSGi configuration files in
+  configs/local/osgi/configs and bundles/osgi/configs;
+- Click to Chat for clarity-public in the site initializer's
+  site-settings.json: the AI Hub provider, account ID CLARITY_ASSISTANT,
+  guest users allowed.
+Deploy with scripts/deploy_site.sh, then use the browser-verify skill to
+open Home as Guest, click the chat bubble and show me its first message.
+```
+
+✅ **Verify** (look, don't change anything):
+1. As the admin, on the Clarity site: *Site Menu* → *Configuration* → *Site Settings* → **Click to Chat**: enabled, **Chat Provider** *AI Hub*, **Chat Provider Account ID** `CLARITY_ASSISTANT`, **Guest Users Allowed** on, all from `site-settings.json`.
+2. In a private window (as Guest), open Clarity's Home page: a round chat bubble sits bottom right. Click it: *Clarity Assistant* and its intro message.
+3. Ask `Do I have to pay for return shipping?`: after a few seconds, an answer (yes, unless the item is defective or Clarity made an error) and its sources.
+4. Open another page, such as *FAQ*: the bubble is there too.
 
 ![Clarity's Site Settings, Click to Chat: enabled, the AI Hub provider, CLARITY_ASSISTANT as the account ID, and guest users allowed.](screenshots/14-5-click-to-chat.png)
 
-✅ **Verify** (look, don't change anything):
-1. In a private window (as Guest), open Clarity's Home page: a round chat bubble sits bottom right. Click it: *Clarity Assistant* and its intro message.
-2. Ask `Do I have to pay for return shipping?`: after a few seconds, an answer (yes, unless the item is defective or Clarity made an error) and its sources.
-3. Open another page, such as *FAQ*: the bubble is there too.
-4. View the page source (*Ctrl+U*, or *Cmd+Option+U* on a Mac) and search for `aihub-chatbot-widget-script`: Liferay added a script from `http://localhost:3010/documents/d/global/index-js`, with `chatbot-external-reference-code="CLARITY_ASSISTANT"`. That's the path Click to Chat loads from AI Hub; the mock serves its bubble there.
-
 ![Clarity's Home page as Guest, with the Clarity Assistant chat open: the answer about return shipping, and its sources.](screenshots/14-5-chat-on-site.png)
+
+ℹ️ **Note:** *Instance Settings* → *Platform* → **AI Hub** only appears once the release feature flag **AI Hub (LPD-62272)** is on (*Instance Settings* → *Platform* → *Feature Flags* → *Release*). The configuration file works without it; turn the flag on if you want to see the values on that screen.
 
 🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
 
@@ -143,12 +165,12 @@
 - **AC 14.5-1** · *Browser, as Guest:* Home and the FAQ page have Click to Chat's AI Hub script (`script#aihub-chatbot-widget-script`) from `http://localhost:3010`, with `chatbot-external-reference-code="CLARITY_ASSISTANT"`, and clicking the bubble shows the intro message.
 
 ⚠️ **If it doesn't match:**
-- *No* AI Hub *in Instance Settings:* the feature flag isn't on (step 1). Reload the page after turning it on.
-- *No bubble, and the script tag is in the HTML:* the mock isn't running. Start it again (14.1): the site only links to it.
-- *No script tag in the HTML:* Click to Chat is off for the instance or the site, the *Chat Provider* isn't *AI Hub*, or *Guest Users Allowed* is off (check signed in: if the bubble shows there, it's this one). An empty *Service URL* in *AI Hub* also leaves it out.
+- *No bubble, and the agent's browser check found the chat's script:* the mock isn't running. Start it again (14.1): the site only links to it.
+- *No bubble, and no Click to Chat values in Site Settings:* `site-settings.json` wasn't deployed; ask the agent to check it's in `client-extensions/clarity-site/site-initializer/` and to deploy again.
+- *Site Settings has the values, but no bubble even signed in:* the instance files are missing from `bundles/osgi/configs`, or Click to Chat for the instance isn't *Inherit or Override* (check *Instance Settings* → *Content and Data* → *Click to Chat*).
 - *The bubble says the chat isn't available:* the chatbot is disabled, or its ERC differs from the *Chat Provider Account ID*.
 
-📖 **Why it matters:** these are the same four settings you'd change with the real AI Hub; only the *Service URL* and the credentials would come from your AI Hub account instead of the mock. Click to Chat puts one chatbot on every page of a site, without touching a page or a master, and a site can override the instance's choice. The bubble only links to AI Hub: stop the mock, and the site keeps working, without a chat.
+📖 **Why it matters:** these are the same settings you'd make with the real AI Hub; only the *Service URL* and the credentials would come from your AI Hub account instead of the mock. Kept in code, they come back with every deploy and every new environment, like the rest of the site. Click to Chat puts one chatbot on every page of a site, without touching a page or a master, and a site can override the instance's choice. The bubble only links to AI Hub: stop the mock, and the site keeps working, without a chat.
 
 ## 🧠 Knowledge check
 
@@ -183,12 +205,16 @@ Optional, for when you finish early.
 
 🎯 **Goal:** a second search agent that searches through the **Boost Associate Job Listings** blueprint from 11.2, so career questions get job listings only.
 
-📋 **Steps:**
-1. In **Agent Builder**, create a Liferay Search agent **Clarity Jobs Search** (`CLARITY_JOBS_SEARCH`), enabled, with the description `Job openings at Clarity.`, and then **Edit Workflow**, and set its **Retrieval-Augmented Generation** configuration to:
-   ```json
-   {"contentRetriever": {"blueprintExternalReferenceCode": "BOOST_ASSOCIATE_JOB_LISTINGS", "key": "liferay"}}
-   ```
-2. Add it to **Clarity Assistant**'s **Assigned Agents**, and ask in **Try It**: `Are you hiring warehouse staff?`. The run log shows two searches, the second with `blueprintExternalReferenceCode`.
+💬 **Prompt:**
+```
+Using the AI Hub mock's API, add an enabled Liferay Search agent "Clarity
+Jobs Search" (ERC CLARITY_JOBS_SEARCH, description "Job openings at
+Clarity.") that searches through the BOOST_ASSOCIATE_JOB_LISTINGS
+blueprint, and assign it to CLARITY_ASSISTANT too. Then ask the chatbot
+"Are you hiring warehouse staff?" and show me the run log.
+```
+
+✅ **Success looks like:** the agent's workflow panel in the console shows `"blueprintExternalReferenceCode": "BOOST_ASSOCIATE_JOB_LISTINGS"`, and **Try It**'s run log for the same question shows two searches, the second with `blueprintExternalReferenceCode`.
 
 ℹ️ **Note:** blueprints need Liferay's Search Experiences. If *Applications* → *Blueprints* says the portlet can't be found, your activation key doesn't include it: skip this bonus.
 

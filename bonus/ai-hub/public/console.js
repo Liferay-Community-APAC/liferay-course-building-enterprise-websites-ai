@@ -370,7 +370,7 @@ function chatbotEditor(erc) {
 		${existing ? `
 		<div class="card" style="margin-top:24px">
 			<h2 style="margin-bottom:8px">Add It to Your Site</h2>
-			<p class="sub" style="margin-bottom:16px">In Liferay, turn on <strong>Click to Chat</strong> in the site's settings, with <strong>AI Hub</strong> as the chat provider and this chatbot's ERC as the account ID. Liferay connects to AI Hub with the credentials in <a href="#configurations">Configurations</a>.</p>
+			<p class="sub" style="margin-bottom:16px">In Liferay, turn on <strong>Click to Chat</strong> for the site, with <strong>AI Hub</strong> as the chat provider and this chatbot's ERC as the account ID. Liferay finds AI Hub through its AI Hub configuration: the credentials and Service URL in <a href="#configurations">Configurations</a>.</p>
 			${field('ctcAccount', 'Chat Provider Account ID', bot.erc, {readonly: true})}
 			<span class="label">Or, without Click to Chat: Embed Snippet</span>
 			<pre class="snippet">&lt;script src="${esc(location.origin)}/widget.js" data-chatbot="${esc(bot.erc)}" defer&gt;&lt;/script&gt;</pre>
@@ -489,7 +489,7 @@ function configurations() {
 				hint: 'Your Liferay\'s address. The real AI Hub is a cloud service and needs a public HTTPS URL here; this mock runs on your computer, so http://localhost:8080 works.'})}
 			<hr style="border:0;border-top:1px solid var(--border);margin:24px 0">
 			<h2 style="margin-bottom:8px">API Credentials</h2>
-			<p class="sub" style="margin-bottom:20px">Copy them to your Liferay, in <em>Instance Settings</em> → <em>AI Hub</em>. The mock doesn't check them: they're placeholders, never a secret.</p>
+			<p class="sub" style="margin-bottom:20px">Your Liferay's AI Hub configuration needs them (<em>Instance Settings</em> → <em>AI Hub</em>, or its configuration file). The mock doesn't check them: they're placeholders, never a secret.</p>
 			${field('clientId', 'Client ID', CREDENTIALS.clientId, {readonly: true})}
 			${field('clientSecret', 'Client Secret', CREDENTIALS.clientSecret, {readonly: true})}
 			${field('serviceURL', 'Service URL', location.origin, {readonly: true, hint: 'Liferay\'s Click to Chat loads the chat bubble from here.'})}
