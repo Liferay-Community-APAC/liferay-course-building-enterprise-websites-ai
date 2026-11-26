@@ -339,7 +339,7 @@ em { color: inherit; }
 <p>It prints which AI agent will write the answers, for example <code>Answers from: Claude Code (claude -p)</code>. It looks for <code>claude</code>, <code>codex</code>, <code>copilot</code> and <code>gemini</code>, in that order. To choose one, start it with <code>AI_CLI=codex node bonus/ai-hub/server.mjs</code> (on Windows PowerShell: <code>$env:AI_CLI="codex"; node bonus/ai-hub/server.mjs</code>).</p>
 </li>
 <li>
-<p>Open <code>http://localhost:3010</code> in your browser: the <strong>AI Hub</strong> console, with <em>Agent Builder</em>, <em>Chatbots</em> and <em>Configurations</em>. Keep it open: in the next exercises your agent sets AI Hub up through the console's API, and you check each step on these screens.</p>
+<p>Open <code>http://localhost:3010</code> in your browser: the <strong>AI Hub</strong> console, with <em>Agent Builder</em>, <em>Chatbots</em> and <em>Configurations</em>. Its screens copy AI Hub's; what the mock doesn't have (<em>Account Management</em>, an agent's <em>Data Sources</em>, a chatbot's <em>Avatar</em>, other languages) is greyed out, and the cards only the mock has are marked <strong>Course mock</strong>. Keep it open: in the next exercises your agent sets AI Hub up through the console's API, and you check each step on these screens.</p>
 </li>
 </ol>
 <h2 id="142-connect-the-mock-and-let-anonymous-visitors-search">14.2 — Connect the mock, and let anonymous visitors search<a aria-hidden="true" class="heading-anchor" href="#142-connect-the-mock-and-let-anonymous-visitors-search" tabindex="-1">#</a></h2>
@@ -364,7 +364,7 @@ titles.
 <p>Then tell the agent it's done.</p>
 <p class="wb wb-verify-label">✅ <strong>Verify</strong> (look, don't change anything):</p>
 <ol class="wb-list wb-verify">
-<li>In the mock's <strong>Configurations</strong>, <em>Environment URL</em> is your Liferay (<code>http://localhost:8080</code>). Click <strong>Test Connection</strong>: <em>Liferay answered a search as Guest: … → 200</em>.</li>
+<li>In the mock's <strong>Configurations</strong>, <em>Environment URL</em> is your Liferay (<code>http://localhost:8080</code>). In the <strong>Course Mock</strong> card below it, click <strong>Test Connection</strong>: <em>Liferay answered a search as Guest: … → 200</em>.</li>
 <li>In a private window, open <code>http://localhost:8080/o/search/v1.0/search?search=return%20policy</code>: JSON with Clarity's FAQ entries about returns.</li>
 </ol>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> two gates protect your content from an API call. The Service Access Policy decides whether the API method can be reached at all; then permissions decide which results come back. This policy opens only the first gate, for one read method: the search still runs as Guest, so it returns only what Guest may view (your public FAQs, products and articles), never a persona's or the admin's content. A public chatbot is only as public as its content's permissions. The real AI Hub is a cloud service: it needs a public HTTPS URL for your Liferay, and signs in with an OAuth client. The mock runs next to your Liferay, so <code>localhost</code> works.</p>

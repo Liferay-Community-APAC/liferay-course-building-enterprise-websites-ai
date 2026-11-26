@@ -2,6 +2,8 @@
 
 A lightweight stand-in for **Liferay AI Hub**, for the bonus Level 14 of the workbook. It lets you set up a website chatbot the way AI Hub does (agents, then a chatbot, then Liferay's *Click to Chat* on your site) without access to AI Hub, and it really answers: with your Liferay's content and **the AI agent you already use** in the course.
 
+The console copies AI Hub's screens, as the masterclass's Energy Advisor exercise shows them. Features the mock doesn't have are greyed out, and the cards that only the mock has (*Add It to Your Site*, *Try It*, and *Course Mock* in Configurations) carry a **Course mock** label.
+
 It isn't AI Hub, and isn't meant for production: it's one Node.js file and a few static pages, for learning the shape of the setup.
 
 ## Run it

@@ -10,17 +10,20 @@ const ICONS = {
 	end: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3 1h1.5v14H3z"/><path d="M4.5 1.5h9l-2.5 3.5 2.5 3.5h-9z"/></svg>',
 	sparkle: '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10 3l1.6 4.6L16 9l-4.4 1.4L10 15l-1.6-4.6L4 9l4.4-1.4z"/><path d="M18 13l.9 2.1L21 16l-2.1.9L18 19l-.9-2.1L15 16l2.1-.9z"/><path d="M17 2l.6 1.4L19 4l-1.4.6L17 6l-.6-1.4L15 4l1.4-.6z"/></svg>',
 	start: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2l10 6-10 6z"/></svg>',
+	clear: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6.3"/><path d="M5.6 5.6l4.8 4.8M10.4 5.6l-4.8 4.8"/></svg>',
+	copy: '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3.5" y="3" width="9" height="11.5" rx="1.2"/><path d="M6 3V1.8h4V3"/></svg>',
+	chevron: '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3.5 6l4.5 4.5L12.5 6"/></svg>',
 	workflow: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1.5" width="5" height="4" rx="1"/><rect x="10" y="10.5" width="5" height="4" rx="1"/><path d="M3.5 5.5v3a2 2 0 002 2h4.5"/></svg>',
 };
 
 const TYPES = {
 	answer: {
-		edges: ['LLM', 'END'], label: 'LLM agent', node: 'LLM', nodeHint: 'Generate content, summarize or answer.',
+		edges: ['TRANSITION LABEL', 'TRANSITION LABEL'], label: 'LLM agent', node: 'LLM', nodeHint: 'Generate content, summarize, or answer questions.',
 		rag: '[]',
 	},
 	search: {
 		edges: ['LIFERAY SEARCH', 'END'], label: 'Liferay Search agent', node: 'Liferay Search',
-		nodeHint: 'Search Liferay, then generate content from the results.',
+		nodeHint: 'Generate content, summarize, or answer questions from your Liferay content.',
 	},
 };
 
@@ -41,9 +44,6 @@ async function api(method, path, body) {
 
 async function load() {
 	state = await api('GET', '/api/state');
-	document.getElementById('provider').textContent = state.runtime.cli
-		? `Answers from ${state.runtime.cliLabel}`
-		: 'No agent CLI found: answers list the search results';
 }
 
 function go(hash, {replace} = {}) {
@@ -64,14 +64,26 @@ function flash(text, ok = true) {
 	}
 }
 
-const field = (id, label, value, {hint = '', readonly = false, required = false, textarea = false, code = false} = {}) => `
-	<div class="field">
+// The language selector AI Hub shows beside translatable fields. The mock is English only, so it's greyed out.
+const LOCALE = `<button type="button" class="locale" disabled title="Not in the course mock: English only"><span class="flag" aria-label="English (United States)"></span>
+	<svg width="10" height="14" viewBox="0 0 10 14" fill="currentColor"><path d="M5 1l4 5H1zM5 13L1 8h8z"/></svg></button>`;
+
+const field = (id, label, value, {disabled = false, hint = '', locale = false, placeholder, readonly = false, required = false, textarea = false, code = false} = {}) => {
+	const attrs = `id="${id}" placeholder="${esc(placeholder ?? (code ? '' : label))}" ${readonly ? 'readonly' : ''} ${disabled ? 'disabled' : ''}`;
+	const control = textarea
+		? `<textarea ${attrs} class="${code ? 'code' : ''}" ${code ? `rows="${String(value).split('\n').length}"` : ''}>${esc(value)}</textarea>`
+		: `<input type="text" ${attrs} value="${esc(value)}">`;
+
+	return `
+	<div class="field${disabled ? ' soon' : ''}"${disabled ? ' title="Not in the course mock"' : ''}>
 		<label for="${id}" class="${required ? 'req' : ''}">${label}</label>
-		${textarea
-			? `<textarea id="${id}" class="${code ? 'code' : ''}" ${code ? `rows="${String(value).split('\n').length}"` : ''} ${readonly ? 'readonly' : ''}>${esc(value)}</textarea>`
-			: `<input type="text" id="${id}" value="${esc(value)}" ${readonly ? 'readonly' : ''}>`}
+		${locale ? `<div class="with-locale">${control}${LOCALE}</div>` : control}
 		${hint ? `<span class="hint">${hint}</span>` : ''}
 	</div>`;
+};
+
+// A card that only the course mock has, marked so it isn't mistaken for AI Hub.
+const MOCK = '<span class="mock-pill" title="Not in Liferay AI Hub: added for the course">Course mock</span>';
 
 const toggle = (id, label, checked) =>
 	`<label class="switch"><input type="checkbox" id="${id}" ${checked ? 'checked' : ''}><span class="track"></span>${label}</label>`;
@@ -183,19 +195,23 @@ function agentEditor(erc, newType) {
 		<h1>${existing ? esc(agent.title) : `New ${type.label}`}</h1>
 		<div class="card">
 			<div class="card-head"><h2>Details</h2>${toggle('enabled', 'Enable Agent', agent.enabled)}</div>
-			${field('title', 'Title', agent.title, {required: true})}
-			${field('erc', 'External Reference Code', agent.erc, {hint: existing ? '' : 'Letters, digits, - and _. A chatbot\'s Assigned Agents refer to it.', readonly: Boolean(existing), required: true})}
-			${field('description', 'Description', agent.description, {hint: 'What the agent is for. In AI Hub, the chatbot reads it to decide when to call the agent.', required: true, textarea: true})}
+			${field('title', 'Title', agent.title, {locale: true, required: true})}
+			${field('erc', 'External Reference Code', agent.erc, {readonly: Boolean(existing), required: true})}
+			${field('description', 'Description', agent.description, {required: true, textarea: true})}
 		</div>
 		<div class="card">
 			<div class="card-head"><h2>Workflow</h2>
 				<button class="btn" id="editWorkflow" ${existing ? '' : 'disabled'}>${ICONS.workflow} Edit Workflow</button></div>
-			<p class="sub">Every agent runs its own workflow. Edit the workflow to define what this agent does when it runs.${existing ? '' : ' Save the agent first.'}</p>
+			<p class="sub">Every agent runs its own workflow. Edit the workflow to define what this agent does when it runs.</p>
 		</div>
 		<div class="card">
 			<h2 style="margin-bottom:20px">Variables</h2>
 			${field('inputVars', 'Input Variables', inputVariables(agent.type).join(','), {readonly: true, required: true})}
 			${field('outputVar', 'Output Variable', 'response', {readonly: true, required: true})}
+		</div>
+		<div class="card">
+			<h2 style="margin-bottom:20px">Data Sources</h2>
+			${field('sources', 'Assigned Sources', '', {disabled: true, placeholder: ''})}
 		</div>
 		<div class="row"><div class="actions"><button class="btn primary" id="save">Save</button><button class="btn" id="cancel">Cancel</button></div>
 			${existing ? '<button class="btn danger" id="delete">Delete</button>' : ''}</div>
@@ -279,20 +295,19 @@ function workflowEditor(erc) {
 			return;
 		}
 
-		const rag = agent.type === 'search' ? JSON.stringify({contentRetriever: agent.rag}, null, 2) : type.rag;
+		// As AI Hub writes it: the retriever's key first, and a blueprint only when there is one.
+		const retriever = agent.rag ? {key: agent.rag.key, ...(agent.rag.blueprintExternalReferenceCode ? {blueprintExternalReferenceCode: agent.rag.blueprintExternalReferenceCode} : {})} : null;
+		const rag = agent.type === 'search' ? JSON.stringify({contentRetriever: retriever}, null, 2) : type.rag;
 
 		panel.innerHTML = `
 			<p class="node-name">${type.node}</p><p class="sub" style="margin-bottom:20px">${type.nodeHint}</p>
-			<h4>Prompt</h4>
+			<h4>Prompt ${ICONS.chevron}</h4>
 			<div class="field"><textarea id="prompt" style="min-height:150px">${esc(agent.prompt)}</textarea></div>
 			${field('inVars', 'Input Variables', variablesJSON(inputVariables(agent.type)), {code: true, readonly: true, textarea: true})}
 			${field('outVars', 'Output Variables', variablesJSON(['response']), {code: true, readonly: true, textarea: true})}
-			${field('userMessage', 'User Message', agent.userMessage, {hint: 'Variables in {{double braces}} are filled in when the agent runs.', textarea: true})}
-			<h4>Retrieval-Augmented Generation</h4>
-			${field('rag', 'RAG Configuration', rag, {code: true, readonly: agent.type !== 'search', textarea: true,
-				hint: agent.type === 'search'
-					? '"key": "liferay" searches your Liferay as Guest. Set blueprintExternalReferenceCode to search through a Search Blueprint, or leave it empty.'
-					: 'An LLM agent retrieves nothing: it writes from its input variables.'})}
+			${field('userMessage', 'User Message', agent.userMessage, {placeholder: '', textarea: true})}
+			<h4>Retrieval-Augmented Generation ${ICONS.chevron}</h4>
+			<div class="field"><textarea id="rag" class="code" rows="${rag.split('\n').length}" ${agent.type === 'search' ? '' : 'readonly'} aria-label="Retrieval-Augmented Generation">${esc(rag)}</textarea></div>
 			<div class="actions"><button class="btn primary" id="saveNode">Save</button><button class="btn" id="cancelNode">Cancel</button></div>`;
 
 		document.getElementById('cancelNode').onclick = () => go(`agents/edit/${encodeURIComponent(agent.erc)}`);
@@ -357,26 +372,29 @@ function chatbotEditor(erc) {
 		<h1>${existing ? esc(bot.title) : 'New Chatbot'}</h1>
 		<div class="card">
 			<div class="card-head"><h2>Details</h2>${toggle('enabled', 'Enable Chatbot', bot.enabled)}</div>
-			${field('title', 'Title', bot.title, {required: true})}
-			${field('erc', 'External Reference Code', bot.erc, {hint: 'Write it down: your site\'s Click to Chat names the chatbot by it.', readonly: Boolean(existing), required: true})}
+			${field('title', 'Title', bot.title, {locale: true, required: true})}
+			${field('erc', 'External Reference Code', bot.erc, {readonly: Boolean(existing), required: true})}
 			${field('description', 'Description', bot.description || '', {textarea: true})}
+			<div class="field soon" title="Not in the course mock"><span class="label">Avatar</span><button type="button" class="btn" disabled>Select File</button>
+				<span class="hint">Upload a jpeg, jpg, png no larger than 500 KB.</span></div>
 			<div class="field"><span class="label">Assigned Agents</span><div class="chips" id="chips"></div></div>
-			${field('placeholder', 'Placeholder Message', bot.placeholderMessage || '', {hint: 'The hint in the visitor\'s empty message box, such as "Ask a question".'})}
-			${field('intro', 'Intro Message', bot.introMessage, {hint: 'The first message visitors see when they open the chat.', textarea: true})}
+			${field('notification', 'Notification Message', '', {disabled: true, locale: true})}
+			${field('placeholder', 'Placeholder Message', bot.placeholderMessage || '', {locale: true})}
+			${field('intro', 'Intro Message', bot.introMessage, {locale: true, textarea: true})}
 		</div>
 		<div class="row"><div class="actions"><button class="btn primary" id="save">Save</button><button class="btn" id="cancel">Cancel</button></div>
 			${existing ? '<button class="btn danger" id="delete">Delete</button>' : ''}</div>
 		<div id="msg"></div>
 		${existing ? `
 		<div class="card" style="margin-top:24px">
-			<h2 style="margin-bottom:8px">Add It to Your Site</h2>
+			<div class="card-head" style="margin-bottom:8px"><h2>Add It to Your Site</h2>${MOCK}</div>
 			<p class="sub" style="margin-bottom:16px">In Liferay, turn on <strong>Click to Chat</strong> for the site, with <strong>AI Hub</strong> as the chat provider and this chatbot's ERC as the account ID. Liferay finds AI Hub through its AI Hub configuration: the credentials and Service URL in <a href="#configurations">Configurations</a>.</p>
 			${field('ctcAccount', 'Chat Provider Account ID', bot.erc, {readonly: true})}
 			<span class="label">Or, without Click to Chat: Embed Snippet</span>
 			<pre class="snippet">&lt;script src="${esc(location.origin)}/widget.js" data-chatbot="${esc(bot.erc)}" defer&gt;&lt;/script&gt;</pre>
 		</div>
 		<div class="card" id="tryIt">
-			<h2 style="margin-bottom:8px">Try It</h2>
+			<div class="card-head" style="margin-bottom:8px"><h2>Try It</h2>${MOCK}</div>
 			<p class="sub" style="margin-bottom:16px">Ask a question here first. The run log shows each step a visitor's question goes through.</p>
 			<div class="play"><input type="text" id="question" placeholder="${esc(bot.placeholderMessage || 'Ask the chatbot a question')}"><button class="btn primary" id="ask">Ask</button></div>
 			<div id="result"></div>
@@ -389,9 +407,15 @@ function chatbotEditor(erc) {
 		const name = (e) => state.agents.find((a) => a.erc === e)?.title || e;
 		const free = state.agents.filter((a) => !assigned.includes(a.erc));
 
-		chips.innerHTML = assigned.map((e) => `<span class="chip">${esc(name(e))}<button type="button" data-remove="${esc(e)}" aria-label="Remove ${esc(name(e))}">×</button></span>`).join('') +
-			(free.length ? `<select id="addAgent" aria-label="Add an agent"><option value="">${assigned.length ? 'Add another agent…' : 'Select agents…'}</option>${free.map((a) =>
-				`<option value="${esc(a.erc)}">${esc(a.title)} (${TYPES[a.type].label}${a.enabled ? '' : ', disabled'})</option>`).join('')}</select>` : '');
+		chips.innerHTML = assigned.map((e) => `<span class="chip">${esc(name(e))}<button type="button" data-remove="${esc(e)}" aria-label="Remove ${esc(name(e))}">✕</button></span>`).join('') +
+			(free.length ? `<select id="addAgent" aria-label="Add an agent"><option value=""></option>${free.map((a) =>
+				`<option value="${esc(a.erc)}">${esc(a.title)}</option>`).join('')}</select>` : '<span class="chips-fill"></span>') +
+			(assigned.length ? `<button type="button" class="chips-clear" id="clearAgents" aria-label="Remove all agents">${ICONS.clear}</button>` : '');
+
+		document.getElementById('clearAgents')?.addEventListener('click', () => {
+			assigned = [];
+			renderChips();
+		});
 
 		chips.querySelectorAll('[data-remove]').forEach((b) => b.onclick = () => {
 			assigned = assigned.filter((e) => e !== b.dataset.remove);
@@ -483,25 +507,38 @@ function chatbotEditor(erc) {
 function configurations() {
 	main.innerHTML = `
 		<h1>Configurations</h1>
-		<div style="margin:0 auto;max-width:1160px;padding-top:24px">
+		<div class="config">
 			<h2 style="margin-bottom:20px">Account Configuration</h2>
-			${field('env', 'Environment URL', state.configuration.environmentURL, {
-				hint: 'Your Liferay\'s address. The real AI Hub is a cloud service and needs a public HTTPS URL here; this mock runs on your computer, so http://localhost:8080 works.'})}
-			<hr style="border:0;border-top:1px solid var(--border);margin:24px 0">
-			<h2 style="margin-bottom:8px">API Credentials</h2>
-			<p class="sub" style="margin-bottom:20px">Your Liferay's AI Hub configuration needs them (<em>Instance Settings</em> → <em>AI Hub</em>, or its configuration file). The mock doesn't check them: they're placeholders, never a secret.</p>
-			${field('clientId', 'Client ID', CREDENTIALS.clientId, {readonly: true})}
-			${field('clientSecret', 'Client Secret', CREDENTIALS.clientSecret, {readonly: true})}
-			${field('serviceURL', 'Service URL', location.origin, {readonly: true, hint: 'Liferay\'s Click to Chat loads the chat bubble from here.'})}
-			<hr style="border:0;border-top:1px solid var(--border);margin:24px 0">
-			<h2 style="margin-bottom:20px">AI Provider</h2>
-			${field('provider', 'Answers From', state.runtime.cli ? state.runtime.cliLabel : 'None found: answers list the search results only', {readonly: true,
-				hint: 'In AI Hub, the models run in Liferay\'s cloud. In the mock, your own AI agent writes the answers, run in an empty folder. To choose another, restart the mock with AI_CLI=claude, codex, copilot, gemini or none.'})}
-			<div class="row"><div class="actions"><button class="btn primary" id="save">Save</button><button class="btn" id="cancel">Cancel</button></div>
-				<button class="btn" id="test" style="margin-top:24px">Test Connection</button></div>
+			${field('env', 'Environment URL', state.configuration.environmentURL)}
+			<hr>
+			<h2 style="margin-bottom:20px">API Credentials</h2>
+			<div class="field"><label for="clientId">Client ID</label>
+				<div class="with-locale"><input type="text" id="clientId" value="${esc(CREDENTIALS.clientId)}" readonly>
+				<button type="button" class="square" id="copyId" title="Copy" aria-label="Copy the Client ID">${ICONS.copy}</button></div></div>
+			<div class="field"><label for="clientSecret">Client Secret</label>
+				<div class="with-locale"><input type="password" id="clientSecret" value="${esc(CREDENTIALS.clientSecret)}" readonly>
+				<button type="button" class="btn" id="reveal">Reveal</button></div>
+				<span class="hint">Shown only when you choose to reveal it.</span></div>
+			<div class="actions"><button class="btn primary" id="save">Save</button><button class="btn" id="cancel">Cancel</button></div>
 			<div id="msg"></div>
+			<div class="card mock-card">
+				<div class="card-head"><h2>Course Mock</h2></div>
+				<p class="sub" style="margin-bottom:20px">Not in Liferay AI Hub. The mock runs on your computer, so <em>Environment URL</em> can be <code>http://localhost:8080</code>. The Client ID and Secret are placeholders that nothing checks.</p>
+				${field('serviceURL', 'Service URL', location.origin, {readonly: true, hint: 'Liferay\'s AI Hub configuration points here; Click to Chat loads the chat bubble from it.'})}
+				${field('provider', 'Answers From', state.runtime.cli ? state.runtime.cliLabel : 'None found: answers list the search results only', {readonly: true,
+					hint: 'In AI Hub, the models run in Liferay\'s cloud. In the mock, your own AI agent writes the answers, in an empty folder. To choose another, restart the mock with AI_CLI=claude, codex, copilot, gemini or none.'})}
+				<button class="btn" id="test">Test Connection</button>
+				<div id="testMsg"></div>
+			</div>
 		</div>`;
 
+	document.getElementById('copyId').onclick = () => navigator.clipboard?.writeText(CREDENTIALS.clientId);
+	document.getElementById('reveal').onclick = (event) => {
+		const secret = document.getElementById('clientSecret');
+
+		secret.type = secret.type === 'password' ? 'text' : 'password';
+		event.target.textContent = secret.type === 'password' ? 'Reveal' : 'Hide';
+	};
 	document.getElementById('cancel').onclick = () => route();
 	document.getElementById('save').onclick = async () => {
 		try {
@@ -514,11 +551,13 @@ function configurations() {
 		}
 	};
 	document.getElementById('test').onclick = async () => {
+		const out = document.getElementById('testMsg');
+
 		try {
-			flash((await api('POST', '/api/test-connection', {environmentURL: val('env').trim()})).message);
+			out.innerHTML = `<div class="msg ok">${esc((await api('POST', '/api/test-connection', {environmentURL: val('env').trim()})).message)}</div>`;
 		}
 		catch (error) {
-			flash(error.message, false);
+			out.innerHTML = `<div class="msg err">${esc(error.message)}</div>`;
 		}
 	};
 }
