@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Level 14 — A website chatbot (bonus): AI Hub&#x27;s setup, with your own AI</title>
+<title>Level 14 — Liferay AI Hub: an AI chatbot for your website (bonus)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -303,24 +303,33 @@ em { color: inherit; }
 <header class="topbar">
   <button class="menu-toggle" type="button" aria-label="Toggle table of contents">&#9776;</button>
   <a class="logo" href="../"><span class="dot"></span>BEWL with AI</a>
-  <div class="doc-title">Level 14 — A website chatbot (bonus): AI Hub&#x27;s setup, with your own AI</div>
+  <div class="doc-title">Level 14 — Liferay AI Hub: an AI chatbot for your website (bonus)</div>
   <div class="spacer"></div>
 </header>
 <div class="layout">
   <nav class="sidebar" aria-label="Table of contents">
-    <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Bonus level</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a><p class="day">Bonus</p><a href="level-14.html" class="current">14 · A website chatbot (bonus)</a></details>
+    <details class="wb-levels"><summary><span class="wb-levels-title">Workbook</span> <span class="wb-pos">Bonus level</span></summary><a href="index.html">Start here</a><p class="day">Day 1</p><a href="setup.html">Setup</a><a href="level-1.html">1 · Users and permissions</a><a href="level-2.html">2 · Sites</a><a href="level-3.html">3 · Pages, master pages and navigation</a><a href="level-4.html">4 · Fragments and page compositions</a><a href="level-5.html">5 · Design</a><a href="level-6.html">6 · Content in Liferay CMS</a><p class="day">Day 2</p><a href="level-7.html">7 · Displaying content</a><a href="level-8.html">8 · Commerce</a><a href="level-9.html">9 · Headless APIs</a><a href="level-10.html">10 · Workflow and publishing</a><a href="level-11.html">11 · Search</a><a href="level-12.html">12 · Objects</a><a href="level-13.html">13 · Personalization</a><p class="day">Bonus</p><a href="level-14.html" class="current">14 · Liferay AI Hub</a></details>
     <input class="toc-filter" type="search" placeholder="Filter this guide&hellip;" aria-label="Filter table of contents">
     <div class="toc"><ul><li class="toc-level-2"><a href="#141-start-the-ai-hub-mock">14.1 — Start the AI Hub mock</a></li><li class="toc-level-2"><a href="#142-connect-the-mock-and-let-anonymous-visitors-search">14.2 — Connect the mock, and let anonymous visitors search</a></li><li class="toc-level-2"><a href="#143-build-the-two-agents">14.3 — Build the two agents</a></li><li class="toc-level-2"><a href="#144-create-the-chatbot-and-try-it">14.4 — Create the chatbot and try it</a></li><li class="toc-level-2"><a href="#145-put-the-chatbot-on-every-page-with-click-to-chat">14.5 — Put the chatbot on every page, with Click to Chat</a></li><li class="toc-level-2"><a href="#knowledge-check">🧠 Knowledge check</a></li><li class="toc-level-2"><a href="#extras">⭐ Extras</a></li><li class="toc-level-2"><a href="#146-bonus-search-through-a-blueprint">⭐ 14.6 — Bonus: search through a blueprint</a></li><li class="toc-level-2"><a href="#147-bonus-check-level-14-with-playwright">⭐ 14.7 — Bonus: check Level 14 with Playwright</a></li><li class="toc-level-2"><a href="#148-bonus-the-embed-snippet-instead-of-click-to-chat">⭐ 14.8 — Bonus: the embed snippet instead of Click to Chat</a></li></ul></div>
   </nav>
   <div class="content-wrap">
     <main class="doc-content">
 <p class="wb-crumb"><a href="index.html">Workbook</a> › Bonus</p>
-<h1 id="level-14-a-website-chatbot-bonus-ai-hubs-setup-with-your-own-ai">Level 14 — A website chatbot (bonus): AI Hub's setup, with your own AI</h1>
+<h1 id="level-14-liferay-ai-hub-an-ai-chatbot-for-your-website-bonus">Level 14 — Liferay AI Hub: an AI chatbot for your website (bonus)</h1>
 <p class="wb wb-meta">⏱ <strong>About 45 minutes</strong>, on your own, after the course or when you finish early · <strong>Builds on:</strong> Levels 6 and 7 (content to answer from), and the Clarity site and its master pages</p>
-<p><strong>What you'll build:</strong> a <strong>Clarity Assistant</strong> chatbot on every page of the public site. A visitor asks a question; the chatbot searches the site's content, and an AI writes a short answer from what it found, with its sources. It's set up the way you set up a chatbot in <strong>Liferay AI Hub</strong>: a search agent, an answer agent, then a chatbot that uses both, then Liferay's <em>Click to Chat</em> to put it on the site. As in the rest of the course, your agent does the setup from your prompts, and you check each step on the screens: the AI Hub console and Liferay. AI Hub is a Liferay cloud service you may not have access to, so this level uses a small <strong>mock</strong> of it that runs on your computer and answers with <strong>the AI agent you already use</strong> in this course.</p>
+<p><strong>What you'll build:</strong> with <strong>Liferay AI Hub</strong>, a <strong>Clarity Assistant</strong> chatbot on every page of the public site. A visitor asks a question; the chatbot searches the site's content, and an AI writes a short answer from what it found, with its sources. You build it exactly as you would in AI Hub: a search agent, an answer agent, a chatbot that uses both, then Liferay's <em>Click to Chat</em> to put it on the site. As in the rest of the course, your agent does the setup from your prompts, and you check each step on AI Hub's screens and in Liferay.</p>
+<p>🚀 <strong>Why Liferay AI Hub:</strong> it's Liferay's cloud service for AI agents and chatbots, built to work with your Liferay.</p>
+<ul>
+<li><strong>Build agents visually</strong> in <em>Agent Builder</em>: each agent is a workflow of nodes (LLM, Liferay Search, HTTP requests, AI decisions, forks), with prompts and variables you set on screen.</li>
+<li><strong>Start from Liferay's own agents</strong>: ready-made agents for writing, translation, categorization, tagging, SEO titles and descriptions, and image generation. Duplicate one and adapt it.</li>
+<li><strong>Grounded in your content</strong>: Liferay Search agents answer from your Liferay, within its permissions, and data sources add more.</li>
+<li><strong>Governed</strong>: guardrails, a risk classification for every agent, the model provider's compliance documentation, and an activity log.</li>
+<li><strong>Put to work anywhere</strong>: chatbots on any site through Click to Chat or their chatbot code, and agents behind the AI Assistant in Liferay CMS. The models run in Liferay's cloud: nothing to host.</li>
+</ul>
+<p class="wb wb-note">ℹ️ <strong>In this course:</strong> so that everyone can try it, even without an AI Hub account yet, this level uses a <strong>course mock</strong> of AI Hub that runs on your computer. It copies AI Hub's screens and setup, and its chatbot answers with <strong>the AI agent you already use</strong> in this course instead of AI Hub's models. The steps are the same in the real AI Hub.</p>
 <p><strong>Key terms</strong></p>
 <ul>
-<li><strong>AI Hub:</strong> Liferay's cloud service for AI agents and chatbots. You build agents in its <em>Agent Builder</em>, combine them in a <em>chatbot</em>, and put the chatbot on a site. This level's mock copies its screens.</li>
+<li><strong>Liferay AI Hub:</strong> Liferay's cloud service for AI agents and chatbots. You build agents in its <em>Agent Builder</em>, combine them in a <em>chatbot</em>, and put the chatbot on a site. This level's course mock copies its screens.</li>
 <li><strong>Agent:</strong> one step a chatbot runs, with a small workflow: <em>Start → one node → End</em>. A <strong>Liferay Search agent</strong> searches your Liferay; an <strong>LLM agent</strong> asks a language model to write text.</li>
 <li><strong>RAG (retrieval-augmented generation):</strong> first retrieve content that may answer the question, then have a language model answer from that content only. It keeps the answers grounded in your site instead of the model's memory.</li>
 <li><strong>Service Access Policy:</strong> a Liferay rule that decides which API methods a caller may reach at all, before any permission is checked. Anonymous visitors get almost none by default.</li>
@@ -465,6 +474,7 @@ open Home as Guest, click the chat bubble and show me its first message.
 <li><em>The bubble says the chat isn't available:</em> the chatbot is disabled, or its ERC differs from the <em>Chat Provider Account ID</em>.</li>
 </ul>
 <p class="wb wb-why">📖 <strong>Why it matters:</strong> these are the same settings you'd make with the real AI Hub; only the <em>Service URL</em> and the credentials would come from your AI Hub account instead of the mock. Kept in code, they come back with every deploy and every new environment, like the rest of the site. Click to Chat puts one chatbot on every page of a site, without touching a page or a master, and a site can override the instance's choice. The bubble only links to AI Hub: stop the mock, and the site keeps working, without a chat.</p>
+<p>🚀 <strong>Next: the real Liferay AI Hub.</strong> Everything in this level is AI Hub's own setup: the same agents, the same chatbot, the same Click to Chat settings, with AI Hub's <em>Service URL</em> and credentials instead of the mock's. On the real AI Hub you also get Liferay's ready-made agents, guardrails, data sources, managed models and the AI Assistant in Liferay CMS. To use it with your Liferay, talk to your Liferay account team.</p>
 <h2 id="knowledge-check">🧠 Knowledge check<a aria-hidden="true" class="heading-anchor" href="#knowledge-check" tabindex="-1">#</a></h2>
 <p class="wb wb-meta">⏱ <strong>About 3 minutes, on your own.</strong> Choose one answer for each question. The answers are at the end of <code>bonus/ai-hub/README.md</code>.</p>
 <p class="wb wb-quiz-q"><strong>Question 1.</strong> Signed in as the admin, the chatbot's search finds nothing that Guest can't see. Why?</p>

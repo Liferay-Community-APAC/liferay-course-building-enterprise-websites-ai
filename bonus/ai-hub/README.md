@@ -1,6 +1,6 @@
 # AI Hub (course mock)
 
-A lightweight stand-in for **Liferay AI Hub**, for the bonus Level 14 of the workbook. It lets you set up a website chatbot the way AI Hub does (agents, then a chatbot, then Liferay's *Click to Chat* on your site) without access to AI Hub, and it really answers: with your Liferay's content and **the AI agent you already use** in the course.
+A course mock of **Liferay AI Hub**, Liferay's cloud service for AI agents and chatbots, for the bonus Level 14 of the workbook. It lets everyone try AI Hub's setup (agents, then a chatbot, then Liferay's *Click to Chat* on your site) before they have an AI Hub account, and it really answers: with your Liferay's content and **the AI agent you already use** in the course. The steps are the same in the real AI Hub; to use it with your Liferay, talk to your Liferay account team.
 
 The console copies AI Hub's screens (checked against the live AI Hub in November 2026): Home, the Agent Builder and Chatbots lists, the full-page agent and chatbot editors, the workflow editor and Configurations. Features the mock doesn't have are greyed out, and what only the mock has (*Try It*, the AI Provider card, *Course Mock* in Configurations, the menu of agent types under *New Agent*) carries a **Course mock** label.
 

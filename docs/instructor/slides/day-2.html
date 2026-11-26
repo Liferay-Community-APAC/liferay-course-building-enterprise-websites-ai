@@ -248,7 +248,7 @@
     </svg>
   </div>
   <aside class="notes">
-    <p>The original bonus enabled auto-tagging for web content with OpenNLP; demo the auto-tagging configuration if you have time. AI Hub runs in its own SaaS environment, bought through Marketplace, and it must reach your environment from the internet because it calls back into it. Data sources let agents answer from crawled websites, and instructions add tone and policy. Learners ask whether AI Hub needs a separate license; yes, it's its own product.</p>
+    <p>The original bonus enabled auto-tagging for web content with OpenNLP; demo the auto-tagging configuration if you have time. AI Hub runs in its own SaaS environment, bought through Marketplace, and it must reach your environment from the internet because it calls back into it. Data sources let agents answer from crawled websites, and instructions add tone and policy. Learners ask whether AI Hub needs a separate license; yes, it's its own product. Learners who want to try it hands-on can do the bonus Level 14, Liferay AI Hub: AI Hub's agents, chatbot and Click to Chat setup, on a course mock that runs on their laptop (slides 42 to 44).</p>
   </aside>
 </section>
 
@@ -740,14 +740,14 @@
     <figure class="shot"><div class="frame"><img src="assets/shots/blueprints.png" alt="The Blueprints application listing Future Events, a collection provider, and Boost Associate Job Listings"></div><figcaption>Blueprints: Future Events is also a collection provider</figcaption></figure>
   </div>
   <aside class="notes">
-    <p>The screenshot is the Blueprints application with Clarity's two blueprints; only Future Events is enabled as a collection provider. Results can differ by user, page or audience. Clarity uses two blueprints: one that keeps only job listings and boosts Associate positions, and one that lists future hiring events (Event Information entries in the Events Space) as a collection on the Events page. The agent validates each blueprint with its preview endpoint before saving. Demo the Blueprints application and its Preview with the search Associate. Learners ask how this relates to semantic search; semantic search interprets meaning through text embeddings, and blueprints shape the query either way.</p>
+    <p>The screenshot is the Blueprints application with Clarity's two blueprints; only Future Events is enabled as a collection provider. Results can differ by user, page or audience. Clarity uses two blueprints: one that keeps only job listings and boosts Associate positions, and one that lists future hiring events (Event Information entries in the Events Space) as a collection on the Events page. The agent validates each blueprint with its preview endpoint before saving. Demo the Blueprints application and its Preview with the search Associate. Learners ask how this relates to semantic search; semantic search interprets meaning through text embeddings, and blueprints shape the query either way. Learners on the DXP Free Tier key have no Blueprints application: Search Blueprints are part of Liferay Enterprise Search, which the Free Tier doesn't include. Tell them now that 11.2 and 11.3 have free-key paths in the workbook.</p>
   </aside>
 </section>
 
 <section id="28" class="slide challenge">
   <p class="kicker">Challenge time</p>
   <h2>Level 11: search</h2>
-  <p class="source">Workbook: Level 11 · Original BEWL challenges 19 and 20 · Requirement R11</p>
+  <p class="source">Workbook: Level 11 · Original BEWL challenges 19 and 20 · Requirement R11 · Free key: follow the 🔑 free-key paths of 11.2 and 11.3</p>
   <div class="split">
     <ol class="exercises">
       <li><span class="id">11.1</span><span>The Open Positions job search</span></li>
@@ -760,7 +760,7 @@
   </div>
   <p class="verify"><b>Verify habit:</b> search as Guest and watch the order of results; open the blueprint's Preview and close it without saving; Events lists only future hiring events, soonest first.</p>
   <aside class="notes">
-    <p>The screenshot is the 11.3 result: the Events page lists the upcoming hiring events from the Future Events blueprint. Demo 11.1 end to end from the Careers banner. In 11.2 the prompt asks for results before and after the blueprint, so learners see the boost work. In 11.3 the hiring events are dated relative to today, so the past one exists in the Events Space but doesn't appear in Upcoming Hiring Events. The original course used the Calendar widget; calendar events have no REST API on this release, so events live in the CMS. Learners ask why the blueprint filters on an indexed field; job listings are CMS entries, and the agent reads one entry's indexed fields to find the one that identifies its structure. Close the block with the knowledge check: learners answer while their last prompt runs, then take about five minutes on the answers. The answers, why each other option is wrong and a follow-up question are at the end of the <a href="../demos-level-11.html#knowledge-check-answers">Level 11 demo page</a>.</p>
+    <p>The screenshot is the 11.3 result: the Events page lists the upcoming hiring events from the Future Events blueprint. Demo 11.1 end to end from the Careers banner. In 11.2 the prompt asks for results before and after the blueprint, so learners see the boost work. In 11.3 the hiring events are dated relative to today, so the past one exists in the Events Space but doesn't appear in Upcoming Hiring Events. The original course used the Calendar widget; calendar events have no REST API on this release, so events live in the CMS. Learners ask why the blueprint filters on an indexed field; job listings are CMS entries, and the agent reads one entry's indexed fields to find the one that identifies its structure. On the free key, 11.2 uses two hidden Custom Filter widgets (job listings only, Associate titles boosted) and 11.3 sets each event's expiration date to its start, expires past events and lists the rest in an Upcoming Events collection sorted by expiration date. The results are the same; the difference worth a sentence is that a collection only knows what's stored, so past events must be expired, while a blueprint compares dates at search time. Close the block with the knowledge check: learners answer while their last prompt runs, then take about five minutes on the answers. The answers, why each other option is wrong and a follow-up question are at the end of the <a href="../demos-level-11.html#knowledge-check-answers">Level 11 demo page</a>.</p>
   </aside>
 </section>
 
@@ -1081,6 +1081,84 @@
     <p>Ask learners to fill in the course feedback before they leave: share your form's link in the class chat or as a QR code. The questions are in the instructor guide's Course feedback section; the first two tell you what to fix for the next run. The learning starts here but shouldn't end here: point them to Liferay Learn, Liferay Discuss at discuss.liferay.com, the quarterly release webinars and events such as DEVCON. Developers who want to go deeper should take the Liferay Application Developer learning path. Thank everyone and take final questions.</p>
   </aside>
 </section>
+
+<section id="42" class="slide divider" data-bonus>
+  <p class="kicker">Bonus · optional</p>
+  <h1>Level 14: Liferay AI Hub</h1>
+  <ul class="bullets">
+    <li>Build an AI chatbot for your website with AI Hub: agents, a chatbot, then Click to Chat</li>
+    <li>Agent Builder, Liferay's ready-made agents, guardrails, managed models</li>
+    <li>Answers grounded in your Liferay content, within its permissions</li>
+    <li>Try it on a course mock of AI Hub, on your laptop: about 45 minutes</li>
+  </ul>
+  <aside class="notes">
+    <p>These three slides are an appendix and the course's showcase for Liferay AI Hub: show them if the class has time at the end of Day 2, or to the learners who start Level 14. Sell the product: AI Hub is Liferay's cloud service for agents and chatbots, with Agent Builder, ready-made Liferay agents for writing, translation, categorization, SEO and images, guardrails and risk classification, models run in Liferay's cloud, and the AI Assistant in Liferay CMS. Close by inviting anyone interested to talk to their Liferay account team. There's no block for it in the schedule. The mock is in the course repository, in bonus/ai-hub; it needs Node.js 20 and nothing else, and no AI Hub access or API key, because the learner's own agent CLI (Claude Code was tested) writes the answers. Its screens copy AI Hub's; the greyed-out parts are AI Hub features it leaves out. The demo is D2.14 on the <a href="../demos-level-14.html">Level 14 demo page</a>.</p>
+  </aside>
+</section>
+
+<section id="43" class="slide process" data-bonus>
+  <p class="kicker">Bonus · AI Hub</p>
+  <h2>How the chatbot answers</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 900 250" role="img" aria-label="A visitor asks in the chat bubble that Click to Chat puts on every page. The Clarity Assistant chatbot runs its Liferay Search agent, which searches Liferay as Guest through the headless search API, then its LLM agent, which writes a short answer from the results alone. The answer goes back with its sources.">
+      <defs><marker id="ar-bot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0B5FFF"/></marker></defs>
+      <rect class="box clarity" x="5" y="70" width="190" height="100" rx="10"/>
+      <text class="t" x="100" y="108" text-anchor="middle">Chat bubble</text>
+      <text class="s" x="100" y="132" text-anchor="middle">Click to Chat,</text>
+      <text class="s" x="100" y="152" text-anchor="middle">every page</text>
+      <rect class="box dark" x="235" y="70" width="190" height="100" rx="10"/>
+      <text class="t w" x="330" y="108" text-anchor="middle">Chatbot</text>
+      <text class="s w" x="330" y="132" text-anchor="middle">Clarity Assistant,</text>
+      <text class="s w" x="330" y="152" text-anchor="middle">its assigned agents</text>
+      <rect class="box indigo" x="465" y="5" width="200" height="100" rx="10"/>
+      <text class="t w" x="565" y="43" text-anchor="middle">Liferay Search agent</text>
+      <text class="s w" x="565" y="67" text-anchor="middle">searches Liferay as Guest</text>
+      <text class="s w" x="565" y="87" text-anchor="middle">(Service Access Policy)</text>
+      <rect class="box" x="465" y="140" width="200" height="100" rx="10"/>
+      <text class="t" x="565" y="178" text-anchor="middle">LLM agent</text>
+      <text class="s" x="565" y="202" text-anchor="middle">answers from the</text>
+      <text class="s" x="565" y="222" text-anchor="middle">gathered information alone</text>
+      <rect class="box soft" x="705" y="70" width="190" height="100" rx="10"/>
+      <text class="t" x="800" y="108" text-anchor="middle">Answer</text>
+      <text class="s" x="800" y="132" text-anchor="middle">with its sources,</text>
+      <text class="s" x="800" y="152" text-anchor="middle">back in the bubble</text>
+      <line class="edge" x1="195" y1="120" x2="233" y2="120" marker-end="url(#ar-bot)"/>
+      <line class="edge" x1="425" y1="105" x2="463" y2="65" marker-end="url(#ar-bot)"/>
+      <line class="edge" x1="565" y1="105" x2="565" y2="138" marker-end="url(#ar-bot)"/>
+      <line class="edge" x1="665" y1="190" x2="703" y2="150" marker-end="url(#ar-bot)"/>
+    </svg>
+  </div>
+  <ul class="bullets">
+    <li>Retrieval decides what the chatbot knows; the prompt decides how it speaks (RAG)</li>
+    <li>The search runs as Guest: a public chatbot is only as public as its content</li>
+  </ul>
+  <aside class="notes">
+    <p>Walk the chain left to right. Two gates protect content from the search: the Service Access Policy decides whether Guest may call the headless search API at all (it answers 403 until 14.2 adds one), then permissions decide which results come back. In the real AI Hub, a supervising model reads each agent's description to decide which agents to call, and the models run in Liferay's cloud; the mock always runs the search agents, then the LLM agent, with the learner's own agent CLI. Click to Chat is Liferay's own setting: with the AI Hub provider, its Service URL points at AI Hub, or here at the mock. Learners ask whether the mock is safe; it listens on their own computer only, and with Claude Code the agent runs with every tool switched off.</p>
+  </aside>
+</section>
+
+<section id="44" class="slide challenge" data-bonus>
+  <p class="kicker">Bonus · optional</p>
+  <h2>Level 14: Liferay AI Hub</h2>
+  <p class="source">Workbook: Level 14 (bonus) · Needs a build up to Level 7, Node.js 20 and your agent's CLI</p>
+  <div class="split">
+    <ol class="exercises">
+      <li><span class="id">14.1</span><span>Start the AI Hub mock</span></li>
+      <li><span class="id">14.2</span><span>Connect it, and let anonymous visitors search</span></li>
+      <li><span class="id">14.3</span><span>Build the two agents</span></li>
+      <li><span class="id">14.4</span><span>Create the chatbot and try it</span></li>
+      <li><span class="id">14.5</span><span>Put it on every page, with Click to Chat</span></li>
+      <li class="check"><span class="id">🧠</span><span>Knowledge check: three questions on your own</span></li>
+      <li class="bonus"><span class="id">14.6</span><span>Bonus: search through a blueprint (not on the free key)</span></li>
+    </ol>
+    <figure class="shot"><div class="frame"><img src="../../screenshots/14-5-chat-on-site.png" alt="Clarity's Home page as Guest, with the Clarity Assistant chat open: an answer about return shipping, and its sources" style="max-height:14em"></div><figcaption>14.5: the Clarity Assistant on Home, as Guest</figcaption></figure>
+  </div>
+  <p class="verify"><b>Verify habit:</b> check each step in the mock's screens; ask the chatbot something the site doesn't cover and expect it to say so; open the site as Guest.</p>
+  <aside class="notes">
+    <p>The screenshot is the 14.5 result. Like the rest of the course, the agent does the setup from the learner's prompts. Two steps stay by hand: starting the mock (learners start servers themselves), and the Service Access Policy in 14.2, which has no API, so the agent gives the UI steps. 14.5 puts Click to Chat in code: two OSGi configuration files and the site initializer's site-settings.json; the AI Hub feature flag isn't needed. Answers take 5 to 30 seconds and use the learner's agent subscription. The knowledge check answers are on the <a href="../demos-level-14.html#knowledge-check-answers">Level 14 demo page</a>, and at the end of bonus/ai-hub/README.md for learners working after the course.</p>
+  </aside>
+</section>
+
 
 </main>
 </div>

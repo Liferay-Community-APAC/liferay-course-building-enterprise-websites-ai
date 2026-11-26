@@ -42,6 +42,7 @@ It follows the course, like the learners' workbook: a page per teaching block, i
 - [D2.3](#d23-generative-ai-in-dxp-ai-creator): an OpenAI API key you're allowed to use for demos.
 - [D2.9](#d29-a-pending-workflow-task): create the pending demo article with the prompt.
 - [D2.13](#d213-page-audit): a Google PageSpeed Insights API key and a demo environment with a public URL.
+- [D2.14](#d214-an-ai-hub-chatbot-on-the-clarity-site) (optional, bonus Level 14): Level 14 done on your demo build, and the AI Hub mock ready to start.
 
 ## After class
 
@@ -50,6 +51,7 @@ It follows the course, like the learners' workbook: a page per teaching block, i
 - [D2.9](#d29-a-pending-workflow-task): delete the demo entry, or ask the agent to.
 - [D2.11](#d211-an-object-its-picklist-and-its-form): delete your test Contact Us entry.
 - [D2.13](#d213-page-audit): remove the PageSpeed API key and save (right after the demo).
+- [D2.14](#d214-an-ai-hub-chatbot-on-the-clarity-site): stop the AI Hub mock (`Ctrl+C` in its terminal).
 
 ## Roadmap
 
@@ -90,3 +92,4 @@ Every demo in course order. **Demo** jumps to its steps below, **Slides** opens 
 | [D2.11 — An object, its picklist and its form](#d211-an-object-its-picklist-and-its-form) | [31](slides/day-2.html#31), [33](slides/day-2.html#33) | [Level 12](../workbook/#level-12-objects-the-contact-us-form-and-its-follow-up) | 8 | — |
 | [D2.12 — Personalization by audience](#d212-personalization-by-audience) | [35](slides/day-2.html#35), [36](slides/day-2.html#36) | [Level 13](../workbook/#level-13-personalization-a-home-page-for-distributors) | 6 | — |
 | [D2.13 — Page Audit](#d213-page-audit) | [38](slides/day-2.html#38) | Slides&nbsp;only | 4 | A PageSpeed key and a public URL |
+| [D2.14 — An AI Hub chatbot on the Clarity site](#d214-an-ai-hub-chatbot-on-the-clarity-site) (optional) | [42–44](slides/day-2.html#42) | [Level 14](../workbook/level-14.html) (bonus) | 8 | Level 14 done, the AI Hub mock |

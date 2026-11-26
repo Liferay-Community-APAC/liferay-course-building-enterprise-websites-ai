@@ -49,21 +49,23 @@ That's how a real project ships a Liferay site today: version-controlled and rep
 - Every exercise lists acceptance criteria (117 in all, 4 of them in the bonus Level 14): who checks, and what they must find.
 - Each level's last bonus has the agent write a Playwright test of those criteria, so a learner can re-check their whole build in a minute.
 
-### A bonus AI chatbot, no AI Hub needed
+### Bonus: Liferay AI Hub, hands-on
 
-- [Level 14](../workbook/level-14.html) has learners set up a website chatbot the way Liferay AI Hub does: a search agent, an answer agent, a chatbot, and Liferay's Click to Chat to put it on the site.
-- A small AI Hub mock in the repository runs on the laptop; it searches the site as Guest, and the learner's own agent writes the answers.
+- [Level 14](../workbook/level-14.html) has learners build an AI chatbot with Liferay AI Hub's setup: a search agent, an answer agent, a chatbot, and Liferay's Click to Chat to put it on the site. Its intro sells AI Hub, and it ends with the step to the real product.
+- So everyone can try it before they have an AI Hub account, a course mock of AI Hub runs on the laptop: AI Hub's screens and setup, the site searched as Guest, and the learner's own agent writing the answers.
+- It's optional, with no block in the schedule; three appendix slides at the end of the Day 2 deck and a demo ([D2.14](demos.html#d214-an-ai-hub-chatbot-on-the-clarity-site)) present it.
 
 ### Free tools, checked in advance
 
+- Liferay DXP with either activation key: the free key from the Liferay DXP Free Tier, or a developer key from one.liferay.com. The free key has no Search Blueprints (Liferay Enterprise Search isn't in the Free Tier), so Levels 11.2 and 11.3 have free-key paths that reach the same result, and the `level-12-start` catch-up kit applies them on its own.
 - A [prerequisites page](https://liferay-community-apac.github.io/resources/bewl-ai-prerequisites/) with a checklist and an agent prompt that checks the laptop before Day 1.
 - Docker at no cost: Colima on macOS, Rancher Desktop on Windows, Docker Engine on Linux. Docker Desktop where it's licensed.
 - Step-by-step setup, from cloning the repository to the MCP server.
 
 ### A complete teaching kit
 
-- Two HTML slide decks with speaker notes, a business-case slide per level and a certification slide.
-- The [demo workbook](demos.html): 26 demos, page by page in schedule order, with prep and cleanup checklists and the knowledge check answers.
+- Two HTML slide decks with speaker notes, a business-case slide per level, a certification slide, and three optional slides for the bonus Level 14.
+- The [demo workbook](demos.html): 27 demos (one of them optional, for the bonus Level 14), page by page in schedule order, with prep and cleanup checklists and the knowledge check answers.
 - The [schedule](schedule.html), the [instructor guide](index.html), and a catch-up kit for anyone behind at the start of Day 2.
 
 ## What stays the same

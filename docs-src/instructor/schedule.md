@@ -45,6 +45,8 @@ The last three columns say who uses them:
 
 Bonus exercises (⭐) are for fast learners during the hands-on blocks; skip them in the schedule. Each level's last bonus is a Playwright test of the level's acceptance criteria (🧪): point fast learners there first, since a suite that passes is also the quickest way to confirm their build before the next level. It needs Node.js 20 or later.
 
+**The bonus Level 14, Liferay AI Hub** (an AI chatbot built with AI Hub's setup, on a course mock that runs on the laptop) has no block either: it's for learners who finish early, or after the course, and takes about 45 minutes. If the class has time at the end of Day 2, present the appendix slides [42–44](slides/day-2.html#42) after the conclusion, with demo [D2.14](demos.html#d214-an-ai-hub-chatbot-on-the-clarity-site).
+
 Each level block (Levels 1 to 13) ends with a knowledge check, and its time is included: learners answer the three questions while their last prompt runs, then you spend about 5 minutes going over the answers, from the end of the level's page in the [demo workbook](demos.html).
 
 **Day 2 is tight.** Level 7 has five exercises and five demos. If the class falls behind, in this order:
