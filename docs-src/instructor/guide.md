@@ -42,7 +42,7 @@ Do this the week before, on the laptop you'll present from. You run the whole wo
 4. **Run the whole workbook**: Setup S.1 to S.5, then Levels 1 to 13, including the verify steps. It takes most of a day. Note the prompts where your agent needed help: learners' agents will too.
 5. **Check the result** with [demo D1.1](demos.html#d11-tour-of-the-finished-clarity-site): Home as Guest and as Terrence. Then stop Liferay and PostgreSQL (`docker compose stop` at the workspace root): the data stays in Docker volumes for the course.
 6. **Keep the build.** Don't reset it before the course. Every copy of the course uses the Compose project `clarity` (containers `clarity-postgres` and `clarity-liferay`, and their volumes), so a second clone on the same laptop would share this database: keep one copy.
-7. **Prepare the projector view:** VS Code's zoom (*View* → *Appearance* → *Zoom In*) so the back row can read prompts, the terminal and the agent's chat side by side, and a browser with the workbook, the slides and a private window.
+7. **Prepare the projector view:** VS Code's zoom (*View* → *Appearance* → *Zoom In*) so the back row can read prompts, the terminal and the agent's chat side by side, and a browser with the workbook, the slides and a private window. Try the slides' **▶ Present** button once: it puts the deck full screen and opens a presenter window (timer, current and next slides, speaker notes). Allow pop-ups for the slides' site, then move the presenter window to your laptop's screen and the full-screen deck to the projector.
 
 ## The first 30 minutes
 

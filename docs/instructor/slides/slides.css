@@ -826,6 +826,14 @@ ol.stairs span.d { color: rgba(255, 255, 255, .88); }
 .toolbar button[aria-pressed="true"] { background: var(--liferay); color: #fff; border-color: var(--liferay); }
 .toolbar button:focus-visible { outline: 2px solid var(--liferay); outline-offset: 2px; }
 .toolbar .counter { min-width: 64px; text-align: center; font-variant-numeric: tabular-nums; color: var(--ink); }
+.toolbar button.present { background: var(--liferay); color: #fff; border-color: var(--liferay); font-weight: 700; }
+.toolbar button.present:hover { background: #0047d6; border-color: #0047d6; }
+
+/* Presenting: the deck alone, full screen. The presenter window has the notes. */
+html.presenting body { background: #000; }
+html.presenting .toolbar, html.presenting .notes-panel { display: none; }
+html.presenting .viewport { bottom: 0; }
+html.presenting .slide { box-shadow: none; }
 
 .notes-panel {
   position: fixed;
