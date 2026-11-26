@@ -81,12 +81,38 @@ test('AC 11.1-3 · the facet groups categories by Job Positions, Location and Re
 	await context.close();
 });
 
-test('AC 11.2-1 · the blueprint "Boost Associate Job Listings" exists', async () => {
-	const api = await adminApi();
-	const titles = (await getAll(api, '/o/search-experiences-rest/v1.0/sxp-blueprints')).map((b) => b.title);
+// The DXP Free Tier key doesn't include Search Blueprints (Liferay Enterprise Search): their API
+// answers 404. Level 11 then has free-key paths, and AC 11.2-1 checks the free-key result instead.
 
-	expect(titles).toContain('Boost Associate Job Listings');
+async function hasBlueprints(): Promise<boolean> {
+	const api = await adminApi();
+	const response = await api.get('/o/search-experiences-rest/v1.0/sxp-blueprints?pageSize=1');
+
 	await api.dispose();
+
+	return response.status() !== 404;
+}
+
+test('AC 11.2-1 · the blueprint "Boost Associate Job Listings" exists (free key: "Engineer" lists job listings only, Associate Optical Engineer first)', async ({browser}) => {
+	if (await hasBlueprints()) {
+		const api = await adminApi();
+		const titles = (await getAll(api, '/o/search-experiences-rest/v1.0/sxp-blueprints')).map((b) => b.title);
+
+		expect(titles).toContain('Boost Associate Job Listings');
+		await api.dispose();
+
+		return;
+	}
+
+	const {context, page} = await pageAs(browser, 'guest');
+
+	await page.goto(`${OPEN_POSITIONS}?q=Engineer`);
+
+	const listed = await results(page);
+
+	expect(listed.filter((r) => r.type !== 'Job Listing'), 'results that are not job listings').toEqual([]);
+	expect(listed[0]?.title, `first result: ${listed.map((r) => r.title).join(' | ')}`).toBe('Associate Optical Engineer (Level 2)');
+	await context.close();
 });
 
 test('AC 11.2-2 · an empty search on Open Positions lists only job listings, Associate ones first', async ({browser}) => {

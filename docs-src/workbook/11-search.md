@@ -10,6 +10,9 @@
 - **Search element:** a query element you create yourself and use in a blueprint.
 - **Blueprints Options:** the widget that applies a blueprint to the search on a page.
 - **Collection provider:** a source of items that a Collection Display can render like a collection. A blueprint can be one, so a Collection Display renders its results.
+- **Expiration date:** the date after which a CMS entry should stop showing. An *expired* entry drops out of collections; the free-key path of 11.3 uses it for past events.
+
+🔑 **On the Free Tier key?** Search Blueprints, search elements and the Blueprints Options widget are part of Liferay Enterprise Search, which the Free Tier doesn't include (see *Setup*, S.2). 11.1 works as written. 11.2 and 11.3 each have a **free-key path** below that reaches the same result with features the free key has: Custom Filter widgets, and a collection of entries with expiration dates. Not sure which key you have? *Global Menu* → *Applications*: if there's no **Blueprints**, follow the free-key paths.
 
 ### 11.1 — The Open Positions job search
 
@@ -66,13 +69,26 @@ client-extensions/clarity-site, under Search Options, and deploy. Search
 "Engineer" as Guest and show the order of results before and after.
 ```
 
+🔑 **Free-key path** (no Blueprints): the same result with two hidden **Custom Filter** widgets on Open Positions, one that filters and one that boosts.
+```
+Using the manage-search skill, on the Open Positions page in
+client-extensions/clarity-site, add two Custom Filter widgets under
+Search Options, both invisible and immutable: 1) "Job Listings Only",
+occur "filter", a term query that keeps only Job Listing CMS entries,
+on the field that identifies an object entry's definition (read the
+indexed fields of one job listing first to find it and its value);
+2) "Associate First", occur "should", boost 100, a match query for
+"Associate" on the English title field. Deploy, then search "Engineer"
+and run an empty search as Guest, and show the order of results.
+```
+
 ✅ **Verify** (look, don't change anything):
-1. *Global Menu* → *Applications* → *Blueprints* → open **Boost Associate Job Listings** → *Preview*, and search *Associate*: Associate listings come first, and no FAQ or article appears. Close without saving.
+1. *Global Menu* → *Applications* → *Blueprints* → open **Boost Associate Job Listings** → *Preview*, and search *Associate*: Associate listings come first, and no FAQ or article appears. Close without saving. *Free key:* skip this step; instead, as the admin, open Open Positions in edit mode: the two Custom Filter widgets are under Search Options (they're hidden from visitors).
 2. On **Open Positions**, run an empty search: it lists only job listings, Associate ones first.
 
 🧪 **Acceptance criteria** (what the level's Playwright check tests, in ⭐ Extras):
 
-- **AC 11.2-1** · *API, as the admin:* the blueprint *Boost Associate Job Listings* exists.
+- **AC 11.2-1** · *API, as the admin:* the blueprint *Boost Associate Job Listings* exists. *Free key:* searching *Engineer* on Open Positions, as Guest, lists only job listings, *Associate Optical Engineer (Level 2)* first.
 - **AC 11.2-2** · *Browser, as Guest:* an empty search on Open Positions lists only job listings, Associate ones first.
 
 ### 11.3 — The Events page of upcoming hiring events
@@ -102,9 +118,31 @@ client-extensions/clarity-site, under Search Options, and deploy. Search
    after Careers. Deploy and check as Guest.
 ```
 
+🔑 **Free-key path** (no Blueprints): give each event an **expiration date** equal to its start, expire the ones that already started, and list Event Information entries in a dynamic collection sorted by expiration date.
+```
+Using the manage-cms and manage-pages skills:
+1. Create the hiring events in context-source/content/hiring-events.json
+   as Event Information entries in the Events Space, in a Contents folder
+   "Hiring Events", dated relative to today as the file says, viewable by
+   Guest. Then set the expiration date of every Event Information entry
+   in the Events Space (Level 6's showcase too) to its start date and
+   time. Liferay refuses an expiration date in the past, so expire the
+   events that already started with the entry's expire endpoint instead.
+2. In client-extensions/clarity-site, add a dynamic collection "Upcoming
+   Events" of Event Information entries from the Events Space, ordered by
+   expiration date ascending, and an Events page (/events) on the
+   Primary Master Page with an "Upcoming Events" container: a heading
+   "Upcoming Events" and a Collection Display of that collection, flex
+   column, no pagination (don't set "display all items"), each item a
+   Heading (H4, title) and a Paragraph (location). Add Events to the
+   Footer Resources Menu after Careers. Deploy and check as Guest.
+```
+
 ✅ **Verify** (look, don't change anything):
 1. Open **Events** in a private window: *Upcoming Events* lists **Summer Job Fair**, **Campus Recruiting Event** and **Clarity Vision Showcase 2027**, soonest first, and not the past *Spring Job Fair*.
-2. *Global Menu* → *Applications* → *Blueprints* → **Future Events** → *Preview*: the same three, in that order.
+2. *Global Menu* → *Applications* → *Blueprints* → **Future Events** → *Preview*: the same three, in that order. *Free key:* instead, open the Events Space's *Hiring Events* folder: *Spring Job Fair* is **Expired**, and the others are approved, each with an expiration date.
+
+ℹ️ **Note:** on the free-key path an event leaves the list only once it's expired, and DXP 2026.Q3 doesn't expire CMS entries by itself when their expiration date passes. On a real site, an editor (or a scheduled job) would expire each event when it starts: select it in the Space and choose *Expire*. The blueprint path doesn't need this, since it compares the start date with the current time on every search.
 
 ![The Events page: Upcoming Events lists Summer Job Fair, Campus Recruiting Event and Clarity Vision Showcase 2027 with their locations.](screenshots/11-3-events.png)
 
@@ -113,7 +151,7 @@ client-extensions/clarity-site, under Search Options, and deploy. Search
 - **AC 11.3-1** · *Browser, as Guest:* Events lists *Summer Job Fair*, *Campus Recruiting Event* and *Clarity Vision Showcase 2027*, in that order, and not *Spring Job Fair*.
 - **AC 11.3-2** · *API, as the admin:* the Footer Resources Menu has Events right after Careers.
 
-📖 **Why it matters:** the original BEWL course used the Calendar widget here. On this release calendar events have no REST API, so the course keeps events in Liferay CMS, where your agent can create them and a blueprint can query them.
+📖 **Why it matters:** the original BEWL course used the Calendar widget here. On this release calendar events have no REST API, so the course keeps events in Liferay CMS, where your agent can create them and a blueprint can query them. The free-key path shows the trade-off: a collection can only sort and filter on what's stored on the entries, so "upcoming" has to be kept up to date on the content itself, while a blueprint computes it at search time.
 
 
 

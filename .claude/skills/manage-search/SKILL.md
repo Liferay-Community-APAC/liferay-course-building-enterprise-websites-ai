@@ -20,6 +20,7 @@ Place them as `Widget` elements (`rules/site-initializer-format.md`). All widget
 | Category Facet | `com_liferay_portal_search_web_category_facet_portlet_CategoryFacetPortlet` | `displayStyle: "ddmTemplate_<KEY>"`, `displayStyleGroupExternalReferenceCode: "<site erc>"`, `frequenciesVisible: "true"`, `maxTerms: "50"`, `groupVocabularyExternalReferenceCodes` (`"<groupERC>&&<vocabularyERC>"`, empty = all) |
 | Search Options | `com_liferay_portal_search_web_search_options_portlet_SearchOptionsPortlet` | `allowEmptySearches: "true"` |
 | Blueprints Options | `com_liferay_search_experiences_web_internal_blueprint_options_portlet_SXPBlueprintOptionsPortlet` | `sxpBlueprintExternalReferenceCode: "<blueprint ERC>"` (renders nothing for visitors) |
+| Custom Filter | `com_liferay_portal_search_web_internal_custom_filter_portlet_CustomFilterPortlet` | `filterField`, `filterValue`, `filterQueryType` (`term`, `match`, …), `occur` (`filter`, `must`, `should`, `must_not`), `boost`, `customHeading`, `invisible: "true"` (hidden from visitors), `immutable: "true"` (URL parameters can't change it) |
 
 - A widget's minimum width (`fragmentStyle.minWidth: "500px"`) lands in `/o/layout-common-styles/main.css`, not in the page HTML.
 - **Content of a Space connected to the site with `searchable: true` is found by a `this-site` search.** Nothing else is needed.
@@ -28,6 +29,15 @@ Place them as `Widget` elements (`rules/site-initializer-format.md`). All widget
 ### A Facet Template Grouped by Vocabulary
 
 The default category facet display is a flat list. A widget template (`ddm-templates/<dir>/` in the site initializer, `className: com.liferay.portal.search.web.internal.category.facet.portlet.CategoryFacetPortlet`) can group: iterate `assetCategoriesSearchFacetDisplayContext.getVocabularyNames()` and `getBucketDisplayContexts(vocabularyName)`, and wire checkboxes with `Liferay.Search.FacetUtil`. The built-in *Vocabulary Layout* template in the Global site is a starting point.
+
+### Filtering and Boosting Without Blueprints (Free Tier Key, Verified on 2026.q3.10)
+
+Search Blueprints are part of Liferay Enterprise Search, which the **DXP Free Tier** key doesn't include: `/o/search-experiences-rest` answers `404`, and *Applications* has no *Blueprints*. Check that before planning a blueprint. Two invisible, immutable Custom Filter widgets on the page do what a filter-plus-boost blueprint does:
+
+- **Keep one CMS structure:** `filterField: "objectDefinitionExternalReferenceCode"`, `filterQueryType: "term"`, `filterValue: "<structure ERC, lowercased>"`, `occur: "filter"`.
+- **Boost a word in titles:** `filterField: "localized_title_en_US"`, `filterQueryType: "match"`, `filterValue: "Associate"`, `occur: "should"`, `boost: "100"`.
+
+Both apply to empty searches too (with Search Options' `allowEmptySearches`). Verified as Guest on Open Positions: an empty search returned only job listings, every *Associate* title first. Custom Filter builds plain queries, not nested ones, so it can't reach a CMS structure's own fields (they're nested, see below), so a filter on, say, an event's start date needs a blueprint, or the expiration-date approach in `manage-cms`.
 
 ## Search Blueprints and Elements
 

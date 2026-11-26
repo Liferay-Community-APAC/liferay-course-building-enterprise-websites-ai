@@ -7,6 +7,9 @@
 Validates the blueprint (POST /sxp-blueprints/validate) and previews it (POST /search with the
 blueprint as body) before upserting it by ERC. Re-runnable.
 
+On an instance without Search Blueprints (the DXP Free Tier key), it does nothing: run
+scripts/free_key_search.py for the free-key path.
+
 Usage: python3 -I scripts/setup_job_blueprint.py
 """
 
@@ -17,7 +20,7 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from liferay_client import Liferay, q
+from liferay_client import Liferay, has_blueprints, q
 
 API = "/o/search-experiences-rest/v1.0"
 ERC = "BOOST_ASSOCIATE_JOB_LISTINGS"
@@ -56,6 +59,13 @@ def wait_for_api(lr):
 
 def main():
 	lr = Liferay()
+
+	if not has_blueprints(lr):
+		print("No Search Blueprints on this instance (the DXP Free Tier key doesn't include them): "
+			"skipped. scripts/free_key_search.py sets up the free-key path of Level 11.2 instead.")
+
+		return
+
 	wait_for_api(lr)
 
 	blueprint = {

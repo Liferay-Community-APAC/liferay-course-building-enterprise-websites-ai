@@ -44,4 +44,6 @@ Nothing, except four tests that need their own data, and clean it up in a `final
 
 Last full run: 113 of 113 passed on a complete build on DXP 2026.Q3.10.
 
+**On the DXP Free Tier key** (no Search Blueprints), AC 11.2-1 checks the free-key path's result instead of the blueprint: it detects the missing Blueprints API. The other Level 11 tests are the same for both paths. Last run on the free key, Setup to Level 11: all Level 11 tests passed.
+
 **Level 14 is a bonus:** its 4 tests need the AI Hub mock (`node bonus/ai-hub/server.mjs`, set up as in the workbook), and are skipped when it doesn't answer, so a full run still passes without it. Set `AI_HUB_URL` if it runs on another port. AC 14.4-2 waits for the learner's agent to answer (up to 2 minutes). Last run: 4 of 4 passed, with Claude Code writing the answers.

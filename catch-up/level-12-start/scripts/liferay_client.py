@@ -187,3 +187,25 @@ class Liferay:
 
 def q(value):
 	return urllib.parse.quote(str(value), safe="")
+
+
+def has_blueprints(lr, attempts=6):
+	"""Whether this instance has Search Blueprints (Liferay Enterprise Search).
+
+	The DXP Free Tier key doesn't include them, and their API answers 404. Right after a start the
+	API also answers 404 for about 20 seconds, so a 404 is retried a few times before it counts.
+	"""
+
+	import time
+
+	for attempt in range(attempts):
+		status, _body = lr.request(
+			"GET", "/o/search-experiences-rest/v1.0/sxp-elements?pageSize=1", raise_errors=False)
+
+		if status != 404:
+			return True
+
+		if attempt < attempts - 1:
+			time.sleep(5)
+
+	return False

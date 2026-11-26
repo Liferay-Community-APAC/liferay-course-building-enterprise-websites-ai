@@ -216,7 +216,7 @@ blueprint, and assign it to CLARITY_ASSISTANT too. Then ask the chatbot
 
 ✅ **Success looks like:** the agent's workflow panel in the console shows `"blueprintExternalReferenceCode": "BOOST_ASSOCIATE_JOB_LISTINGS"`, and **Try It**'s run log for the same question shows two searches, the second with `blueprintExternalReferenceCode`.
 
-ℹ️ **Note:** blueprints need Liferay's Search Experiences. If *Applications* → *Blueprints* says the portlet can't be found, your activation key doesn't include it: skip this bonus.
+ℹ️ **Note:** blueprints are part of Liferay Enterprise Search, which the DXP Free Tier key doesn't include (*Setup*, S.2). If *Applications* has no *Blueprints*, skip this bonus; if you took 11.2's free-key path, you have no blueprint to search through anyway.
 
 ### ⭐ 14.7 — Bonus: check Level 14 with Playwright
 
