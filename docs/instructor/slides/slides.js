@@ -1,5 +1,6 @@
 /* Shared behavior for the instructor slide decks.
-   Keys: ←/→, PageUp/PageDown, Space (Shift+Space back), Home/End, N (notes), P (present), ? (help).
+   Keys: ←/→, PageUp/PageDown, Space (Shift+Space back), Home/End, N (notes), T (thumbnails), P (present), ? (help).
+   Thumbnails: a pane on the left with every slide, to scroll through and jump to one.
    Present: the deck goes full screen and a presenter window opens with the timer, the current
    and next slides and the speaker notes, like Google Slides' presenter view. Both stay in sync.
    Click or tap: left third goes back, the rest goes forward. URL hash = slide number. */
@@ -52,6 +53,7 @@
   bar.setAttribute('aria-label', 'Slide navigation');
   bar.innerHTML =
     '<span class="deck-title"><a href="../index.html"></a></span>' +
+    '<button type="button" data-act="thumbs" aria-pressed="false" title="Slide thumbnails (T)">▦ Slides</button>' +
     '<button type="button" data-act="prev" aria-label="Previous slide">‹</button>' +
     '<span class="counter" aria-live="polite"></span>' +
     '<button type="button" data-act="next" aria-label="Next slide">›</button>' +
@@ -62,6 +64,14 @@
   document.body.appendChild(bar);
   var counter = bar.querySelector('.counter');
   var notesBtn = bar.querySelector('[data-act="notes"]');
+  var thumbsBtn = bar.querySelector('[data-act="thumbs"]');
+
+  // Thumbnail pane: built the first time it opens.
+  var thumbs = document.createElement('nav');
+  thumbs.className = 'thumbs';
+  thumbs.setAttribute('aria-label', 'Slides');
+  document.body.appendChild(thumbs);
+  var thumbItems = [];
 
   // Notes panel
   var panel = document.createElement('section');
@@ -80,6 +90,7 @@
     '<tr><td><kbd>←</kbd> <kbd>Shift</kbd>+<kbd>Space</kbd> <kbd>PgUp</kbd></td><td>Previous slide</td></tr>' +
     '<tr><td><kbd>Home</kbd> / <kbd>End</kbd></td><td>First / last slide</td></tr>' +
     '<tr><td><kbd>N</kbd></td><td>Show or hide speaker notes</td></tr>' +
+    '<tr><td><kbd>T</kbd></td><td>Show or hide the slide thumbnails</td></tr>' +
     '<tr><td><kbd>P</kbd></td><td>Present: full screen, and the presenter view in a new window</td></tr>' +
     '<tr><td><kbd>?</kbd></td><td>Show or hide this help</td></tr>' +
     '<tr><td><kbd>Esc</kbd></td><td>Close this help</td></tr>' +
@@ -94,11 +105,15 @@
     var presenting = root.classList.contains('presenting');
     var barH = presenting ? 0 : (bar.offsetHeight || 48);
     var notesH = !presenting && root.classList.contains('notes-open') ? panel.offsetHeight : 0;
-    var availW = window.innerWidth - (presenting ? 0 : 32);
+    var thumbsW = !presenting && root.classList.contains('thumbs-open') ? thumbs.offsetWidth : 0;
+    var availW = window.innerWidth - thumbsW - (presenting ? 0 : 32);
     var availH = window.innerHeight - barH - notesH - (presenting ? 0 : 24);
     var w = Math.max(320, Math.min(availW, availH * 16 / 9));
     root.style.setProperty('--u', (w / 100) + 'px');
-    document.querySelector('.viewport').style.bottom = (barH + notesH) + 'px';
+    var viewport = document.querySelector('.viewport');
+    viewport.style.bottom = (barH + notesH) + 'px';
+    viewport.style.left = thumbsW + 'px';
+    thumbs.style.bottom = barH + 'px';
   }
 
   function render() {
@@ -111,6 +126,58 @@
     document.title = deckTitle + ' (' + (current + 1) + ')' + (title ? ': ' + title.textContent.trim() : '');
     if (root.classList.contains('stacked')) window.scrollTo(0, 0);
     updatePresenter();
+    markThumb();
+  }
+
+  function buildThumbs() {
+    if (thumbItems.length) return;
+    var w = 176;
+    slides.forEach(function (slide, i) {
+      var item = document.createElement('button');
+      item.type = 'button';
+      item.className = 'thumb';
+      item.setAttribute('aria-label', 'Slide ' + (i + 1));
+      var num = document.createElement('span');
+      num.className = 'thumb-num';
+      num.textContent = i + 1;
+      var frame = document.createElement('div');
+      frame.className = 'thumb-frame';
+      frame.style.setProperty('--u', (w / 100) + 'px');
+      var copy = slide.cloneNode(true);
+      copy.removeAttribute('id');
+      copy.querySelectorAll('img').forEach(function (img) { img.loading = 'lazy'; });
+      frame.appendChild(copy);
+      item.appendChild(num);
+      item.appendChild(frame);
+      item.addEventListener('click', function () { go(i); item.blur(); });
+      thumbs.appendChild(item);
+      thumbItems.push(item);
+    });
+  }
+
+  function markThumb() {
+    if (!root.classList.contains('thumbs-open')) return;
+    thumbItems.forEach(function (t, i) {
+      t.classList.toggle('active', i === current);
+      if (i === current) t.setAttribute('aria-current', 'true'); else t.removeAttribute('aria-current');
+    });
+    var active = thumbItems[current];
+    if (active) {
+      var top = active.offsetTop, bottom = top + active.offsetHeight;
+      if (top < thumbs.scrollTop || bottom > thumbs.scrollTop + thumbs.clientHeight) {
+        thumbs.scrollTop = top - (thumbs.clientHeight - active.offsetHeight) / 2;
+      }
+    }
+  }
+
+  function toggleThumbs(force) {
+    var open = typeof force === 'boolean' ? force : !root.classList.contains('thumbs-open');
+    if (open) buildThumbs();
+    root.classList.toggle('thumbs-open', open);
+    thumbsBtn.setAttribute('aria-pressed', String(open));
+    store('bewl-slides-thumbs', open ? '1' : '0');
+    layout();
+    markThumb();
   }
 
   function go(n) {
@@ -153,6 +220,7 @@
     else if (k === 'Home') { go(0); e.preventDefault(); }
     else if (k === 'End') { go(total - 1); e.preventDefault(); }
     else if (k === 'n' || k === 'N') { toggleNotes(); e.preventDefault(); }
+    else if (k === 't' || k === 'T') { toggleThumbs(); e.preventDefault(); }
     else if (k === 'p' || k === 'P') { present(); e.preventDefault(); }
   });
 
@@ -163,6 +231,7 @@
     if (act === 'prev') go(current - 1);
     else if (act === 'next') go(current + 1);
     else if (act === 'notes') toggleNotes();
+    else if (act === 'thumbs') toggleThumbs();
     else if (act === 'help') toggleHelp();
     else if (act === 'present') present();
     b.blur();
@@ -375,6 +444,9 @@
   if (store('bewl-slides-notes') === '1') {
     root.classList.add('notes-open');
     notesBtn.setAttribute('aria-pressed', 'true');
+  }
+  if (store('bewl-slides-thumbs') === '1' && window.innerWidth >= 720) {
+    toggleThumbs(true);
   }
   layout();
   go(fromHash());
