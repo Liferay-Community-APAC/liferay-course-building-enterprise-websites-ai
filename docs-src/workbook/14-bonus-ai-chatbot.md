@@ -25,7 +25,7 @@
    node bonus/ai-hub/server.mjs
    ```
    It prints which AI agent will write the answers, for example `Answers from: Claude Code (claude -p)`. It looks for `claude`, `codex`, `copilot` and `gemini`, in that order. To choose one, start it with `AI_CLI=codex node bonus/ai-hub/server.mjs` (on Windows PowerShell: `$env:AI_CLI="codex"; node bonus/ai-hub/server.mjs`).
-2. Open `http://localhost:3010` in your browser: the **AI Hub** console, with *Agent Builder*, *Chatbots* and *Configurations*. Keep it open: in the next exercises your agent sets AI Hub up through the console's API, and you check each step on these screens.
+2. Open `http://localhost:3010` in your browser: the **AI Hub** console, with *Agent Builder*, *Chatbots* and *Configurations*. Its screens copy AI Hub's; what the mock doesn't have (*Account Management*, an agent's *Data Sources*, a chatbot's *Avatar*, other languages) is greyed out, and the cards only the mock has are marked **Course mock**. Keep it open: in the next exercises your agent sets AI Hub up through the console's API, and you check each step on these screens.
 
 ### 14.2 — Connect the mock, and let anonymous visitors search
 
@@ -53,7 +53,7 @@ The first test fails with a **403**: Liferay's Service Access Policy keeps the s
 Then tell the agent it's done.
 
 ✅ **Verify** (look, don't change anything):
-1. In the mock's **Configurations**, *Environment URL* is your Liferay (`http://localhost:8080`). Click **Test Connection**: *Liferay answered a search as Guest: … → 200*.
+1. In the mock's **Configurations**, *Environment URL* is your Liferay (`http://localhost:8080`). In the **Course Mock** card below it, click **Test Connection**: *Liferay answered a search as Guest: … → 200*.
 2. In a private window, open `http://localhost:8080/o/search/v1.0/search?search=return%20policy`: JSON with Clarity's FAQ entries about returns.
 
 📖 **Why it matters:** two gates protect your content from an API call. The Service Access Policy decides whether the API method can be reached at all; then permissions decide which results come back. This policy opens only the first gate, for one read method: the search still runs as Guest, so it returns only what Guest may view (your public FAQs, products and articles), never a persona's or the admin's content. A public chatbot is only as public as its content's permissions. The real AI Hub is a cloud service: it needs a public HTTPS URL for your Liferay, and signs in with an OAuth client. The mock runs next to your Liferay, so `localhost` works.

@@ -29,8 +29,7 @@ svg { display: block; }
 .icon-btn { align-items: center; background: var(--field); border: 0; border-radius: 6px; color: var(--text); display: flex; height: 32px; justify-content: center; width: 32px; }
 .brand { align-items: center; display: flex; font-size: 22px; font-weight: 600; gap: 10px; }
 .sparkle { color: #4b9fff; }
-.mock { background: #fff4ec; border: 1px solid #ffd8b5; border-radius: 10px; color: #b95000; font-size: 11px; font-weight: 600; padding: 1px 8px; }
-.provider { color: var(--muted); font-size: 12px; }
+.apps { color: var(--text); cursor: default; opacity: .9; }
 .avatar { align-items: center; background: #edf9f0; border: 1px solid var(--border); border-radius: 50%; color: var(--success); display: flex; height: 36px; justify-content: center; width: 36px; }
 
 /* Sidebar */
@@ -130,3 +129,32 @@ pre.snippet { background: #1c1c24; border-radius: 6px; color: #e6e6ef; margin: 0
 .home-steps .card { margin: 0; }
 .home-steps .num { color: var(--primary); font-size: 13px; font-weight: 700; }
 .foot { color: var(--muted); font-size: 12px; margin-top: 32px; text-align: center; }
+
+/* Language selector beside translatable fields, copy and reveal buttons (AI Hub's layout) */
+.with-locale { align-items: stretch; display: flex; gap: 8px; }
+.with-locale > input, .with-locale > textarea { flex: 1; min-width: 0; }
+.locale, .square { align-items: center; align-self: flex-start; height: 40px; background: #fff; border: 1px solid #6b6c7e; border-radius: 6px; color: var(--muted); display: inline-flex; flex: 0 0 auto; gap: 10px; justify-content: center; padding: 0 14px; }
+.square { color: var(--text); cursor: pointer; width: 40px; padding: 0; }
+.locale:disabled { cursor: default; }
+.flag { background: linear-gradient(#b22234 0 14%, #fff 14% 28%, #b22234 28% 42%, #fff 42% 57%, #b22234 57% 71%, #fff 71% 85%, #b22234 85%); border-radius: 1px; display: inline-block; height: 11px; position: relative; width: 16px; }
+.flag::before { background: #3c3b6e; content: ""; height: 6px; left: 0; position: absolute; top: 0; width: 7px; }
+input[type=password] { background: #fff; border: 1px solid var(--border); border-radius: 6px; font: inherit; font-size: 15px; letter-spacing: .1em; padding: 9px 16px; width: 100%; }
+input[type=text]:read-only#clientId { background: #fff; border-color: var(--border); color: var(--text); }
+
+/* Greyed out: in AI Hub, not in the mock */
+.field.soon label, .field.soon .label, .field.soon .hint { color: #a7a9bc; }
+.field.soon input, .field.soon textarea, .field.soon .btn { cursor: default; opacity: .55; }
+
+/* Assigned Agents: the chips field ends with a clear-all icon */
+.chips-fill { flex: 1; }
+.chips-clear { background: none; border: 0; color: var(--muted); cursor: pointer; display: flex; margin-left: auto; padding: 4px; }
+.chip button { font-size: 12px; }
+
+/* Workflow panel section heads have a chevron, as in AI Hub */
+.panel h4 { align-items: center; display: flex; justify-content: space-between; }
+
+/* Configurations: a centered column, then the mock-only card */
+.config { margin: 0 auto; max-width: 1160px; padding-top: 24px; }
+.config hr { border: 0; border-top: 1px solid var(--border); margin: 24px 0; }
+.mock-card { background: #fffaf5; border-color: #ffd8b5; margin-top: 48px; }
+.mock-pill { background: #fff4ec; border: 1px solid #ffd8b5; border-radius: 10px; color: #b95000; font-size: 11px; font-weight: 600; padding: 1px 8px; white-space: nowrap; }
